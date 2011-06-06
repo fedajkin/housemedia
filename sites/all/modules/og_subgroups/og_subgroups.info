@@ -1,0 +1,16 @@
+; $Id:
+
+name = OG subgroups
+description = "Enable defining hierarchy of groups for organic groups."
+package = "Organic groups"
+core = "6.x"
+dependencies[] = og
+
+
+
+; Information added by drupal.org packaging script on 2011-03-01
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "og_subgroups"
+datestamp = "1298938308"
+

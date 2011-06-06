@@ -1,0 +1,14 @@
+; $Id: shoutbox_tags.info,v 1.1.2.3 2010/09/17 02:38:01 mikestefff Exp $
+name = Shoutbox tags
+core = 6.x
+description = Offer #tag categorization functionality in Shoutbox
+package = Shoutbox
+dependencies[] = og
+dependencies[] = shoutbox
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "shoutbox"
+datestamp = "1295397446"
+

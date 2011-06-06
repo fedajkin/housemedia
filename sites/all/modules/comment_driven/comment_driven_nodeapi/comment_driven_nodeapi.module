@@ -1,0 +1,28 @@
+<?php
+// $Id $
+
+/**
+ * Implements hook_nodeapi().
+ *
+ * On presave, load the previous version of the node from the db and see what's changed.
+ *
+ * On update (after the node has actually been saved to the db and we have the new vid), actually insert the comment_driven log.
+ */
+function comment_driven_nodeapi_nodeapi(&$node, $op, $a3 = NULL, $a4  = NULL) {
+  if (isset($node->associated_cid)) {
+    switch ($op) {
+      case 'presave':
+        $node_before = node_load($node->nid);
+        $driven_props = driven_properties_available($node->type);
+        $node->comment_driven_changes = driven_inspect_diff_nodes($node_before, $node, $driven_props);
+        break;
+      case 'update':
+        if (isset($node->comment_driven_changes)) {
+          $diff_render = driven_diff_render($node->type, $node->comment_driven_changes);
+          $old_vid = $node->old_vid ? $node->old_vid : $node->vid;
+          comment_driven_insert_log($node->associated_cid, $old_vid, $node->vid, $node->comment_driven_changes, $diff_render);
+        }
+        break;
+      }
+  }
+}

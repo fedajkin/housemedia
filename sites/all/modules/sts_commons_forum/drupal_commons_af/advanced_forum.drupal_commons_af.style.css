@@ -1,0 +1,23 @@
+/* $Id: advanced_forum.silver_bells.style.css,v 1.1.2.1 2010/12/22 03:06:00 michellec Exp $ */
+
+/*
+This file contains colors, graphics, and text effects. 
+
+Colors used:
+  #C1C1C1 Borders, post seperator, avatar frame, statistics subheader.
+  #333333 Table header font color.
+  #F5F5F5 to #DDDDDD Gradient on table headers, post info, stats header, top
+                     post footer, topic navigation.
+  #F5F5F5 to #EFEFEF Gradient on topic list background.
+  #F5F5F5 Stats section background.
+  #FAFAFA Text area on posts.
+*/
+
+/*** FORUM & TOPIC LIST ******************************************************/
+
+/* Headers */
+.forum-table th {
+  background: -webkit-gradient(linear, left top, left bottom, from(#F9f9f9), to(#fbfbfb));
+  background: -moz-linear-gradient(top, #F9f9f9, #fbfbfb);
+}
+

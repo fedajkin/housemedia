@@ -1,0 +1,198 @@
+; $Id: CHANGELOG.txt,v 1.20 2010/12/29 23:07:25 richardp Exp $ 
+===================
+Changelog for Arrange Fields
+===================
+
+12-29-2010
+ Added in some extra per-form CSS, so you may have more than one
+ webform block on the screen at a time.  In reference
+ to issue #1010044.
+
+11-27-2010
+ Fixed a bug in hook_menu which was causing an Arrange Fields tab to
+ appear on all nodes for users with the administer arrange fields
+ permission AND webform module installed.
+ 
+ Also, added a hack which forces Captcha to not be treated as a
+ fieldset.  This seems to be the default behavior for most people,
+ but an issue was raised where, for some reason, Captcha was being
+ treated differently, and it caused an issue with Arrange Fields.
+ 
+
+11-26-2010
+ Added the ability to do Import/Export of Arrange Field definitions.
+ It is accessible on the admin/settings/arrange-fields page.
+ 
+
+11-17-2010
+ User janusman discovered that there is a maxlength bug with Firefox 4 beta,
+ causing AF to break.  The answer was to reduce the maxlength of the form's
+ position_data field. (issue: #974990)
+
+11-06-2010
+ The Profile module lets you create fieldsets with spaces in the name,
+ which breaks Arrange Fields.  This was fixed.  Also, since no major
+ bugs have appeared for a while, I am going to move Arrange Fields
+ to a full 1.0 release! Yay!
+ 
+
+8-15-2010
+ CAPTCHA module wasn't working so well with Webform, so this was fixed.
+
+
+8-06-2010
+ Added ability for webform fields to also have the same convienent config popup
+ that CCK fields have, so you can edit the properties of the field w/o having
+ to leave the page.  Tested and working on Webform 2.9.
+ 
+ Cleaned up the code a bit, removing unused or old functions.
+
+ 
+7-30-2010
+ Added experimental support for webform 3.0.  I don't want to do too much work
+ though, until webform 3.0 moves out of beta (I am afraid of their code
+ continuing to move around, and then I will have to keep making changes to catch
+ up).
+
+ 
+7-29-2010
+ Added cache_clear_all() to hook_enable(), as clearing the cache often fixes
+ the initial javascript and css bugs which some new users experience.
+
+
+7-25-2010
+ Fixed a bug where filefields were not draggable.  This had to do with my logic
+ of when to add a draggable wrapper to a CCK element.  For most elements, the way I was
+ doing it worked, but not for "imagefield_widget" for some reason.
+ 
+ Fixed a bug where the submit/preview buttons were not being disabled during arrangement.
+ 
+ Changed the included CSS so that fieldsets have solid background (white).  This is not
+ the default with all themes, and sometimes they look funny w/o it.  
+ Of course, this can be overridden in the theme's CSS files.
+
+
+7-21-2010
+ Removed the "Webform" content type from the list of
+ CCK content types you can arrange, as it was a little confusing
+ and shouldn't have been in the list anyway.
+ 
+ Placement of buttons on a CCK form now work the way they did in
+ the alpha releases; that is, you do not position each button separately.
+ Instead, you drag the "buttons" wrapper around, and all buttons will 
+ appear there.  This is to fix a bug where the Delete button and Diff's
+ View changes button were not arrangeable w/o major kludgy hacks, because
+ those buttons only appear on submitted forms.  This change in code
+ is a compromise-- I would rather each button be arrangeable, but since
+ I can't forsee every possible button that may be there (placed by
+ other modules), this is the best way to ensure they will all be arrangeable
+ as a whole.
+ 
+ Fixed an annoying bug in IE where for textfields, the field was covering
+ up the label, if the label was a certain length.
+
+
+7-20-2010
+ Took t() off menu items to be in complience with:
+ http://drupal.org/node/323101.
+ No other functional changes.
+
+
+7-19-2010
+ Because FCKeditor was trying to attach itself to the hidden textarea I was
+ using to save position data, I have converted that textarea back to a regular
+ hidden textfield with a very long length.  I had to make a few javascript changes
+ to get that to work too.
+
+
+7-18-2010
+ Fixed a bug where CCK is indeed required, because hook_menu was making a call
+ to a CCK function.  This was a holdover to when this module was for CCK only.
+
+
+7-15-2010
+ Fixed a bug where the Delete button on CCK forms could not be positioned.
+
+
+7-07-2010
+ Fixed a bug where File fields were not working for Webforms.  Wrappers were
+ being added twice.
+
+
+7-06-2010
+ Added a much cleaner and neater method of finding valid fields in $form,
+ regardless of how many levels deep they are nested.  I still can't guarantee
+ that it will work on $form arrays with very complicated structures, but it
+ at least lets you have 2 or more levels of nesting w/o causing a problem.  This
+ is mostly for custom forms which the developer herself might have created.
+ $form's from CCK and Webform have never used nesting in this way.
+ 
+ Fixed a bug where javascript couldn't save the form correctly.  Happened
+ after you make changes to a CCK field in the popup, then close the popup.  It
+ was supposed to save the form, but it wasn't doing it correctly.
+
+ Fixed a bug where, for webforms, the submit buttons were not getting a draggable
+ handle with an icon.
+ 
+ Added the "add markup" button to webform as well as generic forms, not just CCK.
+
+7-01-2010
+ You can now adjust the z-index easily with the markup elements.
+
+ 
+6-30-2010
+ Added the ability to add arbitrary markup to a form.  It is still in development,
+ and at this time, very basic.  I hope to flesh it out quite a bit.
+
+
+6-29-2010
+ Fixed a CSS bug involving the date module, when a date field is placed in a
+ fieldset.  Also, added some new CSS styles (and a new Configure image
+ thanks to the mini set at famfamfam.com).  Also, tightened up the look
+ of the config dialog.
+ 
+ Made it so you can set width and height of fieldset wrappers, which will
+ possibly correct some ugliness without needing the user to go edit
+ CSS files themselves.
+
+
+6-28-2010
+ Fixed an annoying jQuery bug in IE, where it was causing errors to get fired off
+ when trying to use the .resizable() function.
+ 
+ Added in menu hooks and settings pages to let users edit *any* form,
+ not just CCK or webform.
+
+6-25-2010
+ Added a new "conf" link when you hover over most fields.  It creates a jQuery dialog,
+ which lets you change the with and height of the wrapper, as well as whether
+ or not the label is inline.
+ 
+ Also, added the menu items to let you edit any form, though this is still not
+ well fleshed out.
+
+
+6-21-2010
+ Added support for userreference and nodereference, as well as the File
+ widget, and Date module's widgets.
+ 
+ Because of a bug introduced when you can have resizable textfields inside
+ of a fieldset, I disabled having resizable textfields inside of a fieldset.
+ 
+ Fixed a bug where CAPTCHA's buttons were not showing up correctly.
+
+ Made it so that vertical tabs works, by upping the weight of the module
+ in the system table, as well as a few code changes.
+ 
+
+6-20-2010
+ Added preliminary support for Webform in addition to CCK.  Also, fixed a bug
+ where the CSS and JS were not being re-added if the form failed validation.
+ 
+
+6-13-2010
+ Fixed a display bug where the wrong CSS ID was being used with fieldsets.
+ Also, changed the menu hooks so they better integrate with CCK.
+
+
+6-12-2010 : Initial creation of project on drupal.org.

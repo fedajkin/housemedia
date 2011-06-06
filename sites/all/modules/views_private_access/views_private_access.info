@@ -1,0 +1,6 @@
+; $Id$
+name = Views Private Access
+description = Allows you to define a view access as private, which means that the view will be displayed only if the first argument equals to the current user ID
+core = 6.x
+dependencies[] = views
+package = "Views"

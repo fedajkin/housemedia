@@ -1,0 +1,5 @@
+<?php
+
+// $Id: tax_depth_lim_filter.module,v 1.1 2010/10/06 16:41:35 brynbellomy Exp $
+
+module_load_include('inc', 'tax_depth_lim_filter', 'tax_depth_lim_filter.views');

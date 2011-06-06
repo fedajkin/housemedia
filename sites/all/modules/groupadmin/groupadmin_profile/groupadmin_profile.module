@@ -1,0 +1,131 @@
+<?php
+// $Id: groupadmin_profile.module,v 1.1.2.2 2010/03/15 18:08:30 netgenius Exp $
+
+/********************************************************
+
+groupadmin_profile module for Drupal 6.x
+
+Original development by: netgenius.co.uk
+Commercial support is available from www.netgenius.co.uk
+Contact: drupal(a)netgenius.co.uk
+
+*********************************************************/
+
+/**
+ * Implementation of hook_groupadmin_config_fields
+ * Return fields for config form.
+ */
+function groupadmin_profile_hook_groupadmin_config_fields() {
+
+  // Get profile fields as array of fid=>title
+  $profile_fields = array(t('(none)'));
+  $result = db_query('SELECT fid, title FROM {profile_fields}');
+  while ($row = db_fetch_array($result)) {
+    $profile_fields[$row['fid']] = $row['title'];
+  }
+
+  // Order options for names.
+  $order = array(t('Doe, John'), t('John Doe'));
+
+  $fields = array(
+    'f_profile' => array('Settings for <em>Profile</em> module integration.', TRUE, TRUE),
+    'l_realname_profile_field'  => array('Field to use for full-name or last-name.', 0, $profile_fields),
+    'l_firstname_profile_field' => array('Field to use for first name if not included above.', 0, $profile_fields),
+    'l_display_format'=> array('How to format full-name (only applies if firstname field is used.)', 0, $order),
+  );
+  return $fields;
+}
+
+/**
+ * Implementation of hook_groupadmin_config_validate.
+ * Return array of callbacks to validate the configuration form.
+ */
+function groupadmin_profile_hook_groupadmin_config_validate() {
+  return array('_groupadmin_profile_settings_validate');
+}
+
+/**
+ * Implementation of hook_groupadmin_query_modify.
+ * Return array of callbacks to be called by _groupadmin_manage_getuserlist to modify query and headers.
+ */
+function groupadmin_profile_hook_groupadmin_query_modify() {
+  return array('_groupadmin_profile_getquery');
+}
+
+/**
+ * Validate config form.
+ */
+function _groupadmin_profile_settings_validate($form, $form_state) {
+
+  $config = $form_state['values'];
+  $settings = 'admin/og/groupadmin';
+  $types = 'admin/content/types/list';
+
+  // Check that specified fields exist.
+  foreach(array('realname', 'firstname') as $name) {
+    $element = 't_'.$name.'_field';
+    $fieldname = $config[$element];
+    if ($fieldname) {
+      $query = sprintf('SELECT NULL FROM {profile_fields} WHERE name="profile_%s"', $fieldname);
+      $result = db_query($query);
+
+      // If field is in use and column does not exist, report an error.
+      if (db_affected_rows() == 0) {
+        $url = 'admin/user/profile';
+        $tvars = array('!name' => l($fieldname, $url));
+        $reason = t('Field !name does not exist.', $tvars);
+        form_set_error($element, $reason);
+      }
+    }
+  }
+}
+
+/**
+ * Modify headers, query and search fields used by _groupadmin_manage_getuserlist in main module.
+ */
+function _groupadmin_profile_getquery(&$headers, &$select, &$search_fields) {
+
+  $realname_fid = _groupadmin_settings('l_realname_profile_field', TRUE);
+  $firstname_fid = _groupadmin_settings('l_firstname_profile_field', TRUE);
+
+  // Bail out if configuration is invalid.
+  if (!$realname_fid)  return;
+
+  // If firstname field is used, we need to concatenate firstname and realname.
+  if ($firstname_fid) {
+    // Subqueries to fetch values from profile.
+    $sub = 'SELECT uid, value as %s FROM {profile_values} WHERE fid = %d';
+    $sub_realname = sprintf($sub, 'realname', $realname_fid);
+    $sub_firstname = sprintf($sub, 'firstname', $firstname_fid);
+
+    // Sub-query to get dataset for real name as concatenated first/last name.
+    $sub = 'SELECT uid, CONCAT(%s, %s, %s) realname FROM (%s) _a JOIN (%s) _b USING (uid)';
+
+    // Format name according to settings.
+    if (_groupadmin_settings('l_display_format', TRUE)) {
+      $sub = sprintf($sub, 'firstname', '" "', 'realname', $sub_firstname, $sub_realname);
+    }
+    else {
+      $sub = sprintf($sub, 'realname', '", "', 'firstname', $sub_realname, $sub_firstname);
+    }
+  }
+  else {
+    // Sub-query to get dataset for real name.
+    $sub = 'SELECT uid, value AS realname FROM {profile_values} WHERE fid = %d';
+    $sub = sprintf($sub, $realname_fid);
+  }
+
+  // Update main select statement.
+  $select = sprintf('realname, %s LEFT JOIN (%s) r ON u.uid = r.uid', $select, $sub);
+
+  // Add to headers.
+  $new_headers[] = array('data' => t('real name'), 'field' => 'realname', 'sort' => 'asc');
+  $headers = array_merge($new_headers, $headers);
+
+  // Add to search fields.
+  $search_fields[] = 'realname';
+
+  return;
+}
+
+// --- End --- Drupal docs advise NOT closing the PHP tags.

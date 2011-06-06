@@ -1,0 +1,6 @@
+name = Jacek modul
+description = Provides custom functionality for this site
+core = 6.x
+ 
+project = "jacek"
+package = Other

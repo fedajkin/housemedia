@@ -1,0 +1,16 @@
+.project
+.buildpath
+.settings
+
+.git
+
+cgi-bin
+email
+400.shtml
+401.shtml
+403.shtml
+404.shtml
+500.shtml
+
+sites/default/settings.php
+sites/default/files

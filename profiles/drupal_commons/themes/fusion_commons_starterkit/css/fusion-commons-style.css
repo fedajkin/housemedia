@@ -1,0 +1,611 @@
+/* $Id: fusion-commons-style.css 8347 2011-03-02 01:44:22Z sheena $ */
+
+/* This file includes CSS styles for custom functionality within Drupal Commons, including styles for custom views, blocks and panels included with Drupal Commons.
+------------------------------------------------------------- */
+
+/* Comments
+/-------------------------------------------------------------- */
+
+/* comment info */
+
+.comment .comment-info {
+  float: left;
+}
+ 
+/*fix for comment title being cut off */
+.comments > a[id] {
+  position: absolute;
+}
+
+/* Profiles/-------------------------------------------------------------- */
+
+.profile .column-left {
+  float: left;
+  margin: 0 2% 0 0;
+  width: 30%;
+}
+
+.profile .column-right {
+  float: left;
+  width: 68%;
+}
+
+/* Content tabs
+/-------------------------------------------------------------- */
+
+#content-tabs.block {
+	float: none;
+}
+
+/* Drupal Commons * Styling for Drupal Commons specific elements/-------------------------------------------------------------- */
+
+/*Shoutbox module*/
+
+.shoutbox-add-form {
+  margin: 0 0 10px 0;
+}
+
+.shoutbox-add-form:after,
+.shoutbox-admin-links:after,
+.shoutbox-msg:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.shoutbox-add-form input.form-text {
+  float: left;
+  width: 74%;
+  position: relative;
+  z-index: 10;
+}
+
+.page-home .shoutbox-add-form input.form-text {
+  width: 56%;
+}
+
+.shoutbox-add-form input.form-submit {
+  float: left;
+}
+
+#shoutbox-body {
+  overflow: visible;
+}
+
+/* shoutbox admin links*/
+
+.shoutbox-admin-links {
+  margin-right: 4px;
+  margin-top: 0px;
+  padding: 2px 4px;
+  position: absolute;
+  right: 0;
+  z-index: 10;
+}
+
+.shoutbox-admin-links {
+display: none;
+}
+
+.shoutbox-msg:hover .shoutbox-admin-links {
+  display: block;
+}
+
+.shoutbox-admin-links a {
+  cursor: pointer;
+}
+
+#shoutbox-posts .shoutbox-msg {
+  border: none;
+  clear: both;
+}
+
+.shoutbox-msg .shoutbox-post-info {
+  display: block;
+  float: left;
+ }
+
+.shoutbox-msg .shoutbox-post-info span {
+  display: block;
+ }
+
+/* Homebox module*/
+
+.homebox-column:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+/* Group Info */
+
+.panel-pane .full-node .group-attributes .field-field-group-image img.imagecache-group_images {
+  float: none;
+  height: auto;
+  text-align: left;
+  width: 100%;
+}
+
+/* add new views headers */
+
+/*views exposed widget*/
+
+fieldset.views-exposed-form {
+  clear: both;
+  overflow: visible;
+  padding: 0px;
+}
+
+fieldset.views-exposed-form:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+html.js fieldset.collapsible .fieldset-wrapper {
+  overflow: visible;
+}
+
+
+html.js fieldset.views-exposed-form.collapsed {
+  background-color: transparent;
+}
+
+.views-admin-links {
+  right: 0;
+}
+
+/*Views exposed filter forms*/
+
+.views-exposed-widgets {
+  float: left;
+  max-width: 82%;
+}
+
+.views-exposed-form .views-exposed-widget {
+  display: block;
+  float: left;
+  margin-right: 4%;
+  padding: 0;
+}
+
+.views-exposed-form .views-exposed-widget:last-child {
+  margin-right: 0px;
+}
+
+.views-exposed-widget input,
+.views-exposed-widget select {
+  width: 90%;
+}
+
+#autocomplete ul li {
+  border-bottom: 1px solid #eee;
+  margin: 0;
+  padding: 2px 4px 2px 4px;
+}
+
+#autocomplete ul li:last-child {
+  border-bottom: none;
+}
+
+.views-exposed-wrapper .views-exposed-widget.views-exposed-submit {
+  float: left;
+  margin-right: 8px;
+  max-width: 14%;
+  width: auto;
+}
+
+.views-exposed-wrapper .views-exposed-widget.views-exposed-submit .form-submit {
+  margin-top: 22px;
+  max-width: 100%;
+  width: 60px;
+}
+
+#views-exposed-form-og-search-default .views-exposed-widget.views-exposed-submit {
+  max-width: none;
+  width: 90px;
+}
+
+#views-exposed-form-og-search-default .views-exposed-widget.views-exposed-submit .form-submit,
+#views-exposed-form-og-search-page-1 .views-exposed-widget.views-exposed-submit .form-submit {
+  float: left;
+  margin: 0;
+  padding: 0px;
+  text-align: center;
+  width: 100%;
+}
+
+#views-exposed-form-og-search-page-1 .views-exposed-widget.views-exposed-submit {
+  width: 100px;	
+}
+
+#views-exposed-form-og-search-page-1 .views-exposed-widgets{
+	width: 60%;
+  margin-right: 0px;
+}
+
+#views-exposed-form-og-search-default .views-exposed-widgets {
+  float: left;
+  margin-right: 2%;
+  margin: 0px;
+  padding: 0;
+  width: 60%;
+}
+
+.views-exposed-widget label {
+  display: block;
+  padding: 2px 6px;
+}
+
+.views-exposed-widget .form-item,
+.views-exposed-widget .views-widget {
+  margin: 0;
+}
+
+.views-exposed-widget .form-item input {
+  width: 90%;
+}
+
+/* Groups list */
+
+.view-og-all .views-exposed-widget {
+  width: 40%;
+}
+
+/* views calendar widgets */
+
+.view-content-global-calendar .views-exposed-widget {
+  width: 28%;
+}
+
+/* global content views */
+.view-recent-featured .views-exposed-widget,
+.view-recent-feature .views-exposed-widget, 
+.view-content-global-polls .views-exposed-widget,
+.view-content-global-blogs .views-exposed-widget,
+.view-content-global-documents .views-exposed-widget,
+.view-content-global-discussions .views-exposed-widget,
+.view-content-global-wikis .views-exposed-widget {
+  width: 22%;
+}
+
+
+.view-recent-content-all .views-exposed-widget {
+  width: 16%;
+}
+
+.view-AllRecentContent .views-field-title,
+.view-recent-content-all .views-field-title { width: 40%; }
+
+/* Group content views*/
+
+.view-og-tab-polls .views-exposed-widget,
+.view-og-tab-documents .views-exposed-widget,
+.view-og-tab-discussions .views-exposed-widget,
+.view-og-tab-wikis .views-exposed-widget,
+.view-og-calendar .views-exposed-widget,
+.view-og-tab-blogs .views-exposed-widget {
+  width: 30%;
+}
+
+/*user directory view*/
+
+.view-user-directory .views-exposed-widget {
+  width: 13%;
+}
+
+/*OG content tracker view */
+
+.view-og-content-tracker .views-exposed-widget {
+  width: 22%;
+}
+
+/*styles to show node type icons in views tables*/
+
+.view-recent-featured table tr td.views-field-type span.node-type,
+.view-recent-content-all table tr td.views-field-type span.node-type,
+.view-og-content-tracker table tr td.views-field-type span.node-type {
+  display: block;
+  height: 18px;
+  text-indent: -9999px;
+  width: 18px;
+}
+
+.view-recent-featured table tr td.views-field-type span.node-type {
+	margin-right: 10px;
+	}
+
+.view-recent-featured table tr td.views-field-type span.blog,
+.view-og-content-tracker table tr td.views-field-type span.blog,
+.view-recent-content-all table tr td.views-field-type span.blog {
+  background: transparent url(../images/icons/blog-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.event,
+.view-recent-content-all table tr td.views-field-type span.event,
+.view-og-content-tracker table tr td.views-field-type span.event {
+  background: transparent url(../images/icons/event-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.wiki,
+.view-recent-content-all table tr td.views-field-type span.wiki,
+.view-og-content-tracker table tr td.views-field-type span.wiki {
+  background: transparent url(../images/icons/wiki-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.document,
+.view-recent-content-all table tr td.views-field-type span.document,
+.view-og-content-tracker table tr td.views-field-type span.document {
+  background: transparent url(../images/icons/document-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.discussion,
+.view-recent-content-all table tr td.views-field-type span.discussion,
+.view-og-content-tracker table tr td.views-field-type span.discussion {
+  background: transparent url(../images/icons/forum-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.poll,
+.view-recent-content-all table tr td.views-field-type span.poll,
+.view-og-content-tracker table tr td.views-field-type span.poll {
+  background: transparent url(../images/icons/poll-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.group,
+.view-recent-content-all table tr td.views-field-type span.group,
+.view-og-content-tracker table tr td.views-field-type span.group {
+  background: transparent url(../images/icons/group-node.png) no-repeat center center;
+}
+
+.view-recent-featured table tr td.views-field-type span.notice,
+.view-recent-content-all table tr td.views-field-type span.notice,
+.view-og-content-tracker table tr td.views-field-type span.notice {
+  background: transparent url(../images/icons/notice-node.png) no-repeat center center;
+}
+
+/*styles to keep content in Commons' Views tables looking nice*/
+
+.view-recent-content-all table tr td.views-field-title a,
+.view-og-content-tracker table tr td.views-field-title a {
+  white-space: normal;
+}
+
+
+.view-recent-content-all table tr th.views-field-group-nid,
+.view-og-content-tracker table tr td.views-field-group-nid {
+  max-width: 140px;
+}
+
+.view-recent-content-all table tr td.views-field-name,
+.view-og-content-tracker table tr td.views-field-name {
+  padding-right: 10px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+
+/* global blog posts view*/
+
+.view-recent-featured td.views-field-title, 
+.view-content-global-polls td.views-field-title,
+.view-content-global-blogs td.views-field-title,
+.view-content-global-documents td.views-field-title,
+.view-content-global-discussions td.views-field-title,
+.view-content-global-wikis td.views-field-title {
+	max-width: 25%; 
+}
+
+.view-recent-notices span.title,
+.view-recent-featured span.title, 
+.view-content-global-polls span.title,
+.view-content-global-blogs span.title,
+.view-content-global-documents span.title,
+.view-content-global-discussions span.title,
+.view-content-global-wikis span.title {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-right: 10px;
+  white-space: normal;
+} 
+
+.view-recent-notices span.posted-date,
+.view-recent-featured span.posted-date,
+.view-content-global-polls span.posted-date,
+.view-content-global-blogs span.posted-date,
+.view-content-global-discussions span.posted-date,
+.view-content-global-wikis span.posted-date {
+  white-space: nowrap;
+}
+
+.view-recent-notices span.replies,
+.view-recent-notices span.tags,
+.view-recent-notices span.updated-date,
+.view-recent-featured span.replies,
+.view-recent-featured span.tags,
+.view-recent-featured span.updated-date,
+.view-content-global-polls span.replies,
+.view-content-global-polls span.tags,
+.view-content-global-polls span.updated-date,
+.view-content-global-blogs span.replies,
+.view-content-global-blogs span.tags,
+.view-content-global-blogs span.updated-date,
+.view-content-global-documents span.replies,
+.view-content-global-documents span.tags,
+.view-content-global-documents span.updated-date,
+.view-content-global-discussions span.replies,
+.view-content-global-discussions span.tags,
+.view-content-global-discussions span.updated-date,
+.view-content-global-wikis span.replies,
+.view-content-global-wikis span.tags,
+.view-content-global-wikis span.updated-date {
+  display: block;
+  font-size: 11px;
+}
+
+.view-recent-notices span.updated-date,
+.view-recent-featured span.updated-date,
+.view-content-global-polls span.updated-date,
+.view-content-global-blogs span.updated-date,
+.view-content-global-documents span.updated-date,
+.view-content-global-discussions span.updated-date,
+.view-content-global-wikis span.updated-date {
+  font-style: italic;
+}
+
+.view-content-global-documents .views-field-field-file-fid .filefield-file,
+.view-content-global-documents .views-field-field-file-fid .filefield-file a {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+/* recent notices view */
+
+.view-id-recent_notices view-display-id-block_1 .view-header .addnew,
+.view-display-id-calendar_block_1 .view-header .addnew {
+  position: absolute;
+  right: 10px;
+  text-align: right;
+  top: 22px;
+  width: 90px;
+}
+
+.panel-pane .view-og-calendar .view-header .addnew a,
+.panel-pane .view-recent-notices .view-header .addnew a,
+.panel-pane .view-header .addnew a {
+  padding: 0px;
+  text-align: right;
+  width: auto;
+}
+
+/* User Directory */
+
+.view-user-directory table.views-view-grid td {
+	width: 23%;
+}
+
+.view-user-directory td {
+	padding: 1%;
+}
+
+.view-user-directory td:last-child {
+	border-right: none;
+}
+
+.view-user-directory tr:last-child td{
+	border-bottom: none;
+}
+
+.view-user-directory .views-field-value-4{
+font-weight: bold;
+}
+
+/* User Meta - logout/account links in header w/ profile pic */
+
+.view-user-meta {
+  float: right;
+  width: 180px;
+}
+
+.view-user-meta .views-field-name span {
+  display: block;
+  text-align: right;
+}
+
+.view-user-meta .views-field-picture {
+  float: right;
+  margin: 0 0 2px 12px;
+}
+
+.view-user-meta .views-field-nothing,
+.view-user-meta .views-field-nothing-1 {
+  float: right;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding: 0;
+}
+
+.view-user-meta .views-field-nothing a,
+.view-user-meta .views-field-nothing-1 a {
+   padding: 0;
+}
+
+.view-user-meta .views-field-nothing {
+  clear: both;
+  margin-left: 8px;
+  padding-left: 8px;
+}
+
+.view-user-meta .views-field-nothing {
+  margin-right: 6px;
+  padding-right: 6px;
+}
+
+.view-user-meta .views-field-points {
+  clear: both;
+  text-align: right;
+}
+
+.view-user-meta .views-row span.views-field-picture {
+  display: block;
+  float: right;
+}
+
+/* Dashboard Views*/
+
+.view-most-active-users td.views-field-name,
+.view-home-newest-users td.views-field-name,
+.view-og-most-active td.views-field-field-title,
+.view-og-dashboard-groups td.views-field-title {
+  width: 60%;
+}
+
+.view-most-active-users td.views-field-picture,
+.view-home-newest-users td.views-field-picture,
+.view-og-most-active td.views-field-field-group-image-fid,
+.view-og-dashboard-groups td.views-field-field-group-image-fid {
+  padding-left: 0px;
+  width: 28px;
+}
+
+.block .view-most-active-users td.views-field-picture{
+	width: auto;
+}
+
+/* Heartbeat Module */
+
+.heartbeat-message-block .beat-item .heartbeat-buttons {
+  display: none;
+}
+
+.heartbeat-message-block .beat-item:hover .heartbeat-buttons {
+  display: block;
+  position: absolute;
+}
+
+.heartbeat-message-block .beat-item:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.heartbeat-message-block .beat-item .beat-item-info {
+  float: left;
+ }
+
+.heartbeat-message-block .beat-item .beat-item-info img {
+  display: block;
+}
+
+div.beat-item blockquote {
+  background-image: none;
+  font-style: italic;
+  padding: 0;
+}

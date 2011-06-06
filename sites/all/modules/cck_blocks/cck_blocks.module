@@ -1,0 +1,178 @@
+<?php
+// $Id: cck_blocks.module,v 1.2.2.13 2010/03/19 08:37:50 forschi Exp $
+
+/**
+ * CCK blocks can either be enabled or disabled per field.
+ */
+define('CCK_BLOCKS_FIELD_BLOCK_DISABLED', 1);
+define('CCK_BLOCKS_FIELD_BLOCK_ENABLED', 2);
+
+/**
+ * Implementation of hook_content_build_modes().
+ */
+function cck_blocks_content_build_modes() {
+  return array(
+    'cck_blocks' => array(
+      'title' => t('CCK Blocks'),
+      'build modes' => array(
+        'cck_blocks' => array(
+          'title' => t('CCK Blocks'),
+          'views style' => FALSE,
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function cck_blocks_block($op = 'list', $delta = 0, $edit = array()) {
+  static $built_nodes = NULL;
+
+  $fields = module_invoke('content', 'fields');
+
+  switch ($op) {
+
+  case 'list':
+    $blocks = array();
+    if (count($fields)) {
+      foreach($fields as $field_name => $field_info) {
+        if (variable_get('cck_blocks_' . $field_info['field_name'] . '_block_availability', CCK_BLOCKS_FIELD_BLOCK_DISABLED) == CCK_BLOCKS_FIELD_BLOCK_ENABLED) {
+          $blocks[$field_name] = array(
+            'info' => t('CCK: @field', array('@field' => t($field_info['widget']['label']))),
+            'cache' => BLOCK_NO_CACHE,
+          );
+        }
+      }
+    }
+    return $blocks;
+
+  case 'configure':
+    // add token help, if token module is installed
+    if (module_exists('token')) {
+      $form = array();
+      $form['view']['token_help'] = array(
+        '#title' => t('Replacement patterns'),
+        '#type' => 'fieldset',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#description' => t('Prefer raw-text replacements for text to avoid problems with HTML entities!'),
+      );
+
+      $form['view']['token_help']['help'] = array(
+        '#value' => theme('token_help', 'node'),
+      );
+      return $form;
+    }
+
+  case 'view':
+    $block = array();
+
+    // Get the currently viewed node.
+    $node = menu_get_object();
+
+    /* Determine whether the node's content is being displayed to the user.
+     * It is, when any revision is displayed, inlcuding the latest one.
+     * For example, the node's content is not visible to the user when he is
+     * selecting revisions for comparison or when he is editing the node.
+     */
+    $display_nodecontent = !arg(2) || (arg(2) == 'revisions' && is_numeric(arg(3)));
+
+    /* Only create a block, when a node is loaded, the node's content is displayed
+     * to the user and the requested field is available in the fields array
+     */
+    if (isset($node->nid) && $display_nodecontent && $fields[$delta]) {
+      $nid = $node->nid;
+
+      // build the node in cck_blocks mode if that hasn't been done yet
+      if (!isset($built_nodes[$nid])) {
+        $node->build_mode = 'cck_blocks';
+        $built_nodes[$nid] = node_build_content($node, FALSE, TRUE);
+      }
+
+      // look directly for the cck_field in the content array
+      $cck_field_data = false;
+      if (isset($built_nodes[$nid]->content[$delta])) {
+        $cck_field_data = $built_nodes[$nid]->content[$delta];
+      }
+      else {
+        // cycle through all content data arrays looking for cck groups
+        // the cck_field may be within a group
+        foreach ($built_nodes[$nid]->content as $key => $data) {
+          if ((strpos($key, 'group_') == 0) && isset($data['group'][$delta])) {
+            // yay it's a group
+            $cck_field_data = $data['group'][$delta];
+          }
+        }
+      }
+
+      if ($cck_field_data) {
+        // Evaluate tokens in a user-defined title, if token module is installed
+        if (module_exists('token')) {
+          $title = db_result(db_query("SELECT title FROM {blocks} WHERE delta = '%s'", $delta));
+          if ($title){
+            $block['title'] = token_replace($title,'node',$built_nodes[$nid]);
+          }
+        }
+
+        /* Use the label of the field as the block's title. Only visible,
+         * if the user did not enter a custom title for the block as $block->subject
+         *  is replaced by $block->title (if set) in block_list().
+         */
+        $block['subject'] = t($fields[$delta]['widget']['label']);
+
+        // Set the field's data as the content of the block
+        $block['content'] = drupal_render($cck_field_data);
+      }
+    }
+  }
+
+  // return the generated block. Might be an empty array, if the block is not to be displayed.
+  return $block;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ *
+ * Adds options to the field configuration page for making the field available
+ * as a block for every content type that uses it.
+ */
+function cck_blocks_form_alter(&$form, $form_state, $form_id) {
+  switch ($form_id) {
+    case 'content_field_edit_form':
+      if (isset($form_state['change_basic'])) {
+        // Break if this is a basic information page.
+        break;
+      }
+
+      $field_name = $form['#field']['field_name'];
+
+      // Global settings form
+      $form['field']['global_cck_blocks_settings'] = array(
+        '#type' => 'radios',
+        '#title' => t('Provide block for this field'),
+        '#default_value' => variable_get('cck_blocks_' . $field_name . '_block_availability', CCK_BLOCKS_FIELD_BLOCK_DISABLED),
+        '#description' => t('When enabled, this field becomes available as a block in the block admin page.'),
+        '#options' => array(
+          CCK_BLOCKS_FIELD_BLOCK_DISABLED => t('Disabled'),
+          CCK_BLOCKS_FIELD_BLOCK_ENABLED => t('Enabled'),
+        ),
+      );
+
+      // Add custom submit handler for the form:
+      $form['#submit'][] = 'cck_blocks_field_settings_submit';
+      break;
+  }
+}
+
+/**
+ * Custom submit handler for the content field edit form.
+ *
+ * @see cck_blocks_form_alter().
+ */
+function cck_blocks_field_settings_submit($form, $form_state) {
+  $field_name = $form['#field']['field_name'];
+  $global_value = $form_state['values']['global_cck_blocks_settings'];
+  variable_set('cck_blocks_' . $field_name . '_block_availability', $global_value);
+}

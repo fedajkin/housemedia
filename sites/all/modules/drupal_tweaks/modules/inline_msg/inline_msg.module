@@ -1,0 +1,106 @@
+<?php
+/**
+ * @file
+ * Inline Msg module uses jQuery to move validation messages above the form elements.
+ *
+ */
+
+/**
+ * Implementation of hook_menu()
+ *
+ */
+function inline_msg_menu() {
+  $items = array();
+/*
+  if (!module_exists('drupal_tweaks')) {
+    $items['admin/settings/inline_msg'] = array(
+      'title' => 'Inline Msg',
+      'description' => t('Move validation messages above form elements.'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('inline_msg_admin_settings'),
+      'access arguments' => array('administer inline msg'),
+      'file' => 'inline_msg.admin.inc',
+    );
+  }
+*/
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_help()
+ */
+function inline_msg_help($path, $arg) {
+  switch ($path) {
+    case 'admin/settings/inline_msg':
+      $output = '<p>The Inline Messages module uses jQuery to display form messages inline with the form instead of the default behaviour at the top of the page.</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implementation of hook_perm()
+ */
+function inline_msg_perm() {
+  return array('administer inline msg');
+}
+
+/**
+ * Implementation of hook_status_messages_alter
+ *
+ * See: theme_status_messages_dt()
+ */
+function inline_msg_status_messages_alter(&$messages) {
+    $inline_msg_ids = form_get_errors();
+
+    if(!is_array($inline_msg_ids))
+        $inline_msg_ids = array();
+
+    $js_code = "
+        if (Drupal.jsEnabled) {
+            $(document).ready(function(){
+                var remove = false;";
+    foreach ($messages as $type => $type_messages)
+    {
+        $js_code .= "\nvar msg_". $type . ' = $(\'.messages.' . $type . "')"; // get message section by type <ul>
+        foreach ($type_messages as $key => $message)
+        { // to each element...
+            if (in_array($message, $inline_msg_ids))
+            {
+                foreach($inline_msg_ids as $id => $err)
+                {
+                    if($err == $message)
+                    {
+                        $id_msg = "inline-msg-" . $id;
+
+                        $js1 .= "
+                            var msg_old" . $key . " = $('.messages." . $type . "').find('li').eq(" . $key . ").attr('id', '" . $id_msg . "');
+                            var id_from" . $key . " = '".$id_msg."';
+                            var id_to" . $key . " = '#edit-".$id."';
+                            ";
+                        $js2 .= "
+                            if($(id_to".$key.").length)
+                            {
+                                remove = true;
+                                var obj_new" . $key . " = msg_" . $type . ".eq(0).clone();
+                                $(id_to" . $key . ").before( obj_new" . $key . " );
+                                obj_new" . $key . ".find('li').not('#'+id_from" . $key . ").remove();
+                                msg_". $type . ".find('li').eq(" . $key . ").remove();
+                            }
+                            else
+                            {
+                                remove = false;
+                            }
+                            ";
+                    }
+                }
+            }
+        }
+
+        $js2 .= "if(remove) $('.messages." . $type . "').eq(0).remove();";
+    }
+
+    $js_code_all = $js_code . $js1 . $js2 . "\n})};";
+    drupal_add_js($js_code_all, 'inline');
+}

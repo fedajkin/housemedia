@@ -1,0 +1,94 @@
+<?php
+
+
+/**
+ * @file
+ * Setup configuration for Views Search.
+ */
+
+
+/**
+ * Implements hook_install().
+ */
+function views_search_install() {
+  drupal_install_schema('views_search');
+}
+
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function views_search_uninstall() {
+  // Remove variables
+  variable_del('views_search_enabled_views');
+  variable_del('views_search_ss_block_manage_link');
+  $roles = user_roles(TRUE);
+  foreach ($roles as $rid => $role_name) {
+    variable_del('views_search_saved_search_max_role_' . $rid);
+  }
+
+  drupal_uninstall_schema('views_search');
+}
+
+
+
+/**
+ * Implements hook_schema().
+ */
+function views_search_schema() {
+
+  $schema['views_search'] = array(
+    'description' => t('Stores information about Saved Searches.'),
+    'fields' => array(
+      'ssid' => array(
+        'description' => t('Saved Search ID'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => t('User ID of the user that saved this search.'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'created' => array(
+        'description' => t('Timestamp when this Saved Search was created.'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'view_name' => array(
+        'description' => t('Name of the view that was saved.'),
+        'type' => 'varchar',
+        'length' => '32',
+        'not null' => TRUE,
+      ),
+      'view_display' => array(
+        'description' => t('Display of the view that was saved.'),
+        'type' => 'varchar',
+        'length' => '32',
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => t('Name of the Saved Search as indicated by the user.'),
+        'type' => 'varchar',
+        'length' => '32',
+        'not null' => TRUE,
+      ),
+      'filters' => array(
+        'description' => t('Filters of this Saved Search as serialized data.'),
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('ssid'),
+    'indexes' => array(
+      'uid_name' => array('uid', 'name'),
+    ),
+  );
+
+  return $schema;
+
+}

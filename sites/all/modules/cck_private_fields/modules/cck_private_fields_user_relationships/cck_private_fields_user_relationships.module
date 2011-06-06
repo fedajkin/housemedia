@@ -1,0 +1,47 @@
+<?php
+// $Id: cck_private_fields_user_relationships.module,v 1.1.2.4 2009/10/09 18:36:37 markuspetrux Exp $
+
+/**
+ * @file
+ * Interface between CCK Private Fields and User Relationships module.
+ */
+
+/**
+ * Implementation of hook_cck_private_fields_view_access().
+ */
+function cck_private_fields_user_relationships_cck_private_fields_view_access($field, $node, $account) {
+  $params = array(
+    'between' => array($node->uid, $account->uid),
+    'approved' => TRUE,
+  );
+  $relationship_types = variable_get('cck_private_fields_user_relationships_types_'. $field['field_name'], array());
+  if (!empty($relationship_types)) {
+    $params['rtid'] = array_keys($relationship_types);
+  }
+  return (boolean)user_relationships_load($params, array('count' => TRUE));
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function cck_private_fields_user_relationships_form_alter(&$form, &$form_state, $form_id) {
+  // Alter the CCK Field settings form.
+  if ($form_id == 'content_field_edit_form' && !isset($form_state['change_basic']) && isset($form['field']['cck_private_fields'])) {
+    module_load_include('inc', 'cck_private_fields_user_relationships', 'includes/admin');
+    _cck_private_fields_user_relationships_content_field_edit_form_alter($form);
+  }
+}
+
+/**
+ * Implementation of hook_content_fieldapi().
+ */
+function cck_private_fields_user_relationships_content_fieldapi($op, $field) {
+  if ($op == 'delete instance') {
+    // Delete relationship type when no other instance of this field remains
+    // with privacy options enabled.
+    module_load_include('inc', 'cck_private_fields', 'includes/common');
+    if (cck_private_fields_get_content_field_privacy($field['type_name']) === FALSE) {
+      variable_del('cck_private_fields_user_relationships_types_'. $field['type_name']);
+    }
+  }
+}

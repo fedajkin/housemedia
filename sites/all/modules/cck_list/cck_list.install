@@ -1,0 +1,44 @@
+<?php
+// $Id: cck_list.install,v 1.1.2.1 2010/01/28 04:13:29 istryker Exp $
+
+/**
+ *  Module coverted to 6 by iStryker
+ *  Sponser by Themes 24/7  http://www.themes247.com
+ */
+
+/**
+ * @file
+ * Implementation of hook_install().
+ */
+function cck_list_install() {
+  drupal_load('module', 'content');
+  content_notify('install', 'cck_list');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function cck_list_uninstall() {
+  drupal_load('module', 'content');
+  content_notify('uninstall', 'cck_list');
+}
+
+/**
+ * Implementation of hook_enable().
+ *
+ * Notify content module when this module is enabled.
+ */
+function cck_list_enable() {
+  drupal_load('module', 'content');
+  content_notify('enable', 'cck_list');
+}
+
+/**
+ * Implementation of hook_disable().
+ *
+ * Notify content module when this module is disabled.
+ */
+function cck_list_disable() {
+  drupal_load('module', 'content');
+  content_notify('disable', 'cck_list');
+}

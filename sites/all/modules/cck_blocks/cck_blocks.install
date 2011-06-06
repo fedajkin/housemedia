@@ -1,0 +1,39 @@
+<?php
+// $Id: cck_blocks.install,v 1.1.2.8 2010/03/18 19:50:15 forschi Exp $
+
+/**
+ * Change the cache setting of existing CCK blocks to BLOCK_NO_CACHE.
+ */
+function cck_blocks_update_6000() {
+  $ret = array();
+  $ret[] = update_sql("UPDATE {blocks} SET cache = -1 WHERE module = 'cck_blocks' AND cache = 1");
+  return $ret;
+}
+
+/**
+ * Implementation of hook_update_N().
+ *
+ * In previous versions, all fields were exposed as blocks. In this version, fields
+ * are not exposed by default, but can be added manually in the field configuration
+ * page. This update sets globabl preferences to retain the availability of all
+ * custom fields as blocks, to avoid confusing existing users.
+ */
+function cck_blocks_update_6101() {
+  $ret = array();
+  $fields = module_invoke('content', 'fields');
+
+  if (count($fields)) {
+    foreach($fields as $field_name => $field_info) {
+      variable_set('cck_blocks_' . $field_info['field_name'] . '_block_availability', 2);
+    }
+  }
+
+  return $ret;
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function cck_blocks_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'cck_blocks%'");
+}

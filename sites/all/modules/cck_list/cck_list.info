@@ -1,0 +1,17 @@
+; $Id: cck_list.info,v 1.1.2.1 2010/01/28 04:13:29 istryker Exp $
+; Module by iStryker
+; sponser by www.themes247.com
+name = List
+description = Defines a cck field type that outputs data in an order or unorder list.
+dependencies[] = content
+package = CCK
+core = 6.x
+
+
+
+; Information added by drupal.org packaging script on 2010-01-28
+version = "6.x-1.0"
+core = "6.x"
+project = "cck_list"
+datestamp = "1264652703"
+

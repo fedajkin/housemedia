@@ -1,0 +1,20 @@
+
+name = Driven property manager
+description = Helper API to manage driven properties.
+
+package = Driven
+; @d6
+core = 6.x
+
+dependencies[] = driven
+
+; @d7
+files[] = driven_props.module
+files[] = driven_props.admin.inc
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "driven"
+datestamp = "1298619134"
+

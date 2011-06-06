@@ -1,0 +1,165 @@
+<?php
+// $Id: sweaver.admin.test,v 1.1.2.9 2010/11/06 13:57:25 swentel Exp $
+
+/**
+ * @file
+ * Tests for sweaver backend
+ * Note: run this patch on D6 to allow posts to hidden fields:
+ * http://drupal.org/node/488810#comment-1693662.
+ */
+
+class sweaverAdministration extends DrupalWebTestCase {
+  /**
+   * Implementation of getInfo().
+   */
+  function getInfo() {
+    return array(
+      'name' => t('Sweaver administration'),
+      'description' => t('Tests for the administration of sweaver, except for plugins and styles.'),
+      'group' => t('Sweaver'),
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+
+    $this->perms = '';
+    $this->imagecache_tests = FALSE;
+    $this->image_path = 'misc/druplicon.png';
+    $modules = array('sweaver', 'ctools', 'jquery_ui');
+
+    // Imagecache setups.
+    $imagecache_tests = FALSE;
+    $imagecache = drupal_get_filename('module', 'imagecache');
+    $imageapi = drupal_get_filename('module', 'imageapi');
+    $imageapi_gd = drupal_get_filename('module', 'imageapi_gd');
+    if (!empty($imagecache) && !empty($imageapi_gd) && !empty($imageapi)) {
+      $this->imagecache_tests = TRUE;
+      $this->perms = 'administer imagecache';
+      parent::setUp('sweaver', 'ctools', 'jquery_ui', 'imageapi', 'imageapi_gd', 'imagecache');
+    }
+    else {
+      parent::setUp('sweaver', 'ctools', 'jquery_ui');
+    }
+
+    if ($this->imagecache_tests) {
+      db_query("INSERT INTO {imagecache_preset} (presetname) VALUES ('%s')", 'sweavertest');
+      $this->preset_id = db_last_insert_id('imagecache', 'presetid');
+      $this->preset_name = 'sweavertest';
+      $data = 'a:3:{s:5:"width";s:4:"100%";s:6:"height";s:4:"100%";s:7:"upscale";i:0;}';
+      db_query("INSERT INTO {imagecache_action} (presetid, weight, module, action, data) VALUES (%d, 0, 'imagecache', 'imagecache_scale', '%s')", $this->preset_id, $data);
+    }
+  }
+
+  /**
+   * Debug helper function. Writes values away to a text file in the files directory.
+   */
+  function _debugHelper($value, $writetype = 'a+') {
+    $debug = fopen($this->originalFileDirectory .'/simpletestdebug.txt', 'a+');
+    fwrite($debug, print_r($value, TRUE) ."\n");
+    fclose($debug);
+  }
+
+  /**
+   * Core administration tests for Sweaver.
+   */
+  function testCoreAdminSweaver() {
+    $admin_user = $this->drupalCreateUser(array('use editor', 'configure sweaver', 'administer nodes'));
+    $this->drupalLogin($admin_user);
+    $editor_tests = t('Basic admin testing');
+
+    // Setting screen: test that editor is enabled or disabled with checkbox and path settings.
+    $edit['sweaver_enabled'] = FALSE;
+    $this->drupalPost('admin/settings/sweaver', $edit, t('Save configuration'));
+    $this->drupalGet('user');
+    $this->assertNoRaw('sweaver-frontend', t('Editor disabled'), $editor_tests);
+
+    $edit['sweaver_enabled'] = TRUE;
+    $this->drupalPost('admin/settings/sweaver', $edit, t('Save configuration'));
+    $this->drupalGet('user');
+    $this->assertRaw('sweaver-frontend', t('Editor enabled'), $editor_tests);
+    $this->drupalGet('node/add');
+    $this->assertNoRaw('sweaver-frontend', t('Editor not set'), $editor_tests);
+
+    // Selectors enabled/disabled.
+    $this->drupalGet('admin/settings/sweaver/editor/disable/selector/body');
+    $this->drupalGet('user');
+    $status = (strpos($this->content, '"description": "Body"') && strpos($this->content, '"description":"Body"'));
+    $this->assertFalse($status, t('Body selector disabled'), $editor_tests);
+
+    $this->drupalGet('admin/settings/sweaver/editor/enable/selector/body');
+    $this->drupalGet('user');
+    $status = (strpos($this->content, '"description": "Body"') || strpos($this->content, '"description":"Body"'));
+    $this->assertTrue($status, t('Body selector enabled'), $editor_tests);
+
+    // Properties enabled/disabled.
+    $this->drupalGet('admin/settings/sweaver/editor/disable/property/background-color');
+    $this->drupalGet('user');
+    $this->assertNoRaw('id="background-color"', t('Background color disabled'), $editor_tests);
+    $this->drupalGet('admin/settings/sweaver/editor/enable/property/background-color');
+    $this->drupalGet('user');
+    $this->assertRaw('id="background-color"', t('Background color enabled'), $editor_tests);
+
+    // Types enabled/disabled.
+    $this->drupalGet('admin/settings/sweaver/editor/disable/type/block');
+    $this->drupalGet('user');
+    $status = (strpos($this->content, '"types":{"block":') && strpos($this->content, '"types": { "block":'));
+    $this->assertFalse($status, t('Type block disabled'), $editor_tests);
+    $this->drupalGet('admin/settings/sweaver/editor/enable/type/block');
+    $this->drupalGet('user');
+    $status = (strpos($this->content, '"types":{"block":') || strpos($this->content, '"types": { "block":'));
+    $this->assertTrue($status, t('Type block enabled'), $editor_tests);
+  }
+
+  /**
+   * Advanced administration tests for Sweaver.
+   */
+  function testAdvancedAdminSweaver() {
+    $editor_tests = t('Special admin testing');
+
+    if ($this->imagecache_tests) {
+      $perms = array('use editor', 'configure sweaver', 'administer imagecache');
+    }
+    else {
+      $perms = array('use editor', 'configure sweaver');
+    }
+
+    // User login.
+    $admin_user = $this->drupalCreateUser($perms);
+    $this->drupalLogin($admin_user);
+
+    // Upload image.
+    $edit = array(
+      'description' => 'Image test',
+      'files[image]' => realpath($this->image_path),
+    );
+    $this->drupalPost('admin/settings/sweaver/images/add', $edit, t('Save image'));
+    $this->assertText(t('Image Image test has been saved.'), t('Image uploaded'), $editor_tests);
+    $this->assertTrue(file_exists(file_directory_path() .'/sweaver/sweaver_image_1.png'), t('Image uploaded'), $editor_tests);
+    $this->drupalGet('user');
+    $this->assertRaw('value="'. $GLOBALS['base_url'] .'/'. file_directory_path() .'/sweaver/sweaver_image_1.png"', t('Image found in editor'), $editor_tests);
+
+    // Test imagecache if available.
+    if ($this->imagecache_tests) {
+
+      imagecache_presets(TRUE);
+
+      $this->drupalGet('user');
+
+      $imagecache_url = imagecache_create_url($this->preset_name, 'sites/default/files/sweaver/sweaver_image_1.png');
+      $raw_imagecache = '<option value="'. $imagecache_url .'">Image test (sweavertest)</option>';
+      $this->assertNoRaw($raw_imagecache, t('Imagecache version of image not found'), $editor_tests);
+
+      // Enable imagecache.
+      $edit = array(
+        'sweaver_plugin_images_imagecache' => 1,
+      );
+      $this->drupalPost('admin/settings/sweaver/images', $edit, t('Save configuration'));
+      $this->drupalGet('user');
+      $this->assertRaw('imagecache/sweavertest/sweaver/sweaver_image_1.png', t('Imagecache version of image found'), $editor_tests);
+    }
+  }
+}
+

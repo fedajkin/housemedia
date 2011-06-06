@@ -1,0 +1,123 @@
+<?php
+// $Id: groupadmin_cp.module,v 1.1.2.2 2010/03/15 18:08:30 netgenius Exp $
+
+/********************************************************
+
+groupadmin-cp module for Drupal 6.x
+
+Original development by: netgenius.co.uk
+Commercial support is available from www.netgenius.co.uk
+Contact: drupal(a)netgenius.co.uk
+
+*********************************************************/
+
+/**
+ * Implementation of hook_groupadmin_config_fields
+ * Return fields for config form.
+ */
+function groupadmin_cp_hook_groupadmin_config_fields() {
+
+  // Initialise arrays with a single 0=>'none' entry.
+  $types = $cp_fields = array(t('(none)'));
+
+  // Get array of content types as table-name=>type-name.
+  foreach(node_get_types() as $key => $type) {
+    $types[$key] = $type->name;
+  }
+
+  // If content type is already configured, get available fields from content type.
+  $type = _groupadmin_settings('l_content_type', TRUE);
+  $table = 'content_type_' . $type;
+  if ($type && db_table_exists($table)) {
+    $query = sprintf('SHOW columns FROM %s LIKE "field\_%%_value"', $table);
+    $result = db_query($query);
+
+    while ($row = db_fetch_array($result)) {
+      // Add to $cp_fields without 'field_' prefix and '_value' suffix.
+      $cp_fields[$row['Field']] = substr(substr($row['Field'], 0, -6), 6);
+    }
+  }
+  //drupal_set_message(print_r($cp_fields, 1));
+
+  // Order options for names.
+  $order = array(t('Doe, John'), t('John Doe'));
+
+  // Build fields array.
+  $fields = array(
+    'f_content_profile' => array('Settings for <em>Content Profile</em> integration.', TRUE, TRUE),
+    'l_content_type'=> array('Content type to use for real names. Submit the form to update the choices available below.', 0, $types),
+    'l_realname_field'  => array('Field to use for full-name or last-name.', '', $cp_fields),
+    'l_firstname_field' => array('Field to use for first name (if not included above.)', '', $cp_fields),
+    'l_display_format'=> array('How to format full-name (only applies if firstname field is used.)', 0, $order),
+  );
+  return $fields;
+}
+
+/**
+ * Implementation of hook_groupadmin_config_validate.
+ * Return array of callbacks to validate the configuration form.
+ */
+function groupadmin_cp_hook_groupadmin_config_validate() {
+  return array('_groupadmin_cp_settings_validate');
+}
+
+/**
+ * Implementation of hook_groupadmin_query_modify.
+ * Return array of callbacks to be called by _groupadmin_manage_getuserlist to modify query and headers.
+ */
+function groupadmin_cp_hook_groupadmin_query_modify() {
+  return array('_groupadmin_cp_getquery');
+}
+
+/**
+ * Validate config form.
+ */
+function _groupadmin_cp_settings_validate($form, &$form_state) {
+  // Nothing needed here currently.
+}
+
+/**
+ * Modify headers, query and search fields used by _groupadmin_manage_getuserlist in main module.
+ */
+function _groupadmin_cp_getquery(&$headers, &$select, &$search_fields) {
+
+  // Get settings.
+  $type = _groupadmin_settings('l_content_type', TRUE);
+  $realname = _groupadmin_settings('l_realname_field', TRUE);
+  $firstname = _groupadmin_settings('l_firstname_field', TRUE);
+  $table = 'content_type_' . $type;
+
+  // Bail out if configuration is invalid.
+  if (!db_column_exists($table, $realname))  return;
+
+  // If firstname field is used, we need to concatenate firstname and realname.
+  if ($firstname && db_column_exists($table, $firstname)) {
+    // Build a sub-query to get dataset for real name as concatenated first/last name.
+    $sub = 'SELECT uid, CONCAT(%s, %s, %s) realname FROM {%s} JOIN {node} n USING (vid) WHERE n.type = "%s"';
+    if (_groupadmin_settings('l_display_format', TRUE)) {
+      $sub = sprintf($sub, $firstname, '" "', $realname, $table, $type);
+    }
+    else {
+      $sub = sprintf($sub, $realname, '", "', $firstname, $table, $type);
+    }
+  }
+  else {
+    // Build a sub-query to get dataset for real name.
+    $sub = 'SELECT uid, %s AS realname FROM {%s} JOIN {node} n USING (vid) WHERE n.type = "%s"';
+    $sub = sprintf($sub, $realname, $table, $type);
+  }
+
+  // Update main select statement.
+  $select = sprintf('%s, %s LEFT JOIN (%s) r ON u.uid = r.uid', 'realname', $select, $sub);
+
+  // Add to headers.
+  $new_headers[] = array('data' => t('real name'), 'field' => 'realname', 'sort' => 'asc');
+  $headers = array_merge($new_headers, $headers);
+
+  // Add to search fields.
+  $search_fields[] = 'realname';
+
+  return;
+}
+
+// --- End --- Drupal docs advise NOT closing the PHP tags.

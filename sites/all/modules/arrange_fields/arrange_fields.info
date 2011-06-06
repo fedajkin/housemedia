@@ -1,0 +1,11 @@
+; $Id: arrange_fields.info,v 1.4 2010/07/04 20:19:14 richardp Exp $
+name = Arrange Fields
+description = Arrange CCK, Webform, and other form fields using drag-and-drop.
+dependencies[] = jquery_ui 
+core = 6.x
+; Information added by drupal.org packaging script on 2010-12-29
+version = "6.x-1.4"
+core = "6.x"
+project = "arrange_fields"
+datestamp = "1293664263"
+

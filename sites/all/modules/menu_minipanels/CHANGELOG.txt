@@ -1,0 +1,13 @@
+$Id: CHANGELOG.txt,v 1.1 2010/10/17 00:20:49 willieseabrook Exp $
+
+Menu Minipanels 6.x-1.x, 2010-10-17
+-----------------------------------
+
+- Improved code as a result of a code review by @kiamlaluno
+- Final style tweaks to prepare for cvs commit to drupal.org
+
+Menu Minipanels 6.x-1.x, 2010-08-15
+-----------------------------------
+
+- First releasable version of the module
+- All sensible qTip configuration parameters implemented

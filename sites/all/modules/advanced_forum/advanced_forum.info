@@ -1,0 +1,14 @@
+name = Advanced Forum
+description = Enables the look and feel of other popular forum software.
+dependencies[] = forum
+dependencies[] = ctools
+dependencies[] = views
+
+core = 6.x
+
+; Information added by drupal.org packaging script on 2011-03-30
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "advanced_forum"
+datestamp = "1301486487"
+

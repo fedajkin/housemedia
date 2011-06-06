@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * Implementation of hook_ctools_plugin_api().
+ */
+function og_subgroups_context_ctools_plugin_api($module, $api) {
+  if ($module == 'context' && $api == 'plugins') {
+    return array('version' => 3);
+  }
+}
+
+/**
+ * Implementation of hook_context_plugins().
+ */
+function og_subgroups_context_context_plugins() {
+  $plugins = array();
+  $plugins['og_subgroups_context_condition_node_in_or_below_og'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'og_subgroups_context') . '/plugins',
+      'file' => 'og_subgroups_context_condition_node_in_or_below_og.inc',
+      'class' => 'og_subgroups_context_condition_node_in_or_below_og',
+      'parent' => 'context_condition',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implementation of hook_context_registry().
+ */
+function og_subgroups_context_context_registry() {
+  return array(
+    'conditions' => array(
+      'og_subgroups_context_condition_node_in_or_below_og' => array(
+        'title' => t('OG Subgroups - below'),
+        'description' => t("Set this context when the current node is in the group or is in a subgroup."),
+        'plugin' => 'og_subgroups_context_condition_node_in_or_below_og',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_init().
+ *
+ */
+function og_subgroups_context_init() {
+
+  // Execute the "node_in_or_below_og" condition. See the
+  // og_subgroups_context_condition_node_in_or_below_og plugin.
+  $plugin = context_get_plugin('condition', 'og_subgroups_context_condition_node_in_or_below_og');
+  if ($plugin) {
+    $plugin->execute();
+  }
+
+}

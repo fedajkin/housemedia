@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Database tweaks MySQL settings on heavy websites
+ *
+ * @version
+ *
+ * @developers
+ *   Rafal Wieczorek <kenorb@gmail.com>
+ */
+
+/**
+ * Minimum recommended value of MySQL max_packet_size limit.
+ */
+define('DRUPAL_MINIMUM_MYSQL_MAX_ALLOWED_PACKET', '1M'); 
+
+/**
+ * Implementation of hook_menu().
+ */
+function db_tweaks_menu() { 
+  if (!module_exists('drupal_tweaks')) {
+    $items['admin/settings/db_tweaks'] = array(
+      'title' => 'Database Tweaks',
+      'description' => t('Change database settings.'),
+      'page callback' => 'drupal_get_form', 
+      'page arguments' => array('db_tweaks_settings_form'), 
+      'access arguments' => array('administer database'),
+      'file' => 'db_tweaks.admin.inc', 
+    );
+  }
+
+  return $items;
+}
+
+
+/**
+ * Implementation of hook_init().
+ */
+function db_tweaks_boot() {
+  /* DATABASE TWEAKS */
+  if (variable_get('db_tweaks_activated', FALSE)) {
+    global $db_type;
+    switch ($db_type) {
+        case 'mysql':
+        case 'mysqli':
+            /* LOAD INCLUDES */
+            include_once './includes/common.inc'; // for drupal_get_path() called from module_load_include() and t() called from menu_get_item()
+            include_once './includes/path.inc';   // for arg() called from menu_get_item()
+            include_once './includes/menu.inc';   // for menu_get_item()
+            include_once './includes/unicode.inc';   // for drupal_strtolower() called from parse_size()
+            module_load_include('inc', 'db_tweaks'); // load additional function from included file
+
+            /* LOAD DB SETTINGS */
+            $mysql_conf = db_tweaks_get_mysql_configuration(TRUE);
+            
+            foreach ($mysql_conf as $var_name => $var_values) {
+                // update mysql settings if necessary
+                if ($var_values['conf'] <> $var_values['mysql']) {
+                    if (!db_tweaks_set_mysql_variable($var_name, $var_values['conf'])) {
+                      module_load_include('module', 'drupal_tweaks'); // load module file for special messaging functionality
+                      drupal_tweaks_set_message(array('Cannot set variable `%name` to `%value` in your database configuration!<br>Probably you do not have proper privileges on the database server.', array('%name' => $var_name, '%value' => $var_values['conf'])), 'error');
+                      variable_set($var_name, $var_values['mysql']); // reverting changes in settings (to prevent showing error message)
+                    }
+                }
+            }
+            break;
+        case 'pgsql':
+        default:
+          /* TODO: database not supported */
+    }
+  }
+}
+
+
+/**
+ * Implementation of hook_perm().
+ */
+function db_tweaks_perm() {
+   return array('administer database');
+}
+
+/**
+ * Implementation of hook_watchdog().
+ */
+/* Testing...
+function db_tweaks_watchdog(&$log) {
+  $limit = 1024*1024;
+  $limit_left = $limit;
+  if ($log['message'] && strlen(serialize($log))>$limit) {
+    $log['message'] = substr($log['message'], 0, $limit_left*0.8);
+    $limit_left -= strlen($log['message']);
+    if ($log['variables']) {
+      foreach ($log['variables'] as $name => $data) {
+        $log['variables'][$name] = substr($log['variables'][$name], 0, $limit_left*0.8);
+        $limit_left -= strlen($log['variables'][$name]);
+      }
+    }
+  }
+}
+ */

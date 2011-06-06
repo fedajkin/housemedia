@@ -1,0 +1,22 @@
+<?php
+// $Id: cck_private_fields_friendlist.module,v 1.1.2.1 2009/07/27 21:51:25 markuspetrux Exp $
+
+/**
+ * @file
+ * Interface between CCK Private Fields and FriendList API.
+ */
+
+/**
+ * Implementation of hook_cck_private_fields_view_access().
+ */
+function cck_private_fields_friendlist_cck_private_fields_view_access($field, $node, $account) {
+  // Get the relation id and enabled statuses set for this integration.
+  $rtid = variable_get('friendlist_access_integration_cck_field_privacy_rtid', 0);
+  $enabled_statuses = variable_get('friendlist_access_integration_cck_field_privacy_statuses', array());
+
+  // Get the relation status between node author (requestee) and node requester.
+  $status = friendlist_api_relation_status_get($account->uid, $node->uid, $rtid);
+
+  // Grant access if the status is one of the "good" ones.
+  return in_array($status, $enabled_statuses);
+}

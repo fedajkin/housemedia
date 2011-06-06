@@ -1,0 +1,180 @@
+<?php
+// $Id: cck_private_fields.module,v 1.1.2.15 2009/08/10 12:16:00 markuspetrux Exp $
+
+/**
+ * @file
+ * Allows users to mark administrator selected CCK fields as public, hidden
+ * or private.
+ *
+ * This is the main script for the CCK Private Fields module. It merely contains
+ * the implementation of hooks invoked by Drupal core, CCK, etc.
+ * All common functions are externalized into several scripts that are included
+ * on demand to reduce memory consumption during normal site operation.
+ */
+
+/**
+ * CCK Private Fields options.
+ */
+define('CCK_FIELDS_PRIVACY_STATUS_PUBLIC', 0);
+define('CCK_FIELDS_PRIVACY_STATUS_HIDDEN', 1);
+define('CCK_FIELDS_PRIVACY_STATUS_PRIVATE', 2);
+
+/**
+ * Implementation of hook_init().
+ */
+function cck_private_fields_init() {
+  if (module_exists('diff')) {
+    module_load_include('inc', 'cck_private_fields', 'includes/diff');
+  }
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function cck_private_fields_perm() {
+  module_load_include('inc', 'cck_private_fields', 'includes/common');
+  $perms = array();
+  foreach (array_keys(cck_private_fields_get_private_fields()) as $field_name) {
+    foreach (array('view', 'edit') as $op) {
+      $perms[] = cck_private_fields_build_permission_name($op, $field_name);
+    }
+  }
+  return $perms;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function cck_private_fields_form_alter(&$form, &$form_state, $form_id) {
+  // Alter the node edit form.
+  if (isset($form['#node']) && isset($form['type']['#value']) && $form_id == $form['type']['#value'] .'_node_form') {
+    module_load_include('inc', 'cck_private_fields', 'includes/common');
+
+    $private_fields = cck_private_fields_get_content_private_fields($form['type']['#value']);
+    if (!empty($private_fields)) {
+      module_load_include('inc', 'cck_private_fields', 'includes/node_form');
+      _cck_private_fields_node_form_alter($form, $form_state, $private_fields);
+    }
+    return;
+  }
+
+  // Alter the CCK Field settings form.
+  if ($form_id == 'content_field_edit_form' && !isset($form_state['change_basic'])) {
+    module_load_include('inc', 'cck_private_fields', 'includes/common');
+    module_load_include('inc', 'cck_private_fields', 'includes/admin');
+    _cck_private_fields_content_field_edit_form_alter($form);
+  }
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function cck_private_fields_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'load':
+      module_load_include('inc', 'cck_private_fields', 'includes/common');
+      return array(
+        'cck_private_fields' => cck_private_fields_get_node_privacy_status($node->vid),
+      );
+
+    case 'update':
+      if (!empty($node->cck_private_fields) && is_array($node->cck_private_fields)) {
+        db_query("DELETE FROM {cck_private_fields} WHERE vid = %d", $node->vid);
+      }
+      // Fallback to 'insert' case is intentional.
+
+    case 'insert':
+      if (!empty($node->cck_private_fields) && is_array($node->cck_private_fields)) {
+        module_load_include('inc', 'cck_private_fields', 'includes/common');
+
+        $private_fields = cck_private_fields_get_content_private_fields($node->type);
+        foreach ($node->cck_private_fields as $field_name => $privacy_status) {
+          if ($private_fields[$field_name] !== FALSE) {
+            db_query("INSERT INTO {cck_private_fields} (nid, vid, content_type, field_name, privacy_status) VALUES (%d, %d, '%s', '%s', %d)", array(
+              $node->nid, $node->vid, $node->type, $field_name, $privacy_status
+            ));
+          }
+        }
+      }
+      break;
+
+    case 'delete':
+      db_query("DELETE FROM {cck_private_fields} WHERE nid = %d", $node->nid);
+      break;
+
+    case 'delete revision':
+      db_query("DELETE FROM {cck_private_fields} WHERE vid = %d", $node->vid);
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_node_type().
+ */
+function cck_private_fields_node_type($op, $info) {
+  if ($op == 'delete') {
+    // Delete privacy data related to the content type being deleted.
+    db_query("DELETE FROM {cck_private_fields} WHERE content_type = '%s'", $info->type);
+  }
+  elseif ($op == 'update' && $info->old_type != $info->type) {
+    // Adjust privacy data related to the content type being renamed.
+    db_query("UPDATE {cck_private_fields} SET content_type = '%s' WHERE content_type = '%s'", $info->type, $info->old_type);
+  }
+}
+
+/**
+ * Implementation of hook_content_fieldapi().
+ */
+function cck_private_fields_content_fieldapi($op, $field) {
+  if ($op == 'delete instance') {
+    // Delete privacy data related to the field instance being deleted.
+    db_query("DELETE FROM {cck_private_fields} WHERE field_name = '%s' AND content_type = '%s'", $field['field_name'], $field['type_name']);
+
+    // Check if the field is shared between other content types. If not, then
+    // we can delete the privacy settings for this field entirely.
+    $instances = (int)db_result(db_query("SELECT COUNT(*) FROM {". content_instance_tablename() ."} WHERE field_name = '%s' AND type_name != '%s'", $field['field_name'], $field['type_name']));
+    if ($instances == 0) {
+      module_load_include('inc', 'cck_private_fields', 'includes/common');
+      cck_private_fields_set_content_field_privacy($field['field_name'], FALSE);
+    }
+  }
+}
+
+/**
+ * Implementation of hook_field_access().
+ *
+ * @see content_access()
+ */
+function cck_private_fields_field_access($op, $field, $account = NULL, $node = NULL) {
+  // We do not want to check anything other than 'view' access.
+  if ($op == 'view') {
+    module_load_include('inc', 'cck_private_fields', 'includes/common');
+    module_load_include('inc', 'cck_private_fields', 'includes/field_access');
+    return _cck_private_fields_field_view_access($field, $account, $node);
+  }
+}
+
+/**
+ * Modules notify CCK Private Fields module when enabled, disabled, etc.
+ *
+ * @param $op
+ *   The module operation: install, uninstall, enable, disable.
+ * @param $module
+ *   The name of the affected module.
+ */
+function cck_private_fields_notify($op, $module) {
+  module_load_include('inc', 'cck_private_fields', 'includes/common');
+  module_load_include('inc', 'cck_private_fields', 'includes/admin');
+  return _cck_private_fields_notify($op, $module);
+}
+
+/**
+ * Modules that provide field access control for Private status should
+ * invoke this function from its own hook_requirements('install')
+ * implementation.
+ */
+function cck_private_fields_check_install_requirements($module) {
+  module_load_include('inc', 'cck_private_fields', 'includes/common');
+  module_load_include('inc', 'cck_private_fields', 'includes/admin');
+  return _cck_private_fields_check_install_requirements($module);
+}

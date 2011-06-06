@@ -1,0 +1,28 @@
+<?php
+// $Id: groupadmin.install,v 1.1.4.1 2010/03/14 18:49:52 netgenius Exp $
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function groupadmin_uninstall() {
+  variable_del('groupadmin');
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function groupadmin_install() {
+  $msg = 'Please visit the !link page to configure Group Admin.';
+  $link = l(t('configuration'), 'admin/og/groupadmin');
+  drupal_set_message(t($msg, array('!link' => $link)), 'warning');
+}
+
+/**
+ * Implementation of hook_update()
+ */
+
+/*
+function groupadmin_update_1() {
+}
+*/
+

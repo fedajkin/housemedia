@@ -1,0 +1,97 @@
+
+Mon 15 Mar 2010 20:40:57 CET 
+
+-- To be released as Version 2.1 --
+
+* Minor fix so that full access is allowed for users with 'administer permissions' or 'administer groupadmin' permission.
+* Minor fix so that update confirmation page shows real-name (if available) instead of user-name.
+
+Mon 15 Mar 2010 ???
+
+-- To be released as Version 2.0-beta3. --
+
+* Completed GroupAdmin Profile module.
+* CP module - improved configuration page - now shows choices available for fields, and content type "friendly" name.
+* CP module - minor fixes in _groupadmin_cp_settings_validate.
+* Security: Added check that any text entries in settings page pass db_escape_string (not actually relevant currently are no text entry fields.)
+
+Mon 15 Mar 2010 11:57:27 CET 
+
+* Partially implemented GroupAdmin Profile module.
+* Moved GroupAdmin CP files into sub-directory.
+* Changed version number in .info files to 2.x
+
+Sun 14 Mar 2010 20:16:27 CET 
+
+* Fixed "node does not exist" error that be generated in config screen if node fields were left blank.
+
+Fri 12 Mar 2010 03:34:36 CET 
+
+-- To be released as Version 2.0-beta2. --
+
+* Completed GroupAdmin CP module.
+* Added check that nodes exist when validating config form.
+* Add supporting code for GroupAdmin CP module.
+* Added message on install with link to config page.
+* Started adding "pending" members view.
+* Fixed access to config page: if "more permissions" is not enabled, config page access is allowed to users with "adminster permissions" permission.
+* Fixed comaptibility with OG 2 (now using support OG functions).
+* Tidied various messages.
+
+Fri 12 Mar 2010 03:34:36 CET
+
+* Partial implementation of "context" based configuration (inactive.)
+* Tidy up for beta release
+
+Mon 22 Feb 2010 14:22:53 CET
+
+* Updated groupadmin_settings to allow select lists and radios.
+* Completely re-worked permissions to allow more flexibility.
+
+Fri 19 Feb 2010 13:36:50 CET
+
+* Changed link title to "Members" instead of "Manage" to be consistent with non-admin access.
+
+Fri 19 02 2010 02:42:27 AM CET
+
+* Tidied code in numerous places.
+* Added ability to search for group admins.
+* Improved queries for reduced load.
+* Added option to reset display after adding a new member (previously was default behavior.)
+* Continued addition of support for groupadmin-cp module (Contact Profile integration).
+
+* Moved config. page to "Organic Groups" menu.
+* Added config. options to control where GroupAdmin page can be accessed
+* Added option to include GroupAdmin link on group node display.
+* Do menu_rebuild when relevant config. options are changed.
+
+Tue 02 Feb 2010 00:51:25 CET
+
+* Added new supporting module groupadmin-cp to support first/lastname from nodes created by Content Profile (etc.)
+* Added configurable options to support the above.
+* Changed configuration page to suit.
+
+---- Below here is v1.x ----
+
+Wed 30 Sep 2009 04:40:02 PM CEST
+
+* Added 'manage' heading for add/remove links.
+
+Wed 30 Sep 2009 03:46:59 PM CEST
+
+* #591958 by VladSavitsky, hide standard OG "Add members" tab.
+* Added configurable option to prevent display/search of email addresses (for privacy.)
+
+Fri 25 Sep 2009 12:48:31 PM CEST
+
+* Code tidy-up.
+
+Fri 17 Apr 2009 02:12:24 PM CEST
+
+* Page moved to tab at /og/users/1234/groupadmin where 1234 is gid.
+* Help added (see config to configure nid for help.)
+* After adding member, blank search criteria on return to list.
+
+Thu 05 Feb 2009 03:39:32 AM CET
+Initial release.
+

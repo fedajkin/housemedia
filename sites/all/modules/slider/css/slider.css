@@ -1,0 +1,84 @@
+/* $Id: slider.css,v 1.1 2008/10/15 10:04:26 marktheunissen Exp $ */
+
+/**
+ * Standard CSS for the slider.
+ * Overrride these values in your theme's CSS file
+ */
+
+#sliderwrapper {
+  width: 760px;
+  margin: 0 auto;
+}
+
+#slider {
+  width: 620px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.scroll {
+  height: 250px;
+  width: 620px;
+  overflow: auto;
+  overflow-x: hidden;
+  position: relative;
+  clear: left;
+}
+
+.scrollContainer div.panel {
+  padding: 20px;
+  height: 210px;
+  width: 580px;
+}
+
+ul.slidenav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 9px;
+}
+
+ul.slidenav .slidetab-active {
+  background-color: #e6e6e6;
+}
+
+ul.slidenav li {
+  display: inline;
+  margin-right: 10px;
+}
+
+ul.slidenav a {
+  padding: 10px;
+  color: #000;
+  text-decoration: none;
+}
+
+ul.slidenav a:hover {
+  background-color: #e6e6e6;
+}
+
+ul.slidenav a.selected {
+  background-color: #fff;
+}
+
+ul.slidenav a:focus {
+  outline: none;
+}
+
+.scrollButtons {
+  position: absolute;
+  top: 150px;
+  cursor: pointer;
+}
+
+.scrollButtons.left {
+  left: -20px;
+}
+
+.scrollButtons.right {
+  right: -20px;
+}
+
+.hide {
+  display: none;
+}

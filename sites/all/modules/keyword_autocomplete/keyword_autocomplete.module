@@ -1,0 +1,483 @@
+<?php
+// $Id: keyword_autocomplete.module,v 1.3 2009/02/16 15:11:09 rszrama Exp $
+
+/**
+ * @file
+ * Adds an autocomplete feature to search forms so prior search keywords appear
+ *   in a list weighted by number of searches.
+ */
+
+
+/**
+ * Implementation of hook_menu().
+ */
+function keyword_autocomplete_menu() {
+  $items = array();
+
+  $items['search/keyword-autocomplete'] = array(
+    'page callback' => 'keyword_autocomplete_keywords',
+    'access arguments' => array('view keyword autocomplete'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/settings/keyword-autocomplete'] = array(
+    'title' => 'Keyword autocomplete',
+    'description' => 'Administer searched keywords and settings.',
+    'page callback' => 'keyword_autocomplete_admin',
+    'access arguments' => array('administer keyword autocomplete'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/settings/keyword-autocomplete/keywords'] = array(
+    'title' => 'Keywords',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['admin/settings/keyword-autocomplete/add'] = array(
+    'title' => 'Add keywords',
+    'description' => 'Add keywords to the autocomplete table.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('keyword_autocomplete_edit_form', '0'),
+    'access arguments' => array('administer keyword autocomplete'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => -5,
+  );
+  $items['admin/settings/keyword-autocomplete/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Adjust the settings for the keyword autocomplete module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('keyword_autocomplete_settings_form'),
+    'access arguments' => array('administer keyword autocomplete'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+  );
+  $items['admin/settings/keyword-autocomplete/%/edit'] = array(
+    'title' => 'Edit keywords',
+    'description' => 'Update keywords in the autocomplete table.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('keyword_autocomplete_edit_form', 3),
+    'access arguments' => array('administer keyword autocomplete'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/settings/keyword-autocomplete/%/delete'] = array(
+    'title' => 'Delete keywords',
+    'description' => 'Delete keywords from the autocomplete table.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('keyword_autocomplete_delete_form', 3),
+    'access arguments' => array('administer keyword autocomplete'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function keyword_autocomplete_perm() {
+  return array('administer keyword autocomplete', 'view keyword autocomplete');
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function keyword_autocomplete_form_alter(&$form, &$form_state, $form_id) {
+  // Act only on search forms...
+  if ($form_id == 'search_form' || $form_id == 'search_theme_form' || $form_id = 'search_block_form') {
+    // Add the autocomplete path to the various keyword textfields.
+    if (user_access('view keyword autocomplete')) {
+      // Load an array of forms to apply the keyword autocomplete to.
+      $forms = variable_get('keyword_autocomplete_forms', array());
+
+      // The normal search form.
+      if ($form_id == 'search_form' && $forms['search_form'] === 'search_form' && arg(0) != 'admin' && arg(1) != 'user') {
+        $form['basic']['inline']['keys']['#autocomplete_path'] = 'search/keyword-autocomplete';
+      }
+
+      // The search form embedded in the theme.
+      if ($form_id == 'search_theme_form' && $forms['search_theme_form'] === 'search_theme_form') {
+        $form['search_theme_form']['#autocomplete_path'] = 'search/keyword-autocomplete';
+      }
+
+      // The form in the search block.
+      if ($form_id == 'search_block_form' && $forms['search_block_form'] === 'search_block_form') {
+        $form['search_block_form']['#autocomplete_path'] = 'search/keyword-autocomplete';
+      }
+    }
+
+    // Set a custom submit handler to store the keywords in the database.
+    $form['#submit'][] = 'keyword_autocomplete_search_form_submit';
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function keyword_autocomplete_theme() {
+  return array(
+    'total_keyword' => array(
+      'arguments' => array('count' => 0),
+    ),
+  );
+}
+
+// Stores keyword information in the database.
+function keyword_autocomplete_search_form_submit($form, &$form_state) {
+  $keywords = '';
+
+  // Get the search keywords based on the form.
+  if ($form_state['values']['form_id'] == 'search_form') {
+    $keywords = trim($form_state['values']['keys']);
+  }
+  elseif ($form_state['values']['form_id'] == 'search_theme_form') {
+    $keywords = trim($form_state['values']['search_theme_form']);
+  }
+  elseif ($form_state['values']['form_id'] == 'search_block_form') {
+    $keywords = trim($form_state['values']['search_block_form']);
+  }
+
+  // Save the keywords to the database if they're valid.
+  if (!empty($keywords) && keyword_autocomplete_validate_keywords($keywords)) {
+    keyword_autocomplete_save_keywords($keywords, $form_id);
+  }
+}
+
+// Validates a keywords string and returns TRUE if the keywords were valid.
+function keyword_autocomplete_validate_keywords($keywords) {
+  // Parse the keywords like do_search().
+  $query = search_parse_query($keywords);
+
+  // Only save the keywords if we had good keywords.
+  if ($query === NULL || $query[0] == '' || $query[2] == '') {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}
+
+/**
+ * Saves a keywords string to the database.
+ *
+ * @param $keywords
+ *   The keywords string from the search.
+ * @param $source
+ *   The source of the search; usually the form_id of the search form.
+ * @param $count
+ *   When saving a new row, the initial value to insert for search_count.
+ */
+function keyword_autocomplete_save_keywords($keywords, $source = NULL, $count = 1) {
+  // Grab the existing data for the keywords.
+  $result = db_query("SELECT * FROM {keyword_autocomplete_keywords} WHERE search_keywords = '%s'", $keywords);
+
+  // If we found it, then update the row with some new data.
+  if ($data = db_fetch_array($result)) {
+    // Unpack the sources array.
+    $sources = unserialize($data['sources']);
+
+    // If a source is specified...
+    if (!empty($source)) {
+      // Increment the source count if it already exists.
+      if (isset($sources[$source])) {
+        $sources[$source]++;
+      }
+      else {
+        // Otherwise set it to 1.
+        $sources[$source] = 1;
+      }
+    }
+
+    // Update the database with the new information.
+    db_query("UPDATE {keyword_autocomplete_keywords} SET search_count = search_count + 1, last_search = %d, sources = '%s' WHERE keyword_id = %d", time(), serialize($sources), $data['keyword_id']);
+  }
+  else {
+    // Otherwise save a new row!
+    $sources = array();
+
+    // Set the source if one is specified.
+    if (!empty($source)) {
+      $sources[$source] = 1;
+    }
+
+    // Save the row to the database.
+    db_query("INSERT INTO {keyword_autocomplete_keywords} (search_keywords, search_count, sources, last_search) VALUES ('%s', %d, '%d', %d)",
+      $keywords, $count, serialize($sources), time());
+  }
+}
+
+/**
+ * Loads the data for a set of search keywords by the keyword ID.
+ *
+ * @param $keyword_id
+ *   The numeric ID of the keywords string in the database.
+ * @return
+ *   An array of data for the keywords from the database.
+ */
+function keyword_autocomplete_load_data($keyword_id) {
+  // Take care of the ID 0 which represents a new row in the table.
+  if ($keyword_id == 0) {
+    return array();
+  }
+
+  // Load any appropriate data from the database.
+  $result = db_query("SELECT * FROM {keyword_autocomplete_keywords} WHERE keyword_id = %d", $keyword_id);
+
+  // If we found a row...
+  if ($data = db_fetch_array($result)) {
+    // Then return the data array.
+    return $data;
+  }
+  else {
+    // Otherwise return an empty array.
+    return array();
+  }
+}
+
+// Returns an autocomplete list for search keywords on various search forms.
+function keyword_autocomplete_keywords($string = '') {
+  $matches = array();
+
+  // If the user has started typing something...
+  if ($string) {
+    // Pull up relevant results from the database.
+    $result = db_query_range("SELECT search_keywords FROM {keyword_autocomplete_keywords} WHERE LOWER(search_keywords) LIKE LOWER('%s%%') ORDER BY search_count DESC, last_search DESC", $string, 0, variable_get('keyword_autocomplete_matches', 10));
+    while ($data = db_fetch_object($result)) {
+      $matches[$data->search_keywords] = check_plain($data->search_keywords);
+    }
+  }
+
+  // Print out the matches in the format expected by autocomplete.js.
+  drupal_json($matches);
+}
+
+// Displays a table for viewing and administering saved keywords.
+function keyword_autocomplete_admin($filter = '') {
+  $args = array();
+  $rows = array();
+
+  // Build the header for the admin table.
+  $header = array(
+    array('data' => t('Keywords'), 'field' => 'search_keywords', 'sort' => 'asc'),
+    array('data' => t('Count'), 'field' => 'search_count'),
+    array('data' => t('Last search'), 'field' => 'last_search'),
+    t('Operations'),
+  );
+
+  // Build the appropriate query to load keyword data.
+  if (empty($filter)) {
+    $query = "SELECT * FROM {keyword_autocomplete_keywords}";
+  }
+  else {
+    $query = "SELECT * FROM {keyword_autocomplete_keywords} WHERE LOWER(search_keywords) LIKE LOWER('%s')";
+    $args = array(str_replace('*', '%%', $filter));
+  }
+
+  // Grab the keywords from the database.
+  $result = pager_query($query . tablesort_sql($header), variable_get('keyword_table_size', 30), 0, NULL, $args);
+
+  // Loop through the results and build the table rows.
+  while ($data = db_fetch_array($result)) {
+    // Build the operations links for the row.
+    $ops = array(
+      l(t('edit'), 'admin/settings/keyword-autocomplete/'. $data['keyword_id'] .'/edit'),
+      l(t('delete'), 'admin/settings/keyword-autocomplete/'. $data['keyword_id'] .'/delete'),
+    );
+
+    // Add the search keywords row to the table.
+    $rows[] = array(
+      check_plain($data['search_keywords']),
+      $data['search_count'],
+      format_date($data['last_search'], 'small'),
+      implode(' ', $ops),
+    );
+  }
+
+  // Account for an empty table.
+  if (empty($rows)) {
+    $rows[] = array(
+      array('data' => t('No keywords found.'), 'colspan' => 4),
+    );
+  }
+  else {
+    // Count how many keywords have been saved.
+    $count = db_result(db_query("SELECT COUNT(keyword_id) FROM {keyword_autocomplete_keywords}"));
+  }
+
+  return drupal_get_form('keyword_autocomplete_admin_filter_form', $filter)
+       . theme('total_keywords', $count) . theme('table', $header, $rows) . theme('pager');
+}
+
+// Themes the total number of keywords for display above the admin table.
+function theme_total_keywords($count) {
+  return '<div class="total-keywords">'. t('Total rows: !count', array('!count' => $count)) .'</div>';
+}
+
+// Displays a form to filter keywords displayed in the admin table.
+function keyword_autocomplete_admin_filter_form($form_state, $filter = '') {
+  $form['filter'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Keywords filter'),
+    '#description' => t('Enter a search filter for the displayed keywords.  Use * as a wildcard.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => empty($filter),
+  );
+
+  $form['filter']['filter_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Filter'),
+    '#default_value' => $filter,
+  );
+
+  $form['filter']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Apply filter'),
+    '#suffix' => empty($filter) ? '' : l(t('Remove filter'), 'admin/settings/keyword-autocomplete'),
+  );
+
+  return $form;
+}
+
+function keyword_autocomplete_admin_filter_form_submit($form, &$form_state) {
+  // Trim the input for the filter text.
+  $filter = trim($form_state['values']['filter_text']);
+
+  // Redirect to the filtered URL.
+  if (!empty($filter)) {
+    return 'admin/settings/keyword-autocomplete/'. $filter;
+  }
+}
+
+// Displays the search keywords edit form.
+function keyword_autocomplete_edit_form($form_state, $keyword_id) {
+  $data = keyword_autocomplete_load_data($keyword_id);
+
+  $form['keyword_id'] = array(
+    '#type' => 'value',
+    '#value' => $data['keyword_id'],
+  );
+
+  $form['search_keywords'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Search keywords'),
+    '#description' => t('The keywords to match on in autocomplete results.'),
+    '#maxlength' => 255,
+    '#default_value' => $data['search_keywords'],
+    '#disabled' => !empty($data['search_keywords']),
+    '#required' => TRUE,
+  );
+
+  $form['search_count'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Search count'),
+    '#description' => t('The search counter for these terms. Higher counts display first.'),
+    '#default_value' => empty($data['search_count']) ? 1 : $data['search_count'],
+    '#required' => TRUE,
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit'),
+    '#suffix' => l(t('Cancel'), 'admin/settings/keyword-autocomplete'),
+  );
+
+  return $form;
+}
+
+function keyword_autocomplete_edit_form_validate($form, &$form_state) {
+  if (!is_numeric($form_state['values']['search_count']) || intval($form_state['values']['search_count']) <= 0) {
+    form_set_error('search_count', t('Search count must be a positive whole number.'));
+  }
+}
+
+function keyword_autocomplete_edit_form_submit($form, &$form_state) {
+  // If the submission was for a new set of keywords...
+  if ($form_state['values']['keyword_id'] == 0) {
+    $keywords = $form_state['values']['search_keywords'];
+
+    // Grab the keyword ID for the keyword string if it's already saved.
+    $result = db_result(db_query("SELECT keyword_id FROM {keyword_autocomplete_keywords} WHERE search_keywords = '%s'", $keywords));
+
+    // If we found an ID, display a message and redirect to its edit form.
+    if ($result > 0) {
+      drupal_set_message(t('Those keywords have already been saved. You have been redirected to the edit form and may update its values accordingly.'));
+      $form_state['redirect'] = 'admin/settings/keyword-autocomplete/'. $result .'/edit';
+    }
+
+    // Otherwise save the new keyword string.
+    keyword_autocomplete_save_keywords($keywords, NULL, $form_state['values']['search_count']);
+
+    drupal_set_message(t('%keywords saved to the autocomplete table.', array('%keywords' => $keywords)));
+    $form_state['redirect'] = 'admin/settings/keyword-autocomplete';
+  }
+
+  // Update values for an existing keywords row.
+  db_query("UPDATE {keyword_autocomplete_keywords} SET search_count = %d, last_search = %d WHERE keyword_id = %d",
+    intval($form_state['values']['search_count']), time(), $form_state['values']['keyword_id']);
+
+  drupal_set_message(t('%keywords values have been updated.', array('%keywords' => $form_state['values']['search_keywords'])));
+  $form_state['redirect'] = 'admin/settings/keyword-autocomplete';
+}
+
+// Displays the delete confirmation form.
+function keyword_autocomplete_delete_form($form_state, $keyword_id) {
+  // Load the keywords data from the database.
+  $data = keyword_autocomplete_load_data($keyword_id);
+
+  // Fail out if an invalid keyword ID was entered.
+  if (empty($data)) {
+    drupal_set_message(t('No keywords have been saved with that ID.'), 'error');
+    drupal_goto('admin/settings/keyword-autocomplete');
+  }
+
+  $form['keyword_id'] = array(
+    '#type' => 'value',
+    '#value' => $keyword_id,
+  );
+
+  return confirm_form($form, t('Are you sure you want to delete the data for %keywords?', array('%keywords' => $data['search_keywords'])), 'admin/settings/keyword-autocomplete', NULL, t('Delete'));
+}
+
+function keyword_autocomplete_delete_form_submit($form, &$form_state) {
+  // Load the keywords data from the database.
+  $data = keyword_autocomplete_load_data($form_state['values']['keyword_id']);
+
+  // Delete the data from the table and display a confirmation message.
+  db_query("DELETE FROM {keyword_autocomplete_keywords} WHERE keyword_id = %d", $data['keyword_id']);
+  drupal_set_message(t('%keywords data deleted from the autocomplete table.', array('%keywords' => $data['search_keywords'])));
+
+  $form_state['redirect'] = 'admin/settings/keyword-autocomplete';
+}
+
+// Displays the module settings form.
+function keyword_autocomplete_settings_form() {
+  $form = array();
+
+  $form['keyword_table_size'] = array(
+    '#type' => 'select',
+    '#title' => t('Keyword admin table size'),
+    '#description' => t('Adjusts the number of rows in the table on the Keywords tab.'),
+    '#options' => drupal_map_assoc(array(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)),
+    '#default_value' => variable_get('keyword_table_size', 30),
+  );
+
+  $form['keyword_autocomplete_forms'] = array(
+    '#type' => 'checkboxes',
+    '#title' => t('Add keyword autocomplete to these forms'),
+    '#description' => t('Keywords will only appear for users with %perm access.', array('%perm' => 'view keyword autocomplete')),
+    '#options' => array(
+      'search_form' => t('The normal search form.'),
+      'search_theme_form' => t('The search form embedded in the theme.'),
+      'search_block_form' => t('The form in the search block.'),
+    ),
+    '#default_value' => variable_get('keyword_autocomplete_forms', array()),
+  );
+
+  $form['keyword_autocomplete_matches'] = array(
+    '#type' => 'select',
+    '#title' => t('Number of autocomplete matches'),
+    '#description' => t('Adjusts the number of keywords that pops up on autocomplete textfields.'),
+    '#options' => drupal_map_assoc(array(5, 10, 15, 20, 25)),
+    '#default_value' => variable_get('keyword_autocomplete_matches', 10),
+  );
+
+  return system_settings_form($form);
+}
+

@@ -1,0 +1,11 @@
+/* $Id: sweaver_plugin.admin.css,v 1.1.2.1 2010/09/30 13:54:02 swentel Exp $ */
+
+/* Plugins configuration */
+
+#plugins-configuration-form .form-checkbox {
+  float: left;
+}
+#plugins-configuration-form .description {
+  float: left;
+  margin-left: 5px;
+}

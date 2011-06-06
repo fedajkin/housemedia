@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Implementation of hook_init().
+ */
+function views_jsgantt_init() {
+  $jsgantt_dir = drupal_get_path('module', 'views_jsgantt');
+  drupal_add_js($jsgantt_dir . "/jsgantt/jsgantt.js");
+  drupal_add_css($jsgantt_dir . "/jsgantt/jsgantt.css");
+  drupal_add_css($jsgantt_dir . "/views_jsgantt.css");
+  drupal_add_css($jsgantt_dir . "/jsgantt/jsgantt-print.css", "module", "print");
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_jsgantt_views_api() {
+  return array(
+    'api' => 2,
+  );
+}

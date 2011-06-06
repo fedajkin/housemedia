@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Implementation of hook_menu().
+ */
+function ct_plus_convert_storm_menu() {
+  $items = array();
+  $items['admin/settings/ct_plus_convert_storm'] = array(
+    'title' => 'CT Plus Convert Storm',
+    'description' => "Convert from Storm to Case Tracker Plus.",
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ct_plus_convert_storm_convert_confirm'),
+    'type' => MENU_NORMAL_ITEM,
+    );
+  $items['admin/settings/ct_plus_convert_storm/reset_storm'] = array(
+    'title' => 'Reset CT Plus content to Storm',
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ct_plus_convert_storm_reset_confirm'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+    );
+  return $items;
+}
+
+/**
+ * Menu callback: confirm conversion.
+ */
+function ct_plus_convert_storm_convert_confirm() {
+  return confirm_form(array(), t('Are you sure you want to convert all Storm nodes to CT Plus equivalents?'),
+    'admin/settings/ct_plus', t('This action will only affect the tables associated with CT Plus task nodes.
+                                It will not alter any current Storm content.
+                                It can be "undone" using the reset feature, as long as you do not have existing CT Plus task nodes or Comment Driven activity.'),
+                              t('Convert Storm nodes'), t('Cancel'));
+}
+
+/**
+ * Menu callback: confirm reset.
+ */
+function ct_plus_convert_storm_reset_confirm() {
+  return confirm_form(array(), t('Are you sure you want to revert all CT plus content to Storm equivalents?'),
+    'admin/settings/ct_plus', t('This action will making sweeping and irreversible changes to your database, and will delete all Comment Drivne activity logs. Use with extreme caution.
+    This action cannot be undone.'), t('Reset CT Plus content'), t('Cancel'));
+}
+
+/**
+ * Handler for convert confirmation
+ */
+function ct_plus_convert_storm_convert_confirm_submit($form, &$form_state) {
+  ct_plus_convert_storm_convert();
+  drupal_set_message('Conversion complete - do not attempt to re-run the conversion without first resetting.');
+}
+
+/**
+ * Handler for reset confirmation
+ */
+function ct_plus_convert_storm_reset_confirm_submit($form, &$form_state) {
+  ct_plus_convert_storm_reset();
+  drupal_set_message('Reset complete.');
+}
+
+function ct_plus_convert_storm_convert() {
+  // Projects are easy - no bonus fields to convert, just the node type
+  db_query("UPDATE {node} SET type = 'ct_plus_project' WHERE type = 'stormproject'");
+  // Cases are difficult - need to convert node type, then casetracker_case to cck
+  db_query("UPDATE {node} SET type = 'ct_plus_task' WHERE type = 'stormtask'");
+  // Convert casetracker_basic_case CCK fields and custom fields to ct_plus_task CCK fields
+  $result = db_query("SELECT * FROM {stormtask}");
+  while ($row = db_fetch_object($result)) {
+    // For each task
+    $priority = ct_plus_convert_storm_state($row->taskpriority);
+    $type = ct_plus_convert_storm_state($row->taskcategory);
+    $status = ct_plus_convert_storm_state($row->taskstatus);
+    $progress = 0;
+    $format = '%Y-%m-%dT%T';
+    $from = strftime($format, $row->datebegin);
+    $to = strftime($format, $row->dateend);
+    db_query("INSERT INTO {content_type_ct_plus_task} (vid, nid, field_ct_plus_duration_value, field_ct_plus_duration_value2, field_ct_plus_priority_value, field_ct_plus_progress_value, field_ct_plus_project_nid, field_ct_plus_status_value, field_ct_plus_type_value)
+             VALUES ($row->vid, $row->nid, '$from', '$to', '$priority', $progress, $row->project_nid, '$status', '$type')");
+    if ($row->assigned_nid != 0) {
+      db_query("INSERT INTO {content_field_ct_plus_assignees} (vid, nid, delta, field_ct_plus_assignees_uid) VALUES ($row->vid, $row->nid, 0, $row->assigned_nid)");
+    }
+  }
+}
+
+function ct_plus_convert_storm_state($state) {
+  $map = array( '1-low' => 'Low',
+'2-medium' => 'Normal',
+'3-high' => 'High',
+'in progress' => 'Open',
+'inserted' => 'Open',
+'completed' => 'Resolved',
+'on hold' => 'Deferred',
+'bug' => 'Bug',
+'task' => 'General Task',
+);
+  return $map[$state];
+}
+
+function ct_plus_convert_storm_reset() {
+  db_query("UPDATE {node} SET type = 'stormproject' WHERE type = 'ct_plus_project'");
+  db_query("UPDATE {node} SET type = 'stormtask' WHERE type = 'ct_plus_task'");
+  db_query("TRUNCATE TABLE {content_type_ct_plus_task}");
+  db_query("TRUNCATE TABLE {content_field_ct_plus_assignees}");
+}

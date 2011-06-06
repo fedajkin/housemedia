@@ -1,0 +1,59 @@
+<?php
+// $Id: cck_private_fields_user_relationships.install,v 1.1.2.2 2009/09/06 19:25:51 markuspetrux Exp $
+
+/**
+ * @file
+ * Implementation of installation/uninstallation hooks.
+ */
+
+/**
+ * Implementation of hook_requirements('install').
+ */
+function cck_private_fields_user_relationships_requirements($phase) {
+  if ($phase == 'install') {
+    // Check installation requirements for this module.
+    drupal_load('module', 'cck_private_fields');
+    return cck_private_fields_check_install_requirements('cck_private_fields_user_relationships');
+  }
+}
+
+/**
+ * Implementation of hook_enable().
+ */
+function cck_private_fields_user_relationships_enable() {
+  // Notify the CCK Private Fields module this one has been enabled.
+  drupal_load('module', 'cck_private_fields');
+  cck_private_fields_notify('enable', 'cck_private_fields_user_relationships');
+
+  // Alter the module weight so that our hook_form_alter() is executed
+  // just after the CCK Private Fields module (weight 10).
+  db_query("UPDATE {system} SET weight = 11 WHERE type = 'module' AND name = 'cck_private_fields_user_relationships'");
+}
+
+/**
+ * Implementation of hook_disable().
+ */
+function cck_private_fields_user_relationships_disable() {
+  // Notify the CCK Private Fields module this one has been disabled.
+  drupal_load('module', 'cck_private_fields');
+  cck_private_fields_notify('disable', 'cck_private_fields_user_relationships');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function cck_private_fields_user_relationships_uninstall() {
+  // Delete all module variables and then clear the variable cache.
+  db_query("DELETE FROM {variable} WHERE name LIKE 'cck\_private\_fields\_user\_relationships\_%'");
+  cache_clear_all('variables', 'cache');
+}
+
+/**
+ * Alter the module weight so that our hook_form_alter() is executed
+ * just after the CCK Private Fields module (weight 10).
+ */
+function cck_private_fields_user_relationships_update_6001() {
+  $ret = array();
+  $ret[] = update_sql("UPDATE {system} SET weight = 11 WHERE type = 'module' AND name = 'cck_private_fields_user_relationships'");
+  return $ret;
+}

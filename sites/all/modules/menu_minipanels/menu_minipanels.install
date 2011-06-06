@@ -1,0 +1,26 @@
+<?php
+// $Id: menu_minipanels.install,v 1.1 2010/10/17 00:20:49 willieseabrook Exp $
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function menu_minipanels_uninstall() {
+  variable_del('menu_minipanels_hover');
+}
+
+function menu_minipanels_requirements($phase) {
+  $t = get_t();
+  $requirements = array();
+  if ($phase == 'runtime') {
+    $path = drupal_get_path('module', 'menu_minipanels');
+    if (!file_exists($path . '/js/lib/jquery.qtip-1.0.0-rc3.min.js')) {
+      $requirements['menu_minipanels'] = array(
+        'title' => $t('Menu minipanels'),
+        'description' => $t('Menu Minipanels module is enabled, but the qTip library has not been downloaded. This module will not work without qTip! Please see README.txt for instructions on how to download qTip.'),
+        'severity' => REQUIREMENT_ERROR,
+        'value' => $t('qTip library not found')
+      );
+    }
+  }
+  return $requirements;
+}

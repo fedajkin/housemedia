@@ -1,0 +1,13 @@
+; $Id: menu_minipanels.info,v 1.1 2010/10/17 00:20:49 willieseabrook Exp $
+name = Menu Minipanels
+description = Specify a mini panel to appear when a user hovers over a menu item.
+core = 6.x
+package = "Menu"
+dependencies[] = menu
+dependencies[] = panels_mini
+; Information added by drupal.org packaging script on 2011-01-09
+version = "6.x-1.2"
+core = "6.x"
+project = "menu_minipanels"
+datestamp = "1294564925"
+

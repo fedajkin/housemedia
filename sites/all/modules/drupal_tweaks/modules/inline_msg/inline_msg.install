@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the inline messages module
+ */
+
+define('INLINE_MSG_ADMIN', 'admin/settings/inline_msg');
+
+/**
+ * Implementation of hook_install()
+ */
+function inline_msg_install() {
+  $link_admin = l(t("Administer > Site configuration > Inline Msg"), INLINE_MSG_ADMIN, array('attributes' => array('title' => t("Configure the Inline Messages Module"))));
+  drupal_set_message(t("Inline Messages modules settings are available at !link", array('!link' => $link_admin)));
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function inline_msg_uninstall() {
+  // display a confirmation message
+  drupal_set_message(t("Successfully uninstalled !module", array('!module' => 'Inline Msg')));
+}

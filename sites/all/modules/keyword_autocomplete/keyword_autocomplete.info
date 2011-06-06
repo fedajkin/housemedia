@@ -1,0 +1,11 @@
+; $Id: keyword_autocomplete.info,v 1.4 2009/02/16 15:11:09 rszrama Exp $
+name = Keyword Autocomplete
+description = Adds autocomplete for search keywords to specified search forms.
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-02-16
+version = "6.x-1.0-beta1"
+core = "6.x"
+project = "keyword_autocomplete"
+datestamp = "1234797334"
+

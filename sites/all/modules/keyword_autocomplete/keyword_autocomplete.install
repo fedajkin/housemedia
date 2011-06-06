@@ -1,0 +1,75 @@
+<?php
+// $Id: keyword_autocomplete.install,v 1.2 2009/02/16 15:11:09 rszrama Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function keyword_autocomplete_schema() {
+  $schema = array();
+
+  $schema['keyword_autocomplete_keywords'] = array(
+    'fields' => array(
+      'keyword_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'search_keywords' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'search_count' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'sources' => array(
+        'type' => 'text',
+      ),
+      'last_search' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'search_keywords' => array(array('search_keywords', 32)),
+    ),
+    'primary key' => array('keyword_id'),
+  );
+
+  return $schema;
+}
+
+function keyword_autocomplete_install() {
+  drupal_install_schema('keyword_autocomplete');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function keyword_autocomplete_uninstall() {
+  // Get rid of the table.
+  drupal_uninstall_schema('keyword_autocomplete');
+
+  // Get rid of the module variables.
+  variable_del('keyword_autocomplete_forms');
+}
+
+/**
+ * Implementations of hook_update_N().
+ */
+function keyword_autocomplete_update_6000() {
+  $ret = array();
+
+  db_drop_primary_key($ret, 'keyword_autocomplete_keywords');
+  db_change_field($ret, 'keyword_autocomplete_keywords', 'keyword_id', 'keyword_id',
+    array('type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE),
+    array('primary key' => array('keyword_id')));
+
+  return $ret;
+}

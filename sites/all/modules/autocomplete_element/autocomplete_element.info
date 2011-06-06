@@ -1,0 +1,10 @@
+name =  "Autocomplete Element"
+description = "Provides autocomplete form element which uses the jquery.autocomplete plugin rather than the default misc/autocomplete.js"
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-04-02
+version = "6.x-1.2"
+core = "6.x"
+project = "autocomplete_element"
+datestamp = "1270220103"
+

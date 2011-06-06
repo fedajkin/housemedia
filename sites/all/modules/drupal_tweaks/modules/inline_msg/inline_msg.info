@@ -1,0 +1,13 @@
+name = Inline Msg
+description = Move validation messages above the form elements.
+package = Drupal Tweaks
+core = 6.x
+dependencies[] = drupal_tweaks
+
+
+; Information added by drupal.org packaging script on 2011-03-15
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "drupal_tweaks"
+datestamp = "1300190893"
+

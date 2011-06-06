@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * @file
+ *   Simpletest plan
+ *
+ * @version
+ *
+ * @developers
+ *   Rafal Wieczorek <kenorb@gmail.com>
+ */
+
+/**
+ * TODO: TO FINISH
+ */
+
+/**
+ * Test plan for db_tweaks module
+ */
+class DBTweaksUnitTest extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => t('Verify settings'),
+      'description' => t('Verify settings get set through bootstrap process.'),
+      'group' => t('Database tweaks'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('db_tweaks');
+  }
+
+  /**
+   * Create two different users and make sure they see what they're supposed to.
+   */
+  function testSettingsAccess() {
+    $web_user = $this->drupalCreateUser(array('access content'));
+    $this->drupalLogin($web_user);
+    $this->drupalGet('admin/settings/db_tweaks');
+    $this->assertResponse(403, t('Access denied to settings page.'));
+
+    $web_user = $this->drupalCreateUser(array('administer database'));
+    $this->drupalLogin($web_user);
+    $this->drupalGet('admin/settings/db_tweaks');
+    $this->assertResponse(200, t('Access granted to settings page.'));
+    $this->assertRaw('Database Tweaks', t('Make sure that we are on the valid settings page.'));
+
+    global $db_type;
+    if ($db_type == 'mysql' || $db_type == 'mysqli') {
+      $mysql_sql_big_selects = variable_get('db_tweaks_mysql_sql_big_selects', (int)db_tweaks_get_mysql_variable('sql_big_selects'));
+      $this->assertFieldByName('mysql_sql_big_selects', $mysql_sql_big_selects == 0 ? 'OFF' : 'ON', t('Big selects field exists.'));
+      $this->assertFieldByName('mysql_max_join_size', variable_get('db_tweaks_mysql_max_join_size', (int)db_tweaks_get_mysql_variable('max_join_size')), t('Max join size field exists.'));
+      $mysql_max_allowed_packet = variable_get('db_tweaks_mysql_max_allowed_packet', (int)db_tweaks_get_mysql_variable('max_allowed_packet')/1024/1024);
+      $this->assertFieldByName('mysql_max_allowed_packet', $mysql_max_allowed_packet, t('Max allowed packet size field exists.'));
+      $this->assertFieldByName('mysql_wait_timeout', variable_get('db_tweaks_mysql_wait_timeout', (int)db_tweaks_get_mysql_variable('wait_timeout')), t('Wait timeout field exists.'));
+      $this->assertField('mysql_sql_mode[]', t('SQL mode field exists.'));
+    }
+    else {
+      $this->assertNoField('mysql_sql_big_selects', t('Big selects field exists.'));
+      $this->assertNoField('mysql_max_join_size', t('Max join size field exists.'));
+      $this->assertNoField('mysql_max_allowed_packet', t('Max allowed packet size field exists.'));
+      $this->assertNoField('mysql_wait_timeout', t('Wait timeout field exists.'));
+      $this->assertNoField('mysql_sql_mode', t('SQL mode field exists.'));
+    }
+  }
+
+  /**
+   * Verify the SQL mode is set during bootstrap.
+   */
+  function testSQLMode() {
+    $web_user = $this->drupalCreateUser(array('administer site configuration'));
+    $this->drupalLogin($web_user);
+
+    variable_set('db_tweaks_mysql_sql_mode', array('POSTGRESQL'));
+    $this->drupalGet('admin/reports/status');
+
+    $this->assertText('POSTGRESQL', t('Session SQL mode set to POSTGRESQL.'));
+
+    variable_set('db_tweaks_mysql_sql_mode', array('STRICT_ALL_TABLES'));
+    $this->drupalGet('admin/reports/status');
+    $this->assertText('STRICT_ALL_TABLES', t('Session SQL mode set to STRICT_ALL_TABLES.'));
+  }
+
+}

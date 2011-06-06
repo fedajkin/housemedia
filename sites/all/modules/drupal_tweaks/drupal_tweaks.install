@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ *   Installation file
+ *
+ * @version
+ *
+ * @developers
+ *   Rafal Wieczorek <kenorb@gmail.com>
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function drupal_tweaks_install() {
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function drupal_tweaks_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'drupal_tweaks_%%'");
+}
+

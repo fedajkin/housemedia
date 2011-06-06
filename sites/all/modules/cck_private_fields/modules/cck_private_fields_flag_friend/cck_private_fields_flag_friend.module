@@ -1,0 +1,22 @@
+<?php
+// $Id: cck_private_fields_flag_friend.module,v 1.1.2.4 2009/07/27 20:44:18 markuspetrux Exp $
+
+/**
+ * @file
+ * Interface between CCK Private Fields and Flag Friend.
+ */
+
+/**
+ * Implementation of hook_cck_private_fields_view_access().
+ */
+function cck_private_fields_flag_friend_cck_private_fields_view_access($field, $node, $account) {
+  $friend_flag = flag_get_flag('friend');
+  if ($friend_flag) {
+    // Grant access if both users are friends.
+    $friend_status = flag_friend_determine_friend_status($friend_flag, $node->uid, $account->uid);
+    return ($friend_status == FLAG_FRIEND_FLAGGED ? TRUE : FALSE);
+  }
+
+  // If no friendship status is available, deny access for privacy reasons.
+  return FALSE;
+}

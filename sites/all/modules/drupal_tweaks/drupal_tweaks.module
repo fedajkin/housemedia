@@ -1,0 +1,689 @@
+<?php
+
+/**
+ * @file
+ * Drupal tweaks settings to improve your functionality on your website
+ *
+ * @version
+ *
+ * @developers
+ *   Rafal Wieczorek <kenorb@gmail.com>
+ */
+
+/**
+ * Minimum recommended value of PHP max_execution_time limit.
+ */
+define('DRUPAL_MINIMUM_MAX_EXECUTION_TIME', '30'); 
+
+/**
+ * Implementation of hook_menu().
+ */
+function drupal_tweaks_menu() { 
+  $items['admin/drupal_tweaks'] = array(
+    'title' => 'Drupal Tweaks',
+    'description' => "Administer items related to Drupal tweaks.",
+    'position' => 'left',
+    'weight' => 0,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'), 
+  ); 
+
+  /* GENERAL PAGE */
+  $items['admin/drupal_tweaks/general'] = array(
+    'title' => 'General',
+    'description' => t('General module and node operations.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_general_op_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.inc',
+    'type' => MENU_NORMAL_ITEM | MENU_DEFAULT_LOCAL_TASK,
+  );
+
+  /* OPERATION PAGE */
+  $items['admin/drupal_tweaks/modules'] = array(
+    'title' => 'Modules',
+    'description' => t('Module manager.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_modules_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.modules.inc',
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+
+  /* OPERATION PAGE */
+  $items['admin/drupal_tweaks/op'] = array(
+    'title' => 'Operations',
+    'description' => t('Flush operations (clear cache, rebuild permissions, etc.)'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_op_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.op.inc',
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 2,
+  );
+  $items['admin/drupal_tweaks/op/rebuild_perm'] = array(
+    'title' => 'Rebuild permissions',
+    'page arguments' => array('drupal_tweaks_rebuild_perm_confirm'),
+    'file' => 'includes/drupal_tweaks.admin.op.inc',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+  ); 
+  $items['admin/drupal_tweaks/op/clear_cache'] = array(
+    'title' => 'Rebuild cache',
+    'page arguments' => array('drupal_tweaks_clear_cache_submit'),
+    'file' => 'includes/drupal_tweaks.admin.op.inc',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+  ); 
+  if (module_exists('form2block')) {
+    /* BLOCK PAGE */
+    $items['admin/drupal_tweaks/block'] = array(
+      'title' => 'Block',
+      'description' => t('Convert any form or node into block.'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('form2block_settings_form'),
+      'access arguments' => array('administer drupal_tweaks'),
+      'file' => 'form2block.admin.inc', 
+      'file path' => drupal_get_path('module', 'form2block'), 
+      'type' => MENU_LOCAL_TASK,
+      'weight' => 3,
+    );
+  }
+
+  /* MSGS PAGE */
+  $items['admin/drupal_tweaks/msgs'] = array(
+    'title' => 'Msgs',
+    'description' => t('Configure drupal messages behaviour'),
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('drupal_tweaks_msgs_settings_form'), 
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.msgs.inc', 
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 4,
+  );
+
+  /* MSGS PAGE */
+/* TODO:
+  $items['admin/drupal_tweaks/msgs_new'] = array(
+    'title' => 'Msgs',
+    'description' => t('Configure drupal messages behaviour'),
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('drupal_tweaks_msg_rules_form'), 
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.msgs.inc', 
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 4,
+  );
+*/
+
+  if (module_exists('inline_msg')) {
+    /* INLINE MSG PAGE */
+/* Nothing here at the moment
+    $items['admin/drupal_tweaks/inline_msg'] = array(
+      'title' => 'Inline Msg',
+      'description' => t('Move validation messages above form elements.'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('inline_msg_admin_settings'),
+      'access arguments' => array('administer inline msg'),
+      'file' => 'inline_msg.admin.inc', 
+      'file path' => drupal_get_path('module', 'inline_msg'), 
+      'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+      'weight' => 3,
+    );
+*/
+  }
+
+  /* PHP SETTINGS PAGE */
+  $items['admin/drupal_tweaks/php'] = array(
+    'title' => 'PHP',
+    'description' => t('PHP Settings.'),
+    'page callback' => 'drupal_get_form', 
+    'page arguments' => array('drupal_tweaks_php_settings_form'), 
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.php.inc', 
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 5,
+  );
+
+  if (module_exists('db_tweaks')) {
+    /* DB SETTINGS PAGE */
+    $items['admin/drupal_tweaks/db'] = array(
+      'title' => 'DB',
+      'description' => t('Database Settings.'),
+      'page callback' => 'drupal_get_form', 
+      'page arguments' => array('db_tweaks_settings_form'), 
+      'access arguments' => array('administer drupal_tweaks'),
+      'file' => 'db_tweaks.admin.inc', 
+      'file path' => drupal_get_path('module', 'db_tweaks'), 
+      'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+      'weight' => 6,
+    );
+  }
+
+  /* TWEAKS MODULE PAGE */
+  $items['admin/drupal_tweaks/module_tweaks'] = array(
+    'title' => 'Tweaks',
+    'description' => t('Tweaks settings for Drupal modules.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_general_tweaks_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.tweaks.inc',
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 7,
+  );
+
+  /* SETTINGS PAGE */
+  $items['admin/drupal_tweaks/settings'] = array(
+    'title' => 'Settings',
+    'description' => t('Drupal Tweaks module settings.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_general_settings_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.settings.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 8,
+  );
+
+  /* BOOTSTRAP PAGE */
+  $items['admin/drupal_tweaks/bootstrap'] = array(
+    'title' => 'Bootstrap',
+    'description' => t('Execute bootstrap PHP code.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_bootstrap_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.bootstrap.inc',
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 9,
+  );
+
+  /* REPORT PAGE */
+  $items['admin/drupal_tweaks/suggestions'] = array(
+    'title' => 'Suggestions',
+    'description' => t('Check for problems or suggestions with your website.'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_tweaks_report_form'),
+    'access arguments' => array('administer drupal_tweaks'),
+    'file' => 'includes/drupal_tweaks.admin.suggestions.inc',
+    'type' => MENU_NORMAL_ITEM | MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+
+  /* AJAX CALLBACKS */
+  $items['admin/drupal_tweaks/autocomplete/enabled_modules'] = array(
+    'title' => 'Enable the module.',
+    'page callback' => 'drupal_tweaks_autocomplete_modules',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/drupal_tweaks.ajax.inc',
+  );
+  $items['admin/drupal_tweaks/autocomplete/disabled_modules'] = array(
+    'title' => 'Disable the module.',
+    'page callback' => 'drupal_tweaks_autocomplete_modules',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/drupal_tweaks.ajax.inc',
+  );
+  $items['admin/drupal_tweaks/autocomplete/nodes'] = array(
+    'title' => 'Find the node.',
+    'page callback' => 'drupal_tweaks_autocomplete_nodes',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/drupal_tweaks.ajax.inc',
+  );
+  $items['admin/drupal_tweaks/autocomplete/users'] = array(
+    'title' => 'Find the node.',
+    'page callback' => 'drupal_tweaks_autocomplete_users',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/drupal_tweaks.ajax.inc',
+  );
+  $items['admin/drupal_tweaks/autocomplete/form_id'] = array(
+    'title' => 'Find the node.',
+    'page callback' => 'drupal_tweaks_autocomplete_form_id',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/drupal_tweaks.ajax.inc',
+  );
+  $items['admin/drupal_tweaks/autocomplete/filter_modules'] = array(
+    'title' => 'Filter the module.',
+    'page callback' => 'drupal_tweaks_filter_modules',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer drupal_tweaks'),
+    'type' => MENU_CALLBACK,
+    'file' => 'includes/drupal_tweaks.ajax.inc',
+  );
+
+  return $items;
+}
+
+
+/**
+ * Implementation of hook_init().
+ */
+function drupal_tweaks_boot() {
+  /* check if cache has been cleared */
+  global $drupal_tweaks_cache_cleared;
+  $drupal_tweaks_cache_cleared = !(bool)cache_get('theme_registry:' . variable_get('theme_default','none'), 'cache');
+
+  /* LOAD BOOTSTRAP CODE */
+  if (variable_get('drupal_tweaks_bootstrap_code_activated', FALSE) && $code = variable_get('drupal_tweaks_bootstrap_code', '')) {
+    eval($code);
+  }
+
+  /* PHP TWEAKS */
+  if (variable_get('drupal_tweaks_php_activated', FALSE)) {
+    /* LOAD INCLUDES */
+    /*
+    include_once './includes/common.inc'; // for t() called from menu_get_item() AND drupal_get_path() called from module_load_include()
+    include_once './includes/path.inc';   // for arg() called from menu_get_item()
+    include_once './includes/unicode.inc';   // for drupal_strtolower() called from parse_size()
+     */
+    drupal_tweaks_load_include('inc', __FILE__, 'drupal_tweaks'); // load additional function from included file
+
+    /* LOAD DB SETTINGS */
+    $php_conf = drupal_tweaks_get_php_configuration(TRUE);
+
+    /* validate PHP */
+    foreach ($php_conf as $var_name => $var_values) {
+        // update mysql settings if necessary
+        if ($var_values['conf'] <> $var_values['php']) {
+            if (!ini_set($var_name, $var_values['conf'])) {
+              drupal_tweaks_set_message(array('Cannot set variable `%variable` to `%value` in your PHP configuration!<br>Probably you do not have proper privileges.', array('%variable' => $var_name, '%value' => $var_values['conf'])), 'error');
+              variable_set($var_name, $var_values['php']); // reverting changes in settings (to prevent showing error message)
+            }
+        }
+    }
+  }
+}
+
+/**
+ * Implementation of hook_init().
+ */
+function drupal_tweaks_init() {
+  drupal_tweaks_set_message(); // show bootstrap messages
+  /* if cache has been cleared, execute hook_clear_cache_alter */
+  global $drupal_tweaks_cache_cleared;
+  if ($drupal_tweaks_cache_cleared) {
+    module_invoke_all('clear_cache_alter');
+  }
+}
+
+/**
+ * Implementation of hook_clear_cache_alter().
+ */
+function drupal_tweaks_clear_cache_alter() {
+    variable_del('drupal_tweaks_menu_items_no'); // reset menu items couter
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function drupal_tweaks_form_alter(&$form, $form_state, $form_id) {
+  /* MODULE TWEAKS */
+  switch ($form_id) {
+    case 'node_admin_content':
+      // TODO: something here?
+      break;
+    case 'filter_admin_format_form':
+      if (variable_get('drupal_tweaks_filter_tweak', TRUE)) {
+        /* add module name on each filter name (See: admin/settings/filters/1) */
+        foreach (filter_list_all() as $filter_key => $filter_data) {
+          if (array_key_exists($filter_key, $form['filters'])) {
+            $form['filters'][$filter_key]['#title'] .= " ($filter_data->module)";
+          }
+        }
+      }
+      break;
+    case 'views_ui_list_views_form':
+      if (variable_get('drupal_tweaks_views_tweak', TRUE)) {
+        views_include_default_views(); 
+        // Invoke hook_views_default_views for all modules.
+        foreach (module_implements('views_default_views') as $module) {
+          $default_views = module_invoke($module, 'views_default_views');
+          $view_names = $default_views ? array_keys($default_views) : array();
+          foreach ($view_names as $view_name) {
+            if (array_key_exists($view_name, $form['#parameters'][1]['views'])) {
+              $desc = &$form['#parameters'][1]['views'][$view_name]->description;
+              $desc = t('Module: ') . $module . '; ' . $desc;
+            }
+          }
+        } 
+      }
+      break;
+    case 'block_admin_display_form':
+      if (variable_get('drupal_tweaks_block_tweak', TRUE)) {
+        $form['#after_build'][] = 'drupal_tweaks_block_tweak';
+      }
+      break;
+  }
+}
+
+/**
+ * Implementation of after_build callback
+ */
+function drupal_tweaks_block_tweak($form, $form_state) {
+  foreach ($form as $block_name => $block_data) {
+    if (is_array($block_data) && $module_name = $block_data['module']['#value']) {
+      $form[$block_name]['info']['#suffix'] .= ' ' . sprintf(t('(module: %s)'), $module_name);
+    }
+  }
+  return $form;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function drupal_tweaks_perm() {
+   return array('administer drupal_tweaks', 'show all status messages', 'show all warning messages', 'show all error messages');
+}
+
+/**
+ * Implementation of hook_exit().
+ */
+function drupal_tweaks_exit() {
+}
+
+/**
+ * Implementation of hook_theme_registry_alter().
+ * Adds our own preprocess functions to some templates.
+ */
+function drupal_tweaks_theme_registry_alter(&$items) {
+  variable_set('drupal_tweaks_status_messages_theme_callback', $items['status_messages']); // FIXME: support for non-function messages
+  $items['status_messages_dt_org'] = $items['status_messages']; // make a copy of original
+  $items['status_messages']['function'] = 'theme_status_messages_dt'; // take over theme_status_messages
+  $items['status_messages'] = $items['status_messages_dt']; // override theme_status_messages
+  // TODO: What about: 'preprocess functions'?
+}
+
+/**
+ * Implementation of hook_theme
+ */
+function drupal_tweaks_theme() {
+  $path = drupal_get_path('module', 'drupal_tweaks') .'/theme';
+  return array(
+    'status_messages_dt' => array(
+      'arguments' => array('display' => NULL),
+    ),
+    'drupal_tweaks_msg_rules_form' => array(
+      'template' => 'msg-rules-admin-form',
+      'file' => 'theme.inc',
+      'path' => $path,
+      'arguments' => array('form' => NULL),
+    ),
+    'drupal_tweaks_module_admin_modules' => array(
+      'file' => 'theme.inc',
+      'path' => $path,
+      'arguments' => array('form' => NULL),
+    ),
+  );
+}
+
+/**
+ * Return a themed set of status and/or error messages. The messages are grouped
+ * by type.
+ *
+ * @param $display
+ *   (optional) Set to 'status' or 'error' to display only messages of that type.
+ *
+ * @return
+ *   A string containing the messages.
+ */
+function theme_status_messages_dt($display = NULL) {
+  if (variable_get('drupal_tweaks_msg2log_activated', FALSE) && $messages_all = drupal_get_messages($display, FALSE)) {
+    foreach ($messages_all as $type => &$messages) {
+      foreach ($messages as $key => &$message) {
+        if (user_access('administer drupal_tweaks')) { // store all messages in separate session variable (used on settings page)
+            $_SESSION['drupal_tweaks_messages'][$type][] = $_SESSION['messages'][$type][$key]; 
+            module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+            drupal_tweaks_msgs_give_advice($message, $type); // check if there is some advice regarding current message
+        }
+        if (!user_access("show all $type messages") && drupal_tweaks_msg2log_check_rule($message, $type)) {
+          watchdog($type, $message);
+          unset($_SESSION['messages'][$type][$key]);
+        }
+      }
+      if (empty($_SESSION['messages'][$type])) {
+        unset($_SESSION['messages'][$type]);
+      }
+    }
+    drupal_alter('status_messages', $_SESSION['messages']); // Hands off alterable variables to type-specific *_alter implementations.
+  }
+  // $org_callback = variable_get('drupal_tweaks_status_messages_theme_callback', array('function' => 'theme_status_messages'));
+  // $output = function_exists($org_callback['function']) ? $org_callback['function']($display) : $org_callback['function']($display);
+  $output = theme('status_messages_dt_org');
+  return $output;
+}
+
+/**
+ * Implementation of hook_watchdog
+ *
+ */
+function drupal_tweaks_watchdog($log) {
+  $bc_show = FALSE;
+  $bc_log = FALSE;
+  switch ($log['type']) {
+    case 'php':
+        if ($msg_type = ($log['variables']['%error'] ? $log['variables']['%error'] : $log['variables']['%type'])) {
+            switch (drupal_strtolower($msg_type)) {
+              case 'recoverable fatal error':
+              case 'user warning':
+              case 'warning':
+              case 'error':
+                if (variable_get('drupal_tweaks_backtrace_php_show', FALSE)) {
+                  module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+                  drupal_tweaks_show_backtrace();
+                  $bc_show = TRUE;
+                }
+                if (variable_get('drupal_tweaks_backtrace_php_log', TRUE)) {
+                  module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+                  drupal_tweaks_log_backtrace($log);
+                  $bc_log = TRUE;
+                }
+              break;
+              default:
+            }
+        }
+    break;
+    case 'access denied':
+    case 'page not found':
+      if (variable_get('drupal_tweaks_backtrace_error_pages_show', FALSE)) {
+        module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+        drupal_tweaks_show_backtrace();
+        $bc_show = TRUE;
+      }
+      if (variable_get('drupal_tweaks_backtrace_error_pages_log', FALSE)) {
+        module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+        drupal_tweaks_log_backtrace($log);
+        $bc_log = TRUE;
+      }
+    break;
+    default:
+      if (variable_get('drupal_tweaks_backtrace_any_pages_show', FALSE)) {
+        module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+        drupal_tweaks_show_backtrace(100, 4);
+        $bc_show = TRUE;
+      }
+      if (variable_get('drupal_tweaks_backtrace_any_pages_log', FALSE)) {
+        module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+        drupal_tweaks_log_backtrace($log);
+        $bc_log = TRUE;
+      }
+  }
+  // drupal_set_message($log['type']);
+/*
+    $log['user']->uid, $log['type'], $log['message'], serialize($log['variables']), $log['severity'], $log['link'], $log['request_uri'], $log['referer'], $log['ip'], $log['timestamp']);
+*/
+}
+
+/**
+  * Implementation of hook_status_messages_alter
+  *
+  * See: theme_status_messages_dt()
+*/
+function drupal_tweaks_status_messages_alter(&$messages) {
+  $bc_show = FALSE;
+  $bc_log = FALSE;
+  foreach ($messages as $msg_type => $message_arr) {
+    foreach ($message_arr as $key => $message) {
+      if (variable_get('drupal_tweaks_backtrace_on_msg_' . $msg_type, FALSE)) {
+        module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+        drupal_tweaks_show_backtrace();
+        $bc_show = TRUE;
+      }
+      if (variable_get('drupal_tweaks_backtrace_log_on_msg_' . $msg_type, FALSE)) {
+        module_load_include('inc', 'drupal_tweaks'); // load additional function from included file
+        drupal_tweaks_log_backtrace($log);
+        $bc_log = TRUE;
+      }
+    }
+  }
+}
+
+/**
+ * Check rule for single message if user should see it
+ *
+ * @param string $message
+ *   message to check
+ * @param string $type (optional)
+ *   The type of the message. One of the following values are possible:
+ *   - 'status'
+ *   - 'warning'
+ *   - 'error'
+ *
+ * @return
+ *   TRUE if rule was found (log the message), FALSE if rule wasn't found (ignore the message)
+ */
+function drupal_tweaks_msg2log_check_rule($message, $type = NULL) {
+  $msg_rules = explode("\n", variable_get('drupal_tweaks_msgs_' . $type . '_regex', implode("\n", drupal_tweaks_msg2log_settings_default_regex_rules($type))));
+  foreach ($msg_rules as $key => $msg_rule) {
+    if (!empty($msg_rule) && preg_match(trim($msg_rule), $message) != FALSE) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Get list of RegEx rules for messages of specified type
+ *
+ * @param string $type (optional)
+ *   The type of the message. One of the following values are possible:
+ *   - 'status'
+ *   - 'warning'
+ *   - 'error'
+ *
+ * @return
+ *   Return default RegEx rules for messages
+ */
+function drupal_tweaks_msg2log_settings_default_regex_rules($type) {
+  switch ($type) {
+    case 'error':
+      $msgs = array(
+        '@Fatal error:@',
+        '@ on line @',
+        '@MySQL@',
+      );
+      break;
+    case 'warning':
+      $msgs = array(
+        '@warning:@',
+        '@Fatal error:@',
+        '@ on line @',
+        '@MySQL@',
+      );
+      break;
+    case 'status':
+      $msgs = array(
+      );
+      break;
+  }
+  return $msgs;
+}
+
+/**
+ * Replacement function for get_t for early Drupal bootstrap
+ * Return the name of the localisation function. 
+ */
+function drupal_tweaks_get_t() {
+  $t = get_t();
+  include_once './includes/theme.inc';   // for theme() called from t() with watchdog enabled
+  include_once './includes/common.inc'; // for t() called from menu_get_item() AND drupal_get_path() called from module_load_include()
+  include_once './includes/file.inc'; // for file_scan_directory() called from drupal_system_listing() used by t()
+  return function_exists($t) ? $t : 'drupal_tweaks_t';
+}
+
+/*
+ * Replacement function for t for early Drupal bootstrap
+ * Translate strings to the page language or a given language. 
+ *
+ * @param $string
+ *   A string containing the English string to translate.
+ * @param $args
+ *   An associative array of replacements to make after translation. 
+ * @param $langcode
+ *   Optional language code to translate to a language other than what is used to display the page.
+ * @return
+ *   The translated string.
+ */ 
+function drupal_tweaks_t($string, $args = array(), $langcode = NULL) {
+  return array($string, $args, $langcode);
+}
+
+/**
+ * Replacement for drupal_set_message in early Drupal bootstrap
+ *
+ * If the function is called with no arguments, this function will copy all messages into Drupal session
+ *
+ * @param $message
+ *   The message should begin with a capital letter and always ends with a period '.'.
+ * @param $type
+ *   The type of the message. One of the following values are possible: - 'status', 'warning', 'error'
+ * @param $repeat
+ *   If this is FALSE and the message is already set, then the message won't be repeated.
+ */
+function drupal_tweaks_set_message($message = NULL, $type = 'status', $repeat = TRUE) {
+  static $dt_msgs = array();
+  if (!empty($message)) {
+    $dt_msgs[] = array('message' => $message, 'type' => $type, 'repeat' => $repeat);
+  } else {
+    foreach ($dt_msgs as $key => $msg_data) {
+      $msg = is_array($msg_data['message']) ? t($msg_data['message'][0], $msg_data['message'][1], $msg_data['message'][2]) : $msg_data['message'];
+      // FIXME: any better way to do support for arguments: 3, 4, 5, etc.
+      drupal_set_message($msg, $msg_data['type'], $msg_data['repeat']);
+    }
+  }
+}
+
+/**
+ * Load a module include file during bootstrap
+ *
+ * @param $type
+ *   The include file's type (file extension).
+ * @param $module
+ *   The module to which the include file belongs.
+ * @param $name
+ *   Optionally, specify the file name. If not set, the module's name is used.
+ */
+function drupal_tweaks_load_include($type, $path, $name = NULL) {
+  if (empty($name)) {
+    $name = $module;
+  }
+
+  $file = dirname($path) ."/$name.$type";
+
+  if (is_file($file)) {
+    require_once $file;
+  }
+  else {
+    return FALSE;
+  }
+}
+

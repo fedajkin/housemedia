@@ -1,0 +1,53 @@
+/*!
+ * Dynamic display block module template:plain-list30l - Cascading Style Sheet 
+ * Copyright(c) 2008 - 2009 P. Blaauw All rights reserved. 
+ * Version 1.0(20-DEC-2009) 
+ */ 
+div.ddblock-cycle-plain-list30l div.container{background-color:#ffffff;width:680px;}
+div.ddblock-cycle-plain-list30l div.container-inner{border:1px solid #999999;height:245px;padding:2px 0 0 2px;}
+div.ddblock-cycle-plain-list30l div.slider{width:400px;}
+div.ddblock-cycle-plain-list30l div.slider-left{float:left;}
+div.ddblock-cycle-plain-list30l div.slider-right{float:left;}
+div.ddblock-cycle-plain-list30l div.slider-inner{height:242px;overflow:hidden;position:relative;visibility:hidden;}
+div.ddblock-cycle-plain-list30l div.slide{display:none;height:100%;left:0;position:absolute;top:0;}
+div.ddblock-cycle-plain-list30l div.slide-inner img{height:308px;margin:0!important;padding:0!important;width:400px;}
+div.ddblock-cycle-plain-list30l div.slide-text{background:transparent url(../images/transparent_bg.png) repeat scroll 0 0!important;position:absolute;}
+div.ddblock-cycle-plain-list30l div.slide-text-horizontal{height:85px;left:0;width:400px;}
+div.ddblock-cycle-plain-list30l div.slide-text-vertical{height:242px;top:0;width:200px;}
+div.ddblock-cycle-plain-list30l div.slide-text-top{top:7px;}
+div.ddblock-cycle-plain-list30l div.slide-text-right{right:30px;}
+div.ddblock-cycle-plain-list30l div.slide-text-bottom{bottom:7px;}
+div.ddblock-cycle-plain-list30l div.slide-text-left{left:30px;}
+div.ddblock-cycle-plain-list30l div.slide-text-inner{padding:10px;}
+div.ddblock-cycle-plain-list30l div.slide-title{float:left;}
+div.ddblock-cycle-plain-list30l div.slide-title-vertical{width:130px;}
+div.ddblock-cycle-plain-list30l div.slide-title-horizontal{float:left;width:158px;}
+div.ddblock-cycle-plain-list30l div.slide-title h2{margin:-5px 0 0 0;padding:0;}
+div.ddblock-cycle-plain-list30l div.slide-title-inner{color:white;font-weight:bold;}
+div.ddblock-cycle-plain-list30l div.slide-body-vertical{width:132px;}
+div.ddblock-cycle-plain-list30l div.slide-body-horizontal{float:left;width:327px;}
+div.ddblock-cycle-plain-list30l div.slide-body-inner{color:white;}
+div.ddblock-cycle-plain-list30l div.slide-body-inner p{margin:0 8px 0 0;padding:0;}
+div.ddblock-cycle-plain-list30l div.slide-read-more{width:110px;}
+div.ddblock-cycle-plain-list30l div.slide-read-more p{margin:0;padding:0;}
+div.ddblock-cycle-plain-list30l div.slide-read-more a{background:url(../images/readmore.png) no-repeat;border:none;bottom:5px;color:#fff;font-size:14px;font-family:times New Roman;margin:0;padding:4px 0 4px 19px;position:absolute;text-decoration:none;text-align:left;width:100px;}
+div.ddblock-cycle-plain-list30l div.slide-read-more-horizontal a{right:-17px;}
+div.ddblock-cycle-plain-list30l div.slide-read-more-vertical a{right:5px;}
+div.ddblock-cycle-plain-list30l div.slide-read-more a:hover{background:url(../images/readmore-hover.png) no-repeat !important;text-decoration:underline;}
+div.ddblock-cycle-plain-list30l div.slide-read-more-horizontal a:hover{right:-17px;}
+div.ddblock-cycle-plain-list30l div.slide-read-more-vertical a:hover{right:5px;}
+div.ddblock-cycle-plain-list30l div.custom-pager{background-color:#fdfdfd;display:block;margin:0;position:relative;width:274px;}
+div.ddblock-cycle-plain-list30l div.custom-pager .custom-pager-item{background-color:#fdfdfd;width:262px;}
+div.ddblock-cycle-plain-list30l div.custom-pager .custom-pager-item:hover{background-color:#ccc;color:#fff;}
+div.ddblock-cycle-plain-list30l div.custom-pager .active-pager-item{background-color:#D2232A; color:#fff;}
+div.ddblock-cycle-plain-list30l div.custom-pager-left{float:left;}
+div.ddblock-cycle-plain-list30l div.custom-pager-right{float:left;}
+div.ddblock-cycle-plain-list30l div.custom-pager-inner{height:242px;}
+div.ddblock-cycle-plain-list30l div.custom-pager ul {margin:0;padding:0 0 0.25em 1em;}
+div.ddblock-cycle-plain-list30l div.custom-pager li{padding:0 0 0 1.5em !important;margin:0 !important;}
+div.ddblock-cycle-plain-list30l div.custom-pager a{color:#000;display:block;height:24px;width:238px;}
+div.ddblock-cycle-plain-list30l div.custom-pager a.activeSlide{color:#fff;}
+div.ddblock-cycle-plain-list30l div.custom-pager a:hover{color:#fff;text-decoration:none}
+div.ddblock-cycle-plain-list30l div.custom-pager a:focus{outline:none;}
+div.ddblock-cycle-plain-list30l div.spacer-vertical{display:block;float:left;height:27px;width:5px;}
+div.ddblock-cycle-plain-list30l div.spacer-horizontal{clear:both;height:0px;}

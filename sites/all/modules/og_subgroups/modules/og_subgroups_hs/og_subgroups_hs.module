@@ -1,0 +1,206 @@
+<?php
+
+/**
+ * @file
+ * Implementation of the Hierarchical Select API for the OG Subgroups module.
+ */
+
+define('OG_SUBGROUPS_HS_ANY_OPTION', 'Any');
+
+//----------------------------------------------------------------------------
+// Drupal core hooks.
+
+/**
+ * Implementation of hook_menu().
+ */
+function og_subgroups_hs_menu() {
+  $items = array();
+
+  // Taken from the hs_taxonomy_views module
+  $items['og_subgroups_hs_views_json/%/%'] = array(
+    'page callback'   => 'og_subgroups_hs_views_json',
+    'page arguments'   => array(1, 2),
+    'type'            => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Menu callback; wrapper around hierarchical_select_json
+ *
+ * @see hs_taxonomy_views_json
+ */
+function og_subgroups_hs_views_json($view_name, $display_id) {
+  error_log("og_subgroups_hs_views_json");
+  $view = views_get_view($view_name);
+
+  if ($view != NULL) {
+    $view->execute_display($display_id);
+    views_set_current_view($view);
+  }
+
+  return hierarchical_select_json();
+}
+
+
+//----------------------------------------------------------------------------
+// Hierarchical Select hooks.
+
+/**
+ * Implementation of hook_hierarchical_select_params().
+ */
+function og_subgroups_hs_hierarchical_select_params() {
+  $params = array(
+    'nid',      // The id of the group.
+    'optional', // Do we display an "All" option?
+  );
+  return $params;
+}
+
+
+/**
+ * Implementation of hook_hierarchical_select_root_level().
+ */
+function og_subgroups_hs_hierarchical_select_root_level($params) {
+  $root =  ($params['optional']) ? array(OG_SUBGROUPS_HS_ANY_OPTION => '<'. t('Any') .'>') : array();
+  $root += og_subgroups_get_root();
+
+  // Don't include the given group in the hierarchy!
+  unset($root[$params['nid']]);
+
+  return $root;
+}
+
+
+/**
+ * Implementation of hook_hierarchical_select_children().
+ */
+function og_subgroups_hs_hierarchical_select_children($parent, $params) {
+  if (!isset($params['nid'])) {
+    $params = array(
+      'nid' => 0,
+    );
+  }
+
+  // Don't bother getting the children for the group we are viewing
+  if ($parent === $params['nid']) {
+    return array();
+  }
+
+  return ($parent == OG_SUBGROUPS_HS_ANY_OPTION) ? array() : og_subgroups_get_children($parent, array($params['nid']));
+}
+
+
+/**
+ * Implementation of hook_hierarchical_select_lineage().
+ */
+function og_subgroups_hs_hierarchical_select_lineage($item, $params) {
+  if ($item == OG_SUBGROUPS_HS_ANY_OPTION) {
+    return array($item);
+  }
+
+  $lineage = ($item == $params['nid']) ? array() : array($item);
+
+  while (TRUE) {
+    $parent = og_subgroups_get_parent($item);
+
+    // if $parent == FALSE, the lineage is complete!
+    if (!$parent)
+      break;
+
+    array_unshift($lineage, $parent['gid']);
+    $item = $parent['gid'];
+  }
+
+  return (empty($lineage) ? array($item) : $lineage);
+}
+
+/**
+ * Implementation of hook_hierarchical_select_valid_item().
+ */
+function og_subgroups_hs_hierarchical_select_valid_item($item, $params) {
+  if($item == OG_SUBGROUPS_HS_ANY_OPTION) {
+    return TRUE;
+  }
+
+  if (!is_numeric($item) || $item < 0) {
+    return FALSE;
+  }
+
+  // Item 0 corresponds to the <top-level page> option.
+  if ($item == 0) {
+    return TRUE;
+  }
+
+  $count = db_result(db_query("SELECT COUNT(g.nid) FROM {og} g WHERE g.nid = %d", $item));
+
+  return ($count == 1);
+}
+
+/**
+ * Implementation of hook_hierarchical_select_item_get_label().
+ */
+function og_subgroups_hs_hierarchical_select_item_get_label($item, $params) {
+  if ($item == OG_SUBGROUPS_HS_ANY_OPTION) {
+    return '<'. t('Any') .'>';
+  }
+
+  static $labels = array();
+
+  if (!isset($labels[$item])) {
+    $labels[$item] = t(db_result(db_query("SELECT n.title FROM {node} n WHERE n.nid = %d", $item)));
+  }
+
+  return $labels[$item];
+}
+
+/**
+ * Implementation of hook_hierarchical_select_entity_count().
+ */
+function og_subgroups_hs_hierarchical_select_entity_count($item, $params) {
+  return og_subgroups_count_children($item, array($params['nid']));
+}
+
+/**
+ * Implementation of hook_hierarchical_select_implementation_info().
+ */
+function og_subgroups_hs_hierarchical_select_implementation_info() {
+  return array(
+    'hierarchy type' => t('OG Subgroups'),
+    'entity type'    => t('Node'),
+    'entity'         => t('Group'),
+    'context type'   => t('Node form'),
+    'context'        => '',
+  );
+}
+
+/**
+ * Implementation of hook_hierarchical_select_config_info().
+ */
+function og_subgroups_hs_hierarchical_select_config_info() {
+  $config_info['og_subgroups'] = array(
+    'config_id'      => 'og_subgroups',
+    'hierarchy type' => t('OG Subgroups'),
+    'hierarchy'      => '',
+    'entity type'    => t('Node'),
+    'entity'         => t('Group'),
+    'context type'   => t('Node Form'),
+    'context'        => '',
+    'edit link'      => NULL,
+  );
+
+  return  $config_info;
+}
+
+/**
+ * Get the name of the views display
+ *
+ * @see _hs_taxonomy_views_get_display_id_for_filter()
+ */
+function _og_subgroup_hs_get_display_id_for_filter($view, $filter_id) {
+  $current_display = $view->current_display;
+  $current_display_filters = $view->display[$current_display]->display_options['filters'];
+  return (isset($current_display_filters[$filter_id])) ? $current_display : 'default';
+}

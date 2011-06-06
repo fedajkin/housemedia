@@ -1,0 +1,274 @@
+<?php
+// $Id: cck_private_fields.install,v 1.1.2.8 2009/11/02 07:01:04 markuspetrux Exp $
+
+/**
+ * @file
+ * Implementation of installation/uninstallation hooks.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function cck_private_fields_install() {
+  // Install module schema.
+  drupal_install_schema('cck_private_fields');
+}
+
+/**
+ * Implementation of hook_enable().
+ */
+function cck_private_fields_enable() {
+  // Alter the module weight so that our hook_form_alter() is executed
+  // just after the Fieldgroup module (weight 9).
+  db_query("UPDATE {system} SET weight = 10 WHERE type = 'module' AND name = 'cck_private_fields'");
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function cck_private_fields_uninstall() {
+  // Uninstall module schema.
+  drupal_uninstall_schema('cck_private_fields');
+
+  // Delete all module variables and then clear the variable cache.
+  db_query("DELETE FROM {variable} WHERE name LIKE 'cck\_private\_fields\_%'");
+  cache_clear_all('variables', 'cache');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function cck_private_fields_schema() {
+  $schema['cck_private_fields'] = array(
+    'description' => 'Stores the private fields settings',
+    'fields' => array(
+      'nid' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'The primary identifier for a node.',
+      ),
+      'vid' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'The current {node_revisions}.vid version identifier.',
+      ),
+      'field_name' => array(
+        'type'        => 'varchar',
+        'length'      => 32,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => 'The name of the CCK field.',
+      ),
+      'content_type' => array(
+        'type'        => 'varchar',
+        'length'      => 32,
+        'not null'    => TRUE,
+        'default'     => '',
+        'description' => 'The {node_type}.type of this node.',
+      ),
+      'privacy_status' => array(
+        'type'        => 'int',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
+        'default'     => 0,
+        'description' => 'The privacy status defined for this field on this particular node.',
+      ),
+    ),
+    'primary key' => array('vid', 'field_name'),
+    'indexes' => array(
+      'nid' => array('nid'),
+      'content_type' => array('content_type'),
+      'field_name_type' => array('field_name', 'content_type'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Add support for node revisions.
+ *
+ * CCK Private Fields version: 6.x-1.x-dev.
+ */
+function cck_private_fields_update_6000() {
+  $ret = array();
+
+  // Add new column to hold the node vid, if it does not exist already.
+  if (!db_column_exists('cck_private_fields', 'vid')) {
+    db_add_field($ret, 'cck_private_fields', 'vid', array('type' => 'int', 'size' => 'normal', 'not null' => TRUE));
+  }
+
+  // Re-create the primary key.
+  db_drop_primary_key($ret, 'cck_private_fields');
+  db_add_primary_key($ret, 'cck_private_fields', array('nid', 'vid', 'field_name'));
+
+  // Update the vid for the nids that are currently in private fields.
+  $updated_count = 0;
+  $result = db_query('SELECT DISTINCT nid FROM {cck_private_fields}');
+  while ($data = db_fetch_object($result)) {
+    $vid = db_result(db_query('SELECT vid FROM {node} WHERE nid = %d', $data->nid));
+    $ret[] = update_sql('UPDATE {cck_private_fields} SET vid = %d WHERE nid = %d', $vid, $data->nid);
+    $updated_count++;
+  }
+
+  if ($updated_count > 0) {
+    $ret[] = array(
+      'success' => TRUE,
+      'query' => strtr('Existing private fields have been updated. Records affected: @count', array('@count' => $updated_count)),
+    );
+  }
+
+  return $ret;
+}
+
+/**
+ * Fix the definition of table columns.
+ *
+ * CCK Private Fields version: 6.x-1.x-dev.
+ */
+function cck_private_fields_update_6001() {
+  $ret = array();
+  db_change_field($ret, 'cck_private_fields', 'nid', 'nid', array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0));
+  db_change_field($ret, 'cck_private_fields', 'vid', 'vid', array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0));
+  db_change_field($ret, 'cck_private_fields', 'field_name', 'field_name', array('type' => 'varchar', 'length' => 32, 'not null' => TRUE, 'default' => ''));
+  db_change_field($ret, 'cck_private_fields', 'content_type', 'content_type', array('type' => 'varchar', 'length' => 32, 'not null' => TRUE, 'default' => ''));
+  db_change_field($ret, 'cck_private_fields', 'field_option', 'field_option', array('type' => 'varchar', 'length' => 32, 'not null' => TRUE, 'default' => ''));
+  return $ret;
+}
+
+/**
+ * Major overhaul of the {cck_private_fields} table.
+ *
+ * Migrate field_option column from text based values to numbers defined by
+ * constants.
+ * Rename 'field_option' column to 'privacy_status', and change its data type
+ * from varchar to unsigned int.
+ * Re-create the primary key, and add additional indexes.
+ *
+ * CCK Private Fields version: 6.x-1.x-dev.
+ */
+function cck_private_fields_update_6002() {
+  $ret = array();
+
+  drupal_load('module', 'cck_private_fields');
+
+  // Migrate field_option column from text based values to numbers defined by
+  // constants.
+  $updated_count = 0;
+  $result = db_query('SELECT vid, field_name, field_option FROM {cck_private_fields}');
+  while ($data = db_fetch_object($result)) {
+    switch ($data->field_option) {
+      case 'hidden':
+        $privacy_status = CCK_FIELDS_PRIVACY_STATUS_HIDDEN;
+        break;
+      case 'private':
+        $privacy_status = CCK_FIELDS_PRIVACY_STATUS_PRIVATE;
+        break;
+      default:
+        $privacy_status = CCK_FIELDS_PRIVACY_STATUS_PUBLIC;
+        break;
+    }
+    $ret[] = update_sql("UPDATE {cck_private_fields} SET field_option = '%s' WHERE vid = %d AND field_name = '%s'", $privacy_status, $data->vid, $data->field_name);
+    $updated_count++;
+  }
+
+  if ($updated_count > 0) {
+    $ret[] = array(
+      'success' => TRUE,
+      'query' => strtr('Existing private fields have been updated. Records affected: @count', array('@count' => $updated_count)),
+    );
+  }
+
+  // Rename 'field_option' column to 'privacy_status', and change its data type
+  // from varchar to unsigned int.
+  db_change_field($ret, 'cck_private_fields', 'field_option', 'privacy_status', array('type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0));
+
+  // Re-create the primary key.
+  db_drop_primary_key($ret, 'cck_private_fields');
+  db_add_primary_key($ret, 'cck_private_fields', array('vid', 'field_name'));
+
+  // Add additional indexes.
+  db_add_index($ret, 'cck_private_fields', 'nid', array('nid'));
+  db_add_index($ret, 'cck_private_fields', 'content_type', array('content_type'));
+  db_add_index($ret, 'cck_private_fields', 'field_name_type', array('field_name', 'content_type'));
+
+  return $ret;
+}
+
+/**
+ * Variables used to store private field settings should be related to the field.
+ *
+ * CCK Private Fields version: 6.x-1.x-dev.
+ */
+function cck_private_fields_update_6003() {
+  $ret = array();
+
+  $variables = array();
+  foreach (array_keys(node_get_types('names')) as $type_name) {
+    $result = db_query("SELECT name, value FROM {variable} WHERE name LIKE 'cck\_private\_fields\_%s\_%%'", $type_name);
+    while ($row = db_fetch_object($result)) {
+      $variables[$row->name] = array(
+        'field_name' => preg_replace('`^cck_private_fields_'. $type_name .'_(.*)$`', '\1', $row->name),
+        'field_privacy' => unserialize($row->value),
+      );
+    }
+  }
+
+  foreach ($variables as $name => $value) {
+    if ($value['field_privacy']) {
+      variable_set('cck_private_fields_'. $value['field_name'], 1);
+    }
+    variable_del($name);
+
+    $ret[] = array(
+      'success' => TRUE,
+      'query' => strtr('Value for variable @old-var stored as @new-var.', array('@old-var' => $name, '@new-var' => 'cck_private_fields_'. $value['field_name'])),
+    );
+  }
+
+  return $ret;
+}
+
+/**
+ * Alter the module weight so that our hook_form_alter() is executed
+ * just after the Fieldgroup module (weight 9).
+ *
+ * CCK Private Fields version: after 6.x-1.x-beta1.
+ */
+function cck_private_fields_update_6004() {
+  $ret = array();
+  $ret[] = update_sql("UPDATE {system} SET weight = 10 WHERE type = 'module' AND name = 'cck_private_fields'");
+  return $ret;
+}
+
+/**
+ * Variables used to store private field settings, now also hold the default
+ * privacy status. Before this change, once the privacy option was enabled for
+ * a particular field, the default value was "Public", but this was stored as 1,
+ * which now means "Hidden". Therefore, we need to update default privacy
+ * options for all enabled fields to set them as "Public". What was enabled,
+ * was "Public" by default, and it should also remain as "Public" after this
+ * upgrade.
+ *
+ * CCK Private Fields version: after 6.x-1.x-beta3.
+ */
+function cck_private_fields_update_6005() {
+  $ret = array();
+
+  drupal_load('module', 'cck_private_fields');
+
+  $result = db_query("SELECT name FROM {variable} WHERE name LIKE 'cck\_private\_fields\_field\_%%'");
+  while ($row = db_fetch_object($result)) {
+    variable_set($row->name, CCK_FIELDS_PRIVACY_STATUS_PUBLIC);
+    $field_name = preg_replace('`^cck_private_fields_(.*)$`', '\1', $row->name);
+    $ret[] = array(
+      'success' => TRUE,
+      'query' => strtr('Privacy status for field @field has been upgraded.', array('@field' => $field_name)),
+    );
+  }
+
+  return $ret;
+}

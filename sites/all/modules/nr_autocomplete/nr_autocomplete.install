@@ -1,0 +1,46 @@
+<?php
+
+/**
+ * @file
+ * Module installation/uninstallation hooks.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function nr_autocomplete_install() {
+  // Make sure this module is loaded after CCK Text/Number fields.
+  // See autocomplete_widgets_form_alter().
+  db_query("UPDATE {system} SET weight = 1 WHERE name = 'nr_autocomplete'");
+
+  // Notify content module when this module is installed.
+  drupal_load('module', 'content');
+  content_notify('install', 'nr_autocomplete');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function nr_autocomplete_uninstall() {
+  // Notify content module when this module is uninstalled.
+  drupal_load('module', 'content');
+  content_notify('uninstall', 'nr_autocomplete');
+}
+
+/**
+ * Implementation of hook_enable().
+ */
+function nr_autocomplete_enable() {
+  // Notify content module when this module is enabled.
+  drupal_load('module', 'content');
+  content_notify('enable', 'nr_autocomplete');
+}
+
+/**
+ * Implementation of hook_disable().
+ */
+function nr_autocomplete_disable() {
+  // Notify content module when this module is disabled.
+  drupal_load('module', 'content');
+  content_notify('disable', 'nr_autocomplete');
+}

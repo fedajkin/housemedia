@@ -1,0 +1,649 @@
+<?php
+
+/**
+ * Include helper functions
+ */
+module_load_include('inc', 'views_search', 'includes/views_search.helper');
+
+
+
+/**
+ * Implementation of hook_perm().
+ */
+function views_search_perm() {
+  return array(
+    'administer views search',
+    'save views search',
+    'mass delete views search',
+  );
+}
+
+
+
+/**
+ * Implementation of hook_menu().
+ */
+function views_search_menu() {
+
+  $items = array();
+
+  $items['admin/settings/views_search'] = array(
+    'title' => t('Views Search'),
+    'description' => t('Configure Views Search'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_search_admin_configure'),
+    'access arguments' => array('administer views search'),
+    'file' => 'views_search.admin.inc',
+    'file path' => drupal_get_path('module', 'views_search') .'/includes',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['views_search/toggle_attachment/callback'] = array(
+    'page callback' => 'views_search_toggle_save_search_attachment_callback',
+    'file' => 'views_search.form_view_attachment.inc',
+    'file path' => drupal_get_path('module', 'views_search') .'/includes',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['views_search/check_name/callback/%'] = array(
+    'page callback' => 'views_search_check_saved_search_name_callback',
+    'page arguments' => array(3),
+    'file' => 'views_search.form_view_attachment.inc',
+    'file path' => drupal_get_path('module', 'views_search') .'/includes',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['views_search/delete/saved_search/%'] = array(
+    'title' => 'Delete Saved Search',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_search_delete_saved_search_form', 3),
+    'file' => 'views_search.form.inc',
+    'file path' => drupal_get_path('module', 'views_search') .'/includes',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['views_search/delete/all_for_view/%'] = array(
+    'title' => 'Delete All Saved Searches for a View',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('views_search_delete_all_saved_searches_form', 3),
+    'file' => 'views_search.form.inc',
+    'file path' => drupal_get_path('module', 'views_search') .'/includes',
+    'access arguments' => array('administer views search'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+
+}
+
+
+
+/**
+ * Implementation of hook_views_api().
+ */
+function views_search_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'views_search') . '/includes',
+  );
+}
+
+
+
+/**
+ * Implementation of hook_views_pre_view().
+ */
+function views_search_views_pre_view(&$view, &$display_id, &$args) {
+
+  // Return if this is not a search view
+  $search_views = variable_get('views_search_enabled_views', array());
+  if (empty($search_views[$view->name])) {
+    return;
+  }
+
+  // Add information required by the client side
+  $client_data = array('check_saved_search_name_url' => url('views_search/check_name/callback', array('absolute' => TRUE)));
+  drupal_add_js(array('views_search' => $client_data), "setting");
+
+  // Add custom CSS and JavaScript
+  drupal_add_js(drupal_get_path('module', 'views_search') . '/scripts/views_search.js');
+  drupal_add_css(drupal_get_path('module', 'views_search') . '/styles/views_search.css');
+
+  // Allow other modules to prevent the execution of this view
+  $views_search_pre_view = module_invoke_all('views_search_pre_view', $view);
+
+  if (!_views_search_execute_view($view) || $views_search_pre_view['prevent_execution']) {
+    // If the view shouldn't be executed when the user gets to this page,
+    // programmatically add an argument that doesn't validate. (http://drupal.org/node/333829)
+    $view->add_item($view->current_display, 'argument', 'views', 'null', _views_search_invalid_null_argument_invalid());
+  }
+  else {
+    // Add an attachment with buttons on the search (view) results page
+    $view->attachment_before = views_search_content_attachment_before($view) . $view->attachment_before;
+  }
+
+}
+
+
+
+/**
+ * Implementation of hook_views_pre_render().
+ */
+function views_search_views_pre_render(&$view) {
+
+  // Return if this is not a search view
+  $search_views = variable_get('views_search_enabled_views', array());
+  if (empty($search_views[$view->name])) {
+    return;
+  }
+
+  // Add the number of search results in the title
+  if (in_array($view->name, $search_views) && _views_search_execute_view($view)) {
+    // Allow other modules to react to a search (view) result page being displayed
+    module_invoke_all('views_search_pre_render', $view);
+    // If this is saved search, display a different title
+    if (is_numeric($view->exposed_data['ssid'])) {
+      $saved_search = views_search_get_saved_search_object($view->exposed_data['ssid']);
+      $result_counter = format_plural($view->total_rows, ' (1 result)', ' (@count results)', array('@count' => $view->total_rows));
+      $search_results_title = 'Saved Search: ' . $saved_search->name . $result_counter;
+    }
+    else {
+      $search_results_title = format_plural($view->total_rows, '1 Search Result', '@count Search Results', array('@count' => $view->total_rows));
+    }
+    drupal_set_title($search_results_title);
+  }
+
+}
+
+
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function views_search_form_alter(&$form, &$form_state, $form_id) {
+
+  if ($form_id == 'views_exposed_form') {
+    foreach ($form['#parameters'] as $parameter) {
+      if (is_array($parameter)) {
+
+        // Determine if this view is a search view.
+        $search_views = variable_get('views_search_enabled_views', array());
+        if (!empty($search_views[$parameter['view']->name])) {
+          // Create shortcut parameter for the view itself.
+          $view = $form['#parameters'][1]['view'];
+          // Determine if this is an already saved search
+          $saved_search = ($form_state['input']['ssid']) ? 1 : 0;
+          // Change the title of the submit button
+          $form['submit']['#value'] = t('Search');
+          $form['submit']['#weight'] = 25;
+          // Add a class to identify all search views
+          $form['#attributes']['class'] = _views_search_form_add_css_class('search-view', $form['#attributes']['class']);
+
+          // Modify behavior on the "search results" page
+          if (_views_search_execute_view($view)) {
+            // Add a class to identify all executed views
+            $form['#attributes']['class'] = _views_search_form_add_css_class('search-view-executed', $form['#attributes']['class']);
+            // For exposed forms in a block, add a class to the block via jQuery so block can be hidden.
+            if (_views_search_view_exposed_block($view)) {
+              if (!$form_state['rerender']){
+                $exposed_form_block_id = 'block-views--exp-' . $view->name . '-' . $view->current_display;
+                drupal_add_js(array('views_search' => array('exposed_form_block_id' => $exposed_form_block_id)), "setting");
+                drupal_add_js(drupal_get_path('module', 'views_search') . '/scripts/views_search_exposed_block.js');
+              }
+            }
+            // For exposed forms on a page, hide the exposed filters on the search results.
+            else {
+              $form['#attributes']['style'] = 'display:none';
+            }
+
+            // Add a button to allow users to "modify" the view
+            $form['cancel_modify'] = array(
+              '#type' => 'submit',
+              '#value' => t('Cancel'),
+              '#weight' => 70,
+              '#attributes' => array('class' => 'search-view-cancel-modify'),
+            );
+
+            // Add more functionality for Saved Searches
+            if ($saved_search) {
+              // Add a class to identify all saved executed views
+              $form['#attributes']['class'] = _views_search_form_add_css_class('search-view-saved', $form['#attributes']['class']);
+              // Change the name, weight and class of the submit button and
+              $form['submit']['#value'] = t('Overwrite Saved Search');
+              $form['submit']['#weight'] = 60;
+              $form['submit']['#attributes']['class'] = _views_search_form_add_css_class('saved-search-overwrite', $form['submit']['#attributes']['class']);
+              // Add additional submit handler for saved searches
+              $form['#submit'][] = 'views_search_overwrite_saved_search_submit';
+              // Get the full saved search object
+              $saved_search_object = views_search_get_saved_search_object($form_state['input']['ssid']);
+              // Add a checkbox that needs to be set if the user
+              // wants to overwrite the settings of this saved search.
+              // Required, otherwise the search would always be saved
+              // when the view gets executed. Hidden with CSS.
+              $form['overwrite_saved_search'] = array(
+                '#type' => 'checkbox',
+                //'#title' => t('Overwrite Saved Search'),
+                //'#description' => t('Uncheck this box if you don\'t want to save your changes.'),
+                '#weight' => 40,
+                '#attributes' => array('style' => 'display:none'),
+              );
+              // Add a text field that allows users to overwrite the name of this saved search
+              $form['saved_search_name'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Saved Search Name'),
+                '#description' => t('Optionally, you can change the name for this Saved Search here.'),
+                '#size' => 30,
+                '#maxlength' => 30,
+                '#weight' => 50,
+              );
+              // Add the id of the saved search as a hidden field to ensure
+              // that the ssid is passed to the view after the page reloads
+              // TODO: Not sure if this is needed.
+              $form['ssid'] = array(
+                '#type' => 'hidden',
+                '#title' => t('Saved Search ID'),
+              );
+              // Set the default value (in this case, the name of the saved search).
+              // Standard setting (using 'default_value') doesn't work in this case.
+              // See http://drupal.org/node/635242 and http://drupal.org/node/853176.
+              if (empty($form_state['view']->exposed_input['saved_search_name'])) {
+                $form_state['input']['saved_search_name'] = $saved_search_object->name;
+              }
+              if (empty($form_state['view']->exposed_input['ssid'])) {
+                $form_state['input']['ssid'] = $saved_search_object->ssid;
+              }
+
+            } // End Saved Searches
+
+          } // End Search Results Page
+
+        } // End Search Views
+      }
+    }
+  }
+}
+
+
+
+/**
+ * Submit Handler for overwriting existing saved searches
+ */
+function views_search_overwrite_saved_search_submit($form, &$form_state) {
+
+  // After several hours, I couldn't figure out how to use FAPI
+  // with Views correctly, so: If a user overwrites his saved
+  // search, the search gets stored in the database and the
+  // user gets sent to the same search page again using drupal_goto.
+  if ($form_state['input']['overwrite_saved_search']) {
+    // Overwrite this existing saved search and forward to the updated search page
+    $view_info = _views_search_view_info($form_state['view']);
+    $saved_search_name = $form_state['input']['saved_search_name'];
+    $ssid = $form_state['input']['ssid'];
+    // Need to unset form and form_state to prevent an infinite loop
+    unset($form, $form_state);
+    views_search_write_saved_search($view_info, $saved_search_name, $ssid);
+  }
+
+}
+
+
+
+/**
+ * Prepare links for the attachment_before of a search view
+ * For now, this should only affect pages, not blocks.
+ *
+ * @params $view
+ *   View Object
+ *
+ * @returns
+ *   Returns list of button for a view header
+ */
+function views_search_content_attachment_before($view = '') {
+
+  // Make sure the passed parameter is a view
+  if (!is_object($view)) {
+    return;
+  }
+
+  // Only proceed if the current display of this view is a page
+  if (get_class($view->display_handler) != 'views_plugin_display_page') {
+    return;
+  }
+
+  module_load_include('inc', 'views_search', 'includes/views_search.form_view_attachment');
+  return drupal_get_form('views_search_content_attachment_before_form', $view);
+
+}
+
+
+
+/**
+ * Implementation of hook_user().
+ */
+function views_search_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    // When a user gets removed, delete the saved searches by that user
+    case 'delete':
+      db_query("DELETE FROM {views_search} WHERE uid = %d", $account->uid);
+      break;
+  }
+}
+
+
+
+/**
+ * Implementation of hook_block().
+ */
+function views_search_block($op = 'list', $delta = 0, $edit = array()) {
+
+  switch ($op) {
+
+    case 'list':
+      $blocks['views_search_ss_dd']['info'] = t('Saved Searches (Dropdown)');
+      $blocks['views_search_ss_dd']['title'] = t('Saved Searches');
+      $blocks['views_search_ss_dd']['cache'] = BLOCK_NO_CACHE;
+      return $blocks;
+
+    case 'configure':
+      switch ($delta) {
+        case 'views_search_ss_dd':
+          $form['views_search_ss_block_empty_text'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Empty Text'),
+            '#description' => t('Enter text to show in Saved Search block when the user has no Saved Searches. If the user has no Saved Searches, the block will not be displayed without this text. (128 characters max.)'),
+            '#default_value' => variable_get('views_search_ss_block_empty_text', ''),
+            '#size' => 60,
+            '#maxlength' => 128,
+          );
+          $form['views_search_ss_block_manage_link'] = array(
+            '#type' => 'checkbox',
+            '#title' => t('Show link to Saved Search overview page'),
+            '#description' => t('Show the link to the default overview page for Saved Searches.'),
+            '#default_value' => variable_get('views_search_ss_block_manage_link', 1),
+          );
+          return $form;
+          break;
+      }
+
+    case 'save':
+      switch ($delta) {
+        case 'views_search_ss_dd':
+          variable_set('views_search_ss_block_empty_text', $edit['views_search_ss_block_empty_text']);
+          variable_set('views_search_ss_block_manage_link', $edit['views_search_ss_block_manage_link']);
+      }
+
+    case 'view':
+      switch ($delta) {
+        case 'views_search_ss_dd':
+            // Get all Saved Search IDs for the current user
+            $result = db_query("SELECT ssid FROM {views_search} WHERE uid = %d ORDER BY name ASC", $GLOBALS['user']->uid);
+            $ssids = array();
+            while ($data = db_fetch_object($result)) {
+              $ssids[] = $data->ssid;
+            }
+            // Return a form containing a dropdown to all saved searches
+            $empty_text = variable_get('views_search_ss_block_empty_text', '');
+            // Allow other modules to override the empty text
+            $empty_text_override = module_invoke_all('views_search_block_empty_text', 'views_search_ss_dd');
+            if ($empty_text_override[0]) {
+              $empty_text = $empty_text_override[0];
+            }
+            if (!empty($ssids)) {
+              drupal_add_css(drupal_get_path('module', 'views_search') . '/styles/views_search.css');
+              module_load_include('inc', 'views_search', 'includes/views_search.form');
+              $block['content'] = drupal_get_form('views_search_saved_search_block_dropdown_form', $ssids);
+              if (variable_get('views_search_ss_block_manage_link', 1)) {
+                $block['content'] .= '<div class="footer">' . l('Manage Your Saved Searches', 'search/saved') . '</div>';
+              }
+            }
+            elseif ($empty_text) {
+              $block['content'] = $empty_text;
+            }
+          break;
+      }
+      return $block;
+
+  }
+
+}
+
+
+
+/**
+ * Implementation of hook_theme().
+ */
+function views_search_theme() {
+  return array(
+    'views_view_table__views_saved_searches' => array(
+      'arguments' => array('view' => NULL, 'options' => NULL, 'rows' => NULL, 'title' => NULL),
+      'path' => drupal_get_path('module', 'views_search') . '/themes',
+      'template' => 'views-view-table--views-saved-searches',
+      'original hook' => 'views_view_table',
+      'preprocess functions' => array(
+        'template_preprocess',
+        'template_preprocess_views_view_table',
+        'views_search_preprocess_views_view_fields',
+      ),
+    ),
+  );
+}
+
+
+
+/********************
+ * Public Functions *
+ ********************
+ */
+
+
+
+/**
+ * Store a saved search in the database. After a view gets successfully
+ * saved, this function redirects executes the new saved search again.
+ *
+ * @param $view_info
+ *   Array containing the name, display and filters of a view. See _views_search_view_info().
+ * @param $saved_search_name
+ *   Name of the saved search as a string.
+ * @param $ssid
+ *   Saved Search ID. If passed, an existing saved search will be overwritten.
+ */
+function views_search_write_saved_search($view_info = '', $saved_search_name = '', $ssid = FALSE) {
+
+  $error_text = t("Your search was <em>not</em> saved. There was a problem with your submission.");
+  // Make sure an array was passed
+  if (!is_array($view_info)) {
+    drupal_set_message($error_text);
+    return;
+  }
+  // Make sure all required pieces of information are available
+  if (!$view_info['name'] || !$view_info['current_display'] || !$view_info['filters'] || !$view_info['base_path'] || $saved_search_name == '') {
+    drupal_set_message($error_text);
+    return;
+  }
+
+  // Save this saved search in the database
+  $table = 'views_search';
+  $record = new stdClass();
+  $record->uid = $GLOBALS['user']->uid;
+  $record->created = time();
+  $record->view_name = $view_info['name'];
+  $record->view_display = $view_info['current_display'];
+  $record->name = $saved_search_name;
+  $record->filters = $view_info['filters'];
+
+  // Update an existing saved search and, if successful, redirect to this saved search page
+  if ($ssid) {
+    $record->ssid = $ssid;
+    // Make sure the new name for this already saved search is
+    // (1) not already taken by another saved search by the same member or
+    // (2) not empty or has invalid characters
+    $status = _views_search_check_saved_search_name($saved_search_name);
+    if ((isset($status['ssid']) && $status['ssid'] != $ssid) || (!isset($status['ssid']) && $status['error'])) {
+      drupal_set_message($status['error'], 'error');
+    }
+    else {
+      drupal_write_record($table, $record, 'ssid');
+      drupal_set_message('Your Saved Search was successfully updated.');
+    }
+    drupal_goto($view_info['base_path'], _views_search_filters_to_exposed_params($view_info['filters'], $record->ssid));
+  }
+  else {
+    // Save this as a new search and, if successful, redirect to this saved search page
+    drupal_write_record($table, $record);
+    if ($record->ssid) {
+      drupal_set_message('Your search was successfully saved.');
+      drupal_goto($view_info['base_path'], _views_search_filters_to_exposed_params($view_info['filters'], $record->ssid));
+    }
+    else {
+      drupal_set_message('Your search was not saved.');
+    }
+  }
+
+}
+
+
+
+/**
+ * Function to get a saved search object from the database
+ *
+ * @params $ssid
+ *   Saved Search ID, required
+ *
+ * @return
+ *   Saved Search Object
+ */
+function views_search_get_saved_search_object($ssid = '') {
+
+  if ($ssid == '') {
+    return;
+  }
+
+  $saved_search = db_fetch_object(db_query("SELECT * FROM {views_search} WHERE ssid = %d", $ssid));
+  return $saved_search;
+
+}
+
+
+
+/**
+ * Function to count the number of saved searches for a user
+ *
+ * @param $uid
+ *   User ID, optional (defaults to current user)
+ *
+ * @return
+ *   Returns the number of saved searches
+ */
+function views_search_get_saved_search_count($uid = '') {
+
+  if ($uid == '') {
+    $uid = $GLOBALS['user']->uid;
+  }
+
+  $saved_search_count = db_result(db_query("SELECT count(ssid) FROM {views_search} WHERE uid = %d", $uid));
+  if ($saved_search_count) {
+    return $saved_search_count;
+  }
+  else {
+    return 0;
+  }
+
+}
+
+
+
+/**
+ * Function to generate a link to execute a saved search
+ *
+ * @param $ssid
+ *   Saved Search ID, required
+ * @param $title
+ *   Title of the link, optional (defaults to name of the saved search)
+ *
+ * @return
+ *   Link to the saved search
+ */
+function views_search_generate_saved_search_link($ssid = '', $title = '') {
+
+  if (($ssid == '') || (isset($title) && !is_string($title))) {
+    return;
+  }
+
+  $saved_search_params = views_search_generate_saved_search_options($ssid);
+  $link_title = ($title == '') ? $saved_search_params['name'] : $title;
+  $link = l($link_title, $saved_search_params['path'], array('query' => $saved_search_params['query_params']));
+  return $link;
+
+}
+
+
+
+/**
+ * Function to determine the display name of a saved search
+ *
+ * @param $ssid
+ *   Saved Search ID, required
+ *
+ * @return
+ *   Display name of view display (not machine name)
+ */
+function views_search_get_nice_display_name($ssid = '') {
+
+  if ($ssid == '') {
+    return;
+  }
+
+  $saved_search = views_search_get_saved_search_object($ssid); // Get the full saved search object
+  $view = views_get_view($saved_search->view_name); // Get the full view object for this saved search
+
+  // Determine the title of this page (if available, otherwise display default title)
+  if ($view->display[$saved_search->view_display]->display_options['title']) {
+    $title = $view->display[$saved_search->view_display]->display_options['title'];
+  }
+  else {
+    $title = $view->display['default']->display_options['title'];
+  }
+
+  return $title;
+
+}
+
+
+
+/**
+ * Function to generate the path and query options for a saved search
+ *
+ * @params $ssid
+ *   Saved Search ID, required
+ *
+ * @return
+ *   Array containing (1) the name of the saved search, (2) the path and (3) the query parameters for a saved search
+ *
+ */
+function views_search_generate_saved_search_options($ssid = '') {
+  if (!is_numeric($ssid)) {
+    return;
+  }
+
+  $saved_search = views_search_get_saved_search_object($ssid); // Get the full saved search object
+  $view = views_get_view($saved_search->view_name); // Get the view object
+  $path = $view->display[$saved_search->view_display]->display_options['path']; // Determine the path of the display this saved search uses
+
+  if (!$path) {
+    return;
+  }
+
+  // Prepare the query parameters
+  $query_params = _views_search_filters_to_exposed_params($saved_search->filters, $saved_search->ssid);
+
+  return array(
+    'name' => $saved_search->name,
+    'path' => $path,
+    'query_params' => $query_params,
+  );
+
+}

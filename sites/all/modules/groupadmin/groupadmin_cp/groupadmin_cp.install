@@ -1,0 +1,37 @@
+<?php
+// $Id: groupadmin_cp.install,v 1.1.2.1 2010/03/15 11:01:05 netgenius Exp $
+
+/**
+ * Implementation of hook_uninstall().
+ */
+
+function groupadmin_cp_uninstall() {
+  $config = variable_get('groupadmin', FALSE);
+  if ($config) {
+    $fields = groupadmin_cp_hook_groupadmin_config_fields();
+    foreach($fields as $key => $value) {
+      unset($config[$key]);
+      //drupal_set_message('removed config ' . $key);
+    }
+    variable_set('groupadmin', $config);
+  }
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function groupadmin_cp_install() {
+  $msg = 'Please visit the !link page to configure Group Admin CP.';
+  $link = l(t('configuration'), 'admin/og/groupadmin');
+  drupal_set_message(t($msg, array('!link' => $link)), 'warning');
+}
+
+/**
+ * Implementation of hook_update()
+ */
+
+/*
+function groupadmin_cp_update_1() {
+}
+*/
+

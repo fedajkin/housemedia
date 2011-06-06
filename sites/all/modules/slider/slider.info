@@ -1,0 +1,13 @@
+; $Id: slider.info,v 1.1.2.1 2008/11/14 11:24:17 marktheunissen Exp $
+name = Slider
+description = Turns nodes into coda sliders, a javascript carousel effect.
+dependencies[] = content
+package = "jQuery"
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-03-06
+version = "6.x-1.4"
+core = "6.x"
+project = "slider"
+datestamp = "1236333356"
+

@@ -1,0 +1,291 @@
+<?php
+// $Id: cck_list.module,v 1.1.2.1 2010/01/28 04:13:29 istryker Exp $
+
+/**
+ *  Module by iStryker
+ *  Sponser by Themes 24/7  http://www.themes247.com
+ */
+
+/**
+ * @file
+ * Defines a field type that outputs data in a table.
+ */
+
+/**
+ * Implementation of hook_theme().
+ */
+function cck_list_theme() {
+  return array(
+    'cck_list' => array(
+      'arguments' => array('element' => NULL),
+      
+    ),
+    'cck_list_formatter_list_ordered' => array(
+      'arguments' => array('element' => NULL), 
+      'function' => 'theme_cck_list_formatter',
+    ),
+    'cck_list_formatter_list_unordered' => array(
+      'arguments' => array('element' => NULL), 
+      'function' => 'theme_cck_list_formatter',
+    ),
+  );
+} 
+ 
+ 
+/**
+ * Implementation of hook_field_info().
+ */
+function cck_list_field_info() {
+  return array(
+    'list' => array(
+      'label' => t('List'),
+      'description' => t('Defines a textarea field that outputs data in an list'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_field_settings().
+ */
+function cck_list_field_settings($op, $field) {
+  switch ($op) {
+    case 'form':
+      $form = array();
+      $form['css_id'] = array(
+        '#type' => 'textfield',
+        '#title' => t('CSS ID'),
+        '#description' => t('Specify an ID to be assigned to the table element.') .'<br />'. t('The node ID will be appended to keep the ID unique.'),
+        '#default_value' => isset($field['css_id']) ? $field['css_id'] : '',
+        '#field_suffix' => '-##',
+      );
+      $form['css_class'] = array(
+        '#type' => 'textfield',
+        '#title' => t('CSS Class'),
+        '#description' => t('Specify a class to be added to the table element.'),
+        '#default_value' => isset($field['css_class']) ? $field['css_class'] : '',
+      );
+      return $form;
+    
+    case 'validate':
+      break;
+
+    case 'save':
+      return array('css_id', 'css_class');
+
+    case 'database columns':
+        $columns['value'] = array('type' => 'text', 'not null' => FALSE, 'default' => NULL, 'sortable' => FALSE);
+        return $columns;
+      
+
+    case 'filters':
+      break;
+  }
+}
+
+/**
+ * Implementation of hook_content_is_empty().
+ */
+function cck_list_content_is_empty($item, $field) {
+  if (empty($item['value']) && (string)$item['value'] !== '0') {
+    return TRUE;
+  }
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_field_formatter_info().
+ */
+function cck_list_field_formatter_info() {
+  return array(
+    'list_ordered' => array(
+      'label' => t('Ordered List'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+      'field types' => array('list'),
+    ),
+    'list_unordered' => array(
+      'label' => t('Unordered List'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+      'field types' => array('list'),
+    ),
+  );
+}
+/**
+ * Implementation of hook_field_formatter().
+ */
+function theme_cck_list_formatter($element) {
+  $field = content_fields($element['#field_name'], $element['#type_name']);
+  $value = $element['#item']['value'];
+  
+  switch ($element['#formatter']) {
+    case 'list_unordered':
+      $type = 'ul';
+      break;
+    case 'list_ordered':
+      $type = 'ol';
+      break;
+  }    
+   
+  if (!empty($value)) {
+    
+    $lines = explode("\n", $value);
+    $lines = array_map('trim', $lines);
+    $lines = array_filter($lines, 'strlen');
+    if (count($lines) > 0) {
+      $attributes = array();
+
+      if (!empty($field['css_id'])) {
+        $attributes['id'] = $field['css_id'] .'-'. $element['#node']->nid;
+      }
+      if (!empty($field['css_class'])) {
+        $attributes['class'] = $field['css_class'];
+      }
+
+      return theme('item_list',$lines, NULL, $type, $attributes);
+    }
+  }
+}
+
+/**
+ * Implementation of hook_widget_info().
+ */
+function cck_list_widget_info() {
+  return array(
+    'cck_list' => array(
+      'label' => t('Textarea'),
+      'field types' => array('list'),
+      'multiple values' => CONTENT_HANDLE_CORE,
+      'callbacks' => array(
+        'default value' => CONTENT_CALLBACK_DEFAULT,
+      ),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_widget_settings().
+ */
+function cck_list_widget_settings($op, $widget) {
+  switch ($op) {
+    case 'form':
+      $form = array();
+      $rows = (isset($widget['rows']) && is_numeric($widget['rows'])) ? $widget['rows'] : 5;
+      $form['rows'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Rows'),
+        '#default_value' => $rows,
+        '#element_validate' => array('_element_validate_integer_positive'),
+        '#required' => TRUE,
+      );
+      return $form;
+      
+    case 'save':
+      return array('rows');
+  }
+}
+
+/**
+ * Implementation of FAPI hook_elements().
+ *
+ * Any FAPI callbacks needed for individual widgets can be declared here,
+ * and the element will be passed to those callbacks for processing.
+ *
+ * Drupal will automatically theme the element using a theme with
+ * the same name as the hook_elements key.
+ *
+ * Autocomplete_path is not used by text_widget but other widgets can use it
+ * (see nodereference and userreference).
+ */
+function cck_list_elements() {
+  return array(
+    'cck_list' => array(
+      '#input' => TRUE,
+      '#columns' => array('value'), '#delta' => 0,
+      '#process' => array('cck_list_process'),
+    ),
+  );
+}
+
+
+/**
+ * Implementation of hook_widget().
+ *
+ * Attach a single form element to the form. It will be built out and
+ * validated in the callback(s) listed in hook_elements. We build it
+ * out in the callbacks rather than here in hook_widget so it can be
+ * plugged into any module that can provide it with valid
+ * $field information.
+ *
+ * Content module will set the weight, field name and delta values
+ * for each form element. This is a change from earlier CCK versions
+ * where the widget managed its own multiple values.
+ *
+ * If there are multiple values for this field, the content module will
+ * call this function as many times as needed.
+ *
+ * @param $form
+ *   the entire form array, $form['#node'] holds node information
+ * @param $form_state
+ *   the form_state, $form_state['values'][$field['field_name']]
+ *   holds the field's form values.
+ * @param $field
+ *   the field array
+ * @param $items
+ *   array of default values for this field
+ * @param $delta
+ *   the order of this item in the array of subelements (0, 1, 2, etc)
+ *
+ * @return
+ *   the form item for a single element for this field
+ */
+function cck_list_widget(&$form, &$form_state, $field, $items, $delta = 0) {
+  $element = array(
+    '#type' => $field['widget']['type'],
+    '#default_value' => isset($items[$delta]) ? $items[$delta] : '',
+  );
+  return $element;
+}
+
+function cck_list_process($element, $edit, $form_state, $form) {
+  $field = $form['#field_info'][$element['#field_name']];
+  $field_key = $element['#columns'][0];
+  $element[$field_key] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($element['#value'][$field_key]) ? $element['#value'][$field_key] : NULL,
+    '#rows' => !empty($field['widget']['rows']) ? $field['widget']['rows'] : 5,
+    '#weight' => 0,
+    '#description' => t('Enter list data, one row per line.'),
+    
+    // The following values were set by the content module and need
+    // to be passed down to the nested element.
+    '#title' => $element['#title'],
+    '#required' => $element['#required'],
+    '#field_name' => $element['#field_name'],
+    '#type_name' => $element['#type_name'],
+    '#delta' => $element['#delta'],
+    '#columns' => $element['#columns'],   
+  );
+ 
+  // Used so that hook_field('validate') knows where to flag an error.
+  $element['_error_element'] = array(
+    '#type' => 'value',
+    '#value' => implode('][', array_merge($element['#parents'], array($field_key))),
+  );
+  
+  //added feature, if you want node creater to be able to define table headers
+  return $element;
+}
+
+/**
+ * FAPI theme for an individual text elements.
+ *
+ * The textfield or textarea is already rendered by the
+ * textfield or textarea themes and the html output
+ * lives in $element['#children']. Override this theme to
+ * make custom changes to the output.
+ *
+ * $element['#field_name'] contains the field name
+ * $element['#delta]  is the position of this element in the group
+ */
+function theme_cck_list($element) {
+  return $element['#children'];
+}

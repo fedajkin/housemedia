@@ -1,0 +1,5 @@
+/* $Id: menu_minipanels.css,v 1.1 2010/10/17 00:34:59 willieseabrook Exp $ */
+
+div.menu-minipanels {
+  display: none !important;
+}

@@ -1,0 +1,70 @@
+; $Id: CHANGELOG.txt,v 1.1.2.35 2009/11/11 20:32:40 markuspetrux Exp $
+
+6.x-1.1
+=======
+
+Bugfixes:
+- #600380 WSOD when trying to delete CCK fields if "User Relationships integration with CCK Private Fields" is installed.
+- Fix coder warnings related to CCK field labels and update_sql() usage in implementations of hook_update_N().
+- #569340 The uid of the node is not always supplied to hook_field_access().
+
+
+6.x-1.0
+=======
+
+Features:
+- #542720 User Relationships is not only for Friends / Add ability to select UR relationship types.
+
+Bugfixes:
+- #559714 Default privacy option not working for CCK Private Fields.
+
+
+6.x-1.x-beta4
+=============
+
+Features:
+- #540876 Added ability to define default privacy status in field settings screen. Requires update.php.
+- #542620 Allow themers override the modal dialog size (in pixels).
+
+Bugfixes:
+- #537860 Javascript error in node form using IE.
+- Avoid generating view/edit permissions for strange field "view_access_module".
+- #544744 by dereine - Privacy public fields: privacy settings are not saved to the database.
+
+
+6.x-1.x-beta3
+=============
+
+Bugfixes:
+- Only users allowed to edit privacy settings should be allowed to do so.
+
+
+6.x-1.x-beta2
+=============
+
+Features:
+- #536746 Added support for fields in multigroups. Requires update.php.
+
+
+6.x-1.x-beta1
+=============
+
+- Fix {cck_private_fields} table definition (requires update.php).
+- Externalized most of the code into separate includes that are loaded on demand
+  to reduce memory consumption during normal site operation.
+- Yet another revision of the {cck_private_fields} table. Requires update.php.
+- #520226 - Support for node revisions is now completed.
+- Integration with diff module has been rewritten to provide more user friendly information.
+  Also, changes to privacy status is only visible to node author or users with 'view private cck fields' permission.
+- Management of the node edit form has been rewritten and simplified.
+- Fixed bug when checking for 'view private cck fields' permission in hook_field_access().
+- Fixed bug in cck_private_fields_get_content_private_fields().
+- #531562 Field privacy option in {variable} table should not include the content type in the key. Requires update.php.
+- #531892 Delete privacy data when privacy option is disabled.
+- #531976 Create system permissions for private fields per field, not global.
+- #531900 Changed integration API.
+- #531900 Integration with FriendList API.
+- #531900 Integration with User Relationships module.
+- Enhanced documentation for developers in the DEVELOPMENT / API section of the module README.
+- Fix function not found when a CCK fields is deleted.
+- #531896 Provide a javascript based widget to change field privacy options in node edit form. Requires jQuery UI module!

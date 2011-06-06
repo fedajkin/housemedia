@@ -1,0 +1,12 @@
+name=Nodereference Autocomplete Widget
+description=Adds an autocomplete widget for nodereference that works like taxonomy free-tagging
+dependencies[]=nodereference
+package=CCK
+core=6.x
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "nr_autocomplete"
+datestamp = "1298619784"
+

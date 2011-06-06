@@ -1,0 +1,90 @@
+form.search-view-executed{
+border-bottom:1px solid gray;
+margin-bottom:1em;
+padding-bottom:0.5em;
+}
+
+form.search-view input.form-submit{
+clear: left;
+float: left;
+}
+
+form.search-view input#edit-cancel-modify{
+clear: none;
+margin-left: 1em;
+}
+
+form.search-view #edit-saved-search-name-wrapper{
+clear:left;
+float:left;
+margin-top:0.75em;
+width:100%;
+}
+
+form.search-view #edit-overwrite-saved-search-wrapper{
+clear: left;
+float: left;
+}
+
+.search-view-attachment-form #save-search fieldset{
+margin:0;
+padding:0;
+border:none;
+}
+
+.search-view-attachment-form #saved_search_limit{
+margin-bottom:0.5em;
+}
+
+#views-search-attachment-ahah input{
+float:left;
+margin-right:0.5em;
+}
+
+#views-search-attachment-ahah #edit-save-search-name-wrapper{
+float:left;
+margin-top:0;
+width:100%;
+}
+
+#views-search-attachment-ahah #edit-save-search-name-wrapper .description{
+clear:left;
+}
+
+#views-search-attachment-ahah fieldset{
+border:1px solid #747C8E;
+}
+
+.block .view-views-saved-searches .more-link{
+clear:left;
+}
+
+#views-search-attachment-ahah input#edit-view-modify{
+display:none;
+}
+
+.js #views-search-attachment-ahah input#edit-view-modify{
+display:block;
+}
+
+form#views-search-delete-saved-search-form .container-inline{
+margin-top:0.75em;
+}
+
+form#views-search-delete-saved-search-form .container-inline a{
+margin-left:0.5em;
+}
+
+#block-views_search-views_search_ss_dd .form-item{
+margin-bottom:0.5em;
+margin-top:0;
+}
+
+#block-views_search-views_search_ss_dd #edit-ssid-wrapper{
+float:left;
+margin-right:0.5em;
+}
+
+#block-views_search-views_search_ss_dd .footer{
+clear:left;
+}

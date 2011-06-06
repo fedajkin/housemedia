@@ -1,0 +1,15 @@
+; $Id:
+name = Group Admin CP
+description = Allows GroupAdmin to work with user data stored in nodes. Suitable nodes may be created using <a href=http://drupal.org/project/content_profile>Content Profile</a>.
+dependencies[] = groupadmin
+package = Organic groups
+version = 6.x-2.x-dev
+core = 6.x
+
+
+; Information added by drupal.org packaging script on 2010-03-15
+version = "6.x-2.1"
+core = "6.x"
+project = "groupadmin"
+datestamp = "1268696709"
+

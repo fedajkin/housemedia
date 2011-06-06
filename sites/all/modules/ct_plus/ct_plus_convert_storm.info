@@ -1,0 +1,14 @@
+core = "6.x"
+dependencies[] = "ct_plus"
+dependencies[] = "storm"
+description = "Utility to convert Storm Projects and Tasks to CT Plus Tasks and Projects"
+name = "CT Plus Convert from Storm"
+package = "Features"
+project = "ct_plus"
+
+; Information added by drupal.org packaging script on 2010-12-12
+version = "6.x-2.9"
+core = "6.x"
+project = "ct_plus"
+datestamp = "1292195756"
+

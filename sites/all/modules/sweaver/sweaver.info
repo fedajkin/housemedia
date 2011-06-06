@@ -1,0 +1,13 @@
+; $Id: sweaver.info,v 1.1.2.2 2010/09/18 13:49:41 swentel Exp $
+name = Sweaver
+description = "Visual interface for tweaking or building Drupal themes."
+core = 6.x
+package = "User interface"
+dependencies[] = ctools
+dependencies[] = jquery_ui
+; Information added by drupal.org packaging script on 2011-01-05
+version = "6.x-1.1"
+core = "6.x"
+project = "sweaver"
+datestamp = "1294226193"
+

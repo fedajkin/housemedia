@@ -1,0 +1,13 @@
+html.js input.ac_input{
+background-image:url('/misc/throbber.gif');
+background-position:100% 2px;
+background-repeat:no-repeat;
+}
+
+html.js input.ac_loading{
+  background-position: 100% -18px; /* LTR */
+}
+
+.ac_results li{
+  background-image: none;
+}

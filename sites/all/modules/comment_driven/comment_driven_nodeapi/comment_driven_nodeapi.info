@@ -1,0 +1,17 @@
+
+name = Comment driven NodeAPI
+description = Adds support for comments not inserted via FAPI
+
+package = Driven
+; @d6
+core = 6.x
+
+dependencies[] = comment_driven
+dependencies[] = driven_inspect
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "comment_driven"
+datestamp = "1298619001"
+

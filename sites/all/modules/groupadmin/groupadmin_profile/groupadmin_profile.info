@@ -1,0 +1,16 @@
+; $Id:
+name = Group Admin Profile
+description = Allows GroupAdmin to work with user data stored in user profile using standard Profile module.
+dependencies[] = groupadmin
+dependencies[] = profile
+package = Organic groups
+version = 6.x-2.x-dev
+core = 6.x
+
+
+; Information added by drupal.org packaging script on 2010-03-15
+version = "6.x-2.1"
+core = "6.x"
+project = "groupadmin"
+datestamp = "1268696709"
+

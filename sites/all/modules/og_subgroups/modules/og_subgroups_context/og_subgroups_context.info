@@ -1,0 +1,14 @@
+name = OG Subgroups Context
+description = "Provides OG Subgroups conditions for the Context module."
+package = "Context"
+core = "6.x"
+dependencies[] = og_subgroups
+dependencies[] = ctools
+dependencies[] = context
+
+; Information added by drupal.org packaging script on 2011-03-01
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "og_subgroups"
+datestamp = "1298938308"
+

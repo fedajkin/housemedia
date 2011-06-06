@@ -1,0 +1,83 @@
+<?php
+// $Id$
+
+/**
+ * Display help and module information
+ * @param path which path of the site we're displaying help
+ * @param arg array that holds the current path as would be returned from arg() function
+ * @return help text for the path
+ */
+function views_private_access_help($path, $arg) {
+	$output = '';
+	switch($path) {
+		case "admin/help#views_private_access":
+			$output = '<p></p>';
+			break;
+	}
+	return $output;
+}
+
+/**
+ * Implementation of hook_views_plugins()
+ */
+function views_private_access_views_plugins() {
+	return array(
+		'access' => array(
+			'parent' => array(
+				'no ui' => TRUE,
+				'handler' => 'views_plugin_access',
+				'parent' => ''
+			),
+			'arguments' => array(
+				'title' => t('Private'),
+				'help' => t('Access will be granted only if first argument equals to current user ID'),
+				'handler' => 'views_plugin_access_private',
+				'uses options' => TRUE,
+				'path' => drupal_get_path('module', 'views_private_access') . '/includes'
+			),
+		)
+	);
+}
+
+/**
+ * Access callback
+ */
+function views_private_access_access_callback($view_name, $display_id, $account = NULL) {
+	$view = views_get_view($view_name);
+	$view->set_display($display_id);
+	$view->init_handlers();
+	
+	$args = array();
+	if(count($view->args) == 0) {
+		$i = 0;
+		$path_args = explode('/', $view->display_handler->get_option('path'));
+		foreach ($path_args as $argument) {
+				if($argument == '%') {
+						$args[] = arg($i);
+						break;
+				}
+				$i++;
+		}
+	} else {
+		$args = $view->args;
+	}
+	
+	return views_private_access_check_access($args, $account);
+}
+
+/**
+ * Determines if the user has access to a private view
+ * 
+ * @param array Arguments given to the view
+ * @param user User account. If omitted, current user is used
+ * @return bool Whether the user has access
+ */
+function views_private_access_check_access($arg, $account = NULL) {
+	global $user;
+	$account = isset($account) ? $account : $user;
+	if($arg[0] == $account->uid) {
+		return TRUE;
+	} else {
+		return FALSE;
+	}
+}

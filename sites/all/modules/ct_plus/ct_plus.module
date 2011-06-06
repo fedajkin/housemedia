@@ -1,0 +1,16 @@
+<?php
+
+include_once('ct_plus.features.inc');
+
+/**
+* Implementation of hook_init().
+*/
+function ct_plus_init() {
+  drupal_add_css(drupal_get_path('module', 'ct_plus') .'/ct_plus.css');
+}
+
+function ct_plus_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+if ($op == 'view') {
+drupal_add_css(drupal_get_path('module', 'ct_plus') .'/ct_plus-task.css');
+}
+}

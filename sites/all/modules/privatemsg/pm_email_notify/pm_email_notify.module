@@ -1,0 +1,273 @@
+<?php
+
+/**
+ * @file
+ * Notifies users about new Private Messages via Email.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function pm_email_notify_menu() {
+  $items['admin/settings/messages/notify'] = array(
+    'title'            => 'E-mail notify',
+    'description'      => 'E-mail notification settings',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('pm_email_notify_admin_settings_form'),
+    'file'             => 'pm_email_notify.admin.inc',
+    'access arguments' => array('administer privatemsg settings'),
+    'type'             => MENU_LOCAL_TASK,
+    'weight'           => 10,
+  );
+  return $items;
+}
+
+/**
+ * Retrieve notification setting of a user.
+ *
+ * This function retrieves user's pm notification preference from database,
+ * if user preference doesn't exist - it uses default value instead
+ *
+ * @param $uid
+ *   User uid
+ */
+function _pm_email_notify_is_enabled($uid) {
+  static $notifications = array();
+  // Cache the result set in case this method is executed in batched operation which will perform many unnecessary repeated selects for the same user
+  if ( !isset($notifications[$uid]) ) {
+    $mail_notification = db_result(db_query('SELECT email_notify_is_enabled FROM {pm_email_notify} WHERE user_id = %d', $uid));
+    if ($mail_notification === FALSE) {
+      // db_result() returns FALSE if result was not found.
+      $mail_notification = variable_get('pm_email_notify_default', TRUE);
+    }
+    $notifications[$uid] = $mail_notification;
+  }
+  return $notifications[$uid];
+}
+
+/**
+ * Implements hook_privatemsg_message_insert().
+ */
+function pm_email_notify_privatemsg_message_insert($message) {
+  foreach ($message['recipients'] as $recipient) {
+    // check if recipient enabled email notifications
+    if (isset($recipient->uid) && _pm_email_notify_is_enabled($recipient->uid)) {
+      // send them a new pm notification email if they did
+      $params['recipient'] = $recipient;
+      $params['message'] = $message;
+      $from = variable_get('pm_email_notify_from', '');
+      drupal_mail('pm_email_notify', 'notice', $recipient->mail, user_preferred_language($recipient), $params, !empty($from) ? $form : NULL);
+    }
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function pm_email_notify_mail($key, &$message, $params) {
+  $language = $message['language'];
+  $variables = user_mail_tokens($params['recipient'], $language);
+  $variables = array_merge($variables, _pm_email_notify_token($params['recipient'], $params['message'], $language));
+  switch ($key) {
+    case 'notice':
+      $message['subject'] = strtr(_pm_email_notify_text('subject', $language), $variables);
+      $message['body'] = strtr(_pm_email_notify_text('body', $language), $variables);
+      break;
+  }
+}
+
+/**
+ * Return an array of token to value mappings for user e-mail messages.
+ *
+ * @param $message
+ *   The private message array being sent.  Must contain at
+ *   least the fields 'author', 'subject', 'thread_id' and 'body'.
+ * @return
+ *   Array of mappings from token names to values (for use with strtr()).
+ */
+function _pm_email_notify_token($recipient, $message, $language) {
+  $tokens = array(
+    '!author_uid' => $message['author']->uid,
+    '!author' => privatemsg_recipient_format($message['author'], array('plain' => TRUE)),
+    '!pm_subject' => trim(drupal_html_to_text(check_plain($message['subject']))),
+    '!pm_body' => trim(drupal_html_to_text(check_markup($message['body'], $message['format'], FALSE))),
+    '!thread' => $message['thread_id'],
+    '!user_uid' => $recipient->uid,
+    '!message' => url(privatemsg_get_dynamic_url_prefix($recipient->uid) . '/view/' . $message['thread_id'], array('absolute' => TRUE, 'language' => $language)),
+    '!settings' => url('user/' . $recipient->uid . '/edit', array('absolute' => TRUE, 'language' => $language)),
+  );
+
+  // Allow other modules to alter the token mapping.
+  drupal_alter('pm_email_notify_token', $tokens, $recipient, $message, $language);
+
+  return $tokens;
+}
+
+/**
+ * Return a list of available tokens for user e-mail messages.
+ *
+ * @return
+ *   A string containing all the available tokens.
+ */
+function _pm_email_notify_token_list() {
+  $tokens = drupal_map_assoc(array(
+    '!author_uid',
+    '!author',
+    '!pm_subject',
+    '!pm_body',
+    '!thread',
+    '!user_uid',
+    '!message',
+    '!settings',
+  ));
+
+  // Customize token descriptions.
+  $tokens['!message'] = '!message (URL)';
+  $tokens['!settings'] = '!settings (URL)';
+
+  // Allow other module to alter the token list.
+  drupal_alter('pm_email_notify_token_list', $tokens);
+
+  return implode(', ', $tokens);
+}
+
+/**
+ * Get the default text for body and subject texts.
+ *
+ * @param $key
+ *   Defines with string to return, either subject or body.
+ *
+ * @return
+ *   The default text for the given key.
+ */
+function _pm_email_notify_source_text($key) {
+  $text = variable_get('pm_email_notify_' . $key, FALSE);
+  if (empty($text)) {
+    switch ($key) {
+      case 'subject':
+        $text = 'New private message at !site.';
+        break;
+      case 'body':
+        $text = "Hi !username,\n\nThis is an automatic reminder from the site !site. You have received a new private message from !author.\n\nTo read your message, follow this link:\n!message\n\nIf you don't want to receive these emails again, change your preferences here:\n!settings";
+        break;
+    }
+  }
+  return $text;
+}
+
+/**
+ * Return (if possible, translated) body/subject strings.
+ *
+ * @param $key
+ *   Defines with string to return, either subject or body.
+ * @param $language
+ *   Optionally define into which language should be translated. Defaults to the
+ *   active language.
+ * @param $translate
+ *   Define if the translated text should be returned or the source. This is
+ *   used in the settings page to allow editing the source but still update the
+ *   translation system.
+ * @return
+ *   Either the translated text or the source, depending on the $translate
+ *   flag.
+ */
+function _pm_email_notify_text($key, $language = NULL, $translate = TRUE) {
+  $text = _pm_email_notify_source_text($key);
+  // Always call tt() so that the key and source is saved and can be translated.
+  // Only update the source if called from the settings page and $translate is
+  // FALSE.
+  $translated = pm_email_notify_tt('pm_email_notify:mail:' . $key, $text, $language, !$translate);
+  // Only return the translated text if requested so.
+  if ($translate) {
+    return $translated;
+  }
+  return $text;
+}
+
+/**
+ * Implements hook_user().
+ *
+ * Display settings form and store its information.
+ */
+function pm_email_notify_user($op, &$edit, &$account, $category = NULL) {
+  switch ($op) {
+    case 'form':
+      if ($category == 'account' && privatemsg_user_access('read privatemsg', $account)) {
+        $form['privatemsg']['pm_send_notifications'] = array(
+          '#type' => 'checkbox',
+          '#title' => t('Receive email notification for incoming private messages'),
+          '#default_value' => _pm_email_notify_is_enabled($account->uid),
+        );
+      }
+      return $form;
+
+    case 'submit':
+      if (isset($edit['pm_send_notifications']) && privatemsg_user_access('read privatemsg', $account)) {
+        $pm_email_enabled = $edit['pm_send_notifications'];
+        unset($edit['pm_send_notifications']);
+        // Update database entry with user preference.
+        $exists = db_result(db_query("SELECT 1 FROM {pm_email_notify} WHERE user_id = %d", $account->uid));
+        if ($exists) {
+          // If there is an existing entry, update.
+          db_query("UPDATE {pm_email_notify} SET email_notify_is_enabled = %d WHERE user_id = %d", $pm_email_enabled, $account->uid);
+        }
+        else {
+          // If not, create a new one.
+          db_query("INSERT INTO {pm_email_notify} (email_notify_is_enabled, user_id) VALUES (%d, %d)", $pm_email_enabled, $account->uid);
+        }
+      }
+      break;
+
+    case 'delete':
+      db_query("DELETE FROM {pm_email_notify} WHERE user_id = %d", $account->uid);
+      break;
+  }
+}
+
+/**
+ * Implements hook_locale().
+ */
+function pm_email_notify_locale($op = 'groups', $group = NULL) {
+  switch ($op) {
+    case 'groups':
+      return array('pm_email_notify' => t('Privatemsg Email Notification'));
+      break;
+    case 'info':
+      return array(
+        'pm_email_notify' => array(
+          'format' => FALSE,
+          'refresh callback' => 'pm_email_notify_locale_refresh',
+        )
+      );
+  }
+}
+
+/**
+ * Refresh callback to update the string translation sources.
+ */
+function pm_email_notify_locale_refresh() {
+  i18nstrings_update('pm_email_notify:mail:subject', _pm_email_notify_source_text('subject'));
+  i18nstrings_update('pm_email_notify:mail:body', _pm_email_notify_source_text('body'));
+  return TRUE;
+
+}
+
+
+/**
+ * Wrapper function for tt().
+ */
+function pm_email_notify_tt($name, $string, $language = NULL, $update = FALSE) {
+  static $tt;
+  if (!isset($tt)) {
+    $tt = variable_get('i18n_tt', 'tt');
+      if (!function_exists($tt)) {
+        $tt = FALSE;
+      }
+  }
+  if ($tt) {
+    return $tt($name, $string, isset($language) ? $language->language : NULL, $update);
+  }
+  else {
+    return $string;
+  }
+}

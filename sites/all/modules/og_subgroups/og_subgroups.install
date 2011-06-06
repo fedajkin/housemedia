@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Installs and updates the necessary tables required by the OG Subgroups module.
+ */
+
+
+function og_subgroups_schema() {
+  $schema['og_subgroups'] = array(
+     'description' => t('Handles the hierarchy of og'),
+      'fields' => array(
+        'gid' => array(
+          'description' => t('The ID for a group.'),
+          'type' => 'int',
+          'not null' => TRUE),
+        'parent' => array(
+          'description' => t('The gid of the parent group.'),
+          'type' => 'int',
+          'not null' => TRUE,
+          'default' => 0),
+        ),
+      'primary key' => array('gid', 'parent'),
+  );
+
+  return $schema;
+}
+
+function og_subgroups_install() {
+  drupal_install_schema('og_subgroups');
+}
+
+function og_subgroups_uninstall() {
+  drupal_uninstall_schema('og_subgroups');
+
+  // Delete variables
+  $variables = array(
+    'og_subgroups_propagate_content',
+    'og_subgroups_propagate_members',
+    'og_subgroups_propagate_demote',
+  );
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}

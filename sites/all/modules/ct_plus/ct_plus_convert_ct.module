@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * Implementation of hook_menu().
+ */
+function ct_plus_convert_ct_menu() {
+  $items = array();
+  $items['admin/settings/ct_plus_convert_ct'] = array(
+    'title' => 'CT Plus Convert CT',
+    'description' => "Convert from Case Tracker to Case Tracker Plus.",
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ct_plus_convert_ct_convert_confirm'),
+    'type' => MENU_NORMAL_ITEM,
+    );
+  return $items;
+}
+
+/**
+ * Menu callback: confirm conversion.
+ */
+function ct_plus_convert_ct_convert_confirm() {
+  return confirm_form(array(), t('Are you sure you want to convert all Case Tracker nodes to CT Plus equivalents?'),
+    'admin/settings/ct_plus', t('This action will only affect tables and table entries associated with Case Tracker task and project nodes.
+                                It cannot be undone - make sure that you backup your database and have a restore plan in place before running the conversion.'),
+                              t('Convert Case Tracker nodes'), t('Cancel'));
+}
+
+/**
+ * Handler for convert confirmation
+ */
+function ct_plus_convert_ct_convert_confirm_submit($form, &$form_state) {
+  ct_plus_convert_ct_convert();
+  drupal_set_message('Conversion complete');
+}
+
+function ct_plus_convert_ct_convert() {
+  // Projects - convert node type, enable comments, get rid of book setting, convert from published/not to status
+  db_query("UPDATE {node} SET type = 'ct_plus_project', comment = 2 WHERE type = 'casetracker_basic_project'");
+  db_query("DELETE b FROM {book} AS b INNER JOIN {node} AS n ON b.nid = n.nid WHERE n.type = 'ct_plus_project'");
+  $result = db_query("SELECT * FROM {node} WHERE type = 'ct_plus_project'");
+  while ($row = db_fetch_object($result)) {
+    $status = 'Open';
+    if ($row->status == 0) {
+      $status = 'Closed';
+    }
+    db_query("INSERT INTO {content_field_ct_plus_status} (vid, nid, field_ct_plus_status_value) VALUES ($row->vid, $row->nid, '$status')");
+  }
+  db_query("UPDATE {node} SET status = 1 WHERE type = 'ct_plus_project'");
+
+  // Cases are difficult - need to convert node type, then casetracker_case to cck
+  db_query("UPDATE {node} SET type = 'ct_plus_task' WHERE type = 'casetracker_basic_case'");
+  // Convert casetracker_basic_case CCK fields and custom fields to ct_plus_task CCK fields
+  $result = db_query("SELECT * FROM {casetracker_case} AS cc INNER JOIN {content_type_casetracker_basic_case} AS ctcbc ON cc.vid = ctcbc.vid INNER JOIN {node_revisions} AS nr ON nr.vid = cc.vid");
+  while ($row = db_fetch_object($result)) {
+    // For each task
+    $priority = ct_plus_convert_ct_csid($row->case_priority_id);
+    $type = ct_plus_convert_ct_csid($row->case_type_id);
+    $status = ct_plus_convert_ct_csid($row->case_status_id);
+    $progress = is_numeric($row->field_progress_value) ? $row->field_progress_value : 0;
+    db_query("INSERT INTO {content_type_ct_plus_task} (vid, nid, field_ct_plus_duration_value, field_ct_plus_duration_value2, field_ct_plus_priority_value, field_ct_plus_progress_value, field_ct_plus_project_nid, field_ct_plus_type_value)
+             VALUES ($row->vid, $row->nid, '$row->field_duration_value', '$row->field_duration_value2', '$priority', $progress, $row->pid, '$type')");
+    db_query("INSERT INTO {content_field_ct_plus_status} (vid, nid, field_ct_plus_status_value) VALUES ($row->vid, $row->nid, '$status')");
+    $assign = $row->assign_to != 0 ? $row->assign_to : 'NULL';
+    db_query("INSERT INTO {content_field_ct_plus_assignees} (vid, nid, delta, field_ct_plus_assignees_uid) VALUES ($row->vid, $row->nid, 0, $assign)");
+    db_query("INSERT INTO {content_field_ct_plus_dependencies} (vid, nid, delta, field_ct_plus_dependencies_nid) VALUES ($row->vid, $row->nid, 0, 'NULL')");
+  }
+  // Get only the latest version of each uploaded file - note that we must insert SOMETHING for every node, or version tracking won't work properly later - hence the outer join
+  $result = db_query("SELECT * FROM {upload} AS u RIGHT JOIN {node} AS n ON n.vid = u.vid WHERE n.type = 'ct_plus_project' OR n.type = 'ct_plus_task'");
+  while ($row = db_fetch_object($result)) {
+    // For each vid/fid
+    $delta = db_fetch_object(db_query("SELECT COUNT(delta) AS max FROM {content_field_files} WHERE vid = $row->vid"))->max;
+    $fid = is_numeric($row->fid) ? $row->fid : 'NULL';
+    db_query("INSERT INTO {content_field_files} (vid, nid, delta, field_files_fid, field_files_list, field_files_data) VALUES ($row->vid, $row->nid, $delta, $fid, 1, '')");
+    if (is_numeric($row->fid)) {
+      db_query("DELETE FROM {upload} WHERE vid = $row->vid AND fid = $row->fid");
+    }
+  }
+  $result = db_query("SELECT * FROM {comment_upload} AS cu RIGHT JOIN {node} AS n ON n.nid = cu.nid WHERE n.type = 'ct_plus_project' OR n.type = 'ct_plus_task'");
+  while ($row = db_fetch_object($result)) {
+    $delta = db_fetch_object(db_query("SELECT COUNT(delta) AS max FROM {content_field_files} WHERE vid = $row->vid"))->max;
+    $fid = is_numeric($row->fid) ? $row->fid : 'NULL';
+    db_query("INSERT INTO {content_field_files} (vid, nid, delta, field_files_fid, field_files_list, field_files_data) VALUES ($row->vid, $row->nid, $delta, $fid, 1, '')");
+    if (is_numeric($row->fid)) {
+      db_query("DELETE FROM {comment_upload} WHERE nid = $row->nid AND fid = $row->fid");
+    }
+  }
+}
+
+function ct_plus_convert_ct_csid($csid) {
+  $result = db_query("SELECT case_state_name FROM {casetracker_case_states} WHERE csid = $csid");
+  $row = db_fetch_object($result);
+  return $row->case_state_name;
+}
+

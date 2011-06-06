@@ -1,0 +1,12 @@
+name = "Views Search"
+description = "Provides a traditional search interface using Views exposed filters."
+package = "Views"
+dependencies[] = views
+core = 6.x
+php = 5
+; Information added by drupal.org packaging script on 2011-04-10
+version = "6.x-1.0"
+core = "6.x"
+project = "views_search"
+datestamp = "1302469917"
+

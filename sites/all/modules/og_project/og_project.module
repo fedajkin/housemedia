@@ -1,0 +1,134 @@
+<?php
+
+
+/**
+ * @file
+ * Handles the interaction between organic groups and the project module.
+ */
+
+
+/**
+ * Implement hook_menu().
+ */
+function og_project_menu() {
+  $items['admin/project/og-project-settings'] = array(
+    'description' => 'Configure settings for the integration between Organic Groups and the Project family of modules.',
+    'title' => 'OG Project settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('og_project_settings_form'),
+    'access arguments' => array('administer projects'),
+    'weight' => 1,
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'og_project.settings.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implement hook_form_alter().
+ *
+ * Note: we have to use hook_form_alter(), not the form_id-specific version,
+ * so that we're sure to come after other modules (namely OG) have altered the
+ * forms.
+ */
+function og_project_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'project_release_node_form') {  
+    return og_project_release_node_form_alter($form, $form_state);
+  }
+  if ($form_id == 'project_issue_node_form') {  
+    return og_project_issue_node_form_alter($form, $form_state);
+  }
+}
+
+/**
+ * Alter the project_release node form.
+ */
+function og_project_release_node_form_alter(&$form, $form_state) {
+  if (variable_get('og_project_release_automatic_audience', FALSE)) {
+    if (empty($form['nid']['#value'])) {
+      $project_nid = $form['project']['#value']->nid;
+      if (!empty($form['og_nodeapi']['visible']['og_groups'])) {
+        $form['og_nodeapi']['visible']['og_groups']['#default_value'] = array($project_nid => $project_nid);
+      }
+      elseif (!empty($form['og_nodeapi']['invisible']['og_groups'])) {
+        $form['og_nodeapi']['invisible']['og_groups']['#value'] = array($project_nid => $project_nid);
+      }
+    }
+    // Either way, hide the OG UI.
+    $form['og_nodeapi']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Alter the project_issue node form.
+ */
+function og_project_issue_node_form_alter(&$form, $form_state) {
+  if (variable_get('og_project_issue_automatic_audience', FALSE)) {
+    if (empty($form['nid']['#value'])) {
+      $project_nid = $form['project_info']['pid']['#value'];
+      if (!empty($form['og_nodeapi']['visible']['og_groups'])) {
+        $form['og_nodeapi']['visible']['og_groups']['#default_value'] = array($project_nid => $project_nid);
+      }
+      elseif (!empty($form['og_nodeapi']['invisible']['og_groups'])) {
+        $form['og_nodeapi']['invisible']['og_groups']['#value'] = array($project_nid => $project_nid);
+      }
+    }
+    // Either way, hide the OG UI.
+    $form['og_nodeapi']['#access'] = FALSE;
+  }
+}
+
+/**
+ * Implement hook_og_links_alter().
+ *
+ * If the currently active group is a project node, fix the links in the group
+ * details block to create an issue or release to include the necessary URL
+ * elements to associate the issue or release with its parent project.
+ *
+ * @param $links
+ *   Reference to an array of links to create content in a group.
+ */
+function og_project_og_links_alter(&$links) {
+  $group = og_get_group_context();
+  if ($group->type == 'project_project') {
+    if (!empty($links['create_project_issue'])) {
+      $type_name = node_get_types('name', 'project_issue');
+      $links['create_project_issue'] = l(t('Create !type', array('!type' => $type_name)), 'node/add/project-issue/' . $group->project['uri'], array('attributes' => array('title' => t('Add a new !type in this group.', array('!type' => $type_name))), 'query' => "gids[]=$group->nid"));
+    }
+    if (!empty($links['create_project_release'])) {
+      $type_name = node_get_types('name', 'project_release');
+      $links['create_project_release'] = l(t('Create !type', array('!type' => $type_name)), 'node/add/project-release/' . $group->nid, array('attributes' => array('title' => t('Add a new !type in this group.', array('!type' => $type_name))), 'query' => "gids[]=$group->nid"));
+    }
+  }
+}
+
+/**
+ * Implement hook_token_list() (from token.module)
+ */
+function og_project_token_list($type) {
+  if ($type == 'node') {
+    $tokens['node']['og_project_shortname'] = t('The short name of the first group which is a project');
+    return $tokens;
+  }
+}
+ 
+/**
+ * Implement hook_token_values() (from token.module)
+ */
+function og_project_token_values($type = 'all', $object = NULL) {
+  if ($type == 'node') {
+    $values['og_project_shortname'] = '';
+    if (!empty($object->og_groups) && is_array($object->og_groups)) {
+      $gids = array_filter($object->og_groups);
+      foreach ($gids as $gid) {
+        $project = db_fetch_object(db_query("SELECT nid, uri FROM {project_projects} WHERE nid = %d", $gid));
+        if (!empty($project)) {
+          $values['og_project_shortname'] = check_plain($project->uri);
+          break;
+        }
+      }
+    }
+    return $values;
+  }
+}
+

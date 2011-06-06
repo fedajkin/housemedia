@@ -1,0 +1,14 @@
+; $Id: cck_private_fields.info,v 1.1.2.2 2009/07/31 00:48:13 markuspetrux Exp $
+name = CCK Private Fields
+description = Allows users to mark administrator selected CCK fields as public, hidden or private.
+dependencies[] = content
+dependencies[] = jquery_ui
+package = CCK
+core = 6.x
+
+; Information added by drupal.org packaging script on 2009-11-11
+version = "6.x-1.1"
+core = "6.x"
+project = "cck_private_fields"
+datestamp = "1257972039"
+
