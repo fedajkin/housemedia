@@ -1,0 +1,5 @@
+core = "6.x"
+description = "The main components of Housemedia"
+name = "Housemedia Core"
+version = "6.x-1.4.1"
+package = "Housemedia"

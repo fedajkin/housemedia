@@ -1,0 +1,14 @@
+diff --git a/sites/default/default.settings.php b/sites/default/default.settings.php
+index ce2c3a8..27d07b1 100644
+--- a/sites/default/default.settings.php
++++ b/sites/default/default.settings.php
+@@ -147,6 +147,9 @@ ini_set('session.use_only_cookies', 1);
+ ini_set('session.use_trans_sid',    0);
+ ini_set('url_rewriter.tags',        '');
+ 
++ini_set('memory_limit', '256M');
++ini_set('max_execution_time', 180);
++
+ /**
+  * If you encounter a situation where users post a large amount of text, and
+  * the result is stripped out upon viewing but can still be edited, Drupal's

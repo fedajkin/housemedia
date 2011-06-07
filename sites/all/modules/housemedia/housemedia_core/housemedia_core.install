@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Housemedia Core module.
+ */
+
+/**
+ * Disable unecessary modules. Step 1.
+ */
+function housemedia_core_update_6001() {
+  $modules_list = array(
+    'db_tweaks',
+  	'drupal_tweaks',
+    'slider',
+    'ct_plus',
+    'spaces',
+    'views_jsgantt',
+    'ddblock',
+  );
+  
+  // Disable modules.
+  module_disable($modules_list);
+  
+  // Uninstall modules.
+  foreach ($modules_list as $module) {
+    drupal_uninstall_module($module);
+  }
+  
+  return array();
+}
+
+/**
+ * Disable unecessary modules. Step 2.
+ */
+function housemedia_core_update_6002() {
+  $modules_list = array(
+    'custom_search_blocks',
+    'custom_search',
+    'keyword_autocomplete',
+    'arrange_fields',
+    'comment_driven_inspect',
+    'driven_nep', 
+    'driven_inspect',
+    'comment_driven_nodeapi',
+    'comment_driven',
+    'driven_props',
+    'driven_diff',
+    'driven_cck_producer_consumer',
+    'driven_acp',
+    'driven',     
+  );
+  
+  // Disable modules.
+  module_disable($modules_list);
+  
+  // Uninstall modules.
+  foreach ($modules_list as $module) {
+    drupal_uninstall_module($module);
+  }
+  
+  return array();
+}
+
+/**
+ * Disable unecessary modules. Step 3.
+ */
+function housemedia_core_update_6003() {
+  $modules_list = array(
+    'finder_views',
+    'finder_user',
+    'finder_text',
+    'finder_search',
+    'finder_optionwidgets',
+    'finder_node',
+    'finder_autocomplete',
+    'finder',
+  );
+  
+  // Disable modules.
+  module_disable($modules_list);
+  
+  // Uninstall modules.
+  foreach ($modules_list as $module) {
+    drupal_uninstall_module($module);
+  }
+  
+  return array();
+}
+
