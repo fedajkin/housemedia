@@ -88,3 +88,24 @@ function housemedia_core_update_6003() {
   return array();
 }
 
+/**
+ * Disable unecessary modules. Step 4.
+ */
+function housemedia_core_update_6004() {
+  $modules_list = array(
+    'cck_list',
+    'nodeblock',
+    'site_map',
+  );
+  
+  // Disable modules.
+  module_disable($modules_list);
+  
+  // Uninstall modules.
+  foreach ($modules_list as $module) {
+    drupal_uninstall_module($module);
+  }
+  
+  return array();
+}
+
