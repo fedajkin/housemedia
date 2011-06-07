@@ -5,6 +5,7 @@
 
 cgi-bin
 email
+!sites/all/modules/contrib/email
 400.shtml
 401.shtml
 403.shtml
