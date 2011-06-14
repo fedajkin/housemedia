@@ -1,0 +1,12 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_home/commons_home.info b/profiles/drupal_commons/modules/features/commons_home/commons_home.info
+index ebdf22b..71c1a48 100644
+--- a/profiles/drupal_commons/modules/features/commons_home/commons_home.info
++++ b/profiles/drupal_commons/modules/features/commons_home/commons_home.info
+@@ -3,6 +3,7 @@ dependencies[] = "comment"
+ dependencies[] = "commons_core"
+ dependencies[] = "content"
+ dependencies[] = "ctools"
++dependencies[] = "location"
+ dependencies[] = "og_views"
+ dependencies[] = "page_manager"
+ dependencies[] = "panels"

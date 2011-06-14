@@ -1,0 +1,29 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.features.menu_links.inc b/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.features.menu_links.inc
+index 17e7184..a212a21 100644
+--- a/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.features.menu_links.inc
++++ b/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.features.menu_links.inc
+@@ -11,8 +11,9 @@ function commons_dashboard_menu_default_menu_links() {
+     'menu_name' => 'primary-links',
+     'link_path' => 'dashboard',
+     'router_path' => 'dashboard',
+-    'link_title' => 'Dashboard',
++    'link_title' => 'Panel',
+     'options' => array(
++      'minipanel' => '',
+       'attributes' => array(
+         'title' => '',
+       ),
+@@ -22,11 +23,11 @@ function commons_dashboard_menu_default_menu_links() {
+     'external' => '0',
+     'has_children' => '0',
+     'expanded' => '0',
+-    'weight' => '1',
++    'weight' => '-48',
+   );
+   // Translatables
+   // Included for use with string extractors like potx.
+-  t('Dashboard');
++  t('Panel');
+ 
+ 
+   return $menu_links;

@@ -1,0 +1,12 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_poll/commons_poll.info b/profiles/drupal_commons/modules/features/commons_poll/commons_poll.info
+index fa21a4b..a973c60 100644
+--- a/profiles/drupal_commons/modules/features/commons_poll/commons_poll.info
++++ b/profiles/drupal_commons/modules/features/commons_poll/commons_poll.info
+@@ -6,6 +6,7 @@ dependencies[] = "editablefields"
+ dependencies[] = "features"
+ dependencies[] = "fieldgroup"
+ dependencies[] = "imagefield"
++dependencies[] = "location"
+ dependencies[] = "menu"
+ dependencies[] = "og_views"
+ dependencies[] = "optionwidgets"

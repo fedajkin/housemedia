@@ -1,0 +1,56 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.user_permission.inc b/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.user_permission.inc
+index a6188c9..8414233 100644
+--- a/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.user_permission.inc
++++ b/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.user_permission.inc
+@@ -9,9 +9,7 @@ function commons_wiki_user_default_permissions() {
+   // Exported permission: access freelinking list
+   $permissions['access freelinking list'] = array(
+     'name' => 'access freelinking list',
+-    'roles' => array(
+-      '0' => 'authenticated user',
+-    ),
++    'roles' => array(),
+   );
+ 
+   // Exported permission: administer freelinking
+@@ -25,9 +23,7 @@ function commons_wiki_user_default_permissions() {
+   // Exported permission: create wiki content
+   $permissions['create wiki content'] = array(
+     'name' => 'create wiki content',
+-    'roles' => array(
+-      '0' => 'authenticated user',
+-    ),
++    'roles' => array(),
+   );
+ 
+   // Exported permission: delete any wiki content
+@@ -42,7 +38,8 @@ function commons_wiki_user_default_permissions() {
+   $permissions['delete own wiki content'] = array(
+     'name' => 'delete own wiki content',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
++      '1' => 'authenticated user',
+     ),
+   );
+ 
+@@ -50,7 +47,8 @@ function commons_wiki_user_default_permissions() {
+   $permissions['edit any wiki content'] = array(
+     'name' => 'edit any wiki content',
+     'roles' => array(
+-      '0' => 'community manager',
++      '0' => 'Użytkownik',
++      '1' => 'community manager',
+     ),
+   );
+ 
+@@ -58,7 +56,8 @@ function commons_wiki_user_default_permissions() {
+   $permissions['edit own wiki content'] = array(
+     'name' => 'edit own wiki content',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
++      '1' => 'authenticated user',
+     ),
+   );
+ 

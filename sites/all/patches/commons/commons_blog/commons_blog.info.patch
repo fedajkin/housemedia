@@ -1,0 +1,12 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_blog/commons_blog.info b/profiles/drupal_commons/modules/features/commons_blog/commons_blog.info
+index 16d791f..3d151d5 100644
+--- a/profiles/drupal_commons/modules/features/commons_blog/commons_blog.info
++++ b/profiles/drupal_commons/modules/features/commons_blog/commons_blog.info
+@@ -6,6 +6,7 @@ dependencies[] = "editablefields"
+ dependencies[] = "features"
+ dependencies[] = "fieldgroup"
+ dependencies[] = "imagefield"
++dependencies[] = "location"
+ dependencies[] = "menu"
+ dependencies[] = "og_views"
+ dependencies[] = "optionwidgets"

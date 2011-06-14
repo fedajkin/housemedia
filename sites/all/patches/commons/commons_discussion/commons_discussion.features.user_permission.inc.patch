@@ -1,0 +1,23 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.user_permission.inc b/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.user_permission.inc
+index 756884e..819a0ce 100644
+--- a/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.user_permission.inc
++++ b/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.user_permission.inc
+@@ -10,7 +10,7 @@ function commons_discussion_user_default_permissions() {
+   $permissions['create discussion content'] = array(
+     'name' => 'create discussion content',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
+     ),
+   );
+ 
+@@ -26,7 +26,8 @@ function commons_discussion_user_default_permissions() {
+   $permissions['delete own discussion content'] = array(
+     'name' => 'delete own discussion content',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
++      '1' => 'authenticated user',
+     ),
+   );
+ 

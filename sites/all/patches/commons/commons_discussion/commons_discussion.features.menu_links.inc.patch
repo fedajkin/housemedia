@@ -1,0 +1,29 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.menu_links.inc b/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.menu_links.inc
+index 0046cc2..41713b4 100644
+--- a/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.menu_links.inc
++++ b/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.features.menu_links.inc
+@@ -11,8 +11,13 @@ function commons_discussion_menu_default_menu_links() {
+     'menu_name' => 'primary-links',
+     'link_path' => 'content/discussions',
+     'router_path' => 'content/discussions',
+-    'link_title' => 'Discussions',
+-    'options' => array(),
++    'link_title' => 'Dyskusje',
++    'options' => array(
++      'minipanel' => '',
++      'attributes' => array(
++        'title' => '',
++      ),
++    ),
+     'module' => 'commons',
+     'hidden' => '0',
+     'external' => '0',
+@@ -23,7 +28,7 @@ function commons_discussion_menu_default_menu_links() {
+   );
+   // Translatables
+   // Included for use with string extractors like potx.
+-  t('Discussions');
++  t('Dyskusje');
+ 
+ 
+   return $menu_links;

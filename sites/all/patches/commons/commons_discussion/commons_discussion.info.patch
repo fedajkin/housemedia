@@ -1,0 +1,23 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.info b/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.info
+index 68054fd..48fa7f3 100644
+--- a/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.info
++++ b/profiles/drupal_commons/modules/features/commons_discussion/commons_discussion.info
+@@ -5,6 +5,7 @@ dependencies[] = "editablefields"
+ dependencies[] = "features"
+ dependencies[] = "fieldgroup"
+ dependencies[] = "imagefield"
++dependencies[] = "location"
+ dependencies[] = "menu"
+ dependencies[] = "og_views"
+ dependencies[] = "optionwidgets"
+@@ -36,8 +37,10 @@ features[variable][] = "comment_form_location_discussion"
+ features[variable][] = "comment_preview_discussion"
+ features[variable][] = "comment_subject_field_discussion"
+ features[variable][] = "content_extra_weights_discussion"
++features[variable][] = "language_content_type_discussion"
+ features[variable][] = "node_options_discussion"
+ features[variable][] = "og_content_type_usage_discussion"
++features[variable][] = "upload_discussion"
+ features[views][] = "content_global_discussions"
+ features[views][] = "og_tab_discussions"
+ features[views_api][] = "api:2"

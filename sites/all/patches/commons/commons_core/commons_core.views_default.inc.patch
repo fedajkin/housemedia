@@ -1,0 +1,2168 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_core/commons_core.views_default.inc b/profiles/drupal_commons/modules/features/commons_core/commons_core.views_default.inc
+index eaa2fe7..93219de 100644
+--- a/profiles/drupal_commons/modules/features/commons_core/commons_core.views_default.inc
++++ b/profiles/drupal_commons/modules/features/commons_core/commons_core.views_default.inc
+@@ -271,7 +271,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'My recent items');
++  $handler->override_option('title', 'Moje ostatnie pozycje');
+   $handler->override_option('empty', 'You haven\'t created any items yet.');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+@@ -467,8 +467,8 @@ function commons_core_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'strip_tags' => 0,
+         'html' => 0,
++        'strip_tags' => 0,
+       ),
+       'empty' => '',
+       'hide_empty' => 0,
+@@ -480,7 +480,7 @@ function commons_core_views_default_views() {
+       'table' => 'node',
+       'field' => 'changed',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Nadpisz',
+       ),
+       'relationship' => 'none',
+     ),
+@@ -570,7 +570,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'My unread items');
++  $handler->override_option('title', 'Nieprzeczytane');
+   $handler->override_option('empty', 'You have no unread items');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+@@ -992,13 +992,6 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+       'link_to_node' => 1,
+     ),
+-    'description' => array(
+-      'id' => 'description',
+-      'table' => 'og',
+-      'field' => 'description',
+-      'label' => 'Description',
+-      'relationship' => 'none',
+-    ),
+     'name' => array(
+       'id' => 'name',
+       'table' => 'users',
+@@ -1126,7 +1119,7 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'subscribe' => array(
+-      'label' => 'Join',
++      'label' => '',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -1196,9 +1189,9 @@ function commons_core_views_default_views() {
+       'exposed' => TRUE,
+       'expose' => array(
+         'use_operator' => 0,
+-        'operator' => 'title_oper',
++        'operator' => 'title_op',
+         'identifier' => 'title',
+-        'label' => 'Group name',
++        'label' => 'Segment: Tytuł',
+         'optional' => 1,
+         'remember' => 0,
+       ),
+@@ -1211,7 +1204,7 @@ function commons_core_views_default_views() {
+         'button' => 'Hide',
+       ),
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Nadpisz',
+       ),
+     ),
+     'type_groups_all' => array(
+@@ -1252,12 +1245,12 @@ function commons_core_views_default_views() {
+       'operator' => 'in',
+       'value' => array(),
+       'group' => '0',
+-      'exposed' => TRUE,
++      'exposed' => FALSE,
+       'expose' => array(
+-        'use_operator' => 0,
+         'operator' => 'selective_op',
++        'label' => 'Dostęp',
++        'use_operator' => 0,
+         'identifier' => 'selective',
+-        'label' => 'Access',
+         'optional' => 1,
+         'single' => 1,
+         'remember' => 0,
+@@ -1271,6 +1264,35 @@ function commons_core_views_default_views() {
+       ),
+       'relationship' => 'none',
+     ),
++    'tid' => array(
++      'operator' => 'or',
++      'value' => array(
++        '17' => '17',
++        '114' => '114',
++      ),
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'tid_op',
++        'identifier' => 'tid',
++        'label' => 'Kategorie: Wyrażenie',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++        'reduce' => 1,
++      ),
++      'type' => 'select',
++      'limit' => TRUE,
++      'vid' => '2',
++      'id' => 'tid',
++      'table' => 'term_node',
++      'field' => 'tid',
++      'hierarchy' => 0,
++      'configure_hs' => '<a href="/admin/build/views/hs_config/og_all/default/tid">Configure Hierarchical Select</a>',
++      'relationship' => 'none',
++      'reduce_duplicates' => 0,
++    ),
+   ));
+   $handler->override_option('access', array(
+     'type' => 'none',
+@@ -1280,7 +1302,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Groups');
++  $handler->override_option('title', 'Grupy');
+   $handler->override_option('header_format', '1');
+   $handler->override_option('header_empty', 1);
+   $handler->override_option('empty', 'There are currently no groups');
+@@ -1293,8 +1315,8 @@ function commons_core_views_default_views() {
+   $handler->override_option('style_options', array(
+     'grouping' => '',
+     'override' => 1,
+-    'sticky' => 1,
+-    'order' => 'desc',
++    'sticky' => 0,
++    'order' => 'asc',
+     'columns' => array(
+       'field_group_image_fid' => 'field_group_image_fid',
+       'title' => 'title',
+@@ -1304,7 +1326,6 @@ function commons_core_views_default_views() {
+       'member_count' => 'member_count',
+       'created' => 'created',
+       'selective' => 'selective',
+-      'created_1' => 'created_1',
+       'subscribe' => 'subscribe',
+     ),
+     'info' => array(
+@@ -1312,40 +1333,36 @@ function commons_core_views_default_views() {
+         'separator' => '',
+       ),
+       'title' => array(
+-        'sortable' => 1,
++        'sortable' => 0,
+         'separator' => '',
+       ),
+       'description' => array(
+         'separator' => '',
+       ),
+       'name' => array(
+-        'sortable' => 1,
++        'sortable' => 0,
+         'separator' => '',
+       ),
+       'post_count' => array(
+-        'sortable' => 1,
++        'sortable' => 0,
+         'separator' => '',
+       ),
+       'member_count' => array(
+-        'sortable' => 1,
++        'sortable' => 0,
+         'separator' => '',
+       ),
+       'created' => array(
+-        'sortable' => 1,
++        'sortable' => 0,
+         'separator' => '',
+       ),
+       'selective' => array(
+         'separator' => '',
+       ),
+-      'created_1' => array(
+-        'sortable' => 1,
+-        'separator' => '',
+-      ),
+       'subscribe' => array(
+         'separator' => '',
+       ),
+     ),
+-    'default' => 'created',
++    'default' => '-1',
+   ));
+   $handler = $view->new_display('feed', 'Feed', 'feed');
+   $handler->override_option('sorts', array(
+@@ -1491,50 +1508,8 @@ function commons_core_views_default_views() {
+     'name' => 'primary-links',
+   ));
+   $handler = $view->new_display('page', 'Page', 'page_1');
+-  $handler->override_option('path', 'groups');
+-  $handler->override_option('menu', array(
+-    'type' => 'none',
+-    'title' => '',
+-    'description' => '',
+-    'weight' => 0,
+-    'name' => 'navigation',
+-  ));
+-  $handler->override_option('tab_options', array(
+-    'type' => 'none',
+-    'title' => '',
+-    'description' => '',
+-    'weight' => 0,
+-    'name' => 'navigation',
+-  ));
+-
+-  $views[$view->name] = $view;
+-
+-  // Exported view: og_content_tracker
+-  $view = new view;
+-  $view->name = 'og_content_tracker';
+-  $view->description = 'Shows all new activity in a group';
+-  $view->tag = 'default';
+-  $view->view_php = '';
+-  $view->base_table = 'node';
+-  $view->is_cacheable = FALSE;
+-  $view->api_version = 2;
+-  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+-  $handler = $view->new_display('default', 'Defaults', 'default');
+-  $handler->override_option('relationships', array(
+-    'group_nid' => array(
+-      'label' => 'Group node (post)',
+-      'required' => 1,
+-      'id' => 'group_nid',
+-      'table' => 'og_ancestry',
+-      'field' => 'group_nid',
+-      'relationship' => 'none',
+-      'override' => array(
+-        'button' => 'Override',
+-      ),
+-    ),
+-  ));
+   $handler->override_option('fields', array(
+-    'type' => array(
++    'field_group_image_fid' => array(
+       'label' => '',
+       'alter' => array(
+         'alter_text' => 0,
+@@ -1551,18 +1526,25 @@ function commons_core_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'html' => 0,
+         'strip_tags' => 0,
++        'html' => 0,
+       ),
+       'empty' => '',
+       'hide_empty' => 0,
+       'empty_zero' => 0,
+       'link_to_node' => 0,
+-      'machine_name' => 0,
++      'label_type' => 'none',
++      'format' => 'group_images_thumb_linked',
++      'multiple' => array(
++        'group' => TRUE,
++        'multiple_number' => '',
++        'multiple_from' => '',
++        'multiple_reversed' => FALSE,
++      ),
+       'exclude' => 0,
+-      'id' => 'type',
+-      'table' => 'node',
+-      'field' => 'type',
++      'id' => 'field_group_image_fid',
++      'table' => 'node_data_field_group_image',
++      'field' => 'field_group_image_fid',
+       'override' => array(
+         'button' => 'Override',
+       ),
+@@ -1592,16 +1574,20 @@ function commons_core_views_default_views() {
+       'hide_empty' => 0,
+       'empty_zero' => 0,
+       'link_to_node' => 1,
++      'spaces' => array(
++        'type' => NULL,
++        'frontpage' => FALSE,
++      ),
+       'exclude' => 0,
+       'id' => 'title',
+       'table' => 'node',
+       'field' => 'title',
++      'relationship' => 'none',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Użyj domślnych',
+       ),
+-      'relationship' => 'none',
+     ),
+-    'timestamp' => array(
++    'subscribe' => array(
+       'label' => '',
+       'alter' => array(
+         'alter_text' => 0,
+@@ -1624,91 +1610,417 @@ function commons_core_views_default_views() {
+       'empty' => '',
+       'hide_empty' => 0,
+       'empty_zero' => 0,
+-      'link_to_node' => 0,
+-      'comments' => 1,
+       'exclude' => 0,
+-      'id' => 'timestamp',
+-      'table' => 'history_user',
+-      'field' => 'timestamp',
++      'id' => 'subscribe',
++      'table' => 'og',
++      'field' => 'subscribe',
+       'relationship' => 'none',
+-    ),
+-    'comment_count' => array(
+-      'label' => 'Replies',
+-      'alter' => array(
+-        'alter_text' => 1,
+-        'text' => '<br /> [comment_count] replies',
+-        'make_link' => 0,
+-        'path' => '',
+-        'link_class' => '',
+-        'alt' => '',
+-        'prefix' => '',
+-        'suffix' => '',
+-        'target' => '',
+-        'help' => '',
+-        'trim' => 0,
+-        'max_length' => '',
+-        'word_boundary' => 1,
+-        'ellipsis' => 1,
+-        'html' => 0,
+-        'strip_tags' => 0,
+-      ),
+-      'empty' => '',
+-      'hide_empty' => 0,
+-      'empty_zero' => 0,
+-      'set_precision' => FALSE,
+-      'precision' => 0,
+-      'decimal' => '.',
+-      'separator' => ',',
+-      'prefix' => '',
+-      'suffix' => '',
+-      'exclude' => 0,
+-      'id' => 'comment_count',
+-      'table' => 'node_comment_statistics',
+-      'field' => 'comment_count',
+       'override' => array(
+         'button' => 'Override',
+       ),
++    ),
++  ));
++  $handler->override_option('filters', array(
++    'status' => array(
++      'id' => 'status',
++      'table' => 'node',
++      'field' => 'status',
++      'operator' => '=',
++      'value' => 1,
++      'group' => 0,
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
+       'relationship' => 'none',
++      'expose_button' => array(
++        'button' => 'Expose',
++      ),
+     ),
+-    'name' => array(
+-      'label' => '',
+-      'alter' => array(
+-        'alter_text' => 0,
+-        'text' => '',
+-        'make_link' => 0,
+-        'path' => '',
+-        'link_class' => '',
+-        'alt' => '',
+-        'prefix' => '',
+-        'suffix' => '',
+-        'target' => '',
+-        'help' => '',
+-        'trim' => 0,
+-        'max_length' => '',
+-        'word_boundary' => 1,
+-        'ellipsis' => 1,
+-        'html' => 0,
+-        'strip_tags' => 0,
++    'title' => array(
++      'operator' => 'contains',
++      'value' => '',
++      'group' => 0,
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'title_op',
++        'identifier' => 'title',
++        'label' => 'Segment: Tytuł',
++        'optional' => 1,
++        'remember' => 0,
++      ),
++      'case' => 0,
++      'id' => 'title',
++      'table' => 'node',
++      'field' => 'title',
++      'relationship' => 'none',
++      'expose_button' => array(
++        'button' => 'Hide',
+       ),
+-      'empty' => '',
+-      'hide_empty' => 0,
+-      'empty_zero' => 0,
+-      'link_to_user' => 1,
+-      'overwrite_anonymous' => 0,
+-      'anonymous_text' => '',
+-      'exclude' => 0,
+-      'id' => 'name',
+-      'table' => 'users',
+-      'field' => 'name',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Nadpisz',
++      ),
++    ),
++    'type_groups_all' => array(
++      'id' => 'type_groups_all',
++      'table' => 'og',
++      'field' => 'type_groups_all',
++      'operator' => '=',
++      'value' => '',
++      'group' => 0,
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
+       ),
+       'relationship' => 'none',
++      'expose_button' => array(
++        'button' => 'Expose',
++      ),
+     ),
+-    'last_updated' => array(
+-      'label' => '',
+-      'alter' => array(
+-        'alter_text' => 0,
++    'directory' => array(
++      'id' => 'directory',
++      'table' => 'og',
++      'field' => 'directory',
++      'operator' => '=',
++      'value' => 1,
++      'group' => 0,
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'relationship' => 'none',
++      'expose_button' => array(
++        'button' => 'Expose',
++      ),
++    ),
++    'selective' => array(
++      'operator' => 'in',
++      'value' => array(),
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => 'selective_op',
++        'label' => 'Dostęp',
++        'use_operator' => 0,
++        'identifier' => 'selective',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++        'reduce' => 0,
++      ),
++      'id' => 'selective',
++      'table' => 'og',
++      'field' => 'selective',
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
++      'relationship' => 'none',
++    ),
++    'tid' => array(
++      'operator' => 'or',
++      'value' => array(
++        '17' => '17',
++        '114' => '114',
++      ),
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => 'tid_op',
++        'label' => 'Kategorie: Wyrażenie',
++        'use_operator' => 0,
++        'identifier' => 'tid',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++        'reduce' => 1,
++      ),
++      'type' => 'select',
++      'limit' => TRUE,
++      'vid' => '2',
++      'id' => 'tid',
++      'table' => 'term_node',
++      'field' => 'tid',
++      'hierarchy' => 0,
++      'configure_hs' => '<a href="/admin/build/views/hs_config/og_all/default/tid">Configure Hierarchical Select</a>',
++      'relationship' => 'none',
++      'reduce_duplicates' => 0,
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
++    ),
++  ));
++  $handler->override_option('use_ajax', FALSE);
++  $handler->override_option('items_per_page', 200);
++  $handler->override_option('style_options', array(
++    'grouping' => '',
++    'override' => 1,
++    'sticky' => 0,
++    'order' => 'asc',
++    'columns' => array(
++      'field_group_image_fid' => 'field_group_image_fid',
++      'title' => 'title',
++      'subscribe' => 'subscribe',
++    ),
++    'info' => array(
++      'field_group_image_fid' => array(
++        'separator' => '',
++      ),
++      'title' => array(
++        'sortable' => 0,
++        'separator' => '',
++      ),
++      'subscribe' => array(
++        'separator' => '',
++      ),
++    ),
++    'default' => '-1',
++  ));
++  $handler->override_option('exposed_block', TRUE);
++  $handler->override_option('path', 'groups');
++  $handler->override_option('menu', array(
++    'type' => 'none',
++    'title' => '',
++    'description' => '',
++    'weight' => 0,
++    'name' => 'navigation',
++  ));
++  $handler->override_option('tab_options', array(
++    'type' => 'none',
++    'title' => '',
++    'description' => '',
++    'weight' => 0,
++    'name' => 'navigation',
++  ));
++  $handler = $view->new_display('block', 'Blok', 'block_1');
++  $handler->override_option('use_ajax', FALSE);
++  $handler->override_option('items_per_page', 200);
++  $handler->override_option('style_plugin', 'gmap');
++  $handler->override_option('style_options', array(
++    'grouping' => '',
++    'macro' => '[gmap ]',
++    'datasource' => 'location',
++    'latfield' => 'field_group_image_fid',
++    'lonfield' => 'field_group_image_fid',
++    'markers' => 'static',
++    'markerfield' => 'field_group_image_fid',
++    'markertype' => 'drupal',
++    'center_on_nodearg' => 0,
++    'center_on_nodearg_arg' => '',
++    'highlight_nodearg' => 0,
++    'highlight_nodearg_arg' => '',
++    'highlight_nodearg_color' => '#FF0000',
++    'tooltipenabled' => 0,
++    'tooltipfield' => 'field_group_image_fid',
++  ));
++  $handler->override_option('block_description', '');
++  $handler->override_option('block_caching', -1);
++
++  $views[$view->name] = $view;
++
++  // Exported view: og_content_tracker
++  $view = new view;
++  $view->name = 'og_content_tracker';
++  $view->description = 'Shows all new activity in a group';
++  $view->tag = 'default';
++  $view->view_php = '';
++  $view->base_table = 'node';
++  $view->is_cacheable = FALSE;
++  $view->api_version = 2;
++  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
++  $handler = $view->new_display('default', 'Defaults', 'default');
++  $handler->override_option('relationships', array(
++    'group_nid' => array(
++      'label' => 'Group node (post)',
++      'required' => 1,
++      'id' => 'group_nid',
++      'table' => 'og_ancestry',
++      'field' => 'group_nid',
++      'relationship' => 'none',
++      'override' => array(
++        'button' => 'Override',
++      ),
++    ),
++  ));
++  $handler->override_option('fields', array(
++    'type' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 0,
++      'machine_name' => 0,
++      'exclude' => 0,
++      'id' => 'type',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'title' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 1,
++      'exclude' => 0,
++      'id' => 'title',
++      'table' => 'node',
++      'field' => 'title',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'timestamp' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 0,
++      'comments' => 1,
++      'exclude' => 0,
++      'id' => 'timestamp',
++      'table' => 'history_user',
++      'field' => 'timestamp',
++      'relationship' => 'none',
++    ),
++    'comment_count' => array(
++      'label' => 'Replies',
++      'alter' => array(
++        'alter_text' => 1,
++        'text' => '<br /> [comment_count] replies',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'set_precision' => FALSE,
++      'precision' => 0,
++      'decimal' => '.',
++      'separator' => ',',
++      'prefix' => '',
++      'suffix' => '',
++      'exclude' => 0,
++      'id' => 'comment_count',
++      'table' => 'node_comment_statistics',
++      'field' => 'comment_count',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'name' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_user' => 1,
++      'overwrite_anonymous' => 0,
++      'anonymous_text' => '',
++      'exclude' => 0,
++      'id' => 'name',
++      'table' => 'users',
++      'field' => 'name',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'last_updated' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
+         'text' => '',
+         'make_link' => 0,
+         'path' => '',
+@@ -1971,6 +2283,30 @@ function commons_core_views_default_views() {
+       ),
+       'relationship' => 'none',
+     ),
++    'type_1' => array(
++      'operator' => 'not in',
++      'value' => array(
++        'gallery' => 'gallery',
++        'gallery_image' => 'gallery_image',
++        'inw_detal' => 'inw_detal',
++        'mieszkanie' => 'mieszkanie',
++        'opis_dewelopera' => 'opis_dewelopera',
++        'opis_inwestycji' => 'opis_inwestycji',
++      ),
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'id' => 'type_1',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Nadpisz',
++      ),
++      'relationship' => 'none',
++    ),
+   ));
+   $handler->override_option('access', array(
+     'type' => 'none',
+@@ -1980,7 +2316,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Recent group content');
++  $handler->override_option('title', 'Ostatnie wydarzenia w grupie');
+   $handler->override_option('empty', 'No content has been submitted to this group yet.');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+@@ -2014,26 +2350,169 @@ function commons_core_views_default_views() {
+       'timestamp' => array(
+         'separator' => '',
+       ),
+-      'comment_count' => array(
+-        'sortable' => 1,
+-        'separator' => '<br />',
++      'comment_count' => array(
++        'sortable' => 1,
++        'separator' => '<br />',
++      ),
++      'name' => array(
++        'sortable' => 1,
++        'separator' => '<br />',
++      ),
++      'last_updated' => array(
++        'sortable' => 1,
++        'separator' => '',
++      ),
++      'picture' => array(
++        'sortable' => 0,
++        'separator' => '',
++      ),
++    ),
++    'default' => '-1',
++  ));
++  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
++  $handler->override_option('filters', array(
++    'status' => array(
++      'id' => 'status',
++      'table' => 'node',
++      'field' => 'status',
++      'operator' => '=',
++      'value' => '1',
++      'group' => 0,
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'status' => array(
++        'id' => 'status',
++        'table' => 'comments',
++        'field' => 'status',
++        'operator' => '=',
++        'value' => 0,
++        'group' => 0,
++        'exposed' => FALSE,
++        'expose' => array(
++          'operator' => FALSE,
++          'label' => '',
++        ),
++        'relationship' => 'none',
++      ),
++    ),
++    'picg' => array(
++      'id' => 'picg',
++      'table' => 'og_ancestry',
++      'field' => 'picg',
++    ),
++    'keys' => array(
++      'operator' => 'optional',
++      'value' => '',
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'keys_op',
++        'identifier' => 'keys',
++        'label' => 'Search',
++        'optional' => 1,
++        'remember' => 0,
++      ),
++      'id' => 'keys',
++      'table' => 'search_index',
++      'field' => 'keys',
++      'relationship' => 'none',
++    ),
++    'uid' => array(
++      'operator' => 'in',
++      'value' => '',
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'uid_op',
++        'identifier' => 'uid',
++        'label' => 'Author',
++        'optional' => 1,
++        'remember' => 0,
++        'reduce' => 0,
++      ),
++      'id' => 'uid',
++      'table' => 'users',
++      'field' => 'uid',
++      'relationship' => 'none',
++    ),
++    'tid' => array(
++      'operator' => 'or',
++      'value' => '',
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'tid_op',
++        'identifier' => 'tid',
++        'label' => 'Tags',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++      ),
++      'type' => 'textfield',
++      'limit' => TRUE,
++      'vid' => '2',
++      'id' => 'tid',
++      'table' => 'term_node',
++      'field' => 'tid',
++      'hierarchy' => 0,
++      'relationship' => 'none',
++      'reduce_duplicates' => 0,
++    ),
++    'type' => array(
++      'operator' => 'in',
++      'value' => array(),
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'type_op',
++        'identifier' => 'type',
++        'label' => 'Type',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++        'reduce' => 0,
++      ),
++      'id' => 'type',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Override',
+       ),
+-      'name' => array(
+-        'sortable' => 1,
+-        'separator' => '<br />',
++      'relationship' => 'none',
++    ),
++    'type_1' => array(
++      'operator' => 'not in',
++      'value' => array(
++        'gallery' => 'gallery',
++        'gallery_image' => 'gallery_image',
++        'grupa_powitanie' => 'grupa_powitanie',
++        'inw_detal' => 'inw_detal',
++        'mieszkanie' => 'mieszkanie',
++        'opis_dewelopera' => 'opis_dewelopera',
++        'opis_inwestycji' => 'opis_inwestycji',
+       ),
+-      'last_updated' => array(
+-        'sortable' => 1,
+-        'separator' => '',
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
+       ),
+-      'picture' => array(
+-        'sortable' => 0,
+-        'separator' => '',
++      'id' => 'type_1',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Użyj domślnych',
+       ),
++      'relationship' => 'none',
+     ),
+-    'default' => '-1',
+   ));
+-  $handler = $view->new_display('panel_pane', 'Content pane', 'panel_pane_1');
+   $handler->override_option('pane_title', '');
+   $handler->override_option('pane_description', '');
+   $handler->override_option('pane_category', array(
+@@ -2362,7 +2841,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Featured groups');
++  $handler->override_option('title', 'Wyróżnione grupy');
+   $handler->override_option('empty', 'There are no featured groups.');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+@@ -2415,7 +2894,7 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'title' => array(
+-      'label' => 'Name',
++      'label' => 'Nazwa',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -2431,8 +2910,8 @@ function commons_core_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'strip_tags' => 0,
+         'html' => 0,
++        'strip_tags' => 0,
+       ),
+       'empty' => '',
+       'hide_empty' => 0,
+@@ -2448,7 +2927,7 @@ function commons_core_views_default_views() {
+       ),
+     ),
+     'member_count' => array(
+-      'label' => 'Members',
++      'label' => 'Członków',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -2464,8 +2943,8 @@ function commons_core_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'strip_tags' => 0,
+         'html' => 0,
++        'strip_tags' => 0,
+       ),
+       'empty' => '0',
+       'hide_empty' => 0,
+@@ -3019,7 +3498,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Recent members');
++  $handler->override_option('title', 'Członkowie');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('items_per_page', 5);
+   $handler->override_option('use_pager', 'mini');
+@@ -4306,7 +4785,7 @@ function commons_core_views_default_views() {
+       'label' => '',
+       'alter' => array(
+         'alter_text' => 1,
+-        'text' => '[comment_count] replies',
++        'text' => '[comment_count] odpowiedzi',
+         'make_link' => 0,
+         'path' => '',
+         'link_class' => '',
+@@ -4336,6 +4815,9 @@ function commons_core_views_default_views() {
+       'table' => 'node_comment_statistics',
+       'field' => 'comment_count',
+       'relationship' => 'none',
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
+     ),
+     'teaser' => array(
+       'label' => 'Preview',
+@@ -4719,12 +5201,37 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'title' => array(
++      'label' => 'Nazwa',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 1,
++      'exclude' => 0,
+       'id' => 'title',
+       'table' => 'node',
+       'field' => 'title',
+-      'label' => 'Group',
+       'relationship' => 'none',
+-      'link_to_node' => 1,
++      'override' => array(
++        'button' => 'Nadpisz',
++      ),
+     ),
+     'description' => array(
+       'label' => 'Description',
+@@ -4767,7 +5274,7 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'member_count' => array(
+-      'label' => 'Members',
++      'label' => 'Członków',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -4783,8 +5290,8 @@ function commons_core_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'strip_tags' => 0,
+         'html' => 0,
++        'strip_tags' => 0,
+       ),
+       'empty' => '',
+       'hide_empty' => 0,
+@@ -4800,7 +5307,7 @@ function commons_core_views_default_views() {
+       'table' => 'og',
+       'field' => 'member_count',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Nadpisz',
+       ),
+       'relationship' => 'none',
+     ),
+@@ -4877,12 +5384,37 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'managelinkmy' => array(
+-      'label' => 'Manage',
++      'label' => 'Zarządzaj',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'text' => 'Edit membership',
+       'exclude' => 0,
+       'id' => 'managelinkmy',
+       'table' => 'og_uid',
+       'field' => 'managelinkmy',
+       'relationship' => 'none',
++      'override' => array(
++        'button' => 'Nadpisz',
++      ),
+     ),
+   ));
+   $handler->override_option('sorts', array(
+@@ -4981,7 +5513,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'My groups');
++  $handler->override_option('title', 'Moje grupy');
+   $handler->override_option('header_format', '1');
+   $handler->override_option('header_empty', 1);
+   $handler->override_option('empty', 'Not a member of any groups.');
+@@ -4989,6 +5521,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('items_per_page', 30);
+   $handler->override_option('use_pager', '1');
+   $handler->override_option('use_more', 1);
++  $handler->override_option('use_more_text', 'więcej');
+   $handler->override_option('distinct', 1);
+   $handler->override_option('style_plugin', 'table');
+   $handler->override_option('style_options', array(
+@@ -5167,7 +5700,7 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'member_count' => array(
+-      'label' => 'Members',
++      'label' => 'Członków',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -5200,7 +5733,7 @@ function commons_core_views_default_views() {
+       'table' => 'og',
+       'field' => 'member_count',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Nadpisz',
+       ),
+       'relationship' => 'none',
+     ),
+@@ -5415,19 +5948,241 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Popular group tags');
++  $handler->override_option('title', 'Popularne tagi w grupie');
+   $handler->override_option('empty', 'No tags have been created yet.');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('items_per_page', 20);
+   $handler->override_option('distinct', 1);
+   $handler->override_option('style_plugin', 'tagadelic_views');
+   $handler->override_option('style_options', array(
+-    'steps' => '6',
+-    'size' => '20',
+-    'vocab' => '',
++    'steps' => '6',
++    'size' => '20',
++    'vocab' => '',
++  ));
++  $handler = $view->new_display('block', 'Block', 'block_1');
++  $handler->override_option('block_description', 'Group content tag cloud');
++  $handler->override_option('block_caching', -1);
++
++  $views[$view->name] = $view;
++
++  // Exported view: profile_friends
++  $view = new view;
++  $view->name = 'profile_friends';
++  $view->description = 'Profile friends';
++  $view->tag = '';
++  $view->view_php = '';
++  $view->base_table = 'node';
++  $view->is_cacheable = FALSE;
++  $view->api_version = 2;
++  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
++  $handler = $view->new_display('default', 'Ustawienia domyślne', 'default');
++  $handler->override_option('relationships', array(
++    'requestee_id' => array(
++      'label' => 'requestee',
++      'required' => 0,
++      'id' => 'requestee_id',
++      'table' => 'user_relationships',
++      'field' => 'requestee_id',
++      'relationship' => 'none',
++    ),
++    'requester_id' => array(
++      'label' => 'requester',
++      'required' => 0,
++      'id' => 'requester_id',
++      'table' => 'user_relationships',
++      'field' => 'requester_id',
++      'relationship' => 'none',
++    ),
++    'rtid' => array(
++      'label' => 'rtid',
++      'required' => 0,
++      'id' => 'rtid',
++      'table' => 'user_relationships',
++      'field' => 'rtid',
++      'relationship' => 'none',
++    ),
++  ));
++  $handler->override_option('fields', array(
++    'picture' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'imagecache_preset' => 'group_images_thumb',
++      'exclude' => 0,
++      'id' => 'picture',
++      'table' => 'users',
++      'field' => 'picture',
++      'relationship' => 'requester_id',
++    ),
++  ));
++  $handler->override_option('sorts', array(
++    'random' => array(
++      'order' => 'ASC',
++      'id' => 'random',
++      'table' => 'views',
++      'field' => 'random',
++      'relationship' => 'none',
++    ),
++  ));
++  $handler->override_option('arguments', array(
++    'requester_id' => array(
++      'default_action' => 'default',
++      'style_plugin' => 'default_summary',
++      'style_options' => array(),
++      'wildcard' => 'all',
++      'wildcard_substitution' => 'Wszystko',
++      'title' => '',
++      'breadcrumb' => '',
++      'default_argument_type' => 'user',
++      'default_argument' => '',
++      'validate_type' => 'none',
++      'validate_fail' => 'not found',
++      'break_phrase' => 0,
++      'not' => 0,
++      'id' => 'requester_id',
++      'table' => 'user_relationships',
++      'field' => 'requester_id',
++      'validate_user_argument_type' => 'uid',
++      'validate_user_roles' => array(
++        '2' => 0,
++        '3' => 0,
++        '4' => 0,
++        '6' => 0,
++        '7' => 0,
++        '5' => 0,
++        '8' => 0,
++      ),
++      'relationship' => 'none',
++      'default_options_div_prefix' => '',
++      'default_argument_fixed' => '',
++      'default_argument_user' => 0,
++      'default_argument_php' => '',
++      'validate_argument_node_type' => array(
++        'blog' => 0,
++        'poll' => 0,
++        'discussion' => 0,
++        'document' => 0,
++        'event' => 0,
++        'wiki' => 0,
++        'ct_plus_project' => 0,
++        'ct_plus_task' => 0,
++        'faq' => 0,
++        'forum' => 0,
++        'group' => 0,
++        'notice' => 0,
++        'page' => 0,
++        'panel' => 0,
++        'ddblock_news_item' => 0,
++        'deweloper' => 0,
++        'doradca' => 0,
++        'gallery' => 0,
++        'gallery_image' => 0,
++        'grupa_powitanie' => 0,
++        'intro22' => 0,
++        'inw_detal' => 0,
++        'mapa' => 0,
++        'mapa123' => 0,
++        'mieszkanie' => 0,
++        'opis_dewelopera' => 0,
++        'opis_inwestycji' => 0,
++        'profile' => 0,
++        'slider' => 0,
++        'uzytkownik' => 0,
++      ),
++      'validate_argument_node_access' => 0,
++      'validate_argument_nid_type' => 'nid',
++      'validate_argument_vocabulary' => array(
++        '4' => 0,
++        '2' => 0,
++        '3' => 0,
++      ),
++      'validate_argument_type' => 'tid',
++      'validate_argument_transform' => 0,
++      'validate_user_restrict_roles' => 0,
++      'validate_argument_node_flag_name' => '*relationship*',
++      'validate_argument_node_flag_test' => 'flaggable',
++      'validate_argument_node_flag_id_type' => 'id',
++      'validate_argument_user_flag_name' => '*relationship*',
++      'validate_argument_user_flag_test' => 'flaggable',
++      'validate_argument_user_flag_id_type' => 'id',
++      'validate_argument_is_member' => 'OG_VIEWS_DO_NOT_VALIDATE_MEMBERSHIP',
++      'validate_argument_group_node_type' => array(
++        'group' => 0,
++      ),
++      'validate_argument_php' => '',
++    ),
++  ));
++  $handler->override_option('filters', array(
++    'approved' => array(
++      'operator' => '=',
++      'value' => '1',
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'id' => 'approved',
++      'table' => 'user_relationships',
++      'field' => 'approved',
++      'relationship' => 'requester_id',
++    ),
++    'rtype' => array(
++      'operator' => 'in',
++      'value' => array(
++        '0' => '1',
++      ),
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'id' => 'rtype',
++      'table' => 'user_relationships',
++      'field' => 'rtype',
++      'relationship' => 'none',
++    ),
++  ));
++  $handler->override_option('access', array(
++    'type' => 'none',
++  ));
++  $handler->override_option('cache', array(
++    'type' => 'none',
++  ));
++  $handler->override_option('title', 'Znajomi');
++  $handler->override_option('use_ajax', TRUE);
++  $handler->override_option('items_per_page', 9);
++  $handler->override_option('use_pager', 'mini');
++  $handler->override_option('style_plugin', 'grid');
++  $handler->override_option('style_options', array(
++    'grouping' => '',
++    'columns' => '4',
++    'alignment' => 'horizontal',
++    'fill_single_line' => 1,
+   ));
+-  $handler = $view->new_display('block', 'Block', 'block_1');
+-  $handler->override_option('block_description', 'Group content tag cloud');
++  $handler = $view->new_display('block', 'Blok', 'block_1');
++  $handler->override_option('distinct', 1);
++  $handler->override_option('block_description', '');
+   $handler->override_option('block_caching', -1);
+ 
+   $views[$view->name] = $view;
+@@ -5550,7 +6305,7 @@ function commons_core_views_default_views() {
+       'label' => '',
+       'alter' => array(
+         'alter_text' => 1,
+-        'text' => '<br /> [comment_count] replies',
++        'text' => '<br /> [comment_count] odpowiedzi',
+         'make_link' => 0,
+         'path' => '',
+         'link_class' => '',
+@@ -5580,43 +6335,9 @@ function commons_core_views_default_views() {
+       'table' => 'node_comment_statistics',
+       'field' => 'comment_count',
+       'relationship' => 'none',
+-    ),
+-    'tid' => array(
+-      'label' => 'Tags',
+-      'alter' => array(
+-        'alter_text' => 0,
+-        'text' => '',
+-        'make_link' => 0,
+-        'path' => '',
+-        'link_class' => '',
+-        'alt' => '',
+-        'prefix' => '',
+-        'suffix' => '',
+-        'target' => '',
+-        'help' => '',
+-        'trim' => 0,
+-        'max_length' => '',
+-        'word_boundary' => 1,
+-        'ellipsis' => 1,
+-        'strip_tags' => 0,
+-        'html' => 0,
+-      ),
+-      'empty' => '-',
+-      'hide_empty' => 0,
+-      'empty_zero' => 0,
+-      'type' => 'separator',
+-      'separator' => ', ',
+-      'link_to_taxonomy' => 1,
+-      'limit' => 0,
+-      'vids' => array(
+-        '2' => 0,
+-        '1' => 0,
++      'override' => array(
++        'button' => 'Nadpisz',
+       ),
+-      'exclude' => 0,
+-      'id' => 'tid',
+-      'table' => 'term_node',
+-      'field' => 'tid',
+-      'relationship' => 'none',
+     ),
+     'group_nid' => array(
+       'id' => 'group_nid',
+@@ -5706,37 +6427,234 @@ function commons_core_views_default_views() {
+         'strip_tags' => 0,
+         'html' => 0,
+       ),
+-      'empty' => '',
+-      'hide_empty' => 0,
+-      'empty_zero' => 0,
+-      'imagecache_preset' => 'user_picture_meta',
+-      'exclude' => 0,
+-      'id' => 'picture',
+-      'table' => 'users',
+-      'field' => 'picture',
+-      'relationship' => 'none',
+-    ),
+-  ));
+-  $handler->override_option('sorts', array(
+-    'score' => array(
+-      'order' => 'DESC',
+-      'id' => 'score',
+-      'table' => 'search_index',
+-      'field' => 'score',
+-      'override' => array(
+-        'button' => 'Override',
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'imagecache_preset' => 'user_picture_meta',
++      'exclude' => 0,
++      'id' => 'picture',
++      'table' => 'users',
++      'field' => 'picture',
++      'relationship' => 'none',
++    ),
++  ));
++  $handler->override_option('sorts', array(
++    'score' => array(
++      'order' => 'DESC',
++      'id' => 'score',
++      'table' => 'search_index',
++      'field' => 'score',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'last_updated' => array(
++      'order' => 'DESC',
++      'granularity' => 'second',
++      'id' => 'last_updated',
++      'table' => 'node_comment_statistics',
++      'field' => 'last_updated',
++      'relationship' => 'none',
++    ),
++  ));
++  $handler->override_option('filters', array(
++    'status' => array(
++      'operator' => '=',
++      'value' => '1',
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'id' => 'status',
++      'table' => 'node',
++      'field' => 'status',
++      'relationship' => 'none',
++    ),
++    'keys' => array(
++      'operator' => 'optional',
++      'value' => '',
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'keys_op',
++        'identifier' => 'keys',
++        'label' => 'Search',
++        'optional' => 1,
++        'remember' => 0,
++      ),
++      'id' => 'keys',
++      'table' => 'search_index',
++      'field' => 'keys',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'uid' => array(
++      'operator' => 'in',
++      'value' => '',
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'uid_op',
++        'identifier' => 'uid',
++        'label' => 'Author',
++        'optional' => 1,
++        'remember' => 0,
++        'reduce' => 0,
++      ),
++      'id' => 'uid',
++      'table' => 'users',
++      'field' => 'uid',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'tid' => array(
++      'operator' => 'and',
++      'value' => array(
++        '0' => '17',
++        '1' => '114',
++      ),
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => 'tid_op',
++        'label' => 'Tag',
++        'use_operator' => 0,
++        'identifier' => 'tid',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++      ),
++      'type' => 'textfield',
++      'limit' => TRUE,
++      'vid' => '2',
++      'id' => 'tid',
++      'table' => 'term_node',
++      'field' => 'tid',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++      'hierarchy' => 0,
++      'reduce_duplicates' => 1,
++    ),
++    'type' => array(
++      'operator' => 'in',
++      'value' => array(),
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'use_operator' => 0,
++        'operator' => 'type_op',
++        'identifier' => 'type',
++        'label' => 'Type',
++        'optional' => 1,
++        'single' => 1,
++        'remember' => 0,
++        'reduce' => 0,
++      ),
++      'id' => 'type',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'uid_1' => array(
++      'operator' => '=',
++      'value' => '1',
++      'group' => '0',
++      'exposed' => TRUE,
++      'expose' => array(
++        'operator' => '',
++        'identifier' => 'uid_1',
++        'label' => 'My groups',
++        'optional' => 1,
++        'remember' => 0,
++      ),
++      'id' => 'uid_1',
++      'table' => 'og_uid',
++      'field' => 'uid',
++      'relationship' => 'group_nid',
++    ),
++  ));
++  $handler->override_option('access', array(
++    'type' => 'none',
++  ));
++  $handler->override_option('cache', array(
++    'type' => 'none',
++  ));
++  $handler->override_option('title', 'Ostatnie treści');
++  $handler->override_option('empty', 'No content has been added.');
++  $handler->override_option('empty_format', '1');
++  $handler->override_option('use_ajax', TRUE);
++  $handler->override_option('use_pager', '1');
++  $handler->override_option('pager_element', 1);
++  $handler->override_option('distinct', 1);
++  $handler->override_option('style_plugin', 'table');
++  $handler->override_option('style_options', array(
++    'grouping' => '',
++    'override' => 1,
++    'sticky' => 0,
++    'order' => 'asc',
++    'columns' => array(
++      'type' => 'type',
++      'title' => 'title',
++      'timestamp' => 'title',
++      'comment_count' => 'title',
++      'tid' => 'tid',
++      'group_nid' => 'group_nid',
++      'name' => 'name',
++      'last_updated' => 'name',
++      'picture' => 'picture',
++    ),
++    'info' => array(
++      'type' => array(
++        'sortable' => 1,
++        'separator' => '',
++      ),
++      'title' => array(
++        'sortable' => 1,
++        'separator' => '',
++      ),
++      'timestamp' => array(
++        'separator' => '',
++      ),
++      'comment_count' => array(
++        'sortable' => 1,
++        'separator' => '',
++      ),
++      'tid' => array(
++        'separator' => '',
++      ),
++      'group_nid' => array(
++        'separator' => '',
++      ),
++      'name' => array(
++        'sortable' => 1,
++        'separator' => '<br />',
++      ),
++      'last_updated' => array(
++        'sortable' => 1,
++        'separator' => '',
++      ),
++      'picture' => array(
++        'sortable' => 0,
++        'separator' => '',
+       ),
+-      'relationship' => 'none',
+-    ),
+-    'last_updated' => array(
+-      'order' => 'DESC',
+-      'granularity' => 'second',
+-      'id' => 'last_updated',
+-      'table' => 'node_comment_statistics',
+-      'field' => 'last_updated',
+-      'relationship' => 'none',
+     ),
++    'default' => '-1',
+   ));
++  $handler = $view->new_display('block', 'Block', 'block_1');
+   $handler->override_option('filters', array(
+     'status' => array(
+       'operator' => '=',
+@@ -5796,15 +6714,18 @@ function commons_core_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'tid' => array(
+-      'operator' => 'or',
+-      'value' => array(),
++      'operator' => 'and',
++      'value' => array(
++        '0' => '17',
++        '1' => '114',
++      ),
+       'group' => '0',
+       'exposed' => TRUE,
+       'expose' => array(
+-        'operator' => 'tid_op',
+-        'label' => 'Tag',
+         'use_operator' => 0,
++        'operator' => 'tid_op',
+         'identifier' => 'tid',
++        'label' => 'Kategorie: Wyrażenie',
+         'optional' => 1,
+         'single' => 1,
+         'remember' => 0,
+@@ -5816,10 +6737,11 @@ function commons_core_views_default_views() {
+       'table' => 'term_node',
+       'field' => 'tid',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Użyj domślnych',
+       ),
+       'relationship' => 'none',
+       'hierarchy' => 0,
++      'reduce_duplicates' => 1,
+     ),
+     'type' => array(
+       'operator' => 'in',
+@@ -5861,75 +6783,39 @@ function commons_core_views_default_views() {
+       'field' => 'uid',
+       'relationship' => 'group_nid',
+     ),
+-  ));
+-  $handler->override_option('access', array(
+-    'type' => 'none',
+-  ));
+-  $handler->override_option('cache', array(
+-    'type' => 'none',
+-  ));
+-  $handler->override_option('title', 'Recent content');
+-  $handler->override_option('empty', 'No content has been added.');
+-  $handler->override_option('empty_format', '1');
+-  $handler->override_option('use_ajax', TRUE);
+-  $handler->override_option('use_pager', '1');
+-  $handler->override_option('pager_element', 1);
+-  $handler->override_option('distinct', 1);
+-  $handler->override_option('style_plugin', 'table');
+-  $handler->override_option('style_options', array(
+-    'grouping' => '',
+-    'override' => 1,
+-    'sticky' => 0,
+-    'order' => 'asc',
+-    'columns' => array(
+-      'type' => 'type',
+-      'title' => 'title',
+-      'timestamp' => 'title',
+-      'comment_count' => 'title',
+-      'tid' => 'tid',
+-      'group_nid' => 'group_nid',
+-      'name' => 'name',
+-      'last_updated' => 'name',
+-      'picture' => 'picture',
++    'group_nid' => array(
++      'id' => 'group_nid',
++      'table' => 'og_ancestry',
++      'field' => 'group_nid',
+     ),
+-    'info' => array(
+-      'type' => array(
+-        'sortable' => 1,
+-        'separator' => '',
+-      ),
+-      'title' => array(
+-        'sortable' => 1,
+-        'separator' => '',
+-      ),
+-      'timestamp' => array(
+-        'separator' => '',
+-      ),
+-      'comment_count' => array(
+-        'sortable' => 1,
+-        'separator' => '',
+-      ),
+-      'tid' => array(
+-        'separator' => '',
+-      ),
+-      'group_nid' => array(
+-        'separator' => '',
+-      ),
+-      'name' => array(
+-        'sortable' => 1,
+-        'separator' => '<br />',
++    'type_1' => array(
++      'operator' => 'not in',
++      'value' => array(
++        'deweloper' => 'deweloper',
++        'doradca' => 'doradca',
++        'gallery' => 'gallery',
++        'gallery_image' => 'gallery_image',
++        'grupa_powitanie' => 'grupa_powitanie',
++        'inw_detal' => 'inw_detal',
++        'mieszkanie' => 'mieszkanie',
++        'opis_dewelopera' => 'opis_dewelopera',
++        'opis_inwestycji' => 'opis_inwestycji',
+       ),
+-      'last_updated' => array(
+-        'sortable' => 1,
+-        'separator' => '',
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
+       ),
+-      'picture' => array(
+-        'sortable' => 0,
+-        'separator' => '',
++      'id' => 'type_1',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Użyj domślnych',
+       ),
++      'relationship' => 'none',
+     ),
+-    'default' => '-1',
+   ));
+-  $handler = $view->new_display('block', 'Block', 'block_1');
+   $handler->override_option('block_description', '');
+   $handler->override_option('block_caching', -1);
+ 
+@@ -6310,7 +7196,7 @@ function commons_core_views_default_views() {
+     'type' => 'none',
+   ));
+   $handler->override_option('title', 'Latest featured content');
+-  $handler->override_option('empty', 'No notices have been created yet.');
++  $handler->override_option('empty', 'Żadne treści nie zostały jeszcze stworzone');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+   $handler->override_option('items_per_page', 5);
+@@ -7454,10 +8340,10 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Latest notices');
++  $handler->override_option('title', 'Ostatnie notatki');
+   $handler->override_option('header_format', '1');
+   $handler->override_option('header_empty', 1);
+-  $handler->override_option('empty', 'No notices have been created yet.');
++  $handler->override_option('empty', 'Żadne treści nie zostały jeszcze stworzone');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+   $handler->override_option('items_per_page', 5);
+@@ -7969,7 +8855,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Popular tags');
++  $handler->override_option('title', 'Popularne tagi');
+   $handler->override_option('footer_format', '1');
+   $handler->override_option('footer_empty', 0);
+   $handler->override_option('empty', 'No tags have been added yet.');
+@@ -8553,7 +9439,7 @@ function commons_core_views_default_views() {
+       'label' => '',
+       'alter' => array(
+         'alter_text' => 1,
+-        'text' => '<span class="welcome-text">Welcome back, </span><span class="username">[name]</span>',
++        'text' => '<span class="welcome-text">Witaj ponownie, </span><span class="username">[name]</span>',
+         'make_link' => 0,
+         'path' => '',
+         'link_class' => '',
+@@ -8587,7 +9473,7 @@ function commons_core_views_default_views() {
+     'nothing' => array(
+       'label' => '',
+       'alter' => array(
+-        'text' => 'Logout',
++        'text' => 'Wyloguj się',
+         'make_link' => 1,
+         'path' => 'logout',
+         'link_class' => '',
+@@ -8618,7 +9504,7 @@ function commons_core_views_default_views() {
+     'nothing_1' => array(
+       'label' => '',
+       'alter' => array(
+-        'text' => 'My account',
++        'text' => 'Moje konto',
+         'make_link' => 1,
+         'path' => 'user',
+         'link_class' => '',
+@@ -8642,7 +9528,7 @@ function commons_core_views_default_views() {
+       'table' => 'views',
+       'field' => 'nothing',
+       'override' => array(
+-        'button' => 'Override',
++        'button' => 'Nadpisz',
+       ),
+       'relationship' => 'none',
+     ),
+@@ -8693,6 +9579,135 @@ function commons_core_views_default_views() {
+     'hide_empty' => 0,
+   ));
+   $handler = $view->new_display('block', 'Block', 'block_1');
++  $handler->override_option('fields', array(
++    'picture' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'strip_tags' => 0,
++        'html' => 0,
++      ),
++      'empty' => '(no picture available)',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'imagecache_preset' => 'user_picture_meta',
++      'exclude' => 0,
++      'id' => 'picture',
++      'table' => 'users',
++      'field' => 'picture',
++      'relationship' => 'none',
++    ),
++    'name' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 1,
++        'text' => '<span class="welcome-text">Witaj ponownie, </span><span class="username">[name]</span>',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_user' => 1,
++      'overwrite_anonymous' => 0,
++      'anonymous_text' => '',
++      'exclude' => 0,
++      'id' => 'name',
++      'table' => 'users',
++      'field' => 'name',
++      'relationship' => 'none',
++      'override' => array(
++        'button' => 'Override',
++      ),
++    ),
++    'nothing' => array(
++      'label' => '',
++      'alter' => array(
++        'text' => 'Wyloguj się',
++        'make_link' => 1,
++        'path' => 'logout',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'exclude' => 0,
++      'id' => 'nothing',
++      'table' => 'views',
++      'field' => 'nothing',
++      'relationship' => 'none',
++      'override' => array(
++        'button' => 'Override',
++      ),
++    ),
++    'nothing_1' => array(
++      'label' => '',
++      'alter' => array(
++        'text' => 'Moje konto',
++        'make_link' => 1,
++        'path' => 'myprofile',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'exclude' => 0,
++      'id' => 'nothing_1',
++      'table' => 'views',
++      'field' => 'nothing',
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
++      'relationship' => 'none',
++    ),
++  ));
+   $handler->override_option('block_description', 'User meta info');
+   $handler->override_option('block_caching', -1);
+ 
+@@ -8870,7 +9885,7 @@ function commons_core_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Who\'s online?');
++  $handler->override_option('title', 'Kto online ?');
+   $handler->override_option('empty', 'There are currently no online users');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);

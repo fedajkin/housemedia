@@ -268,6 +268,7 @@ function commons_event_views_default_views() {
   $handler->override_option('header_empty', 1);
   $handler->override_option('items_per_page', 0);
   $handler->override_option('use_more', 0);
+  $handler->override_option('use_more_text', 'więcej');
   $handler->override_option('distinct', 1);
   $handler->override_option('style_plugin', 'calendar_nav');
   $handler = $view->new_display('calendar', 'Calendar page', 'calendar_1');
@@ -298,6 +299,7 @@ function commons_event_views_default_views() {
   $handler->override_option('calendar_popup', 0);
   $handler->override_option('calendar_date_link', '');
   $handler = $view->new_display('calendar_block', 'Calendar block', 'calendar_block_1');
+  $handler->override_option('use_ajax', TRUE);
   $handler->override_option('style_options', NULL);
   $handler->override_option('row_plugin', '');
   $handler->override_option('row_options', NULL);
@@ -865,6 +867,7 @@ function commons_event_views_default_views() {
   $handler->override_option('header_empty', 1);
   $handler->override_option('items_per_page', 0);
   $handler->override_option('use_more', 0);
+  $handler->override_option('use_more_text', 'więcej');
   $handler->override_option('style_plugin', 'calendar_nav');
   $handler = $view->new_display('calendar', 'Calendar page', 'calendar_1');
   $handler->override_option('style_options', NULL);
@@ -1288,10 +1291,10 @@ function commons_event_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Upcoming group events');
+  $handler->override_option('title', 'Nadchodzące wydarzenia w grupie');
   $handler->override_option('footer_format', '1');
   $handler->override_option('footer_empty', 0);
-  $handler->override_option('empty', 'There are no upcoming events.');
+  $handler->override_option('empty', 'Nie ma nowych wydarzeń');
   $handler->override_option('empty_format', '1');
   $handler->override_option('items_per_page', 5);
   $handler->override_option('distinct', 1);
@@ -1496,7 +1499,7 @@ function commons_event_views_default_views() {
   $handler->override_option('title', 'Upcoming events');
   $handler->override_option('footer_format', '1');
   $handler->override_option('footer_empty', 0);
-  $handler->override_option('empty', 'There are no upcoming events.');
+  $handler->override_option('empty', 'Nie ma nowych wydarzeń');
   $handler->override_option('empty_format', '1');
   $handler->override_option('use_ajax', TRUE);
   $handler->override_option('items_per_page', 5);
@@ -1617,7 +1620,7 @@ function commons_event_views_default_views() {
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('title', 'Events in my groups');
+  $handler->override_option('title', 'Wydarzenia');
   $handler->override_option('block_description', 'Upcoming Events (My groups)');
   $handler->override_option('block_caching', -1);
   $handler = $view->new_display('block', 'Featured events', 'block_3');

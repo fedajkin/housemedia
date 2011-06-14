@@ -1,0 +1,31 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_document/commons_document.strongarm.inc b/profiles/drupal_commons/modules/features/commons_document/commons_document.strongarm.inc
+index 2a94e8c..daeccbb 100644
+--- a/profiles/drupal_commons/modules/features/commons_document/commons_document.strongarm.inc
++++ b/profiles/drupal_commons/modules/features/commons_document/commons_document.strongarm.inc
+@@ -89,6 +89,13 @@ function commons_document_strongarm() {
+   $strongarm = new stdClass;
+   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+   $strongarm->api_version = 1;
++  $strongarm->name = 'language_content_type_document';
++  $strongarm->value = '0';
++
++  $export['language_content_type_document'] = $strongarm;
++  $strongarm = new stdClass;
++  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
++  $strongarm->api_version = 1;
+   $strongarm->name = 'node_options_document';
+   $strongarm->value = array(
+     0 => 'status',
+@@ -103,5 +110,12 @@ function commons_document_strongarm() {
+   $strongarm->value = 'group_post_standard';
+ 
+   $export['og_content_type_usage_document'] = $strongarm;
++  $strongarm = new stdClass;
++  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
++  $strongarm->api_version = 1;
++  $strongarm->name = 'upload_document';
++  $strongarm->value = '0';
++
++  $export['upload_document'] = $strongarm;
+   return $export;
+ }

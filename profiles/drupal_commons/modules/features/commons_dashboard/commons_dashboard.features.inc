@@ -21,6 +21,18 @@ function commons_dashboard_homebox() {
     ),
     'blocks' => 
     array (
+      'views_views_saved_searches-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'views_saved_searches-block_1',
+        'region' => 1,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => 'Moje wyszukiwania',
+        'weight' => -58,
+      ),
       'views_og_dashboard_groups-block_1' => 
       array (
         'module' => 'views',
@@ -31,7 +43,55 @@ function commons_dashboard_homebox() {
         'open' => 1,
         'closable' => 1,
         'title' => '',
-        'weight' => -38,
+        'weight' => -57,
+      ),
+      'privatemsg_privatemsg-menu' => 
+      array (
+        'module' => 'privatemsg',
+        'delta' => 'privatemsg-menu',
+        'region' => 1,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => 'Wiadomości prywatne',
+        'weight' => -56,
+      ),
+      'views_my_recent_items-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'my_recent_items-block_1',
+        'region' => 1,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => '',
+        'weight' => -55,
+      ),
+      'views_my_unread_items-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'my_unread_items-block_1',
+        'region' => 1,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => '',
+        'weight' => -54,
+      ),
+      'user_relationship_blocks_user-1' => 
+      array (
+        'module' => 'user_relationship_blocks',
+        'delta' => 'user-1',
+        'region' => 1,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => 'Moi znajomi',
+        'weight' => -53,
       ),
       'views_upcoming_events-block_2' => 
       array (
@@ -43,7 +103,67 @@ function commons_dashboard_homebox() {
         'open' => 1,
         'closable' => 1,
         'title' => '',
-        'weight' => -38,
+        'weight' => -52,
+      ),
+      'views_users_online-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'users_online-block_1',
+        'region' => 1,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => '',
+        'weight' => -52,
+      ),
+      'views_vote_deweloper-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'vote_deweloper-block_1',
+        'region' => 3,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => 'Ranking deweloperów',
+        'weight' => -52,
+      ),
+      'views_recent_notices-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'recent_notices-block_1',
+        'region' => 3,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => '',
+        'weight' => -51,
+      ),
+      'views_og_featured-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'og_featured-block_1',
+        'region' => 3,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => '',
+        'weight' => -50,
+      ),
+      'views_most_active_users-block_1' => 
+      array (
+        'module' => 'views',
+        'delta' => 'most_active_users-block_1',
+        'region' => 3,
+        'movable' => 1,
+        'status' => 1,
+        'open' => 1,
+        'closable' => 1,
+        'title' => '',
+        'weight' => -49,
       ),
       'views_recent_content_all-block_1' => 
       array (
@@ -66,92 +186,8 @@ function commons_dashboard_homebox() {
         'status' => 1,
         'open' => 1,
         'closable' => 1,
-        'title' => 'Recent activity',
+        'title' => 'Aktywność',
         'weight' => -37,
-      ),
-      'views_my_recent_items-block_1' => 
-      array (
-        'module' => 'views',
-        'delta' => 'my_recent_items-block_1',
-        'region' => 1,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -37,
-      ),
-      'views_recent_notices-block_1' => 
-      array (
-        'module' => 'views',
-        'delta' => 'recent_notices-block_1',
-        'region' => 3,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -37,
-      ),
-      'views_og_featured-block_1' => 
-      array (
-        'module' => 'views',
-        'delta' => 'og_featured-block_1',
-        'region' => 3,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -36,
-      ),
-      'views_my_unread_items-block_1' => 
-      array (
-        'module' => 'views',
-        'delta' => 'my_unread_items-block_1',
-        'region' => 1,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -36,
-      ),
-      'views_most_active_users-block_1' => 
-      array (
-        'module' => 'views',
-        'delta' => 'most_active_users-block_1',
-        'region' => 3,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -35,
-      ),
-      'user_relationship_blocks_user-1' => 
-      array (
-        'module' => 'user_relationship_blocks',
-        'delta' => 'user-1',
-        'region' => 1,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => 'My friends',
-        'weight' => -35,
-      ),
-      'views_users_online-block_1' => 
-      array (
-        'module' => 'views',
-        'delta' => 'users_online-block_1',
-        'region' => 1,
-        'movable' => 1,
-        'status' => 1,
-        'open' => 1,
-        'closable' => 1,
-        'title' => '',
-        'weight' => -34,
       ),
     ),
     'widths' => 

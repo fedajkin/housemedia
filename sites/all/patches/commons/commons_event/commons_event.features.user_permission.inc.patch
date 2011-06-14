@@ -1,0 +1,54 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_event/commons_event.features.user_permission.inc b/profiles/drupal_commons/modules/features/commons_event/commons_event.features.user_permission.inc
+index 340ab84..9a52d0e 100644
+--- a/profiles/drupal_commons/modules/features/commons_event/commons_event.features.user_permission.inc
++++ b/profiles/drupal_commons/modules/features/commons_event/commons_event.features.user_permission.inc
+@@ -17,9 +17,7 @@ function commons_event_user_default_permissions() {
+   // Exported permission: create event content
+   $permissions['create event content'] = array(
+     'name' => 'create event content',
+-    'roles' => array(
+-      '0' => 'authenticated user',
+-    ),
++    'roles' => array(),
+   );
+ 
+   // Exported permission: delete any event content
+@@ -33,9 +31,7 @@ function commons_event_user_default_permissions() {
+   // Exported permission: delete own event content
+   $permissions['delete own event content'] = array(
+     'name' => 'delete own event content',
+-    'roles' => array(
+-      '0' => 'authenticated user',
+-    ),
++    'roles' => array(),
+   );
+ 
+   // Exported permission: edit any event content
+@@ -76,9 +72,10 @@ function commons_event_user_default_permissions() {
+   $permissions['view field_date'] = array(
+     'name' => 'view field_date',
+     'roles' => array(
+-      '0' => 'anonymous user',
+-      '1' => 'authenticated user',
+-      '2' => 'site admin',
++      '0' => 'Użytkownik',
++      '1' => 'anonymous user',
++      '2' => 'authenticated user',
++      '3' => 'site admin',
+     ),
+   );
+ 
+@@ -86,9 +83,10 @@ function commons_event_user_default_permissions() {
+   $permissions['view field_location'] = array(
+     'name' => 'view field_location',
+     'roles' => array(
+-      '0' => 'anonymous user',
+-      '1' => 'authenticated user',
+-      '2' => 'site admin',
++      '0' => 'Użytkownik',
++      '1' => 'anonymous user',
++      '2' => 'authenticated user',
++      '3' => 'site admin',
+     ),
+   );
+ 

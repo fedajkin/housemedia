@@ -1,0 +1,13 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_document/commons_document.features.inc b/profiles/drupal_commons/modules/features/commons_document/commons_document.features.inc
+index 7a5d647..af27c39 100644
+--- a/profiles/drupal_commons/modules/features/commons_document/commons_document.features.inc
++++ b/profiles/drupal_commons/modules/features/commons_document/commons_document.features.inc
+@@ -16,7 +16,7 @@ function commons_document_ctools_plugin_api() {
+ function commons_document_node_info() {
+   $items = array(
+     'document' => array(
+-      'name' => t('Document'),
++      'name' => t('Dokument'),
+       'module' => 'features',
+       'description' => t('A document item which contains a title, description, an unlimited amount of attached files.'),
+       'has_title' => '1',

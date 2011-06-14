@@ -1,0 +1,66 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.views_default.inc b/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.views_default.inc
+index a1995b0..0aad9d9 100644
+--- a/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.views_default.inc
++++ b/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.views_default.inc
+@@ -49,7 +49,7 @@ function commons_reputation_views_default_views() {
+       'relationship' => 'none',
+     ),
+     'name' => array(
+-      'label' => 'User',
++      'label' => 'Użytkownik',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -65,8 +65,8 @@ function commons_reputation_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'strip_tags' => 0,
+         'html' => 0,
++        'strip_tags' => 0,
+       ),
+       'empty' => '',
+       'hide_empty' => 0,
+@@ -79,9 +79,12 @@ function commons_reputation_views_default_views() {
+       'table' => 'users',
+       'field' => 'name',
+       'relationship' => 'none',
++      'override' => array(
++        'button' => 'Override',
++      ),
+     ),
+     'points' => array(
+-      'label' => 'Points',
++      'label' => 'Punkty',
+       'alter' => array(
+         'alter_text' => 0,
+         'text' => '',
+@@ -97,8 +100,8 @@ function commons_reputation_views_default_views() {
+         'max_length' => '',
+         'word_boundary' => 1,
+         'ellipsis' => 1,
+-        'strip_tags' => 0,
+         'html' => 0,
++        'strip_tags' => 0,
+       ),
+       'empty' => '0',
+       'hide_empty' => 0,
+@@ -114,6 +117,9 @@ function commons_reputation_views_default_views() {
+       'table' => 'userpoints',
+       'field' => 'points',
+       'relationship' => 'none',
++      'override' => array(
++        'button' => 'Override',
++      ),
+     ),
+   ));
+   $handler->override_option('sorts', array(
+@@ -147,7 +153,7 @@ function commons_reputation_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Most active users');
++  $handler->override_option('title', 'Najaktywniejsi ');
+   $handler->override_option('footer_format', '1');
+   $handler->override_option('footer_empty', 0);
+   $handler->override_option('empty', 'No users have received any points yet.');

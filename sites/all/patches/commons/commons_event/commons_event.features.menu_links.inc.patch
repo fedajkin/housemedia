@@ -1,0 +1,29 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_event/commons_event.features.menu_links.inc b/profiles/drupal_commons/modules/features/commons_event/commons_event.features.menu_links.inc
+index 9405211..232b5d0 100644
+--- a/profiles/drupal_commons/modules/features/commons_event/commons_event.features.menu_links.inc
++++ b/profiles/drupal_commons/modules/features/commons_event/commons_event.features.menu_links.inc
+@@ -11,8 +11,13 @@ function commons_event_menu_default_menu_links() {
+     'menu_name' => 'primary-links',
+     'link_path' => 'content/calendar',
+     'router_path' => 'content/calendar',
+-    'link_title' => 'Calendar',
+-    'options' => array(),
++    'link_title' => 'Kalendarz',
++    'options' => array(
++      'minipanel' => '',
++      'attributes' => array(
++        'title' => '',
++      ),
++    ),
+     'module' => 'commons',
+     'hidden' => '0',
+     'external' => '0',
+@@ -23,7 +28,7 @@ function commons_event_menu_default_menu_links() {
+   );
+   // Translatables
+   // Included for use with string extractors like potx.
+-  t('Calendar');
++  t('Kalendarz');
+ 
+ 
+   return $menu_links;

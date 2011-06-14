@@ -1,0 +1,259 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_home/commons_home.views_default.inc b/profiles/drupal_commons/modules/features/commons_home/commons_home.views_default.inc
+index f5f5025..6ca67e6 100644
+--- a/profiles/drupal_commons/modules/features/commons_home/commons_home.views_default.inc
++++ b/profiles/drupal_commons/modules/features/commons_home/commons_home.views_default.inc
+@@ -42,7 +42,7 @@ function commons_home_views_default_views() {
+       'hide_empty' => 0,
+       'empty_zero' => 0,
+       'link_to_node' => 1,
+-      'exclude' => 0,
++      'exclude' => 1,
+       'id' => 'title',
+       'table' => 'node',
+       'field' => 'title',
+@@ -227,12 +227,126 @@ function commons_home_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Happening right now');
++  $handler->override_option('title', 'Ostatnia aktywność na stronie');
+   $handler->override_option('empty', 'There are currently no featured groups');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('items_per_page', 3);
+   $handler->override_option('distinct', 1);
+   $handler = $view->new_display('block', 'Groups', 'block_1');
++  $handler->override_option('fields', array(
++    'title' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 1,
++      'spaces' => array(
++        'type' => NULL,
++        'frontpage' => FALSE,
++      ),
++      'exclude' => 0,
++      'id' => 'title',
++      'table' => 'node',
++      'field' => 'title',
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
++      'relationship' => 'none',
++    ),
++    'field_group_image_fid' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 0,
++      'label_type' => 'none',
++      'format' => 'group_images_showcase_linked',
++      'multiple' => array(
++        'group' => TRUE,
++        'multiple_number' => '',
++        'multiple_from' => '',
++        'multiple_reversed' => FALSE,
++      ),
++      'exclude' => 0,
++      'id' => 'field_group_image_fid',
++      'table' => 'node_data_field_group_image',
++      'field' => 'field_group_image_fid',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++    'nid' => array(
++      'label' => '',
++      'alter' => array(
++        'alter_text' => 0,
++        'text' => '',
++        'make_link' => 0,
++        'path' => '',
++        'link_class' => '',
++        'alt' => '',
++        'prefix' => '',
++        'suffix' => '',
++        'target' => '',
++        'help' => '',
++        'trim' => 0,
++        'max_length' => '',
++        'word_boundary' => 1,
++        'ellipsis' => 1,
++        'html' => 0,
++        'strip_tags' => 0,
++      ),
++      'empty' => '',
++      'hide_empty' => 0,
++      'empty_zero' => 0,
++      'link_to_node' => 0,
++      'exclude' => 0,
++      'id' => 'nid',
++      'table' => 'node',
++      'field' => 'nid',
++      'override' => array(
++        'button' => 'Override',
++      ),
++      'relationship' => 'none',
++    ),
++  ));
++  $handler->override_option('use_ajax', TRUE);
+   $handler->override_option('block_description', '');
+   $handler->override_option('block_caching', -1);
+   $handler = $view->new_display('block', 'Group Content', 'block_2');
+@@ -308,7 +422,7 @@ function commons_home_views_default_views() {
+       'label' => '',
+       'alter' => array(
+         'alter_text' => 1,
+-        'text' => '[comment_count] replies',
++        'text' => '[comment_count] odpowiedzi',
+         'make_link' => 0,
+         'path' => '',
+         'link_class' => '',
+@@ -338,7 +452,7 @@ function commons_home_views_default_views() {
+       'table' => 'node_comment_statistics',
+       'field' => 'comment_count',
+       'override' => array(
+-        'button' => 'Use default',
++        'button' => 'Użyj domślnych',
+       ),
+       'relationship' => 'none',
+     ),
+@@ -541,9 +655,36 @@ function commons_home_views_default_views() {
+       ),
+       'relationship' => 'none',
+     ),
++    'type' => array(
++      'operator' => 'not in',
++      'value' => array(
++        'gallery' => 'gallery',
++        'gallery_image' => 'gallery_image',
++        'grupa_powitanie' => 'grupa_powitanie',
++        'inw_detal' => 'inw_detal',
++        'mieszkanie' => 'mieszkanie',
++        'opis_dewelopera' => 'opis_dewelopera',
++        'opis_inwestycji' => 'opis_inwestycji',
++      ),
++      'group' => '0',
++      'exposed' => FALSE,
++      'expose' => array(
++        'operator' => FALSE,
++        'label' => '',
++      ),
++      'id' => 'type',
++      'table' => 'node',
++      'field' => 'type',
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
++      'relationship' => 'none',
++    ),
+   ));
+   $handler->override_option('title', '');
+   $handler->override_option('empty', 'There are no recent items for this group');
++  $handler->override_option('use_ajax', TRUE);
++  $handler->override_option('use_pager', 'mini');
+   $handler->override_option('style_plugin', 'table');
+   $handler->override_option('style_options', array(
+     'grouping' => '',
+@@ -602,6 +743,13 @@ function commons_home_views_default_views() {
+   $view->api_version = 2;
+   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+   $handler = $view->new_display('default', 'Defaults', 'default');
++  $handler->override_option('relationships', array(
++    'group_nid' => array(
++      'id' => 'group_nid',
++      'table' => 'og_ancestry',
++      'field' => 'group_nid',
++    ),
++  ));
+   $handler->override_option('fields', array(
+     'title' => array(
+       'label' => '',
+@@ -731,7 +879,7 @@ function commons_home_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Most active groups');
++  $handler->override_option('title', 'Najaktywniejsze grupy');
+   $handler->override_option('empty', 'There are no groups.');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_more', 1);
+@@ -765,6 +913,19 @@ function commons_home_views_default_views() {
+     'default' => '-1',
+   ));
+   $handler = $view->new_display('block', 'Block', 'block_1');
++  $handler->override_option('relationships', array(
++    'group_nid' => array(
++      'label' => 'Group node (post)',
++      'required' => 0,
++      'id' => 'group_nid',
++      'table' => 'og_ancestry',
++      'field' => 'group_nid',
++      'override' => array(
++        'button' => 'Użyj domślnych',
++      ),
++      'relationship' => 'none',
++    ),
++  ));
+   $handler->override_option('fields', array(
+     'field_group_image_fid' => array(
+       'label' => '',
+@@ -1259,8 +1420,8 @@ function commons_home_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Latest featured content');
+-  $handler->override_option('empty', 'No notices have been created yet.');
++  $handler->override_option('title', 'Wyróżnione treści');
++  $handler->override_option('empty', 'Żadne treści nie zostały jeszcze stworzone');
+   $handler->override_option('empty_format', '1');
+   $handler->override_option('use_ajax', TRUE);
+   $handler->override_option('items_per_page', 5);
+@@ -1485,7 +1646,7 @@ function commons_home_views_default_views() {
+   $handler->override_option('cache', array(
+     'type' => 'none',
+   ));
+-  $handler->override_option('title', 'Popular tags');
++  $handler->override_option('title', 'Popularne tagi');
+   $handler->override_option('footer', '<div><?php print l(t(\'View more\'), \'tagadelic\'); ?></div>');
+   $handler->override_option('footer_format', '3');
+   $handler->override_option('footer_empty', 0);

@@ -16,7 +16,7 @@ function commons_discussion_ctools_plugin_api() {
 function commons_discussion_node_info() {
   $items = array(
     'discussion' => array(
-      'name' => t('Discussion'),
+      'name' => t('Dyskusja'),
       'module' => 'features',
       'description' => t('A item which allows the open discussion of a given topic.'),
       'has_title' => '1',

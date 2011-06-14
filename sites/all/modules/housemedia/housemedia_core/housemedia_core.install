@@ -109,3 +109,23 @@ function housemedia_core_update_6004() {
   return array();
 }
 
+function housemedia_core_update_6005() {
+  _housemedia_core_update_translation('sites/all/translations/commons');
+}
+
+/**
+ * Update translations.
+ *
+ * @param $dir
+ *   Path to directory that we looking for translations.
+ */
+function _housemedia_core_update_translation($dir, $mask = 'pl.po$', $mode = LOCALE_IMPORT_KEEP) {
+  include_once './includes/locale.inc';
+
+  $files = file_scan_directory($dir, $mask);
+  foreach ($files as $file) {
+    $file->filepath = $file->filename;
+    _locale_import_po($file, language_default('language'), $mode, 'default');
+  }
+}
+

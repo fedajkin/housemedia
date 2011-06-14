@@ -11,8 +11,13 @@ function commons_event_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'content/calendar',
     'router_path' => 'content/calendar',
-    'link_title' => 'Calendar',
-    'options' => array(),
+    'link_title' => 'Kalendarz',
+    'options' => array(
+      'minipanel' => '',
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
     'module' => 'commons',
     'hidden' => '0',
     'external' => '0',
@@ -23,7 +28,7 @@ function commons_event_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Calendar');
+  t('Kalendarz');
 
 
   return $menu_links;

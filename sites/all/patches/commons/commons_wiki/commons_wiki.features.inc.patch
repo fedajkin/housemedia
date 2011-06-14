@@ -1,0 +1,16 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.inc b/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.inc
+index 39dea23..abd0854 100644
+--- a/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.inc
++++ b/profiles/drupal_commons/modules/features/commons_wiki/commons_wiki.features.inc
+@@ -20,9 +20,9 @@ function commons_wiki_node_info() {
+       'module' => 'features',
+       'description' => t('A wiki is used for information collaboration.'),
+       'has_title' => '1',
+-      'title_label' => t('Title'),
++      'title_label' => t('Tytuł'),
+       'has_body' => '1',
+-      'body_label' => t('Body'),
++      'body_label' => t('Treść'),
+       'min_word_count' => '0',
+       'help' => '',
+     ),

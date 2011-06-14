@@ -1,0 +1,34 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.features.user_permission.inc b/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.features.user_permission.inc
+index 1fe7b88..b686557 100644
+--- a/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.features.user_permission.inc
++++ b/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.features.user_permission.inc
+@@ -43,7 +43,8 @@ function commons_reputation_user_default_permissions() {
+   $permissions['userpoints user picture'] = array(
+     'name' => 'userpoints user picture',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
++      '1' => 'authenticated user',
+     ),
+   );
+ 
+@@ -51,7 +52,8 @@ function commons_reputation_user_default_permissions() {
+   $permissions['view own userpoints'] = array(
+     'name' => 'view own userpoints',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
++      '1' => 'authenticated user',
+     ),
+   );
+ 
+@@ -67,7 +69,8 @@ function commons_reputation_user_default_permissions() {
+   $permissions['view userpoints'] = array(
+     'name' => 'view userpoints',
+     'roles' => array(
+-      '0' => 'authenticated user',
++      '0' => 'Użytkownik',
++      '1' => 'authenticated user',
+     ),
+   );
+ 

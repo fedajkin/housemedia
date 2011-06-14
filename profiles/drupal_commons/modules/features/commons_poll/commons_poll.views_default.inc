@@ -493,7 +493,7 @@ function commons_poll_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Polls');
+  $handler->override_option('title', 'Ankiety');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
   $handler->override_option('empty', 'No polls have been added yet.');
@@ -1220,7 +1220,7 @@ function commons_poll_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Polls');
+  $handler->override_option('title', 'Ankiety');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
   $handler->override_option('empty', 'No polls have been added to this group yet.');
@@ -1376,10 +1376,10 @@ function commons_poll_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Latest group poll');
+  $handler->override_option('title', 'Najnowsze ankiety');
   $handler->override_option('footer_format', '1');
   $handler->override_option('footer_empty', 1);
-  $handler->override_option('empty', 'No polls have been created yet.');
+  $handler->override_option('empty', 'Nie została stworzona jeszcze żadna ankieta.');
   $handler->override_option('empty_format', '1');
   $handler->override_option('items_per_page', 1);
   $handler->override_option('use_more', 1);
@@ -1393,7 +1393,7 @@ function commons_poll_views_default_views() {
     'comments' => 0,
   ));
   $handler = $view->new_display('block', 'Block', 'block_1');
-  $handler->override_option('block_description', 'Latest group poll');
+  $handler->override_option('block_description', 'Najnowsze ankiety');
   $handler->override_option('block_caching', -1);
 
   $views[$view->name] = $view;
