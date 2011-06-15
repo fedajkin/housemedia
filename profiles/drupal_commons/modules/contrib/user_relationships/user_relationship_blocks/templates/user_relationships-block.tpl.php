@@ -24,7 +24,7 @@ if ($relationships) {
 
     $title = $rtype_heading;
 
-    $username = theme('user_picture', $relatee, $size = '20');
+    $username = theme('username', $relatee);
     $rows[$title][] = $username;
   }
 

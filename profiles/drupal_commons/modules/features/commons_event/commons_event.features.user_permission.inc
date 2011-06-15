@@ -17,7 +17,9 @@ function commons_event_user_default_permissions() {
   // Exported permission: create event content
   $permissions['create event content'] = array(
     'name' => 'create event content',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: delete any event content
@@ -31,7 +33,9 @@ function commons_event_user_default_permissions() {
   // Exported permission: delete own event content
   $permissions['delete own event content'] = array(
     'name' => 'delete own event content',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: edit any event content
@@ -72,10 +76,9 @@ function commons_event_user_default_permissions() {
   $permissions['view field_date'] = array(
     'name' => 'view field_date',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
-      '3' => 'site admin',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+      '2' => 'site admin',
     ),
   );
 
@@ -83,10 +86,9 @@ function commons_event_user_default_permissions() {
   $permissions['view field_location'] = array(
     'name' => 'view field_location',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
-      '3' => 'site admin',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+      '2' => 'site admin',
     ),
   );
 

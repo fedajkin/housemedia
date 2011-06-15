@@ -8,9 +8,6 @@ function commons_core_ctools_plugin_api() {
   if ($module == "context" && $api == "context") {
     return array("version" => 3);
   }
-  elseif ($module == "page_manager" && $api == "pages_default") {
-    return array("version" => 1);
-  }
   elseif ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
@@ -334,8 +331,8 @@ function commons_core_imagecache_default_presets() {
           'module' => 'imagecache',
           'action' => 'imagecache_scale',
           'data' => array(
-            'width' => '140',
-            'height' => '70',
+            'width' => '380',
+            'height' => '90',
             'upscale' => 0,
           ),
         ),
@@ -349,10 +346,84 @@ function commons_core_imagecache_default_presets() {
             ),
             'under' => 1,
             'exact' => array(
-              'width' => '160',
+              'width' => '380',
               'height' => '90',
               'xpos' => 'left',
               'ypos' => 'top',
+            ),
+            'relative' => array(
+              'leftdiff' => '',
+              'rightdiff' => '',
+              'topdiff' => '',
+              'bottomdiff' => '',
+            ),
+          ),
+        ),
+      ),
+    ),
+    'group_images_featured' => array(
+      'presetname' => 'group_images_featured',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale_and_crop',
+          'data' => array(
+            'width' => '136',
+            'height' => '136',
+          ),
+        ),
+        '1' => array(
+          'weight' => '0',
+          'module' => 'imagecache_canvasactions',
+          'action' => 'canvasactions_definecanvas',
+          'data' => array(
+            'RGB' => array(
+              'HEX' => '',
+            ),
+            'under' => 1,
+            'exact' => array(
+              'width' => '136',
+              'height' => '136',
+              'xpos' => 'center',
+              'ypos' => 'center',
+            ),
+            'relative' => array(
+              'leftdiff' => '',
+              'rightdiff' => '',
+              'topdiff' => '',
+              'bottomdiff' => '',
+            ),
+          ),
+        ),
+      ),
+    ),
+    'group_images_medium' => array(
+      'presetname' => 'group_images_medium',
+      'actions' => array(
+        '0' => array(
+          'weight' => '-10',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale_and_crop',
+          'data' => array(
+            'width' => '66',
+            'height' => '66',
+          ),
+        ),
+        '1' => array(
+          'weight' => '-9',
+          'module' => 'imagecache_canvasactions',
+          'action' => 'canvasactions_definecanvas',
+          'data' => array(
+            'RGB' => array(
+              'HEX' => '',
+            ),
+            'under' => 1,
+            'exact' => array(
+              'width' => '66',
+              'height' => '66',
+              'xpos' => 'center',
+              'ypos' => 'center',
             ),
             'relative' => array(
               'leftdiff' => '',
@@ -370,11 +441,10 @@ function commons_core_imagecache_default_presets() {
         '0' => array(
           'weight' => '0',
           'module' => 'imagecache',
-          'action' => 'imagecache_scale',
+          'action' => 'imagecache_scale_and_crop',
           'data' => array(
             'width' => '150',
             'height' => '150',
-            'upscale' => 0,
           ),
         ),
       ),
@@ -385,34 +455,10 @@ function commons_core_imagecache_default_presets() {
         '0' => array(
           'weight' => '0',
           'module' => 'imagecache',
-          'action' => 'imagecache_scale',
+          'action' => 'imagecache_scale_and_crop',
           'data' => array(
-            'width' => '24',
-            'height' => '24',
-            'upscale' => 1,
-          ),
-        ),
-        '1' => array(
-          'weight' => '0',
-          'module' => 'imagecache_canvasactions',
-          'action' => 'canvasactions_definecanvas',
-          'data' => array(
-            'RGB' => array(
-              'HEX' => '',
-            ),
-            'under' => 1,
-            'exact' => array(
-              'width' => '24',
-              'height' => '24',
-              'xpos' => 'left',
-              'ypos' => 'center',
-            ),
-            'relative' => array(
-              'leftdiff' => '',
-              'rightdiff' => '',
-              'topdiff' => '',
-              'bottomdiff' => '',
-            ),
+            'width' => '30',
+            'height' => '30',
           ),
         ),
       ),
@@ -439,8 +485,8 @@ function commons_core_imagecache_default_presets() {
           'module' => 'imagecache',
           'action' => 'imagecache_scale_and_crop',
           'data' => array(
-            'width' => '150',
-            'height' => '150',
+            'width' => '186',
+            'height' => '186',
           ),
         ),
       ),
@@ -469,7 +515,7 @@ function commons_core_imagecache_default_presets() {
 function commons_core_node_info() {
   $items = array(
     'group' => array(
-      'name' => t('Grupa'),
+      'name' => t('Group'),
       'module' => 'features',
       'description' => t('A group which members can be a part of.'),
       'has_title' => '1',
@@ -480,24 +526,24 @@ function commons_core_node_info() {
       'help' => '',
     ),
     'notice' => array(
-      'name' => t('Notka'),
+      'name' => t('Notice'),
       'module' => 'features',
       'description' => t('A notice is an informative message that is meant to broadcast information to all of the users of the site.'),
       'has_title' => '1',
-      'title_label' => t('Tytuł'),
+      'title_label' => t('Title'),
       'has_body' => '1',
-      'body_label' => t('Treść'),
+      'body_label' => t('Body'),
       'min_word_count' => '0',
       'help' => '',
     ),
     'page' => array(
-      'name' => t('Strona'),
+      'name' => t('Page'),
       'module' => 'features',
-      'description' => t('<em>Strona</em>, podobna w formie do <em>artykułu</em>, służy do umieszczania informacji, które rzadko są aktualizowane, na przykład stron typu "O nas". Domyślne ustawienia <em>strony</em> nie pozwalają na umieszczanie odpowiedzi ani na publikację na stronie głównej.'),
+      'description' => t('A <em>page</em>, similar in form to a <em>story</em>, is a simple method for creating and displaying information that rarely changes, such as an "About us" section of a website. By default, a <em>page</em> entry does not allow visitor comments and is not featured on the site\'s initial home page.'),
       'has_title' => '1',
-      'title_label' => t('Tytuł'),
+      'title_label' => t('Title'),
       'has_body' => '1',
-      'body_label' => t('Treść'),
+      'body_label' => t('Body'),
       'min_word_count' => '0',
       'help' => '',
     ),

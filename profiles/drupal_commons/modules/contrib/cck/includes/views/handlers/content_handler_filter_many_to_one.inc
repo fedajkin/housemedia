@@ -7,7 +7,7 @@
  * for field-specific subclasses to use if they need to.
  */
 class content_handler_filter_many_to_one extends views_handler_filter_many_to_one {
-  var $content_field;  
+  var $content_field;
 
   function construct() {
     parent::construct();

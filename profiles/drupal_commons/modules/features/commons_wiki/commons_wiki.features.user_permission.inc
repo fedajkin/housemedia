@@ -9,7 +9,9 @@ function commons_wiki_user_default_permissions() {
   // Exported permission: access freelinking list
   $permissions['access freelinking list'] = array(
     'name' => 'access freelinking list',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: administer freelinking
@@ -23,7 +25,9 @@ function commons_wiki_user_default_permissions() {
   // Exported permission: create wiki content
   $permissions['create wiki content'] = array(
     'name' => 'create wiki content',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: delete any wiki content
@@ -38,8 +42,7 @@ function commons_wiki_user_default_permissions() {
   $permissions['delete own wiki content'] = array(
     'name' => 'delete own wiki content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -47,8 +50,7 @@ function commons_wiki_user_default_permissions() {
   $permissions['edit any wiki content'] = array(
     'name' => 'edit any wiki content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
+      '0' => 'community manager',
     ),
   );
 
@@ -56,8 +58,7 @@ function commons_wiki_user_default_permissions() {
   $permissions['edit own wiki content'] = array(
     'name' => 'edit own wiki content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 

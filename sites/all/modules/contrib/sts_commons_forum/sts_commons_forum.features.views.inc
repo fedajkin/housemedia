@@ -891,7 +891,7 @@ drupal_set_title(check_plain($group->title . " - Forum"));
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Active forum topics');
+  $handler->override_option('title', 'Aktywne tematy');
   $handler->override_option('empty', 'No active topics.');
   $handler->override_option('empty_format', '1');
   $handler->override_option('items_per_page', 20);

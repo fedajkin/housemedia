@@ -523,4 +523,3 @@ function _context_registry($key = NULL, $reset = FALSE) {
   }
   return $registry;
 }
-

@@ -48,27 +48,26 @@ function commons_core_user_default_permissions() {
     ),
   );
 
+  // Exported permission: access user activity
+  $permissions['access user activity'] = array(
+    'name' => 'access user activity',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
   // Exported permission: access user profiles
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
     'roles' => array(
-      '0' => 'Deweloper',
-      '1' => 'Doradca',
-      '2' => 'Użytkownik',
+      '0' => 'authenticated user',
     ),
   );
 
   // Exported permission: administer actions
   $permissions['administer actions'] = array(
     'name' => 'administer actions',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer advanced pane settings
-  $permissions['administer advanced pane settings'] = array(
-    'name' => 'administer advanced pane settings',
     'roles' => array(
       '0' => 'site admin',
     ),
@@ -165,41 +164,17 @@ function commons_core_user_default_permissions() {
     ),
   );
 
+  // Exported permission: administer og features
+  $permissions['administer og features'] = array(
+    'name' => 'administer og features',
+    'roles' => array(
+      '0' => 'site admin',
+    ),
+  );
+
   // Exported permission: administer organic groups
   $permissions['administer organic groups'] = array(
     'name' => 'administer organic groups',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer page manager
-  $permissions['administer page manager'] = array(
-    'name' => 'administer page manager',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer pane access
-  $permissions['administer pane access'] = array(
-    'name' => 'administer pane access',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer pane visibility
-  $permissions['administer pane visibility'] = array(
-    'name' => 'administer pane visibility',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer panels layouts
-  $permissions['administer panels layouts'] = array(
-    'name' => 'administer panels layouts',
     'roles' => array(
       '0' => 'site admin',
     ),
@@ -224,22 +199,6 @@ function commons_core_user_default_permissions() {
   // Exported permission: administer search
   $permissions['administer search'] = array(
     'name' => 'administer search',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer shoutbox
-  $permissions['administer shoutbox'] = array(
-    'name' => 'administer shoutbox',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: administer shoutbox_group
-  $permissions['administer shoutbox_group'] = array(
-    'name' => 'administer shoutbox_group',
     'roles' => array(
       '0' => 'site admin',
     ),
@@ -313,8 +272,7 @@ function commons_core_user_default_permissions() {
   $permissions['can have relationships'] = array(
     'name' => 'can have relationships',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -346,8 +304,7 @@ function commons_core_user_default_permissions() {
   $permissions['create group content'] = array(
     'name' => 'create group content',
     'roles' => array(
-      '0' => 'Deweloper',
-      '1' => 'Doradca',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -403,7 +360,9 @@ function commons_core_user_default_permissions() {
   // Exported permission: delete own group content
   $permissions['delete own group content'] = array(
     'name' => 'delete own group content',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: delete own heartbeat activity logs
@@ -426,21 +385,26 @@ function commons_core_user_default_permissions() {
   // Exported permission: delete own page content
   $permissions['delete own page content'] = array(
     'name' => 'delete own page content',
-    'roles' => array(),
-  );
-
-  // Exported permission: delete own shouts
-  $permissions['delete own shouts'] = array(
-    'name' => 'delete own shouts',
     'roles' => array(
-      '0' => 'community manager',
+      '0' => 'authenticated user',
     ),
   );
 
   // Exported permission: delete revisions
   $permissions['delete revisions'] = array(
     'name' => 'delete revisions',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: edit all group features
+  $permissions['edit all group features'] = array(
+    'name' => 'edit all group features',
+    'roles' => array(
+      '0' => 'community manager',
+      '1' => 'site admin',
+    ),
   );
 
   // Exported permission: edit any group content
@@ -529,6 +493,14 @@ function commons_core_user_default_permissions() {
     ),
   );
 
+  // Exported permission: edit own group features
+  $permissions['edit own group features'] = array(
+    'name' => 'edit own group features',
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
+  );
+
   // Exported permission: edit own notice content
   $permissions['edit own notice content'] = array(
     'name' => 'edit own notice content',
@@ -542,15 +514,6 @@ function commons_core_user_default_permissions() {
     'name' => 'edit own page content',
     'roles' => array(
       '0' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: edit own shouts
-  $permissions['edit own shouts'] = array(
-    'name' => 'edit own shouts',
-    'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
     ),
   );
 
@@ -575,8 +538,7 @@ function commons_core_user_default_permissions() {
   $permissions['maintain own relationships'] = array(
     'name' => 'maintain own relationships',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -588,20 +550,11 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: moderate shoutbox
-  $permissions['moderate shoutbox'] = array(
-    'name' => 'moderate shoutbox',
-    'roles' => array(
-      '0' => 'community manager',
-    ),
-  );
-
   // Exported permission: post comments
   $permissions['post comments'] = array(
     'name' => 'post comments',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -613,45 +566,20 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: post shouts
-  $permissions['post shouts'] = array(
-    'name' => 'post shouts',
-    'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: post shouts in all groups
-  $permissions['post shouts in all groups'] = array(
-    'name' => 'post shouts in all groups',
-    'roles' => array(
-      '0' => 'community manager',
-    ),
-  );
-
-  // Exported permission: post shouts without approval
-  $permissions['post shouts without approval'] = array(
-    'name' => 'post shouts without approval',
-    'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
-    ),
-  );
-
   // Exported permission: revert revisions
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: search content
   $permissions['search content'] = array(
     'name' => 'search content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -675,9 +603,8 @@ function commons_core_user_default_permissions() {
   $permissions['use advanced search'] = array(
     'name' => 'use advanced search',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -712,9 +639,8 @@ function commons_core_user_default_permissions() {
   $permissions['view field_featured_content'] = array(
     'name' => 'view field_featured_content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
-      '2' => 'site admin',
+      '0' => 'community manager',
+      '1' => 'site admin',
     ),
   );
 
@@ -722,9 +648,8 @@ function commons_core_user_default_permissions() {
   $permissions['view field_featured_group'] = array(
     'name' => 'view field_featured_group',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
-      '2' => 'site admin',
+      '0' => 'community manager',
+      '1' => 'site admin',
     ),
   );
 
@@ -732,12 +657,9 @@ function commons_core_user_default_permissions() {
   $permissions['view field_group_image'] = array(
     'name' => 'view field_group_image',
     'roles' => array(
-      '0' => 'Deweloper',
-      '1' => 'Doradca',
-      '2' => 'Użytkownik',
-      '3' => 'anonymous user',
-      '4' => 'authenticated user',
-      '5' => 'site admin',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+      '2' => 'site admin',
     ),
   );
 
@@ -745,9 +667,8 @@ function commons_core_user_default_permissions() {
   $permissions['view field_group_sticky'] = array(
     'name' => 'view field_group_sticky',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
-      '2' => 'site admin',
+      '0' => 'community manager',
+      '1' => 'site admin',
     ),
   );
 
@@ -755,10 +676,9 @@ function commons_core_user_default_permissions() {
   $permissions['view field_grouplink'] = array(
     'name' => 'view field_grouplink',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
-      '3' => 'site admin',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+      '2' => 'site admin',
     ),
   );
 
@@ -784,9 +704,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache Featured'] = array(
     'name' => 'view imagecache Featured',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -794,9 +713,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache Small'] = array(
     'name' => 'view imagecache Small',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -804,9 +722,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache group_images'] = array(
     'name' => 'view imagecache group_images',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -814,9 +731,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache group_images_showcase'] = array(
     'name' => 'view imagecache group_images_showcase',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -824,9 +740,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache group_images_thumb'] = array(
     'name' => 'view imagecache group_images_thumb',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -834,9 +749,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache member_list_image'] = array(
     'name' => 'view imagecache member_list_image',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -844,9 +758,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache profile_pictures'] = array(
     'name' => 'view imagecache profile_pictures',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -854,9 +767,8 @@ function commons_core_user_default_permissions() {
   $permissions['view imagecache user_picture_meta'] = array(
     'name' => 'view imagecache user_picture_meta',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -864,8 +776,7 @@ function commons_core_user_default_permissions() {
   $permissions['view personal heartbeat activity'] = array(
     'name' => 'view personal heartbeat activity',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -877,22 +788,11 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: view shouts
-  $permissions['view shouts'] = array(
-    'name' => 'view shouts',
-    'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
-    ),
-  );
-
   // Exported permission: view user relationships
   $permissions['view user relationships'] = array(
     'name' => 'view user relationships',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 

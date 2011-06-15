@@ -10,8 +10,7 @@ function commons_poll_user_default_permissions() {
   $permissions['cancel own vote'] = array(
     'name' => 'cancel own vote',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -19,8 +18,7 @@ function commons_poll_user_default_permissions() {
   $permissions['create poll content'] = array(
     'name' => 'create poll content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -36,8 +34,7 @@ function commons_poll_user_default_permissions() {
   $permissions['delete own poll content'] = array(
     'name' => 'delete own poll content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -53,23 +50,23 @@ function commons_poll_user_default_permissions() {
   $permissions['edit own poll content'] = array(
     'name' => 'edit own poll content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 
   // Exported permission: inspect all votes
   $permissions['inspect all votes'] = array(
     'name' => 'inspect all votes',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: vote on polls
   $permissions['vote on polls'] = array(
     'name' => 'vote on polls',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'authenticated user',
+      '0' => 'authenticated user',
     ),
   );
 

@@ -11,9 +11,8 @@ function commons_dashboard_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'dashboard',
     'router_path' => 'dashboard',
-    'link_title' => 'Panel',
+    'link_title' => 'Dashboard',
     'options' => array(
-      'minipanel' => '',
       'attributes' => array(
         'title' => '',
       ),
@@ -23,11 +22,11 @@ function commons_dashboard_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '-48',
+    'weight' => '1',
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Panel');
+  t('Dashboard');
 
 
   return $menu_links;

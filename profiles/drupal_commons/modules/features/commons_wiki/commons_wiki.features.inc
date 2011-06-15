@@ -5,7 +5,10 @@
  */
 function commons_wiki_ctools_plugin_api() {
   list($module, $api) = func_get_args();
-  if ($module == "strongarm" && $api == "strongarm") {
+  if ($module == "context" && $api == "context") {
+    return array("version" => 3);
+  }
+  elseif ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
 }
@@ -20,9 +23,9 @@ function commons_wiki_node_info() {
       'module' => 'features',
       'description' => t('A wiki is used for information collaboration.'),
       'has_title' => '1',
-      'title_label' => t('Tytuł'),
+      'title_label' => t('Title'),
       'has_body' => '1',
-      'body_label' => t('Treść'),
+      'body_label' => t('Body'),
       'min_word_count' => '0',
       'help' => '',
     ),

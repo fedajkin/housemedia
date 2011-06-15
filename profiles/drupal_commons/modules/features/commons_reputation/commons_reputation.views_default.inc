@@ -49,7 +49,7 @@ function commons_reputation_views_default_views() {
       'relationship' => 'none',
     ),
     'name' => array(
-      'label' => 'Użytkownik',
+      'label' => 'User',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
@@ -65,8 +65,8 @@ function commons_reputation_views_default_views() {
         'max_length' => '',
         'word_boundary' => 1,
         'ellipsis' => 1,
-        'html' => 0,
         'strip_tags' => 0,
+        'html' => 0,
       ),
       'empty' => '',
       'hide_empty' => 0,
@@ -79,12 +79,9 @@ function commons_reputation_views_default_views() {
       'table' => 'users',
       'field' => 'name',
       'relationship' => 'none',
-      'override' => array(
-        'button' => 'Override',
-      ),
     ),
     'points' => array(
-      'label' => 'Punkty',
+      'label' => 'Points',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
@@ -100,8 +97,8 @@ function commons_reputation_views_default_views() {
         'max_length' => '',
         'word_boundary' => 1,
         'ellipsis' => 1,
-        'html' => 0,
         'strip_tags' => 0,
+        'html' => 0,
       ),
       'empty' => '0',
       'hide_empty' => 0,
@@ -117,9 +114,6 @@ function commons_reputation_views_default_views() {
       'table' => 'userpoints',
       'field' => 'points',
       'relationship' => 'none',
-      'override' => array(
-        'button' => 'Override',
-      ),
     ),
   ));
   $handler->override_option('sorts', array(
@@ -153,7 +147,7 @@ function commons_reputation_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Najaktywniejsi ');
+  $handler->override_option('title', 'Most active users');
   $handler->override_option('footer_format', '1');
   $handler->override_option('footer_empty', 0);
   $handler->override_option('empty', 'No users have received any points yet.');

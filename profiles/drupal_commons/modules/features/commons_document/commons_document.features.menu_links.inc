@@ -11,13 +11,8 @@ function commons_document_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'content/documents',
     'router_path' => 'content/documents',
-    'link_title' => 'Dokumenty',
-    'options' => array(
-      'minipanel' => '',
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
+    'link_title' => 'Documents',
+    'options' => array(),
     'module' => 'commons',
     'hidden' => '0',
     'external' => '0',
@@ -28,7 +23,7 @@ function commons_document_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Dokumenty');
+  t('Documents');
 
 
   return $menu_links;

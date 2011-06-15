@@ -5,7 +5,10 @@
  */
 function commons_discussion_ctools_plugin_api() {
   list($module, $api) = func_get_args();
-  if ($module == "strongarm" && $api == "strongarm") {
+  if ($module == "context" && $api == "context") {
+    return array("version" => 3);
+  }
+  elseif ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
 }
@@ -16,7 +19,7 @@ function commons_discussion_ctools_plugin_api() {
 function commons_discussion_node_info() {
   $items = array(
     'discussion' => array(
-      'name' => t('Dyskusja'),
+      'name' => t('Discussion'),
       'module' => 'features',
       'description' => t('A item which allows the open discussion of a given topic.'),
       'has_title' => '1',

@@ -5,7 +5,10 @@
  */
 function commons_document_ctools_plugin_api() {
   list($module, $api) = func_get_args();
-  if ($module == "strongarm" && $api == "strongarm") {
+  if ($module == "context" && $api == "context") {
+    return array("version" => 3);
+  }
+  elseif ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
 }
@@ -16,7 +19,7 @@ function commons_document_ctools_plugin_api() {
 function commons_document_node_info() {
   $items = array(
     'document' => array(
-      'name' => t('Dokument'),
+      'name' => t('Document'),
       'module' => 'features',
       'description' => t('A document item which contains a title, description, an unlimited amount of attached files.'),
       'has_title' => '1',
