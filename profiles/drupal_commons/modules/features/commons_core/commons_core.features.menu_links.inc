@@ -41,10 +41,10 @@ function commons_core_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'community',
     'router_path' => 'community',
-    'link_title' => 'Community',
+    'link_title' => 'Społeczność',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'title' => 'Społeczność portalu housemedia.pl',
       ),
     ),
     'module' => 'menu',
@@ -52,17 +52,17 @@ function commons_core_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
-    'weight' => '10',
+    'weight' => '-47',
   );
   // Exported menu link: primary-links:groups
   $menu_links['primary-links:groups'] = array(
     'menu_name' => 'primary-links',
     'link_path' => 'groups',
     'router_path' => 'groups',
-    'link_title' => 'Groups',
+    'link_title' => 'Grupy',
     'options' => array(
       'attributes' => array(
-        'title' => '',
+        'title' => 'Wszystkie grupy',
       ),
     ),
     'module' => 'commons',
@@ -78,7 +78,7 @@ function commons_core_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'groups/mine',
     'router_path' => 'groups/mine',
-    'link_title' => 'My groups',
+    'link_title' => 'Moje grupy',
     'options' => array(),
     'module' => 'menu',
     'hidden' => '0',
@@ -108,7 +108,7 @@ function commons_core_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'myprofile',
     'router_path' => 'myprofile',
-    'link_title' => 'My profile',
+    'link_title' => 'Mój profil',
     'options' => array(),
     'module' => 'commons',
     'hidden' => '0',
@@ -123,7 +123,7 @@ function commons_core_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'relationships',
     'router_path' => 'relationships',
-    'link_title' => 'My friends',
+    'link_title' => 'Znajomi',
     'options' => array(),
     'module' => 'commons',
     'hidden' => '0',

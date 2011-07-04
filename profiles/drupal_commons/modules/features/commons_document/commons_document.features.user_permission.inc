@@ -9,9 +9,7 @@ function commons_document_user_default_permissions() {
   // Exported permission: create document content
   $permissions['create document content'] = array(
     'name' => 'create document content',
-    'roles' => array(
-      '0' => 'authenticated user',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete any document content
@@ -25,9 +23,7 @@ function commons_document_user_default_permissions() {
   // Exported permission: delete own document content
   $permissions['delete own document content'] = array(
     'name' => 'delete own document content',
-    'roles' => array(
-      '0' => 'authenticated user',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit any document content
@@ -58,8 +54,9 @@ function commons_document_user_default_permissions() {
   $permissions['view field_file'] = array(
     'name' => 'view field_file',
     'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'anonymous user',
+      '2' => 'authenticated user',
     ),
   );
 

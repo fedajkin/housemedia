@@ -1,22 +1,21 @@
 diff --git a/profiles/drupal_commons/modules/features/commons_core/commons_core.features.menu_links.inc b/profiles/drupal_commons/modules/features/commons_core/commons_core.features.menu_links.inc
-index 1e500e0..a7c1901 100644
+index 7e31c02..b14fb36 100644
 --- a/profiles/drupal_commons/modules/features/commons_core/commons_core.features.menu_links.inc
 +++ b/profiles/drupal_commons/modules/features/commons_core/commons_core.features.menu_links.inc
-@@ -41,10 +41,11 @@ function commons_core_menu_default_menu_links() {
+@@ -41,10 +41,10 @@ function commons_core_menu_default_menu_links() {
      'menu_name' => 'primary-links',
      'link_path' => 'community',
      'router_path' => 'community',
 -    'link_title' => 'Community',
 +    'link_title' => 'Społeczność',
      'options' => array(
-+      'minipanel' => '',
        'attributes' => array(
 -        'title' => '',
 +        'title' => 'Społeczność portalu housemedia.pl',
        ),
      ),
      'module' => 'menu',
-@@ -52,17 +53,18 @@ function commons_core_menu_default_menu_links() {
+@@ -52,17 +52,17 @@ function commons_core_menu_default_menu_links() {
      'external' => '0',
      'has_children' => '1',
      'expanded' => '1',
@@ -31,100 +30,36 @@ index 1e500e0..a7c1901 100644
 -    'link_title' => 'Groups',
 +    'link_title' => 'Grupy',
      'options' => array(
-+      'minipanel' => '',
        'attributes' => array(
 -        'title' => '',
 +        'title' => 'Wszystkie grupy',
        ),
      ),
      'module' => 'commons',
-@@ -78,8 +80,9 @@ function commons_core_menu_default_menu_links() {
+@@ -78,7 +78,7 @@ function commons_core_menu_default_menu_links() {
      'menu_name' => 'primary-links',
-     'link_path' => 'groups/my',
-     'router_path' => 'groups/my',
+     'link_path' => 'groups/mine',
+     'router_path' => 'groups/mine',
 -    'link_title' => 'My groups',
 +    'link_title' => 'Moje grupy',
-     'options' => array(
-+      'minipanel' => '',
-       'attributes' => array(
-         'title' => '',
-       ),
-@@ -112,8 +115,13 @@ function commons_core_menu_default_menu_links() {
+     'options' => array(),
+     'module' => 'menu',
+     'hidden' => '0',
+@@ -108,7 +108,7 @@ function commons_core_menu_default_menu_links() {
      'menu_name' => 'primary-links',
      'link_path' => 'myprofile',
      'router_path' => 'myprofile',
 -    'link_title' => 'My profile',
--    'options' => array(),
 +    'link_title' => 'Mój profil',
-+    'options' => array(
-+      'minipanel' => '',
-+      'attributes' => array(
-+        'title' => '',
-+      ),
-+    ),
+     'options' => array(),
      'module' => 'commons',
      'hidden' => '0',
-     'external' => '0',
-@@ -127,8 +135,13 @@ function commons_core_menu_default_menu_links() {
+@@ -123,7 +123,7 @@ function commons_core_menu_default_menu_links() {
      'menu_name' => 'primary-links',
      'link_path' => 'relationships',
      'router_path' => 'relationships',
 -    'link_title' => 'My friends',
--    'options' => array(),
 +    'link_title' => 'Znajomi',
-+    'options' => array(
-+      'minipanel' => '',
-+      'attributes' => array(
-+        'title' => '',
-+      ),
-+    ),
+     'options' => array(),
      'module' => 'commons',
      'hidden' => '0',
-     'external' => '0',
-@@ -153,15 +166,20 @@ function commons_core_menu_default_menu_links() {
-     'external' => '0',
-     'has_children' => '1',
-     'expanded' => '1',
--    'weight' => '20',
-+    'weight' => '-46',
-   );
-   // Exported menu link: primary-links:users
-   $menu_links['primary-links:users'] = array(
-     'menu_name' => 'primary-links',
-     'link_path' => 'users',
-     'router_path' => 'users',
--    'link_title' => 'Members',
--    'options' => array(),
-+    'link_title' => 'Członkowie',
-+    'options' => array(
-+      'minipanel' => '',
-+      'attributes' => array(
-+        'title' => '',
-+      ),
-+    ),
-     'module' => 'commons',
-     'hidden' => '0',
-     'external' => '0',
-@@ -172,16 +190,16 @@ function commons_core_menu_default_menu_links() {
-   );
-   // Translatables
-   // Included for use with string extractors like potx.
--  t('Community');
--  t('Groups');
--  t('Members');
-+  t('Członkowie');
-+  t('Grupy');
-+  t('Moje grupy');
-   t('My bookmarks');
-   t('My content');
--  t('My friends');
--  t('My groups');
--  t('My profile');
-   t('My stuff');
-+  t('Mój profil');
-   t('Site analytics');
-+  t('Społeczność');
-+  t('Znajomi');
- 
- 
-   return $menu_links;

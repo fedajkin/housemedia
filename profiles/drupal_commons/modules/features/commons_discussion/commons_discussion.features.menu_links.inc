@@ -11,8 +11,13 @@ function commons_discussion_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'content/discussions',
     'router_path' => 'content/discussions',
-    'link_title' => 'Discussions',
-    'options' => array(),
+    'link_title' => 'Dyskusje',
+    'options' => array(
+      'minipanel' => '',
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
     'module' => 'commons',
     'hidden' => '0',
     'external' => '0',
@@ -23,7 +28,7 @@ function commons_discussion_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Discussions');
+  t('Dyskusje');
 
 
   return $menu_links;

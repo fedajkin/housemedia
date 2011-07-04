@@ -1,12 +1,12 @@
 diff --git a/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.info b/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.info
-index c360d97..d066142 100644
+index 579f2d4..c0011be 100644
 --- a/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.info
 +++ b/profiles/drupal_commons/modules/features/commons_dashboard/commons_dashboard.info
-@@ -4,6 +4,7 @@ dependencies[] = "content"
+@@ -5,6 +5,7 @@ dependencies[] = "content"
  dependencies[] = "features"
  dependencies[] = "homebox"
  dependencies[] = "jquery_ui"
 +dependencies[] = "location"
  dependencies[] = "menu"
  dependencies[] = "og_views"
- dependencies[] = "views"
+ dependencies[] = "search"

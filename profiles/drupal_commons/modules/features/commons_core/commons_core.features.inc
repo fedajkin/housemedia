@@ -331,8 +331,8 @@ function commons_core_imagecache_default_presets() {
           'module' => 'imagecache',
           'action' => 'imagecache_scale',
           'data' => array(
-            'width' => '380',
-            'height' => '90',
+            'width' => '140',
+            'height' => '70',
             'upscale' => 0,
           ),
         ),
@@ -346,7 +346,7 @@ function commons_core_imagecache_default_presets() {
             ),
             'under' => 1,
             'exact' => array(
-              'width' => '380',
+              'width' => '160',
               'height' => '90',
               'xpos' => 'left',
               'ypos' => 'top',
@@ -441,10 +441,11 @@ function commons_core_imagecache_default_presets() {
         '0' => array(
           'weight' => '0',
           'module' => 'imagecache',
-          'action' => 'imagecache_scale_and_crop',
+          'action' => 'imagecache_scale',
           'data' => array(
             'width' => '150',
             'height' => '150',
+						'upscale' => 0,
           ),
         ),
       ),
@@ -515,7 +516,7 @@ function commons_core_imagecache_default_presets() {
 function commons_core_node_info() {
   $items = array(
     'group' => array(
-      'name' => t('Group'),
+      'name' => t('Grupa'),
       'module' => 'features',
       'description' => t('A group which members can be a part of.'),
       'has_title' => '1',
@@ -526,7 +527,7 @@ function commons_core_node_info() {
       'help' => '',
     ),
     'notice' => array(
-      'name' => t('Notice'),
+      'name' => t('Notka'),
       'module' => 'features',
       'description' => t('A notice is an informative message that is meant to broadcast information to all of the users of the site.'),
       'has_title' => '1',
@@ -537,7 +538,7 @@ function commons_core_node_info() {
       'help' => '',
     ),
     'page' => array(
-      'name' => t('Page'),
+      'name' => t('Strona'),
       'module' => 'features',
       'description' => t('A <em>page</em>, similar in form to a <em>story</em>, is a simple method for creating and displaying information that rarely changes, such as an "About us" section of a website. By default, a <em>page</em> entry does not allow visitor comments and is not featured on the site\'s initial home page.'),
       'has_title' => '1',

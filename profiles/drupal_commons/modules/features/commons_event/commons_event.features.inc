@@ -19,7 +19,7 @@ function commons_event_ctools_plugin_api() {
 function commons_event_node_info() {
   $items = array(
     'event' => array(
-      'name' => t('Event'),
+      'name' => t('Wydarzenie'),
       'module' => 'features',
       'description' => t('An item that is used to provide details about an event. Events can be connected to multiple groups.'),
       'has_title' => '1',

@@ -1,5 +1,5 @@
 diff --git a/profiles/drupal_commons/modules/features/commons_event/commons_event.info b/profiles/drupal_commons/modules/features/commons_event/commons_event.info
-index f40085d..23f5f9a 100644
+index 818a5eb..c88f173 100644
 --- a/profiles/drupal_commons/modules/features/commons_event/commons_event.info
 +++ b/profiles/drupal_commons/modules/features/commons_event/commons_event.info
 @@ -14,6 +14,7 @@ dependencies[] = "fieldgroup"
@@ -10,7 +10,7 @@ index f40085d..23f5f9a 100644
  dependencies[] = "menu"
  dependencies[] = "og_views"
  dependencies[] = "optionwidgets"
-@@ -55,8 +56,10 @@ features[variable][] = "comment_form_location_event"
+@@ -61,8 +62,10 @@ features[variable][] = "comment_form_location_event"
  features[variable][] = "comment_preview_event"
  features[variable][] = "comment_subject_field_event"
  features[variable][] = "content_extra_weights_event"
@@ -18,6 +18,6 @@ index f40085d..23f5f9a 100644
  features[variable][] = "node_options_event"
  features[variable][] = "og_content_type_usage_event"
 +features[variable][] = "upload_event"
- features[views][] = "content_global_calendar"
- features[views][] = "og_calendar"
- features[views][] = "og_upcoming_events"
+ features[views][] = "content_event_calendar"
+ features[views][] = "content_event_page"
+ features[views][] = "event_latest"

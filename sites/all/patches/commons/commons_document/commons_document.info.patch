@@ -1,5 +1,5 @@
 diff --git a/profiles/drupal_commons/modules/features/commons_document/commons_document.info b/profiles/drupal_commons/modules/features/commons_document/commons_document.info
-index 1dcb73b..d0c17d0 100644
+index 303454d..98fe8ab 100644
 --- a/profiles/drupal_commons/modules/features/commons_document/commons_document.info
 +++ b/profiles/drupal_commons/modules/features/commons_document/commons_document.info
 @@ -8,6 +8,7 @@ dependencies[] = "fieldgroup"
@@ -10,7 +10,7 @@ index 1dcb73b..d0c17d0 100644
  dependencies[] = "menu"
  dependencies[] = "og_views"
  dependencies[] = "optionwidgets"
-@@ -42,8 +43,10 @@ features[variable][] = "comment_form_location_document"
+@@ -47,8 +48,10 @@ features[variable][] = "comment_form_location_document"
  features[variable][] = "comment_preview_document"
  features[variable][] = "comment_subject_field_document"
  features[variable][] = "content_extra_weights_document"
@@ -18,6 +18,6 @@ index 1dcb73b..d0c17d0 100644
  features[variable][] = "node_options_document"
  features[variable][] = "og_content_type_usage_document"
 +features[variable][] = "upload_document"
- features[views][] = "content_global_documents"
- features[views][] = "og_tab_documents"
- features[views_api][] = "api:2"
+ features[views][] = "content_document_page"
+ features[views][] = "document_latest_comments"
+ features[views][] = "group_block_doc_latest_comments"
