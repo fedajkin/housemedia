@@ -90,13 +90,6 @@ function commons_discussion_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'language_content_type_discussion';
-  $strongarm->value = '0';
-
-  $export['language_content_type_discussion'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'node_options_discussion';
   $strongarm->value = array(
     0 => 'status',
@@ -111,12 +104,5 @@ function commons_discussion_strongarm() {
   $strongarm->value = 'group_post_standard';
 
   $export['og_content_type_usage_discussion'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'upload_discussion';
-  $strongarm->value = '0';
-
-  $export['upload_discussion'] = $strongarm;
   return $export;
 }

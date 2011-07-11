@@ -1,0 +1,15 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_core/commons_core.features.inc b/profiles/drupal_commons/modules/features/commons_core/commons_core.features.inc
+index d575aa2..48b8f83 100644
+--- a/profiles/drupal_commons/modules/features/commons_core/commons_core.features.inc
++++ b/profiles/drupal_commons/modules/features/commons_core/commons_core.features.inc
+@@ -500,8 +500,8 @@ function commons_core_imagecache_default_presets() {
+           'module' => 'imagecache',
+           'action' => 'imagecache_scale_and_crop',
+           'data' => array(
+-            'width' => '30',
+-            'height' => '30',
++            'width' => '40',
++            'height' => '40',
+           ),
+         ),
+       ),
