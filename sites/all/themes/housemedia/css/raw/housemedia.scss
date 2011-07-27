@@ -1,0 +1,20 @@
+$color-black: #000;
+$color-blue-light: #90a3cd;
+$color-blue: #607bb0;
+$color-azure: #80bbed;
+$color-white: #fff;
+$color-gray: #eee;
+$color-gray-dark: #afafaf;
+$color-cherry: #a10d0d;
+
+@import "lib/clearfix";
+@import "commons_roots-style";
+@import "layout";
+@import "nodes";
+@import "comments";
+@import "views";
+@import "blocks";
+@import "navigation";
+@import "forms";
+@import "print";
+

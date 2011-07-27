@@ -113,6 +113,15 @@ function housemedia_core_update_6005() {
   _housemedia_core_update_translation('sites/all/translations/commons');
 }
 
+function housemedia_core_update_6006() {
+  variable_set('user_picture_default', 'sites/all/themes/housemedia/img/default-user.png');
+  
+  _housemedia_core_update_translation('sites/all/themes/housemedia/translations');
+  _housemedia_core_update_translation('sites/all/modules/housemedia/housemedia_core/translations');
+  
+  return array();
+}
+
 /**
  * Update translations.
  *

@@ -1,0 +1,21 @@
+#header-group-wrapper {
+	background: url(../img/header-bg.png) repeat-x;
+  border-bottom: 2px solid #000;
+  height: 112px;
+  overflow: hidden;
+}
+
+#logo {
+	background: url(../img/logo.png);
+  display: block;
+  height: 64px;
+  margin: 22px 0 0;
+  overflow: hidden;
+  text-indent: -9999px;
+  width: 247px;
+}
+
+#footer-wrapper {
+	background-color: $color-gray-dark;
+  border-top: 2px solid #000;
+}

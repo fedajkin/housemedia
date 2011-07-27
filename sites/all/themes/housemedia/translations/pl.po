@@ -1,0 +1,190 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  page.tpl.php: n/a
+#  template.php: n/a
+#  user_relationships-actions_block.tpl.php,v 1.1.2.5 2008/10/30 12:49:33 alexk
+#  user_relationships-block.tpl.php,v 1.1.2.9 2009/10/15 15:23:26 aufumy
+#  views-exposed-form.tpl.php,v 1.4.4.1 2009/11/18 20:37:58 merlinofchaos
+#  views-view-field.tpl.php,v 1.1 2008/05/16 22:22:32 merlinofchaos
+#  views-view-field--user-meta--nothing-1.tpl.php: n/a
+#  views-view-field--user-meta--nothing.tpl.php: n/a
+#  housemedia.info: n/a
+#  panels/twocol_30_70.inc: n/a
+#  panels/twocol_70_30.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-07-04 22:19+0200\n"
+"PO-Revision-Date: 2011-07-04 22:19+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: page.tpl.php:29
+msgid "Skip to Main Content Area"
+msgstr ""
+
+#: template.php:33
+msgid "Submitted by !name"
+msgstr "Utworzone przez !name"
+
+#: template.php:39
+msgid "!val user points"
+msgstr ""
+
+#: template.php:85;87
+msgid "Home"
+msgstr "Strona główna"
+
+#: template.php:90
+msgid "Link 1"
+msgstr ""
+
+#: template.php:92
+msgid "Dashboard"
+msgstr ""
+
+#: template.php:95;97
+msgid "Link 2"
+msgstr ""
+
+#: template.php:100;102
+msgid "Link 3"
+msgstr ""
+
+#: template.php:129;222
+msgid "!interval ago"
+msgstr ""
+
+#: template.php:186
+msgid "Posted !date at !time by !name"
+msgstr ""
+
+#: template.php:195
+msgid "This shout is waiting for approval by a moderator."
+msgstr ""
+
+#: template.php:327
+msgid "Login"
+msgstr "Zaloguj się"
+
+#: user_relationships-actions_block.tpl.php:11
+msgid "Your relationships to this user"
+msgstr "Twój związek z tym użytkownikiem"
+
+#: user_relationships-block.tpl.php:16
+msgid "@rel_name of"
+msgstr ""
+
+#: user_relationships-block.tpl.php:17;21
+msgid "@rel_plural_name"
+msgstr ""
+
+#: user_relationships-block.tpl.php:49
+msgid "You haven't added any @rels yet"
+msgstr "Jeszcze nie dodałeś żadnych znajomych"
+
+#: user_relationships-block.tpl.php:52
+msgid "!name hasn't added any @rels yet"
+msgstr "!name nie ma jeszcze znajomych"
+
+#: views-exposed-form.tpl.php:33
+msgid "Filter"
+msgstr "Filtruj"
+
+#: views-view-field--user-meta--name.tpl.php:24
+msgid "Welcome back,"
+msgstr "Witaj ponownie,"
+
+#: views-view-field--user-meta--nothing-1.tpl.php:9
+msgid "My account"
+msgstr "Moje konto"
+
+#: views-view-field--user-meta--nothing.tpl.php:8
+msgid "Logout"
+msgstr "Wyloguj się"
+
+#: housemedia.info:0
+msgid "Housemedia"
+msgstr ""
+
+#: housemedia.info:0
+msgid "sidebar first"
+msgstr ""
+
+#: housemedia.info:0
+msgid "sidebar last"
+msgstr ""
+
+#: housemedia.info:0
+msgid "header top"
+msgstr ""
+
+#: housemedia.info:0
+msgid "header"
+msgstr ""
+
+#: housemedia.info:0
+msgid "preface top"
+msgstr ""
+
+#: housemedia.info:0
+msgid "preface bottom"
+msgstr ""
+
+#: housemedia.info:0
+msgid "content top"
+msgstr ""
+
+#: housemedia.info:0
+msgid "content"
+msgstr "zawartość"
+
+#: housemedia.info:0
+msgid "content bottom"
+msgstr ""
+
+#: housemedia.info:0
+msgid "postscript top"
+msgstr ""
+
+#: housemedia.info:0
+msgid "postscript bottom"
+msgstr ""
+
+#: housemedia.info:0
+msgid "footer"
+msgstr ""
+
+#: housemedia.info:0
+msgid "node top"
+msgstr ""
+
+#: housemedia.info:0
+msgid "node bottom"
+msgstr ""
+
+#: panels/twocol_30_70.inc:9
+msgid "Acquia Commons - Two column 30/70"
+msgstr ""
+
+#: panels/twocol_30_70.inc:15 panels/twocol_70_30.inc:15
+msgid "Left side"
+msgstr ""
+
+#: panels/twocol_30_70.inc:16 panels/twocol_70_30.inc:16
+msgid "Right side"
+msgstr ""
+
+#: panels/twocol_70_30.inc:9
+msgid "Acquia Commons - Two column 70/30"
+msgstr ""
+

@@ -3,3 +3,64 @@
 function _housemedia_core_translations() {
   t('Document');
 }
+
+/**
+ * Implementation of hook_block().
+ */
+function housemedia_core_block($op = 'list', $delta = 0, $edit = array()) {
+  if ($op == 'list') {
+    return array(
+    	'search' => array('info' => t('Search (quicktabs)')
+    ));
+  }
+  elseif ($op == 'view') {
+    switch ($delta) {
+      case 'search':
+        return housemedia_core_search_block();
+    }
+  }
+}
+
+function housemedia_core_views_post_render(&$view, &$output, &$cache) {
+  if ($view->name == 'user_meta') {
+    $url = variable_get('privatemsg_url_prefix', 'messages');
+    
+    $output .= '<div id="user-privatemsg-inbox">'. l(
+      t('Inbox (@count)', array('@count' => privatemsg_unread_count())),
+      $url
+    ) .'</div>';
+  } 
+}
+
+function housemedia_core_search_block() {
+  
+  $quicktabs['qtid']  = 'housemedia_core_search';
+  $quicktabs['ajax']  = FALSE;
+  $quicktabs['style'] = 'nostyle';
+  $quicktabs['tabs']  = array(
+    '0' => array(
+  		'title'   => t('Investments'),
+      'type'    => 'view',
+      'vid'     => 'og_inwestycje',
+      'display' => 'block_1',
+    ),
+    '1' => array(
+  		'title'   => t('Flat'),
+      'type'    => 'view',
+      'vid'     => 'og_inwestycje',
+      'display' => 'block_1',
+    ),
+    '2' => array(
+  		'title'   => t('Others'),
+      'type'    => 'view',
+      'vid'     => 'og_inwestycje',
+      'display' => 'block_1',
+    )
+  );
+
+  
+  return array(
+    'subject' => t('Search'),
+    'content' => theme('quicktabs', $quicktabs)
+  );
+}

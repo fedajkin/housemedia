@@ -1,0 +1,60 @@
+// $Id: _grid.scss,v 1.1.2.8 2010/08/31 09:29:02 mverbaar Exp $
+
+$columns: 12 !default;
+$column-width: 60px !default;
+$gutter-width: 20px !default;
+
+/**
+ * Wrap elements in a container that fits the total grid width.
+ */
+@mixin wrap {
+  width: ($column-width * $columns) + ($gutter-width * ($columns - 1));
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/**
+ * Span an element over an amount of columns.
+ */
+@mixin span($n, $mode: false) {
+  display: inline;
+  float: left;
+  width: ($column-width * $n) + ($gutter-width * ($n - 1));
+
+  @if $mode != alpha {
+    margin-left: $gutter-width / 2;
+  }
+  @if $mode != omega {
+    margin-right: $gutter-width / 2;
+  }
+}
+
+/**
+ * Prepend an amount of columns to an element.
+ */
+@mixin prepend($n) {
+  padding-left: ($column-width * $n) + ($gutter-width * ($n - 1));
+}
+
+/**
+ * Append an amount of columns to an element.
+ */
+@mixin append($n) {
+  padding-right: ($column-width * $n) + ($gutter-width * ($n - 1));
+}
+
+/**
+ * Push an element to the right by an amount of columns.
+ */
+@mixin push($n) {
+  position: relative;
+  left: ($column-width * $n) + ($gutter-width * ($n - 1));
+}
+
+/**
+ * Pull an element to the left by an amount of columns.
+ */
+@mixin pull($n) {
+  position: relative;
+  left: -($column-width * $n) + ($gutter-width * ($n - 1));
+}

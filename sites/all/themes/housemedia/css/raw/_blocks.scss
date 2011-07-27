@@ -1,0 +1,179 @@
+@mixin block-gray-background { 
+	.content { 
+    background-color: $color-gray;
+    padding: 10px;
+  }
+}
+
+.block { 
+	.block-title { 
+    background-color: $color-blue;
+	  color: $color-white;
+	  font-weight: bold;
+	  padding: 5px 15px;
+	  a {
+      color: $color-white;
+    }
+  }
+  .content {
+	 padding: 10px 3px 0;
+  }
+}
+
+#block-commons_core-group_menu,#block-commons_core-group_members { 
+	@include block-gray-background;
+}
+
+#block-commons_core-header_login {
+	margin: 30px 60px 0 0;
+	a {
+    color: $color-black;
+  }
+}
+
+/* User Meta - logout/account links in header w/ profile pic */
+#user-privatemsg-inbox {
+	background: url("../img/inbox-icon.png") no-repeat scroll 0 0 transparent;
+	clear: both;
+	float: right;
+	margin-top: 2px;
+	padding: 1px 0 2px 30px; 
+	a { 
+	  color: $color-white;
+	  font-weight: bold;
+	  font-size: 11px;
+  }
+}
+
+.view-user-meta {
+	float: right;
+	width: 180px;
+	margin-top: 5px;
+
+	.views-field-name span { 
+	  display : block;
+    text-align: right;
+    font-size: 12px;
+    line-height: 1.4;
+
+    .username { 
+      font-size : 14px;
+      a {
+        color: $color-white;
+      }
+    }
+  }
+  
+  .views-field-nothing,
+  .views-field-nothing-1 {
+    float: right;
+  	margin-bottom: 2px;
+    margin-top: 2px;
+    padding: 0;
+  }
+}
+
+.view-user-meta .views-field-name span.full-name {
+	font-size: .9em;
+	font-style: normal;
+}
+
+.view-user-meta .views-field-picture {
+	float: right;
+	height: 40px;
+	margin: 0 0 2px 12px;
+	overflow: hidden;
+}
+
+.view-user-meta .views-field-nothing a,
+.view-user-meta .views-field-nothing-1 a {
+	color: $color-black;
+	font-size: 12px;
+	line-height: 13px;
+	padding: 0;
+}
+
+.view-user-meta .views-field-nothing {
+	border-left: 1px solid #666;
+	clear: both;
+	margin-left: 8px;
+	padding-left: 8px;
+}
+
+.view-user-meta .views-field-name {
+	font-size: .9em;
+	line-height: 1em;
+}
+
+.view-user-meta .views-field-name a {
+	color: #333;
+}
+
+.view-user-meta .views-field-points {
+	clear: both;
+	text-align: right;
+}
+
+.view-user-meta .views-row span.views-field-picture {
+	display: block;
+	float: right;
+}
+
+/* Promotions */
+#block-views-promotion_last-block_1 { 
+	.views-field-field-group-image-fid {
+	  width:102px;
+	}
+}
+
+/* Featured groups */
+#block-views-featured_groups-block_1 { 
+	@include block-gray-background;
+	
+	.jcarousel-skin-default {
+    .jcarousel-container-horizontal {
+      height: 100px;
+      margin: 0;
+      padding: 0;
+      width: 920px;
+    }
+    .jcarousel-clip-horizontal {
+      margin-left: 27px;
+      width: 870px;
+    }
+    .jcarousel-item-horizontal {
+      height: 100px;
+      margin-right: 5px;
+      overflow: hidden;
+      width: 140px;
+      
+      .views-field-field-group-image-fid {
+        width: 140px;
+      }
+    }
+    .jcarousel-prev-horizontal {
+      background: $color-azure;
+      height: 100px;
+      left: 0;
+      top: 0;
+      width: 22px;
+    }
+    .jcarousel-next-horizontal {
+      background: $color-azure;
+      height: 100px;
+      right: 0;
+      top: 0;
+      width: 22px;
+    }
+    .jcarousel-item-placeholder {
+      background: $color-white;
+    }
+  }
+}
+
+.quicktabs_main {
+  background: #e5edff;
+  overflow: hidden;
+  padding: 10px;
+}
+

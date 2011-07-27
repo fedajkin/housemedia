@@ -1,0 +1,112 @@
+@mixin horizontal-menu($margin-right: 5px) {
+	li {
+    margin-right: $margin-right;
+    
+    &.last {
+      margin-right: 0;
+    }
+    
+    &.active-trail > a {
+      background-color: $color-cherry;
+    }
+    
+    a {
+      background-color: $color-blue;
+      color: $color-white;
+      padding: 0.5em 1em;
+      
+      &:hover {
+        background-color: $color-blue-light;
+      }
+      
+      &.active {
+        background-color: $color-cherry;
+      }
+    }
+  }
+}
+
+@mixin header-link {
+	display: block;
+	float: left;
+  height: 51px;
+  margin: 30px 25px 0 0;
+  text-indent: -9999px;
+  overflow: hidden;
+  width: 54px;
+}
+
+a {
+  color: #244796;
+}
+
+.nav-group {
+  clear: both;
+  float: none;
+  margin: 0 auto;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  z-index: 10;
+  width: 960px;
+}
+
+#header-link1 {
+  @include header-link;
+  background: url(../img/header-icon1.png) no-repeat center 0;
+}
+
+#header-link2 {
+  @include header-link;
+  background: url(../img/header-icon2.png) no-repeat;
+}
+
+#header-link3 {
+  @include header-link;
+  background: url(../img/header-icon3.png) no-repeat;
+  margin-right: 150px;
+}
+
+#primary-menu {
+	@include horizontal-menu;
+}
+
+#content-tabs ul.primary {
+	@include horizontal-menu(3px);
+	border: 0;
+	
+	li {
+    margin-bottom: 3px;
+    a {
+      border: 0;
+    }
+  }
+}
+
+#breadcrumbs {
+  .breadcrumbs-inner {
+    margin: 0;
+  }
+}
+
+/* Quicktabs navigation */
+.block .content ul.quicktabs_tabs {
+	margin-bottom: 0;
+	
+	li {
+    background: $color-blue-light;
+    margin-right: 5px;
+    padding: 0.25em 0.75em;
+    &.active {
+      background: $color-cherry;
+    }
+    &:hover {
+      background: $color-blue;
+    }
+    a {
+      color: $color-white;
+      text-decoration: none;
+    }
+  }
+}
+
