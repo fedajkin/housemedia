@@ -1,0 +1,599 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  commons_core.admin.inc: n/a
+#  commons_core.blocks.inc: n/a
+#  commons_core.form.inc: n/a
+#  commons_core.context.inc: n/a
+#  commons_core.features.content.inc: n/a
+#  commons_core.features.fieldgroup.inc: n/a
+#  commons_core.features.inc: n/a
+#  commons_core.features.menu_links.inc: n/a
+#  commons_core.module: n/a
+#  commons_core.overrides.inc: n/a
+#  commons_core.theme.inc: n/a
+#  commons_core.info: n/a
+#  commons_core.install: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-07-19 21:54+0200\n"
+"PO-Revision-Date: 2011-07-19 21:54+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: commons_core.admin.inc:16
+msgid "Login settings"
+msgstr ""
+
+#: commons_core.admin.inc:23
+msgid "Force users to login"
+msgstr ""
+
+#: commons_core.admin.inc:25
+msgid "If checked, anonymous users will be redirected from all pages to a log in page. Select this setting if your Drupal Commons site must be closed to the public, such as a company intranet."
+msgstr ""
+
+#: commons_core.admin.inc:30
+msgid "Allowed paths"
+msgstr ""
+
+#: commons_core.admin.inc:32
+msgid "If users are forced to login (by checking the previous checkbox), you may specify a list of paths which will not redirect to a login page. Use internal addresses, such as, node/123. Enter each path on a new line."
+msgstr ""
+
+#: commons_core.admin.inc:37
+msgid "Group settings"
+msgstr ""
+
+#: commons_core.admin.inc:44
+msgid "Group homepage tab"
+msgstr ""
+
+#: commons_core.admin.inc:46
+msgid "Specify what the group homepage tab title should be. If left empty, the tab title will be <i>View</i>."
+msgstr ""
+
+#: commons_core.admin.inc:51
+msgid "Force unique group names"
+msgstr ""
+
+#: commons_core.admin.inc:53
+msgid "If checked, group names must be unique. This will not affect existing groups."
+msgstr ""
+
+#: commons_core.admin.inc:58
+msgid "Alert users when added to a selective group"
+msgstr ""
+
+#: commons_core.admin.inc:60
+msgid "If checked, an email alert will be sent to users that are added to groups that are marked as either invite-only or closed."
+msgstr ""
+
+#: commons_core.admin.inc:65
+msgid "Allow group admins to edit all group comments"
+msgstr ""
+
+#: commons_core.admin.inc:67
+msgid "If checked, group admins will have the ability to edit any comments on content items inside their groups."
+msgstr ""
+
+#: commons_core.admin.inc:72
+msgid "Restrict voting to group members"
+msgstr ""
+
+#: commons_core.admin.inc:74
+msgid "If checked, only group members will be able to vote on polls that are part of a given group."
+msgstr ""
+
+#: commons_core.admin.inc:79
+msgid "Restrict commenting to group members"
+msgstr ""
+
+#: commons_core.admin.inc:81
+msgid "If checked, only group members will be able to comment on nodes that are part of a given group."
+msgstr ""
+
+#: commons_core.blocks.inc:34;90
+msgid "User statistics"
+msgstr ""
+
+#: commons_core.blocks.inc:38
+msgid "Drupal Commons information"
+msgstr ""
+
+#: commons_core.blocks.inc:42
+msgid "Header login block"
+msgstr ""
+
+#: commons_core.blocks.inc:46;179
+msgid "Join & learn more"
+msgstr ""
+
+#: commons_core.blocks.inc:50;196
+msgid "Group menu"
+msgstr "Menu grupy"
+
+#: commons_core.blocks.inc:54
+msgid "Group create content selector"
+msgstr ""
+
+#: commons_core.blocks.inc:58
+msgid "Group activity"
+msgstr ""
+
+#: commons_core.blocks.inc:62
+msgid "Group members and admins"
+msgstr ""
+
+#: commons_core.blocks.inc:66 commons_core.form.inc:236
+msgid "Create a group"
+msgstr ""
+
+#: commons_core.blocks.inc:103
+msgid "Recent joins time-frame"
+msgstr ""
+
+#: commons_core.blocks.inc:104;110
+msgid "3 months"
+msgstr ""
+
+#: commons_core.blocks.inc:106
+msgid "3 days"
+msgstr ""
+
+#: commons_core.blocks.inc:107
+msgid "1 week"
+msgstr "1 tydzień"
+
+#: commons_core.blocks.inc:108
+msgid "2 weeks"
+msgstr ""
+
+#: commons_core.blocks.inc:109
+msgid "1 month"
+msgstr ""
+
+#: commons_core.blocks.inc:111
+msgid "6 months"
+msgstr ""
+
+#: commons_core.blocks.inc:113
+msgid "The !user_directory contains a block that indicates the amount of recently joined members. Select the time-frame to be used to calculate this value."
+msgstr ""
+
+#: commons_core.blocks.inc:113
+msgid "user directory"
+msgstr ""
+
+#: commons_core.blocks.inc:156
+msgid "Already a member? !login"
+msgstr "Masz już konto? !login "
+
+#: commons_core.blocks.inc:156
+msgid "Login"
+msgstr "Zaloguj się"
+
+#: commons_core.blocks.inc:196
+msgid "Return to !group"
+msgstr ""
+
+#: commons_core.blocks.inc:234
+msgid "Latest group activity"
+msgstr ""
+
+#: commons_core.blocks.inc:268
+msgid "View all members"
+msgstr ""
+
+#: commons_core.blocks.inc:271
+msgid "Group members (!count)"
+msgstr "Członkowie grupy (!count)"
+
+#: commons_core.blocks.inc:81
+msgid "1 user"
+msgid_plural "@count users"
+msgstr[0] "1 użytkownik"
+msgstr[1] "@count użytkowników"
+msgstr[2] "@count użytkowników"
+
+#: commons_core.blocks.inc:86
+msgid "1 recently joined member"
+msgid_plural "@count recently joined members"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: commons_core.context.inc:38
+msgid "Bookmarks"
+msgstr ""
+
+#: commons_core.context.inc:39
+msgid "The bookmarks page"
+msgstr ""
+
+#: commons_core.context.inc:83
+msgid "Show on every page"
+msgstr ""
+
+#: commons_core.context.inc:84
+msgid "Sitewide"
+msgstr ""
+
+#: commons_core.context.inc:119;179
+msgid "Group"
+msgstr ""
+
+#: commons_core.context.inc:120
+msgid "The context of a group"
+msgstr ""
+
+#: commons_core.context.inc:180
+msgid "The group home page"
+msgstr ""
+
+#: commons_core.context.inc:236
+msgid "The list of available groups on the site"
+msgstr ""
+
+#: commons_core.context.inc:280
+msgid "A listing of your groups"
+msgstr ""
+
+#: commons_core.features.content.inc:557
+msgid "Add images"
+msgstr ""
+
+#: commons_core.features.content.inc:558
+msgid "Featured group"
+msgstr ""
+
+#: commons_core.features.content.inc:559
+msgid "Image"
+msgstr ""
+
+#: commons_core.features.content.inc:560
+msgid "Links"
+msgstr ""
+
+#: commons_core.features.fieldgroup.inc:151
+msgid "Group attributes"
+msgstr ""
+
+#: commons_core.features.fieldgroup.inc:152
+msgid "Images"
+msgstr ""
+
+#: commons_core.features.fieldgroup.inc:153
+msgid "Promote group"
+msgstr "Promuj grupę"
+
+#: commons_core.features.inc:519
+msgid "Grupa"
+msgstr ""
+
+#: commons_core.features.inc:521
+msgid "A group which members can be a part of."
+msgstr ""
+
+#: commons_core.features.inc:523;534;545
+msgid "Title"
+msgstr "Tytuł"
+
+#: commons_core.features.inc:525;536;547
+msgid "Body"
+msgstr "Treść"
+
+#: commons_core.features.inc:530
+msgid "Notka"
+msgstr ""
+
+#: commons_core.features.inc:532
+msgid "A notice is an informative message that is meant to broadcast information to all of the users of the site."
+msgstr ""
+
+#: commons_core.features.inc:541
+msgid "Strona"
+msgstr ""
+
+#: commons_core.features.inc:543
+msgid "A <em>page</em>, similar in form to a <em>story</em>, is a simple method for creating and displaying information that rarely changes, such as an \"About us\" section of a website. By default, a <em>page</em> entry does not allow visitor comments and is not featured on the site's initial home page."
+msgstr ""
+"<em>Strona</em>, podobna w formie do <em>artykułu</em>, służy do "
+"umieszczania informacji, które rzadko są aktualizowane, na przykład "
+"stron typu \"O nas\". Domyślne ustawienia <em>strony</em> nie "
+"pozwalają na umieszczanie odpowiedzi ani na publikację na stronie "
+"głównej."
+
+#: commons_core.features.menu_links.inc:156 commons_core.module:538;548;25
+msgid "Community"
+msgstr ""
+
+#: commons_core.features.menu_links.inc:157 commons_core.module:553;571;585
+msgid "Groups"
+msgstr "Grupy"
+
+#: commons_core.features.menu_links.inc:158
+msgid "My bookmarks"
+msgstr "Moje zakładki"
+
+#: commons_core.features.menu_links.inc:159
+msgid "My content"
+msgstr ""
+
+#: commons_core.features.menu_links.inc:160
+msgid "My friends"
+msgstr ""
+
+#: commons_core.features.menu_links.inc:161
+msgid "My groups"
+msgstr ""
+
+#: commons_core.features.menu_links.inc:162 commons_core.module:18
+msgid "My profile"
+msgstr ""
+
+#: commons_core.features.menu_links.inc:163
+msgid "My stuff"
+msgstr ""
+
+#: commons_core.features.menu_links.inc:164
+msgid "Site analytics"
+msgstr ""
+
+#: commons_core.form.inc:55
+msgid "vote"
+msgstr ""
+
+#: commons_core.form.inc:73
+msgid "comment"
+msgstr ""
+
+#: commons_core.form.inc:114
+msgid "Static tag suggestions"
+msgstr ""
+
+#: commons_core.form.inc:115
+msgid "Enter a comma-separated list of terms that will show up as tag suggestions when creating content items."
+msgstr ""
+
+#: commons_core.form.inc:136
+msgid "!maxlength characters allowed"
+msgstr ""
+
+#: commons_core.form.inc:139
+msgid "Name"
+msgstr "Nazwa"
+
+#: commons_core.form.inc:144
+msgid "Group options"
+msgstr ""
+
+#: commons_core.form.inc:222
+msgid "You must be a member of the group to !action"
+msgstr ""
+
+#: commons_core.form.inc:364
+msgid "Create"
+msgstr "Utwórz"
+
+#: commons_core.form.inc:428
+msgid "Email"
+msgstr ""
+
+#: commons_core.form.inc:440
+msgid "Join our community"
+msgstr ""
+
+#: commons_core.overrides.inc:102
+msgid "Administration"
+msgstr "Zarządzanie"
+
+#: commons_core.overrides.inc:112;128
+msgid "Authored by"
+msgstr "Autor"
+
+#: commons_core.overrides.inc:136;167;175
+msgid "E-mail"
+msgstr "E-mail"
+
+#: commons_core.overrides.inc:140;167;175
+msgid "The content of this field is kept private and will not be shown publicly."
+msgstr "Zawartość pola nie będzie udostępniana publicznie."
+
+#: commons_core.overrides.inc:145;170;177
+msgid "Homepage"
+msgstr "Strona domowa"
+
+#: commons_core.overrides.inc:152
+msgid "Authored on"
+msgstr "Data dodania"
+
+#: commons_core.overrides.inc:154
+msgid "Status"
+msgstr "Status"
+
+#: commons_core.overrides.inc:154
+msgid "Published"
+msgstr "Do publikacji"
+
+#: commons_core.overrides.inc:154
+msgid "Not published"
+msgstr "Nie do publikacji"
+
+#: commons_core.overrides.inc:158;164;173
+msgid "Your name"
+msgstr "Nazwisko lub pseudonim"
+
+#: commons_core.overrides.inc:164;173
+msgid "Anonymous"
+msgstr "Anonim"
+
+#: commons_core.overrides.inc:181
+msgid "Subject"
+msgstr "Temat"
+
+#: commons_core.overrides.inc:193
+msgid "Comment"
+msgstr "Odpowiedź"
+
+#: commons_core.overrides.inc:211;215;218
+msgid "Preview"
+msgstr "Podgląd"
+
+#: commons_core.overrides.inc:211;212
+msgid "Save"
+msgstr "Zachowaj"
+
+#: commons_core.theme.inc:32;32
+msgid "Drupal Commons social business software"
+msgstr ""
+
+#: commons_core.theme.inc:35
+msgid "A !dc Community, powered by"
+msgstr ""
+
+#: commons_core.theme.inc:35 commons_core.module:33 commons_core.info:0
+msgid "Drupal Commons"
+msgstr ""
+
+#: commons_core.theme.inc:35
+msgid "A Drupal Commons social business software"
+msgstr ""
+
+#: commons_core.theme.inc:36;36
+msgid "Acquia"
+msgstr ""
+
+#: commons_core.theme.inc:41
+msgid "Theme by"
+msgstr ""
+
+#: commons_core.theme.inc:43
+msgid "powered by"
+msgstr ""
+
+#: commons_core.theme.inc:56
+msgid "Managers:"
+msgstr ""
+
+#: commons_core.theme.inc:60
+msgid "Recent members:"
+msgstr ""
+
+#: commons_core.module:103
+msgid "You have been removed from !group"
+msgstr ""
+
+#: commons_core.module:104
+msgid "A manager from !group has removed you from the group."
+msgstr ""
+
+#: commons_core.module:110
+msgid "You have been added to !group"
+msgstr ""
+
+#: commons_core.module:111
+msgid "A manager from !group has added you to the group."
+msgstr ""
+
+#: commons_core.module:113
+msgid "The group is located at !link"
+msgstr ""
+
+#: commons_core.module:153
+msgid "There are currently !count pending membership requests. Click !here to view them."
+msgstr ""
+
+#: commons_core.module:194
+msgid "edit"
+msgstr "edytuj"
+
+#: commons_core.module:378
+msgid "Mark as read"
+msgstr ""
+
+#: commons_core.module:388
+msgid "Mark as unread"
+msgstr ""
+
+#: commons_core.module:405
+msgid "View more"
+msgstr "Zobacz więcej"
+
+#: commons_core.module:409
+msgid "View all featured content"
+msgstr ""
+
+#: commons_core.module:414
+msgid "Create a notice"
+msgstr ""
+
+#: commons_core.module:492;595
+msgid "Home"
+msgstr "Strona główna"
+
+#: commons_core.module:495
+msgid "View"
+msgstr "Pokaż"
+
+#: commons_core.module:533
+msgid "Tags"
+msgstr "Etykietowanie"
+
+#: commons_core.module:562
+msgid "My account"
+msgstr "Moje konto"
+
+#: commons_core.module:648
+msgid "You can only make posts sticky for the groups that you are an admin for."
+msgstr ""
+
+#: commons_core.module:655
+msgid "You must specify a group in order to make this post group sticky."
+msgstr ""
+
+#: commons_core.module:675
+msgid "A group already exists with that name. Please choose another."
+msgstr ""
+
+#: commons_core.module:9
+msgid "view content rss feeds"
+msgstr ""
+
+#: commons_core.module:9
+msgid "view group content rss feeds"
+msgstr ""
+
+#: commons_core.module:19
+msgid "View your user profile"
+msgstr ""
+
+#: commons_core.module:26
+msgid "View the groups in the community"
+msgstr ""
+
+#: commons_core.module:34
+msgid "Configure settings for the Drupal Commons environment"
+msgstr ""
+
+#: commons_core.install:109;110
+msgid "site admin"
+msgstr ""
+
+#: commons_core.info:0
+msgid "Commons Core"
+msgstr ""
+
+#: commons_core.info:0
+msgid "The main components of Drupal Commons"
+msgstr ""
+

@@ -10,25 +10,36 @@ function _housemedia_core_translations() {
 function housemedia_core_block($op = 'list', $delta = 0, $edit = array()) {
   if ($op == 'list') {
     return array(
-    	'search' => array('info' => t('Search (quicktabs)')
-    ));
+    	'search'     => array('info' => t('Search (quicktabs)')),
+      'ranks'      => array('info' => t('Ranks (quicktabs')),
+      'group_info' => array('info' => t('Group info (quicktabs)'))
+    );
   }
   elseif ($op == 'view') {
     switch ($delta) {
       case 'search':
         return housemedia_core_search_block();
+        break;
+      case 'ranks':
+        return housemedia_core_ranks_block();
+        break;
+      case 'group_info':
+        return housemedia_core_group_info_block();
+        break;
     }
   }
 }
 
+function housemedia_core_commons_profile_action_links_alter($links, $account) {
+  $inbox = _housemedia_core_inbox_link();
+  $links['notification_messages']['href'] = $inbox['href'];
+  $links['notification_messages']['title'] = $inbox['title'];
+}
+
 function housemedia_core_views_post_render(&$view, &$output, &$cache) {
   if ($view->name == 'user_meta') {
-    $url = variable_get('privatemsg_url_prefix', 'messages');
-    
-    $output .= '<div id="user-privatemsg-inbox">'. l(
-      t('Inbox (@count)', array('@count' => privatemsg_unread_count())),
-      $url
-    ) .'</div>';
+    $inbox = _housemedia_core_inbox_link();
+    $output .= '<div id="user-privatemsg-inbox">'. l($inbox['title'], $inbox['href']) .'</div>';
   } 
 }
 
@@ -63,4 +74,94 @@ function housemedia_core_search_block() {
     'subject' => t('Search'),
     'content' => theme('quicktabs', $quicktabs)
   );
+}
+
+function housemedia_core_ranks_block() {
+  
+  $quicktabs['qtid']  = 'housemedia_core_ranks';
+  $quicktabs['ajax']  = FALSE;
+  $quicktabs['style'] = 'nostyle';
+  $quicktabs['tabs']  = array(
+    '0' => array(
+  		'title'   => t('Investments'),
+      'type'    => 'view',
+      'vid'     => 'ranks',
+      'display' => 'block_1',
+    ),
+    '1' => array(
+  		'title'   => t('Advisers'),
+      'type'    => 'view',
+      'vid'     => 'og_inwestycje',
+      'display' => 'block_1',
+    ),
+  );
+
+  
+  return array(
+    'subject' => t('Ranks'),
+    'content' => theme('quicktabs', $quicktabs)
+  );
+}
+
+function housemedia_core_group_info_block() {
+  
+  $quicktabs['qtid']  = 'housemedia_group_info';
+  $quicktabs['ajax']  = FALSE;
+  $quicktabs['style'] = 'nostyle';
+  $quicktabs['tabs']  = array(
+    '0' => array(
+  		'title'   => t('Description'),
+      'type'    => 'node',
+      'nid'     => arg(1),
+      'teaser'	=> 0
+    ),
+    '1' => array(
+  		'title'   => t('Details'),
+      'type'    => 'view',
+      'vid'     => 'group_details',
+      'display' => 'block_1',
+    ),
+    '2' => array(
+  		'title'   => t('Gallery'),
+      'type'    => 'view',
+      'vid'     => 'group_gallery',
+      'display' => 'block_1',
+    ),
+    '3' => array(
+  		'title'   => t('Flats'),
+      'type'    => 'view',
+      'vid'     => 'mieszkania',
+      'display' => 'block_1',
+    ),
+    '4' => array(
+  		'title'   => t('Promotions'),
+      'type'    => 'view',
+      'vid'     => 'promotions',
+      'display' => 'block_1',
+    )
+  );
+
+  
+  return array(
+    'subject' => '',
+    'content' => theme('quicktabs', $quicktabs)
+  );
+}
+
+function _housemedia_core_inbox_link() {
+  $url   = variable_get('privatemsg_url_prefix', 'messages');
+  $count = privatemsg_unread_count();
+    
+  if ($count > 0) {
+    return array(
+      'href' => $url,
+      'title' => t('Inbox (@count)', array('@count' => $count))
+    );
+  }
+  else {
+    return array(
+      'href' => $url,
+      'title' => t('Inbox')
+    );
+  }
 }

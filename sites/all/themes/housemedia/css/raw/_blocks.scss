@@ -9,6 +9,7 @@
 	.block-title { 
     background-color: $color-blue;
 	  color: $color-white;
+	  font-size: 12px;
 	  font-weight: bold;
 	  padding: 5px 15px;
 	  a {
@@ -20,7 +21,12 @@
   }
 }
 
-#block-commons_core-group_menu,#block-commons_core-group_members { 
+#block-commons_core-group_menu,
+#block-commons_core-group_members,
+#block-commons_profile-find_new_friends,
+#block-invite-0,
+#block-og_views-0,
+#block-og_subgroups-0 { 
 	@include block-gray-background;
 }
 
@@ -177,3 +183,127 @@
   padding: 10px;
 }
 
+/* News */
+
+#block-views-news_last-block_1 {
+	.views-field-field-news-photo-fid {
+    float: left;
+    height: 73px;
+    margin-right: 10px;
+    width: 102px;
+  }
+}
+
+/* Ranks */
+
+#block-housemedia_core-ranks {
+	.views-field-rownumber {
+	  display: block;
+	  float: left;
+    font-size: 26px;
+    line-height: 40px;
+    padding-right: 8px;
+    width: 14px;
+  }
+  .views-field-field-group-image-fid {
+    display: block;
+    float: left;
+    height: 40px;
+    margin-right: 8px;
+    overflow: hidden;
+    width: 40px;
+  }
+  .views-field-title {
+    display: block;
+    height: 40px;
+    padding-right: 5px;
+    overflow: hidden;
+    width: 120px;
+  }
+}
+
+#block-commons_profile-image_links {
+	.picture {
+    margin-bottom: 10px;
+  }
+	.links {
+	  background-color: $color-gray;
+    padding: 10px;
+    
+    li {
+      display: block;
+      
+      &.userpoints,
+	    &.user_badges {
+	      float: left; 
+	    }
+    }
+  }
+}
+
+#block-gmap_location-0 {
+	.content {
+    padding: 0;
+  }
+}
+
+/* Calendar */
+
+.calendar-calendar {
+  div.date-nav {
+    background: $color-white;
+    border: 0 none;
+    
+    div.date-prev {
+      text-align: right;
+    }
+    
+    div.date-next {
+      text-align: left;
+    }
+  }
+  
+  td {
+    text-align: center;
+  }
+  
+  .mini {
+    td {
+      border: 1px solid #CCCCCC;
+    }
+  }
+}
+
+.calendar-calendar table.mini td.empty {
+	border-color: #CCCCCC;
+}
+
+.calendar-calendar tr td.today {
+  background-color: $color-cherry;
+  color: $color-white;
+  font-weight: bold;
+}
+
+.calendar-calendar td.has-events {
+  background: $color-blue-light;
+  
+  a {
+    color: $color-white;
+    text-decoration: none;
+  }
+}
+
+#group-vud-img {
+	margin-right: 10px;
+  width: 150px;
+  
+  img {
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+#quicktabs_container_housemedia_group_info {
+  background: $color-gray;
+  min-height: 300px;
+}

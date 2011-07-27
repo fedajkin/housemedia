@@ -8,4 +8,97 @@ function housemedia_core_ctools_plugin_api() {
   if ($module == "context" && $api == "context") {
     return array("version" => 3);
   }
+  elseif ($module == "strongarm" && $api == "strongarm") {
+    return array("version" => 1);
+  }
+}
+
+/**
+ * Implementation of hook_imagecache_default_presets().
+ */
+function housemedia_core_imagecache_default_presets() {
+  $items = array(
+    'crop_102x73' => array(
+      'presetname' => 'crop_102x73',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale_and_crop',
+          'data' => array(
+            'width' => '102',
+            'height' => '73',
+          ),
+        ),
+      ),
+    ),
+    'crop_140x100' => array(
+      'presetname' => 'crop_140x100',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale_and_crop',
+          'data' => array(
+            'width' => '140',
+            'height' => '100',
+          ),
+        ),
+      ),
+    ),
+    'crop_40x40' => array(
+      'presetname' => 'crop_40x40',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale_and_crop',
+          'data' => array(
+            'width' => '40',
+            'height' => '40',
+          ),
+        ),
+      ),
+    ),
+    'image_thumb_30' => array(
+      'presetname' => 'image_thumb_30',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale',
+          'data' => array(
+            'width' => '30px',
+            'height' => '30px',
+            'upscale' => 0,
+          ),
+        ),
+      ),
+    ),
+    'scale_150x' => array(
+      'presetname' => 'scale_150x',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale',
+          'data' => array(
+            'width' => '150',
+            'height' => '',
+            'upscale' => 0,
+          ),
+        ),
+      ),
+    ),
+  );
+  return $items;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function housemedia_core_views_api() {
+  return array(
+    'api' => '2',
+  );
 }

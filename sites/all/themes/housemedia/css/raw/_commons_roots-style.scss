@@ -176,6 +176,7 @@
 
 #content-tabs {
   background-color: transparent;
+  clear: both;
   float: none;
   margin: 15px 0 22px; 
   padding: 0;
@@ -389,7 +390,6 @@ div.beat-item blockquote {
 /* Added by Jay to generalize the Search Group field & button */
 #views-exposed-form-og-search-default .views-exposed-widget.views-exposed-submit .form-submit, #views-exposed-form-og-search-page-1 .views-exposed-widget.views-exposed-submit .form-submit {
   float: right;
-  padding: 6px 7px 9px 7px;
 }
 
 #views-exposed-form-og-search-default input#edit-keys.form-text {

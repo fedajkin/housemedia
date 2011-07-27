@@ -1,0 +1,210 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  commons_profile.blocks.inc: n/a
+#  commons_profile.context.inc: n/a
+#  commons_profile.features.menu_links.inc: n/a
+#  commons_profile.form.inc: n/a
+#  commons_profile.profile.inc: n/a
+#  commons_profile.module: n/a
+#  commons_profile.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-07-18 22:46+0200\n"
+"PO-Revision-Date: 2011-07-18 22:46+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: commons_profile.blocks.inc:34;56
+msgid "Find new friends"
+msgstr "Znajdź nowych znajomych"
+
+#: commons_profile.blocks.inc:38
+msgid "Profile image and action links"
+msgstr ""
+
+#: commons_profile.blocks.inc:42
+msgid "Profile recent activity"
+msgstr ""
+
+#: commons_profile.blocks.inc:87
+msgid "Edit my profile"
+msgstr "Edytuj profil"
+
+#: commons_profile.blocks.inc:97
+msgid "Friend requests (!count)"
+msgstr ""
+
+#: commons_profile.blocks.inc:105
+msgid "My bookmarks"
+msgstr "Moje zakładki"
+
+#: commons_profile.blocks.inc:114
+msgid "Edit !user's profile"
+msgstr ""
+
+#: commons_profile.blocks.inc:134
+msgid "Contact !user"
+msgstr ""
+
+#: commons_profile.context.inc:49;94;154;214;258
+msgid "Profile"
+msgstr "Profil"
+
+#: commons_profile.context.inc:50
+msgid "User profile when viewing your about page"
+msgstr ""
+
+#: commons_profile.context.inc:95
+msgid "User profile about page when viewing another user"
+msgstr ""
+
+#: commons_profile.context.inc:155
+msgid "User profile when viewing yourself"
+msgstr ""
+
+#: commons_profile.context.inc:215
+msgid "User profile when viewing another user"
+msgstr ""
+
+#: commons_profile.context.inc:259
+msgid "The user profile track page"
+msgstr ""
+
+#: commons_profile.context.inc:303
+msgid "User browser"
+msgstr ""
+
+#: commons_profile.context.inc:304
+msgid "Various block to show on the user browser page"
+msgstr ""
+
+#: commons_profile.features.menu_links.inc:26
+msgid "Members"
+msgstr "Członkowie"
+
+#: commons_profile.form.inc:13
+msgid "Search for other site users"
+msgstr "Znajdź innych użytkowników tej strony"
+
+#: commons_profile.form.inc:23
+msgid "Search"
+msgstr "Szukaj"
+
+#: commons_profile.profile.inc:13
+msgid "First name"
+msgstr ""
+
+#: commons_profile.profile.inc:15
+msgid "Enter your first name."
+msgstr ""
+
+#: commons_profile.profile.inc:16;30;44;58;72;86;100;114
+msgid "Personal information"
+msgstr ""
+
+#: commons_profile.profile.inc:27
+msgid "Last name"
+msgstr ""
+
+#: commons_profile.profile.inc:29
+msgid "Enter your last name."
+msgstr ""
+
+#: commons_profile.profile.inc:41
+msgid "Location"
+msgstr "Lokalizacja"
+
+#: commons_profile.profile.inc:43
+msgid "Where are you location?"
+msgstr ""
+
+#: commons_profile.profile.inc:55
+msgid "My interests"
+msgstr ""
+
+#: commons_profile.profile.inc:57
+msgid "What are your interests, hobbies, etc?"
+msgstr ""
+
+#: commons_profile.profile.inc:69
+msgid "About me"
+msgstr ""
+
+#: commons_profile.profile.inc:71
+msgid "Explain a little about yourself."
+msgstr ""
+
+#: commons_profile.profile.inc:83
+msgid "Twitter"
+msgstr ""
+
+#: commons_profile.profile.inc:85
+msgid "Link to your Twitter account, e.g. http://twitter.com/your-username."
+msgstr ""
+
+#: commons_profile.profile.inc:97
+msgid "Facebook"
+msgstr ""
+
+#: commons_profile.profile.inc:99
+msgid "Link to your Facebook account, e.g. http://facebook.com/your-username."
+msgstr ""
+
+#: commons_profile.profile.inc:111
+msgid "LinkedIn"
+msgstr ""
+
+#: commons_profile.profile.inc:113
+msgid "Link to your LinkedIn account, e.g. http://linkedin.com/in/your-username."
+msgstr ""
+
+#: commons_profile.profile.inc:127
+msgid "Job title"
+msgstr ""
+
+#: commons_profile.profile.inc:129
+msgid "What is your job title?"
+msgstr ""
+
+#: commons_profile.profile.inc:130;144
+msgid "Work information"
+msgstr ""
+
+#: commons_profile.profile.inc:141
+msgid "Organization"
+msgstr ""
+
+#: commons_profile.profile.inc:143
+msgid "Which organization or department are you a part of?"
+msgstr ""
+
+#: commons_profile.module:26
+msgid "Recent activity"
+msgstr ""
+
+#: commons_profile.module:11
+msgid "Find friends autocomplete"
+msgstr ""
+
+#: commons_profile.info:0
+msgid "Commons Profile"
+msgstr ""
+
+#: commons_profile.info:0
+msgid "Provide social profiles for site users"
+msgstr ""
+
+#: commons_profile.info:0
+msgid "Drupal Commons"
+msgstr ""
+

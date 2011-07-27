@@ -9,6 +9,8 @@
  * Disable unecessary modules. Step 1.
  */
 function housemedia_core_update_6001() {
+  
+  // Removed modules.
   $modules_list = array(
     'db_tweaks',
   	'drupal_tweaks',
@@ -17,25 +19,7 @@ function housemedia_core_update_6001() {
     'spaces',
     'views_jsgantt',
     'ddblock',
-  );
-  
-  // Disable modules.
-  module_disable($modules_list);
-  
-  // Uninstall modules.
-  foreach ($modules_list as $module) {
-    drupal_uninstall_module($module);
-  }
-  
-  return array();
-}
-
-/**
- * Disable unecessary modules. Step 2.
- */
-function housemedia_core_update_6002() {
-  $modules_list = array(
-    'custom_search_blocks',
+  	'custom_search_blocks',
     'custom_search',
     'keyword_autocomplete',
     'arrange_fields',
@@ -48,26 +32,8 @@ function housemedia_core_update_6002() {
     'driven_diff',
     'driven_cck_producer_consumer',
     'driven_acp',
-    'driven',     
-  );
-  
-  // Disable modules.
-  module_disable($modules_list);
-  
-  // Uninstall modules.
-  foreach ($modules_list as $module) {
-    drupal_uninstall_module($module);
-  }
-  
-  return array();
-}
-
-/**
- * Disable unecessary modules. Step 3.
- */
-function housemedia_core_update_6003() {
-  $modules_list = array(
-    'finder_views',
+    'driven',
+  	'finder_views',
     'finder_user',
     'finder_text',
     'finder_search',
@@ -75,52 +41,64 @@ function housemedia_core_update_6003() {
     'finder_node',
     'finder_autocomplete',
     'finder',
-  );
-  
-  // Disable modules.
-  module_disable($modules_list);
-  
-  // Uninstall modules.
-  foreach ($modules_list as $module) {
-    drupal_uninstall_module($module);
-  }
-  
-  return array();
-}
-
-/**
- * Disable unecessary modules. Step 4.
- */
-function housemedia_core_update_6004() {
-  $modules_list = array(
-    'cck_list',
+   	'cck_list',
     'nodeblock',
     'site_map',
   );
   
-  // Disable modules.
-  module_disable($modules_list);
   
-  // Uninstall modules.
-  foreach ($modules_list as $module) {
-    drupal_uninstall_module($module);
-  }
+  $ret = array();
   
-  return array();
-}
+  // Manually drop unecessary tables.
+  db_drop_table($ret, 'spaces_overrides');
+  db_drop_table($ret, 'spaces_presets');
+  db_drop_table($ret, 'ddblock_block');
+  db_drop_table($ret, 'keyword_autocomplete_keywords');
+  db_drop_table($ret, 'comment_driven_log');
+  db_drop_table($ret, 'cache_finder_find');
+  db_drop_table($ret, 'finder');
+  db_drop_table($ret, 'finder_element');
 
-function housemedia_core_update_6005() {
+  // Drop content types.
+  node_type_delete('ddblock_news_item');
+  node_type_delete('intro22');
+  node_type_delete('mapa');
+  node_type_delete('mapa123');
+  node_type_delete('slider');
+  
+  node_types_rebuild();
+  menu_rebuild();
+  
+  // Install modules.
+  drupal_install_modules(array(
+    'contemplates',
+    'jcarousel',
+    'hm_news',
+    'hm_promotions'
+  ));
+  
+  // Disable module.
+  module_disable(array(
+    'og_aggregator',
+  	'commons_group_aggregator',
+    'commons_wiki',
+    'commons_discussion',
+    'commons_poll',
+    'commons_shoutbox'
+  ));
+  
+  // Install translations.
   _housemedia_core_update_translation('sites/all/translations/commons');
-}
-
-function housemedia_core_update_6006() {
+  _housemedia_core_update_translation('sites/all/translations/modules');
+  _housemedia_core_update_translation('sites/all/modules/housemedia');
+  _housemedia_core_update_translation('sites/all/themes/housemedia/translations');
+ 
+  // Set variables.
   variable_set('user_picture_default', 'sites/all/themes/housemedia/img/default-user.png');
   
-  _housemedia_core_update_translation('sites/all/themes/housemedia/translations');
-  _housemedia_core_update_translation('sites/all/modules/housemedia/housemedia_core/translations');
-  
-  return array();
+  return $ret;
 }
+
 
 /**
  * Update translations.
@@ -137,4 +115,5 @@ function _housemedia_core_update_translation($dir, $mask = 'pl.po$', $mode = LOC
     _locale_import_po($file, language_default('language'), $mode, 'default');
   }
 }
+
 

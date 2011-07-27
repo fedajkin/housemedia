@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2011-07-04 22:19+0200\n"
-"PO-Revision-Date: 2011-07-04 22:19+0200\n"
+"POT-Creation-Date: 2011-07-20 00:03+0200\n"
+"PO-Revision-Date: 2011-07-20 00:03+0200\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Polish <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -75,6 +75,22 @@ msgstr ""
 #: template.php:327
 msgid "Login"
 msgstr "Zaloguj się"
+
+#: template.php:336
+msgid "My property"
+msgstr "Moje nieruchomości"
+
+#: template.php:344
+msgid "Calendar"
+msgstr "Kalendarz"
+
+#: template.php:350
+msgid "@name investments"
+msgstr "Inwestycje @name"
+
+#: template.php:396
+msgid "Friends"
+msgstr "Znajomi"
 
 #: user_relationships-actions_block.tpl.php:11
 msgid "Your relationships to this user"

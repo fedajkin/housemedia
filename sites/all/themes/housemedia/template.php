@@ -61,6 +61,11 @@ function housemedia_preprocess_node(&$vars) {
     
     $vars['submitted'] = $submitted;
   }
+  
+  $node = $vars['node'];
+  if ($node->type == 'group') {
+    $vars['links'] = $vars['terms'] = '';
+  }
 }
 
 /**
@@ -101,6 +106,10 @@ function housemedia_preprocess_page(&$vars) {
     'id' => 'header-link3',
     'title' => t('Link 3')
   )));
+  
+  if (isset($vars['node']) && $vars['node']->type == 'group') {
+    $vars['title'] = '';
+  }
   
 }
 
@@ -328,6 +337,29 @@ function housemedia_preprocess_block($variables) {
     }
   }
 
+  if ($block->module == 'views' && in_array($block->delta, array('news_last-block_1', 'promotion_last-block_1'))) {
+    $variables['subject_tag'] = 'h2';
+  }
+  
+  if ($block->module == 'views' && $block->delta == 'profile_user_groups-block_1') {
+    $block->subject = t('My property');
+  }
+
+  if ($block->module == 'commons_core' && $block->delta == 'commons_info') {
+    $block->content = '';
+  }
+  
+  if ($block->module == 'views' && $block->delta == '0cde383a1963a6ecc04a0e9e98fa4213') {
+    $block->subject = t('Calendar');
+  }
+  
+  if ($block->module == 'og_subgroups' && $block->delta == '0') {
+    if ($group_node = og_get_group_context()) {
+      if ($parent = og_subgroups_get_parent($group_node->nid)) {
+        $block->subject = t('@name investments', array('@name' => $parent['title']));  
+      }
+    }
+  }
 }
 
 function housemedia_thumb_user_picture ($picture, $imagecache_preset, $user_name, $user_uid) {
@@ -355,4 +387,20 @@ function housemedia_boxes_box($block) {
   // currently work with WYSIWYG
   $output .= '</div>';
   return $output;
+}
+
+function housemedia_commons_profile_image_action_links_block($picture, $links, $account) {
+  $content = '';
+  
+  // Add the picture
+  $content .= $picture;
+  
+  // Add the links
+  $content .= theme('links', $links, array('class' => 'links clearfix'));
+  
+  return $content;
+}
+
+function _housemedia_locales_source() {
+  t('Friends');
 }

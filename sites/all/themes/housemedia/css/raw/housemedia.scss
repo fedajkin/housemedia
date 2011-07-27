@@ -18,3 +18,54 @@ $color-cherry: #a10d0d;
 @import "forms";
 @import "print";
 
+@mixin vui-widget-updown-default {
+  border: 0 none;
+  color: $color-white;
+  height: 22px;
+  margin: 0;
+  width: 35px;
+}
+	
+.vud-widget-updown {
+	
+	width: 150px;
+	
+	div.updown-up {
+	  @include vui-widget-updown-default;
+    background: #72ff00;
+  }
+  
+  div.updown-down,
+  .vud-link-down {
+    @include vui-widget-updown-default;
+    background: #ff0000;
+    margin: -22px 0 0 115px;
+  }
+  
+  .ctools-ajaxing .updown-down {
+    background: url(../img/status-active.gif) no-repeat;
+  }
+  
+  .updown-score {
+    @include vui-widget-updown-default;
+    background: #96a4c0;
+    margin: 0;
+    padding: 0;
+    width: 115px;
+  }
+  
+  .ctools-ajaxing {
+    @include vui-widget-updown-default;
+  }
+  
+  .ctools-ajaxing.updown-down {
+    background: blue;
+  }
+  
+  .up-inactive,
+  .down-inactive,
+  .up-active,
+  .down-active {
+    @include vui-widget-updown-default;
+  }
+}

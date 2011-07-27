@@ -1,0 +1,13 @@
+UPGRADE to Drupal Commons 1.6.
+=============================
+
+drush php-eval "views_get_view('og_all')->delete()"
+drush php-eval "views_get_view('og_featured')->delete()"
+drush php-eval "views_get_view('og_my_groups')->delete()"
+drush php-eval "views_get_view('content_global_calendar')->delete()"
+drush php-eval "views_include('cache'); views_object_cache_clean()"
+
+drush sql-query "DELETE FROM context WHERE name = 'context_ui-global-global'"
+drush sql-query "DELETE FROM context WHERE name = 'context_ui-group-group'"
+drush php-eval "context_invalidate_cache()"
+    
