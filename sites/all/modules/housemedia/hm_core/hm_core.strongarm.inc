@@ -70,14 +70,19 @@ function hm_core_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'menu_primary_links_source';
+  $strongarm->value = 'menu-hm-primary-links';
+
+  $export['menu_primary_links_source'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'views_defaults';
   $strongarm->value = array(
     'og' => TRUE,
     'og_members_block' => TRUE,
     'og_my' => TRUE,
     'flag_bookmarks_tab' => TRUE,
-    'flag_bookmarks' => FALSE,
-    'groups_main_listing' => TRUE,
   );
 
   $export['views_defaults'] = $strongarm;

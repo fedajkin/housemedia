@@ -537,21 +537,21 @@ div.beat-item blockquote {
   width: 102px; }
 
 /* Ranks */
-#block-housemedia_core-ranks .views-field-rownumber {
+#block-hm_core-ranks .views-field-rownumber {
   display: block;
   float: left;
   font-size: 26px;
   line-height: 40px;
   padding-right: 8px;
   width: 14px; }
-#block-housemedia_core-ranks .views-field-field-group-image-fid {
+#block-hm_core-ranks .views-field-field-group-image-fid {
   display: block;
   float: left;
   height: 40px;
   margin-right: 8px;
   overflow: hidden;
   width: 40px; }
-#block-housemedia_core-ranks .views-field-title {
+#block-hm_core-ranks .views-field-title {
   display: block;
   height: 40px;
   padding-right: 5px;
