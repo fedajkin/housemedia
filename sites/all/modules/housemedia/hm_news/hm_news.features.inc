@@ -11,6 +11,44 @@ function hm_news_ctools_plugin_api() {
 }
 
 /**
+ * Implementation of hook_imagecache_default_presets().
+ */
+function hm_news_imagecache_default_presets() {
+  $items = array(
+    'news' => array(
+      'presetname' => 'news',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale',
+          'data' => array(
+            'width' => '250',
+            'height' => '165',
+            'upscale' => 0,
+          ),
+        ),
+      ),
+    ),
+    'news_thumb' => array(
+      'presetname' => 'news_thumb',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale_and_crop',
+          'data' => array(
+            'width' => '102',
+            'height' => '73',
+          ),
+        ),
+      ),
+    ),
+  );
+  return $items;
+}
+
+/**
  * Implementation of hook_node_info().
  */
 function hm_news_node_info() {
@@ -28,4 +66,13 @@ function hm_news_node_info() {
     ),
   );
   return $items;
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function hm_news_views_api() {
+  return array(
+    'api' => '2',
+  );
 }

@@ -5,10 +5,7 @@
  * Install, update and uninstall functions for the Housemedia Core module.
  */
 
-/**
- * Disable unecessary modules. Step 1.
- */
-function housemedia_core_update_6001() {
+function housemedia_core_install() {
   
   // Removed modules.
   $modules_list = array(
@@ -65,21 +62,26 @@ function housemedia_core_update_6001() {
   node_type_delete('mapa');
   node_type_delete('mapa123');
   node_type_delete('slider');
+  node_type_delete('gallery');
+  node_type_delete('gallery_image');
   
   node_types_rebuild();
   menu_rebuild();
   
   // Install modules.
   drupal_install_modules(array(
-    'contemplates',
+    'contemplate',
     'jcarousel',
     'hm_news',
-    'hm_promotions'
+    'hm_promotion',
+    'hm_group',
+    'hm_profile'
   ));
   
   // Disable module.
   module_disable(array(
     'og_aggregator',
+    'mollom',
   	'commons_group_aggregator',
     'commons_wiki',
     'commons_discussion',
@@ -93,8 +95,16 @@ function housemedia_core_update_6001() {
   _housemedia_core_update_translation('sites/all/modules/housemedia');
   _housemedia_core_update_translation('sites/all/themes/housemedia/translations');
  
-  // Set variables.
-  variable_set('user_picture_default', 'sites/all/themes/housemedia/img/default-user.png');
+  // Delete views.
+  $views = array(
+    'glowna_aktualnosci',
+    'galeria_inwestycji',
+    'gallery'
+  );
+  
+  foreach ($views as $view) {
+    views_get_view($view)->delete();
+  }
   
   return $ret;
 }

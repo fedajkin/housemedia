@@ -8,7 +8,7 @@ function hm_promotion_views_default_views() {
 
   // Exported view: promotion_last
   $view = new view;
-  $view->name = 'promotion_last';
+  $view->name = 'hm_promotion_last';
   $view->description = '';
   $view->tag = 'hm_promotion';
   $view->view_php = '';
@@ -245,7 +245,7 @@ function hm_promotion_views_default_views() {
 
   // Exported view: promotions
   $view = new view;
-  $view->name = 'promotions';
+  $view->name = 'hm_promotion_group';
   $view->description = '';
   $view->tag = 'hm_promotion';
   $view->view_php = '';

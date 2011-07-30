@@ -18,6 +18,21 @@ function housemedia_core_ctools_plugin_api() {
  */
 function housemedia_core_imagecache_default_presets() {
   $items = array(
+    'Wyszukiwanie_nieruchomosci_64x46' => array(
+      'presetname' => 'Wyszukiwanie_nieruchomosci_64x46',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale',
+          'data' => array(
+            'width' => '64px',
+            'height' => '46px',
+            'upscale' => 0,
+          ),
+        ),
+      ),
+    ),
     'crop_102x73' => array(
       'presetname' => 'crop_102x73',
       'actions' => array(
@@ -90,15 +105,25 @@ function housemedia_core_imagecache_default_presets() {
         ),
       ),
     ),
+    'showcase_original' => array(
+      'presetname' => 'showcase_original',
+      'actions' => array(),
+    ),
+    'showcase_scale' => array(
+      'presetname' => 'showcase_scale',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale',
+          'data' => array(
+            'width' => '60%',
+            'height' => '60%',
+            'upscale' => 0,
+          ),
+        ),
+      ),
+    ),
   );
   return $items;
-}
-
-/**
- * Implementation of hook_views_api().
- */
-function housemedia_core_views_api() {
-  return array(
-    'api' => '2',
-  );
 }

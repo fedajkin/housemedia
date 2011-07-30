@@ -1,0 +1,66 @@
+<?php
+
+include_once('hm_group.features.inc');
+
+/**
+ * Implementation of hook_block().
+ */
+function hm_group_block($op = 'list', $delta = 0, $edit = array()) {
+  if ($op == 'list') {
+    return array(
+      'info_tabs' => array('info' => t('Group info tabs'))
+    );
+  }
+  elseif ($op == 'view') {
+    switch ($delta) {
+      case 'info_tabs':
+        return hm_group_block_info_tabs();
+        break;
+    }
+  }
+}
+
+function hm_group_block_info_tabs() {
+  
+  $quicktabs['qtid']  = 'hm_group_info_tabs';
+  $quicktabs['ajax']  = FALSE;
+  $quicktabs['style'] = 'nostyle';
+  $quicktabs['tabs']  = array(
+    '0' => array(
+  		'title'   => t('Description'),
+      'type'    => 'node',
+      'nid'     => arg(1),
+      'teaser'	=> 0
+    ),
+    '1' => array(
+  		'title'   => t('Details'),
+      'type'    => 'view',
+      'vid'     => 'hm_group_details',
+      'display' => 'block_1',
+    ),
+    '2' => array(
+  		'title'   => t('Gallery'),
+      'type'    => 'view',
+      'vid'     => 'hm_group_gallery',
+      'display' => 'block_1',
+    ),
+    '3' => array(
+  		'title'   => t('Flats'),
+      'type'    => 'view',
+      'vid'     => 'mieszkania',
+      'display' => 'block_1',
+    ),
+    '4' => array(
+  		'title'   => t('Promotions'),
+      'type'    => 'view',
+      'vid'     => 'hm_promotion_group',
+      'display' => 'block_1',
+    )
+  );
+
+  
+  return array(
+    'subject' => '',
+    'content' => theme('quicktabs', $quicktabs)
+  );
+}

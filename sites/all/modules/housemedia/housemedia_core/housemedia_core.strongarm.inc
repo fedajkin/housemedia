@@ -37,21 +37,18 @@ function housemedia_core_strongarm() {
     'promotion' => '',
     'forum' => '',
     'group' => '',
-    'notice' => 'drupal',
-    'page' => 'drupal',
-    'deweloper' => 'drupal',
-    'dew_szczegoly' => 'drupal',
-    'doradca' => 'drupal',
-    'gallery' => 'drupal',
-    'gallery_image' => 'drupal',
-    'grupa_powitanie' => 'drupal',
-    'inw_detal' => 'drupal',
-    'mieszkanie' => 'drupal',
-    'opis_dewelopera' => 'drupal',
-    'opis_inwestycji' => 'drupal',
-    'profile' => 'drupal',
-    'simplenews' => 'drupal',
-    'uzytkownik' => 'drupal',
+    'notice' => '',
+    'page' => '',
+    'deweloper' => '',
+    'dew_szczegoly' => '',
+    'doradca' => '',
+    'grupa_powitanie' => '',
+    'inw_detal' => '',
+    'mieszkanie' => '',
+    'opis_dewelopera' => '',
+    'opis_inwestycji' => '',
+    'profile' => '',
+    'uzytkownik' => '',
   );
 
   $export['gmap_node_markers'] = $strongarm;
@@ -70,5 +67,19 @@ function housemedia_core_strongarm() {
   );
 
   $export['gmap_role_markers'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'views_defaults';
+  $strongarm->value = array(
+    'og' => TRUE,
+    'og_members_block' => TRUE,
+    'og_my' => TRUE,
+    'flag_bookmarks_tab' => TRUE,
+    'flag_bookmarks' => FALSE,
+    'groups_main_listing' => TRUE,
+  );
+
+  $export['views_defaults'] = $strongarm;
   return $export;
 }

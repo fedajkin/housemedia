@@ -1,0 +1,34 @@
+<?php
+
+include_once('hm_profile.features.inc');
+
+function hm_profile_commons_profile_action_links_alter($links, $account) {
+  $inbox = _hm_profile_inbox_link();
+  $links['notification_messages']['href'] = $inbox['href'];
+  $links['notification_messages']['title'] = $inbox['title'];
+}
+
+function hm_profile_views_post_render(&$view, &$output, &$cache) {
+  if ($view->name == 'user_meta') {
+    $inbox = _hm_profile_inbox_link();
+    $output .= '<div id="user-privatemsg-inbox">'. l($inbox['title'], $inbox['href']) .'</div>';
+  } 
+}
+
+function _hm_profile_inbox_link() {
+  $url   = variable_get('privatemsg_url_prefix', 'messages');
+  $count = privatemsg_unread_count();
+    
+  if ($count > 0) {
+    return array(
+      'href' => $url,
+      'title' => t('Inbox (@count)', array('@count' => $count))
+    );
+  }
+  else {
+    return array(
+      'href' => $url,
+      'title' => t('Inbox')
+    );
+  }
+}

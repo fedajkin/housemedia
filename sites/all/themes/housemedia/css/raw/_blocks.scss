@@ -126,14 +126,14 @@
 }
 
 /* Promotions */
-#block-views-promotion_last-block_1 { 
+#block-views-hm_promotion_last-block_1 { 
 	.views-field-field-group-image-fid {
 	  width:102px;
 	}
 }
 
 /* Featured groups */
-#block-views-featured_groups-block_1 { 
+#block-views-hm_group_featured-block_1 { 
 	@include block-gray-background;
 	
 	.jcarousel-skin-default {
@@ -185,7 +185,7 @@
 
 /* News */
 
-#block-views-news_last-block_1 {
+#block-views-hm_news_last-block_1 {
 	.views-field-field-news-photo-fid {
     float: left;
     height: 73px;
@@ -303,7 +303,7 @@
   }
 }
 
-#quicktabs_container_housemedia_group_info {
+#quicktabs_container_hm_group_info_tabs {
   background: $color-gray;
   min-height: 300px;
 }
