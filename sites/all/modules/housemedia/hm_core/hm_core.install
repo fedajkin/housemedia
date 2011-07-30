@@ -5,7 +5,7 @@
  * Install, update and uninstall functions for the Housemedia Core module.
  */
 
-function housemedia_core_install() {
+function hm_core_install() {
   
   // Removed modules.
   $modules_list = array(
@@ -90,10 +90,10 @@ function housemedia_core_install() {
   ));
   
   // Install translations.
-  _housemedia_core_update_translation('sites/all/translations/commons');
-  _housemedia_core_update_translation('sites/all/translations/modules');
-  _housemedia_core_update_translation('sites/all/modules/housemedia');
-  _housemedia_core_update_translation('sites/all/themes/housemedia/translations');
+  _hm_core_update_translation('sites/all/translations/commons');
+  _hm_core_update_translation('sites/all/translations/modules');
+  _hm_core_update_translation('sites/all/modules/housemedia');
+  _hm_core_update_translation('sites/all/themes/housemedia/translations');
  
   // Delete views.
   $views = array(
@@ -116,7 +116,7 @@ function housemedia_core_install() {
  * @param $dir
  *   Path to directory that we looking for translations.
  */
-function _housemedia_core_update_translation($dir, $mask = 'pl.po$', $mode = LOCALE_IMPORT_KEEP) {
+function _hm_core_update_translation($dir, $mask = 'pl.po$', $mode = LOCALE_IMPORT_KEEP) {
   include_once './includes/locale.inc';
 
   $files = file_scan_directory($dir, $mask);

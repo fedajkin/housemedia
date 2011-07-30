@@ -1,15 +1,15 @@
 <?php
 
-include_once('housemedia_core.features.inc');
+include_once('hm_core.features.inc');
 
-function _housemedia_core_translations() {
+function _hm_core_translations() {
   t('Document');
 }
 
 /**
  * Implementation of hook_block().
  */
-function housemedia_core_block($op = 'list', $delta = 0, $edit = array()) {
+function hm_core_block($op = 'list', $delta = 0, $edit = array()) {
   if ($op == 'list') {
     return array(
     	'search'     => array('info' => t('Search (quicktabs)')),
@@ -19,18 +19,18 @@ function housemedia_core_block($op = 'list', $delta = 0, $edit = array()) {
   elseif ($op == 'view') {
     switch ($delta) {
       case 'search':
-        return housemedia_core_search_block();
+        return hm_core_search_block();
         break;
       case 'ranks':
-        return housemedia_core_ranks_block();
+        return hm_core_ranks_block();
         break;
     }
   }
 }
 
-function housemedia_core_search_block() {
+function hm_core_search_block() {
   
-  $quicktabs['qtid']  = 'housemedia_core_search';
+  $quicktabs['qtid']  = 'hm_core_search';
   $quicktabs['ajax']  = FALSE;
   $quicktabs['style'] = 'nostyle';
   $quicktabs['tabs']  = array(
@@ -61,7 +61,7 @@ function housemedia_core_search_block() {
   );
 }
 
-function housemedia_core_ranks_block() {
+function hm_core_ranks_block() {
   
   $quicktabs['qtid']  = 'hm_core_ranks';
   $quicktabs['ajax']  = FALSE;

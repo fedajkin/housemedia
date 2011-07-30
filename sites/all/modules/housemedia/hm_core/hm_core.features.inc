@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_ctools_plugin_api().
  */
-function housemedia_core_ctools_plugin_api() {
+function hm_core_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => 3);
@@ -16,7 +16,7 @@ function housemedia_core_ctools_plugin_api() {
 /**
  * Implementation of hook_imagecache_default_presets().
  */
-function housemedia_core_imagecache_default_presets() {
+function hm_core_imagecache_default_presets() {
   $items = array(
     'Wyszukiwanie_nieruchomosci_64x46' => array(
       'presetname' => 'Wyszukiwanie_nieruchomosci_64x46',

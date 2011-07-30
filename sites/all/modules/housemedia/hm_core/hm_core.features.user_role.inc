@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_user_default_roles().
  */
-function housemedia_core_user_default_roles() {
+function hm_core_user_default_roles() {
   $roles = array();
 
   // Exported role: Deweloper

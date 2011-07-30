@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_user_default_permissions().
  */
-function housemedia_core_user_default_permissions() {
+function hm_core_user_default_permissions() {
   $permissions = array();
 
   // Exported permission: access vote up/down statistics

@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_strongarm().
  */
-function housemedia_core_strongarm() {
+function hm_core_strongarm() {
   $export = array();
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

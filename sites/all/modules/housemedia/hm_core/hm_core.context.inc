@@ -3,7 +3,7 @@
 /**
  * Implementation of hook_context_default_contexts().
  */
-function housemedia_core_context_default_contexts() {
+function hm_core_context_default_contexts() {
   $export = array();
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
@@ -33,14 +33,14 @@ function housemedia_core_context_default_contexts() {
           'region' => 'sidebar_last',
           'weight' => 1,
         ),
-        'housemedia_core-search' => array(
-          'module' => 'housemedia_core',
+        'hm_core-search' => array(
+          'module' => 'hm_core',
           'delta' => 'search',
           'region' => 'content',
           'weight' => 0,
         ),
-        'housemedia_core-ranks' => array(
-          'module' => 'housemedia_core',
+        'hm_core-ranks' => array(
+          'module' => 'hm_core',
           'delta' => 'ranks',
           'region' => 'content',
           'weight' => 1,
