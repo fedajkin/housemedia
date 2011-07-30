@@ -54,6 +54,21 @@ function hm_core_user_default_permissions() {
     ),
   );
 
+  // Exported permission: view imagecache scale_150x
+  $permissions['view imagecache scale_150x'] = array(
+    'name' => 'view imagecache scale_150x',
+    'roles' => array(),
+  );
+
+  // Exported permission: view imagecache scale_800x
+  $permissions['view imagecache scale_800x'] = array(
+    'name' => 'view imagecache scale_800x',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
   // Exported permission: view vote up/down count on nodes
   $permissions['view vote up/down count on nodes'] = array(
     'name' => 'view vote up/down count on nodes',

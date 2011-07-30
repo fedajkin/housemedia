@@ -297,7 +297,7 @@ function hm_group_views_default_views() {
       'empty_zero' => 0,
       'link_to_node' => 0,
       'label_type' => 'none',
-      'format' => 'crop_140x100_imagelink',
+      'format' => 'imagefield__lightbox2__crop_140x100__scale_800x',
       'multiple' => array(
         'group' => 1,
         'multiple_number' => '',

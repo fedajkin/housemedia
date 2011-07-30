@@ -105,6 +105,21 @@ function hm_core_imagecache_default_presets() {
         ),
       ),
     ),
+    'scale_800x' => array(
+      'presetname' => 'scale_800x',
+      'actions' => array(
+        '0' => array(
+          'weight' => '0',
+          'module' => 'imagecache',
+          'action' => 'imagecache_scale',
+          'data' => array(
+            'width' => '800',
+            'height' => '',
+            'upscale' => 0,
+          ),
+        ),
+      ),
+    ),
     'showcase_original' => array(
       'presetname' => 'showcase_original',
       'actions' => array(),
