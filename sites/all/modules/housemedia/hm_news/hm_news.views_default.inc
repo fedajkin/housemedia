@@ -6,7 +6,7 @@
 function hm_news_views_default_views() {
   $views = array();
 
-  // Exported view: news_last
+  // Exported view: hm_news_last
   $view = new view;
   $view->name = 'hm_news_last';
   $view->description = '';

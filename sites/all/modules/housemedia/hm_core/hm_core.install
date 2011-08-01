@@ -86,6 +86,8 @@ function hm_core_install() {
     'commons_discussion',
     'commons_poll',
     'commons_shoutbox',
+    'shoutbox_user',
+    'shoutbox_points',
     'shoutbox_group',
     'shoutbox',
   	'og_aggregator',

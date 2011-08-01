@@ -5186,7 +5186,7 @@ function commons_event_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->override_option('path', 'node/%/content/events');
   $handler->override_option('menu', array(
-    'type' => 'tab',
+    'type' => 'none',
     'title' => 'Events',
     'description' => 'View the group events',
     'weight' => '14',

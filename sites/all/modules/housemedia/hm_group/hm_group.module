@@ -52,8 +52,7 @@ function hm_group_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 }
 
 function hm_group_menu_alter(&$items) {
-  dsm($items);
-  unset($items['node/%/content/documents']);
+  unset($items['node/%/groupadmin']);
 }
 
 function hm_group_preprocess_block($vars) {
@@ -69,21 +68,21 @@ function hm_group_preprocess_block($vars) {
     }
     
     if ($vars['block']->bid == 'views-363c36ed99d1c774fcc13d74a03dad8b') {
-      $vars['block']->subject = l(t('Documents'), 'node/'. arg(1) .'/group/documents');
+      $vars['block']->subject = l(
+        t('Documents'),
+        'node/'. arg(1) .'/content/documents'
+      );
+    }
+    
+    // Group page: Latest blog posts
+    if ($vars['block']->bid == 'views-group_block_blog_latest-block_1') {
+      $vars['block']->subject = l(
+        $vars['block']->subject,
+      	'node/'. arg(1) .'/content/blogs'
+      );
     }
     
   }
-  
-  
-  
-  
-  
-  
-  
-  if ($vars['block']->module =='views') {
-  // dsm($vars['block']);
-  }
-  
 }
 
 
