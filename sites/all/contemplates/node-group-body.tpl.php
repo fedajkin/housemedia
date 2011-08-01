@@ -1,6 +1,6 @@
 
 
-<div id="group-vud-img">
+<div id="group-vud-img" class="clearfix">
 	<?php if (!empty($node->field_group_image[0]['filepath'])): ?>
     <?php print theme('imagecache', 'scale_150x', $node->field_group_image[0]['filepath'])?>
   <?php endif; ?>
@@ -11,7 +11,21 @@
 <?php print check_plain($node->og_description); ?>
 
 <ul class="group-summary">
-  <?php if ($gp = og_subgroups_get_parent($node->nid)): ?>
+	<?php if ($node->available_flats): ?>
+		<li class="available-flats">
+		  <?php print t('Number of available flats'); ?>:
+		  <?php print $node->available_flats; ?>
+		</li>
+	<?php endif; ?>
+	
+	<?php if ($node->completion_date): ?>
+		<li class="completion-date">
+		  <?php print t('Completion date'); ?>:
+		  <?php print format_date($node->completion_date, 'custom', 'd F Y'); ?>
+		</li>
+	<?php endif; ?>
+	
+	<?php if ($gp = og_subgroups_get_parent($node->nid)): ?>
 		<li>
 			<?php print t('Developer'); ?>:
       <?php print l($gp['title'], 'node/'. $gp['gid']); ?>

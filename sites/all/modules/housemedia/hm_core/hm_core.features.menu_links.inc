@@ -115,11 +115,11 @@ function hm_core_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '-49',
   );
-  // Exported menu link: menu-hm-primary-links:groups/my
-  $menu_links['menu-hm-primary-links:groups/my'] = array(
+  // Exported menu link: menu-hm-primary-links:groups/mine
+  $menu_links['menu-hm-primary-links:groups/mine'] = array(
     'menu_name' => 'menu-hm-primary-links',
-    'link_path' => 'groups/my',
-    'router_path' => 'groups/my',
+    'link_path' => 'groups/mine',
+    'router_path' => 'groups/mine',
     'link_title' => 'Moje grupy',
     'options' => array(
       'attributes' => array(

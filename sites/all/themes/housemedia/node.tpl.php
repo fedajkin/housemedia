@@ -19,7 +19,7 @@
     <?php endif; ?>
 
     <?php if ($submitted): ?>
-    <div class="meta">
+    <div class="meta clearfix">
       <span class="submitted"><?php print $submitted ?></span>
     </div>
     <?php endif; ?>

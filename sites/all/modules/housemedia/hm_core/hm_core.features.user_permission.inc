@@ -54,10 +54,95 @@ function hm_core_user_default_permissions() {
     ),
   );
 
+  // Exported permission: view imagecache Wyszukiwanie_nieruchomosci_64x46
+  $permissions['view imagecache Wyszukiwanie_nieruchomosci_64x46'] = array(
+    'name' => 'view imagecache Wyszukiwanie_nieruchomosci_64x46',
+    'roles' => array(
+      '0' => 'Użytkownik',
+      '1' => 'anonymous user',
+      '2' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache crop_102x73
+  $permissions['view imagecache crop_102x73'] = array(
+    'name' => 'view imagecache crop_102x73',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache crop_140x100
+  $permissions['view imagecache crop_140x100'] = array(
+    'name' => 'view imagecache crop_140x100',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache crop_40x40
+  $permissions['view imagecache crop_40x40'] = array(
+    'name' => 'view imagecache crop_40x40',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache group_images_featured
+  $permissions['view imagecache group_images_featured'] = array(
+    'name' => 'view imagecache group_images_featured',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache group_images_medium
+  $permissions['view imagecache group_images_medium'] = array(
+    'name' => 'view imagecache group_images_medium',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache image_thumb_30
+  $permissions['view imagecache image_thumb_30'] = array(
+    'name' => 'view imagecache image_thumb_30',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache news
+  $permissions['view imagecache news'] = array(
+    'name' => 'view imagecache news',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view imagecache news_thumb
+  $permissions['view imagecache news_thumb'] = array(
+    'name' => 'view imagecache news_thumb',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
   // Exported permission: view imagecache scale_150x
   $permissions['view imagecache scale_150x'] = array(
     'name' => 'view imagecache scale_150x',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
   );
 
   // Exported permission: view imagecache scale_800x

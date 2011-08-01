@@ -1,0 +1,3 @@
+<?php
+
+include_once('hm_investment.features.inc');

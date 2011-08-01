@@ -1,0 +1,6 @@
+<?php
+
+t('Developer');
+t('Updated');
+t('Number of available flats');
+t('Completion date');

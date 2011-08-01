@@ -10,7 +10,7 @@ function hm_core_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'context_status';
   $strongarm->value = array(
-    'global' => FALSE,
+    'global' => TRUE,
     'home' => TRUE,
     'profile-me' => TRUE,
     'profile-other' => TRUE,
@@ -340,6 +340,27 @@ function hm_core_strongarm() {
   $strongarm->value = 'menu-hm-primary-links';
 
   $export['menu_primary_links_source'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_footer';
+  $strongarm->value = 'Wszelkie prawa zastrzeżone.';
+
+  $export['site_footer'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'site_frontpage_path';
+  $strongarm->value = 'home';
+
+  $export['site_frontpage_path'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'theme_default';
+  $strongarm->value = 'housemedia';
+
+  $export['theme_default'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;

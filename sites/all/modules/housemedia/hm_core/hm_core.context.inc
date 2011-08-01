@@ -61,5 +61,43 @@ function hm_core_context_default_contexts() {
   t('Housemedia Core');
 
   $export['hm_core-frontpage'] = $context;
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'hm_core-global';
+  $context->description = '';
+  $context->tag = 'Housemedia Core';
+  $context->conditions = array(
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-user_meta-block_1' => array(
+          'module' => 'views',
+          'delta' => 'user_meta-block_1',
+          'region' => 'header',
+          'weight' => 0,
+        ),
+        'commons_core-header_login' => array(
+          'module' => 'commons_core',
+          'delta' => 'header_login',
+          'region' => 'header',
+          'weight' => 1,
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Housemedia Core');
+
+  $export['hm_core-global'] = $context;
   return $export;
 }

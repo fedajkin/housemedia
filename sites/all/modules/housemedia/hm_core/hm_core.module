@@ -36,9 +36,8 @@ function hm_core_search_block() {
   $quicktabs['tabs']  = array(
     '0' => array(
   		'title'   => t('Investments'),
-      'type'    => 'view',
-      'vid'     => 'og_inwestycje',
-      'display' => 'block_1',
+      'type'    => 'block',
+      'bid'     => 'views_delta_-exp-og_inwestycje-block_1',
     ),
     '1' => array(
   		'title'   => t('Flat'),
@@ -53,7 +52,6 @@ function hm_core_search_block() {
       'display' => '',
     )
   );
-
   
   return array(
     'subject' => t('Search'),

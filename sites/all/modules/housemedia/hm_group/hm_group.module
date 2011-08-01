@@ -20,6 +20,114 @@ function hm_group_block($op = 'list', $delta = 0, $edit = array()) {
   }
 }
 
+/**
+ * Implementation of hook_menu()
+ */
+function hm_group_menu() {
+  return array(
+    'hm_group/js_calendar/%' => array(
+      'access arguments' => array('access content'),
+      'page callback' => 'hm_group_js_calendar',
+      'page arguments' => array(2, 3),
+      'type' => MENU_CALLBACK
+    )
+  );
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ */
+function hm_group_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($op == 'view' && $node->type == 'group') {
+
+    $sql           = "SELECT n.nid FROM {node} n INNER JOIN {og_ancestry} oga ON n.nid = oga.nid WHERE n.type = 'inw_detal' AND oga.group_nid = %d";
+    $inw_detal_nid = db_result(db_query($sql, $node->nid));
+    $inw_detal     = node_load($inw_detal_nid);
+   
+    if ($inw_detal) {
+      $node->available_flats = $inw_detal->field_in_d_wolne[0]['value'];
+      $node->completion_date = strtotime($inw_detal->field_in_d_end[0]['value']);  
+    }
+  }
+}
+
+function hm_group_menu_alter(&$items) {
+  dsm($items);
+  unset($items['node/%/content/documents']);
+}
+
+function hm_group_preprocess_block($vars) {
+  
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    
+    // Group page: Calendar
+    if ($vars['block']->bid == 'views-0cde383a1963a6ecc04a0e9e98fa4213') {
+      $vars['block']->subject = l(
+        t('Calendar'),
+        'node/'. arg(1) .'/content/events'  
+      );
+    }
+    
+    if ($vars['block']->bid == 'views-363c36ed99d1c774fcc13d74a03dad8b') {
+      $vars['block']->subject = l(t('Documents'), 'node/'. arg(1) .'/group/documents');
+    }
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  if ($vars['block']->module =='views') {
+  // dsm($vars['block']);
+  }
+  
+}
+
+
+function hm_group_preprocess_date_navigation(&$vars) {
+  
+  $view = $vars['view'];
+  
+  if ($view->name == 'group_event_calendar' && $view->current_display == 'calendar_block_1') {
+  
+    $args = $view->args;
+    $prev_date = drupal_clone(is_object($view->date_info->min_date) ? $view->date_info->min_date : date_now());
+    $next_date = drupal_clone(is_object($view->date_info->min_date) ? $view->date_info->min_date : date_now());
+
+    date_modify($prev_date, ' -1 '. $view->date_info->granularity);
+    date_modify($next_date, ' +1 '. $view->date_info->granularity);
+
+    $format = array('year' => 'Y', 'month' => 'Y-m', 'day' => 'Y-m-d');
+    $next_arg = date_format($next_date, $format[$view->date_info->granularity]);
+    $prev_arg = date_format($prev_date, $format[$view->date_info->granularity]);
+
+    $title = date_format_date($view->date_info->min_date, 'custom', 'F');
+
+    $group_nid = 0;
+
+    if (arg(0) == 'node') {
+      $group_nid = arg(1);
+    }
+    elseif (arg(0) == 'hm_group' && arg(1) == 'js_calendar') {
+      $group_nid = arg(2);
+    }
+  
+    $vars['prev_url'] = 'hm_group/js_calendar/'. $group_nid .'/'. $prev_arg;
+    $vars['next_url'] = 'hm_group/js_calendar/'. $group_nid .'/'. $next_arg;
+    $vars['prev_options']['attributes']['class'] = 'js_calendar_link';
+    $vars['next_options']['attributes']['class'] = 'js_calendar_link';
+    $vars['nav_title'] = $title;
+    drupal_add_js(drupal_get_path('module', 'hm_group') .'/js/event_views.js');
+  }
+}
+
+function hm_group_js_calendar($group, $date) {
+  print date_embed_view('group_event_calendar', 'calendar_block_1', array('block_identifier' => 'mini'), array($group, $date));
+}
+
 function hm_group_block_info_tabs() {
   
   $quicktabs['qtid']  = 'hm_group_info_tabs';
@@ -35,7 +143,7 @@ function hm_group_block_info_tabs() {
     '1' => array(
   		'title'   => t('Details'),
       'type'    => 'view',
-      'vid'     => 'hm_group_details',
+      'vid'     => 'hm_investment_node',
       'display' => 'block_1',
     ),
     '2' => array(

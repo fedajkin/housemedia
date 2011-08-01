@@ -11,9 +11,10 @@ function hm_promotion_content_default_fields() {
     'field_name' => 'field_promotion_date_since',
     'type_name' => 'promotion',
     'display_settings' => array(
+      'weight' => '10',
+      'parent' => 'group_promotion_date',
       'label' => array(
-        'format' => 'above',
-        'exclude' => 0,
+        'format' => 'inline',
       ),
       'teaser' => array(
         'format' => 'default',
@@ -81,9 +82,10 @@ function hm_promotion_content_default_fields() {
     'field_name' => 'field_promotion_date_until',
     'type_name' => 'promotion',
     'display_settings' => array(
+      'weight' => '11',
+      'parent' => 'group_promotion_date',
       'label' => array(
-        'format' => 'above',
-        'exclude' => 0,
+        'format' => 'inline',
       ),
       'teaser' => array(
         'format' => 'default',

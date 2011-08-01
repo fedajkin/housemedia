@@ -60,8 +60,10 @@
       </div><!-- /header-group-wrapper -->
    
     	<div id="nav-group" class="nav-group clearfix">
+    	  <?php print $search_box; ?>
         <?php print theme('grid_block', $primary_links_tree, 'primary-menu'); ?>
       </div>
+      
      
 
       <!-- preface-top row: width = grid_width -->

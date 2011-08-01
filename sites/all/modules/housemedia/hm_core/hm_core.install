@@ -75,18 +75,22 @@ function hm_core_install() {
     'hm_news',
     'hm_promotion',
     'hm_group',
-    'hm_profile'
+    'hm_profile',
+    'hm_investment'
   ));
   
   // Disable module.
   module_disable(array(
-    'og_aggregator',
-    'mollom',
   	'commons_group_aggregator',
     'commons_wiki',
     'commons_discussion',
     'commons_poll',
-    'commons_shoutbox'
+    'commons_shoutbox',
+    'shoutbox_group',
+    'shoutbox',
+  	'og_aggregator',
+    'mollom',
+    'poll',
   ));
   
   // Install translations.

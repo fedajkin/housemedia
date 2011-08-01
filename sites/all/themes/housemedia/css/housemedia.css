@@ -379,10 +379,39 @@ div.beat-item blockquote {
   background-color: #afafaf;
   border-top: 2px solid #000; }
 
+#footer-message-inner {
+  margin: 10px; }
+
+h1 {
+  margin-bottom: 1em;
+  line-height: 1.1; }
+
+.node .meta {
+  background: #eeeeee;
+  padding: 5px 6px; }
+  .node .meta .submitted-by,
+  .node .meta .userpoints-value,
+  .node .meta .submitted-on {
+    font-size: 12px; }
+  .node .meta .submitted-by {
+    margin-right: 5px; }
+.node .inner .content {
+  padding: 0; }
+.node .picture img {
+  margin-top: 0; }
+.node .groups {
+  margin-bottom: 1em; }
+  .node .groups .links {
+    font-size: 12px; }
+
 .node .inner .group-summary {
   clear: both; }
   .node .inner .group-summary li {
     display: block; }
+    .node .inner .group-summary li.available-flats {
+      color: #226734; }
+    .node .inner .group-summary li.completion-date {
+      color: #306dab; }
 
 .view-id-hm_group_gallery {
   padding-left: 12px; }
@@ -390,6 +419,13 @@ div.beat-item blockquote {
     float: left;
     margin-right: 10px;
     width: 140px; }
+
+.view-id-hm_investment_node .group-in-d-podstawowe {
+  margin-top: 0; }
+
+.view-empty p {
+  margin-top: 0;
+  text-align: center; }
 
 .block .block-title {
   background-color: #607bb0;
@@ -599,7 +635,8 @@ div.beat-item blockquote {
     text-decoration: none; }
 
 #group-vud-img {
-  margin-right: 10px;
+  margin: 0 10px 10px 0;
+  float: left;
   width: 150px; }
   #group-vud-img img {
     float: left;
@@ -607,20 +644,11 @@ div.beat-item blockquote {
 
 #quicktabs_container_hm_group_info_tabs {
   background: #eeeeee;
+  padding: 20px 15px;
   min-height: 300px; }
 
 a {
   color: #244796; }
-
-.nav-group {
-  clear: both;
-  float: none;
-  margin: 0 auto;
-  overflow: visible;
-  padding: 0;
-  position: relative;
-  z-index: 10;
-  width: 960px; }
 
 #header-link1 {
   display: block;
@@ -653,23 +681,37 @@ a {
   background: url(../img/header-icon3.png) no-repeat;
   margin-right: 150px; }
 
-#primary-menu li {
-  margin-right: 5px; }
-  #primary-menu li.last {
-    margin-right: 0; }
-  #primary-menu li.active-trail > a {
-    background-color: #a10d0d; }
-  #primary-menu li a {
-    background-color: #607bb0;
-    color: white;
-    padding: 0.5em 1em; }
-    #primary-menu li a:hover {
-      background-color: #90a3cd; }
-    #primary-menu li a.active {
-      background-color: #a10d0d; }
+.nav-group {
+  clear: both;
+  float: none;
+  margin: 0 auto;
+  overflow: visible;
+  padding: 0 0 20px 0;
+  position: relative;
+  z-index: 10;
+  width: 960px; }
+  .nav-group #primary-menu {
+    float: left;
+    margin: 0;
+    width: auto; }
+    .nav-group #primary-menu li {
+      margin-right: 5px; }
+      .nav-group #primary-menu li.last {
+        margin-right: 0; }
+      .nav-group #primary-menu li.active-trail > a {
+        background-color: #a10d0d; }
+      .nav-group #primary-menu li a {
+        background-color: #607bb0;
+        color: white;
+        padding: 0.5em 1em; }
+        .nav-group #primary-menu li a:hover {
+          background-color: #90a3cd; }
+        .nav-group #primary-menu li a.active {
+          background-color: #a10d0d; }
 
 #content-tabs ul.primary {
-  border: 0; }
+  border: 0;
+  margin: 0; }
   #content-tabs ul.primary li {
     margin-right: 3px; }
     #content-tabs ul.primary li.last {
@@ -689,8 +731,10 @@ a {
     #content-tabs ul.primary li a {
       border: 0; }
 
-#breadcrumbs .breadcrumbs-inner {
-  margin: 0; }
+#breadcrumbs {
+  font-size: 12px; }
+  #breadcrumbs .breadcrumbs-inner {
+    margin: 0; }
 
 /* Quicktabs navigation */
 .block .content ul.quicktabs_tabs {
@@ -711,12 +755,66 @@ form input.form-submit {
   background: #80bbed;
   border: 0 none;
   color: white;
-  font-size: 12px; }
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 5px; }
 
 #commons-core-group-create-content-block-form .form-item {
   float: left;
   margin: 0;
   padding: 0; }
+
+fieldset {
+  border: 1px solid #afafaf; }
+
+#search-theme-form {
+  background: #607bb0;
+  float: right;
+  margin-right: 10px;
+  padding: 5px; }
+  #search-theme-form .search-input {
+    border: 0 none;
+    float: left;
+    height: 19px; }
+  #search-theme-form .search_submit {
+    background: #80bbed;
+    border: 0 none;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 5px;
+    line-height: 17px;
+    cursor: pointer; }
+
+#block-views--exp-og_inwestycje-block_1 {
+  margin-bottom: 10px; }
+
+.views-exposed-widget #edit-field-in-d-nazwa-value {
+  width: 350px; }
+.views-exposed-widget #edit-field-in-d-wojewodztwo-value-many-to-one-wrapper {
+  margin-bottom: 3px; }
+.views-exposed-widget #edit-field-in-d-miasto-value {
+  width: 150px; }
+.views-exposed-widget #edit-field-in-d-ulica-value {
+  width: 250px; }
+.views-exposed-widget #edit-field-in-d-dzielnica-value {
+  width: 135px; }
+.views-exposed-widget #edit-field-in-d-minmetr-value,
+.views-exposed-widget #edit-field-in-d-maxmetr-value,
+.views-exposed-widget #edit-field-in-d-minmetraz-value,
+.views-exposed-widget #edit-field-in-d-maxmetraz-value,
+.views-exposed-widget #edit-advanced-field-in-d-pietra-value {
+  width: 98px; }
+.views-exposed-widget #edit-submit-og-inwestycje,
+.views-exposed-widget #edit-cancel-modify {
+  margin: 0; }
+
+#views-exposed-form-og-inwestycje-page-1 {
+  background: #eeeeee;
+  margin-bottom: 3em;
+  padding: 10px; }
+  #views-exposed-form-og-inwestycje-page-1 #edit-field-in-d-wojewodztwo-value-many-to-one-wrapper {
+    width: 380px; }
 
 .vud-widget-updown {
   width: 150px; }

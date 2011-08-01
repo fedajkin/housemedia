@@ -1,9 +1,15 @@
 
-form input.form-submit {
+@mixin submit-button {
   background: $color-azure;
   border: 0 none;
   color: $color-white;
-  font-size: 12px; 
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 5px;
+}
+
+form input.form-submit {
+  @include submit-button;
 }
 
 #commons-core-group-create-content-block-form {
@@ -11,5 +17,62 @@ form input.form-submit {
     float: left;
     margin: 0;
     padding: 0;
+  }
+}
+
+fieldset {
+  border: 1px solid $color-gray-dark;
+}
+
+#search-theme-form {
+	background: $color-blue;
+  float: right;
+  margin-right: 10px;
+  padding: 5px;
+  
+  .search-input {
+    border: 0 none;
+    float: left;
+    height: 19px;
+  }
+  
+  .search_submit {
+    @include submit-button;
+    line-height: 17px;
+    cursor: pointer;
+  }
+}
+
+#block-views--exp-og_inwestycje-block_1 {
+  margin-bottom: 10px;
+}
+
+.views-exposed-widget {
+	#edit-field-in-d-nazwa-value { width: 350px; }
+	#edit-field-in-d-wojewodztwo-value-many-to-one-wrapper { margin-bottom: 3px; }
+	#edit-field-in-d-miasto-value { width: 150px; }
+	#edit-field-in-d-ulica-value { width: 250px; }
+	#edit-field-in-d-dzielnica-value { width: 135px; }
+	#edit-field-in-d-minmetr-value,
+	#edit-field-in-d-maxmetr-value,
+	#edit-field-in-d-minmetraz-value,
+	#edit-field-in-d-maxmetraz-value,
+	#edit-advanced-field-in-d-pietra-value {
+    width: 98px;
+	}
+	
+	#edit-submit-og-inwestycje,
+	#edit-cancel-modify {
+    margin: 0;
+  }
+}
+
+#views-exposed-form-og-inwestycje-page-1 {
+	background: $color-gray;
+	margin-bottom: 3em;
+  padding: 10px;
+  
+  #edit-field-in-d-wojewodztwo-value-many-to-one-wrapper {
+    width: 380px;
   }
 }

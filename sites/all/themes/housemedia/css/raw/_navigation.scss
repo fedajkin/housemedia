@@ -40,17 +40,6 @@ a {
   color: #244796;
 }
 
-.nav-group {
-  clear: both;
-  float: none;
-  margin: 0 auto;
-  overflow: visible;
-  padding: 0;
-  position: relative;
-  z-index: 10;
-  width: 960px;
-}
-
 #header-link1 {
   @include header-link;
   background: url(../img/header-icon1.png) no-repeat center 0;
@@ -67,13 +56,28 @@ a {
   margin-right: 150px;
 }
 
-#primary-menu {
-	@include horizontal-menu;
+.nav-group {
+  clear: both;
+  float: none;
+  margin: 0 auto;
+  overflow: visible;
+  padding: 0 0 20px 0;
+  position: relative;
+  z-index: 10;
+  width: 960px;
+  
+  #primary-menu {
+    @include horizontal-menu;
+    float: left;
+    margin: 0;
+    width: auto;
+  }
 }
 
 #content-tabs ul.primary {
 	@include horizontal-menu(3px);
 	border: 0;
+	margin: 0;
 	
 	li {
     margin-bottom: 3px;
@@ -84,6 +88,7 @@ a {
 }
 
 #breadcrumbs {
+	font-size: 12px;
   .breadcrumbs-inner {
     margin: 0;
   }

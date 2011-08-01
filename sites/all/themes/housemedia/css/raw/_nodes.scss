@@ -1,8 +1,39 @@
 
+.node { 
+  .meta {
+    background: $color-gray;
+    padding: 5px 6px;
+    
+    .submitted-by,
+    .userpoints-value,
+    .submitted-on {
+      font-size: 12px;
+    }
+    
+    .submitted-by {
+      margin-right: 5px;
+    }
+  }
+  .inner .content {
+    padding: 0;
+  }
+  .picture img {
+    margin-top: 0;
+  }
+  .groups {
+    margin-bottom: 1em;
+    .links {
+      font-size: 12px;
+    }
+  }
+}
+
 .node .inner .group-summary {
   clear: both;
   li {
     display: block;
+    &.available-flats {color: #226734;}
+    &.completion-date {color: #306dab;}
   }
 }
 
@@ -15,3 +46,11 @@
     width: 140px;
   }
 }
+
+.view-id-hm_investment_node {
+  .group-in-d-podstawowe {
+    margin-top: 0;
+  }
+}
+
+

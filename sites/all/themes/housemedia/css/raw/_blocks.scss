@@ -294,7 +294,8 @@
 }
 
 #group-vud-img {
-	margin-right: 10px;
+	margin: 0 10px 10px 0;
+	float: left;
   width: 150px;
   
   img {
@@ -305,5 +306,6 @@
 
 #quicktabs_container_hm_group_info_tabs {
   background: $color-gray;
+  padding: 20px 15px;
   min-height: 300px;
 }

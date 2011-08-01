@@ -10,8 +10,12 @@
     <?php if ($block->subject): ?>
     	<<?php print $subject_tag; ?> class="title block-title">
         <?php 
-          print $block->subject;
-          if ($subject_is_link) print ' &raquo;'; 
+          if ($subject_is_link) {
+            print $block->subject .' &raquo;';
+          }
+          else {
+            print check_plain($block->subject);
+          }
         ?>
     	</<?php print $subject_tag; ?>>
     <?php endif;?>

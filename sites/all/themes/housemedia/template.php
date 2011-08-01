@@ -110,7 +110,6 @@ function housemedia_preprocess_page(&$vars) {
   if (isset($vars['node']) && $vars['node']->type == 'group') {
     $vars['title'] = '';
   }
-  
 }
 
 /**
@@ -346,11 +345,7 @@ function housemedia_preprocess_block($variables) {
   }
 
   if ($block->module == 'commons_core' && $block->delta == 'commons_info') {
-    $block->content = '';
-  }
-  
-  if ($block->module == 'views' && $block->delta == '0cde383a1963a6ecc04a0e9e98fa4213') {
-    $block->subject = t('Calendar');
+    // $block->content = '';
   }
   
   if ($block->module == 'og_subgroups' && $block->delta == '0') {
@@ -387,6 +382,25 @@ function housemedia_boxes_box($block) {
   // currently work with WYSIWYG
   $output .= '</div>';
   return $output;
+}
+
+function housemedia_preprocess_views_exposed_form(&$vars) {
+
+  $fieldset = TRUE;
+
+  if (
+    $vars['form']['#id'] == 'views-exposed-form-og-inwestycje-block-1' ||
+    $vars['form']['#id'] == 'views-exposed-form-og-inwestycje-page-1' ||
+    $vars['form']['#id'] == 'views-exposed-form-og-search-default'
+   ) {
+    $fieldset = FALSE;
+  }
+  
+  if ($fieldset) {
+    drupal_add_js('misc/collapse.js');
+  }
+
+  $vars['exposed_fieldset'] = $fieldset;
 }
 
 function housemedia_commons_profile_image_action_links_block($picture, $links, $account) {
