@@ -1,0 +1,12 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.info b/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.info
+index 46f9074..c54b9e0 100644
+--- a/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.info
++++ b/profiles/drupal_commons/modules/features/commons_reputation/commons_reputation.info
+@@ -3,7 +3,6 @@ dependencies[] = "commons_core"
+ dependencies[] = "context"
+ dependencies[] = "features"
+ dependencies[] = "menu"
+-dependencies[] = "shoutbox_points"
+ dependencies[] = "strongarm"
+ dependencies[] = "upload"
+ dependencies[] = "user_badges"

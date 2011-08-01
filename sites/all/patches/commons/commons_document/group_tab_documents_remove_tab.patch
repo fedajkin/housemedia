@@ -1,0 +1,13 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_document/commons_document.views_default.inc b/profiles/drupal_commons/modules/features/commons_document/commons_document.views_default.inc
+index c8e2e59..b3e1d26 100644
+--- a/profiles/drupal_commons/modules/features/commons_document/commons_document.views_default.inc
++++ b/profiles/drupal_commons/modules/features/commons_document/commons_document.views_default.inc
+@@ -2202,7 +2202,7 @@ function commons_document_views_default_views() {
+   $handler = $view->new_display('page', 'Page', 'page_1');
+   $handler->override_option('path', 'node/%/content/documents');
+   $handler->override_option('menu', array(
+-    'type' => 'tab',
++    'type' => 'none',
+     'title' => 'Documents',
+     'description' => 'View the group documents',
+     'weight' => '10',

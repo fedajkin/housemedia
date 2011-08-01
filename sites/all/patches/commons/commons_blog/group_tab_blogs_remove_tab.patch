@@ -1,0 +1,13 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_blog/commons_blog.views_default.inc b/profiles/drupal_commons/modules/features/commons_blog/commons_blog.views_default.inc
+index a4416b7..4988182 100644
+--- a/profiles/drupal_commons/modules/features/commons_blog/commons_blog.views_default.inc
++++ b/profiles/drupal_commons/modules/features/commons_blog/commons_blog.views_default.inc
+@@ -2205,7 +2205,7 @@ function commons_blog_views_default_views() {
+   $handler = $view->new_display('page', 'Page', 'page_1');
+   $handler->override_option('path', 'node/%/content/blogs');
+   $handler->override_option('menu', array(
+-    'type' => 'tab',
++    'type' => 'none',
+     'title' => 'Blogs',
+     'description' => 'View the group blog posts',
+     'weight' => '4',
