@@ -1,11 +1,26 @@
 $color-black: #000;
 $color-blue-light: #90a3cd;
-$color-blue: #607bb0;
+$color-blue: #5D91C0;
+$color-blue-dark: #2C537C;
 $color-azure: #80bbed;
 $color-white: #fff;
 $color-gray: #eee;
 $color-gray-dark: #afafaf;
 $color-cherry: #a10d0d;
+
+@mixin vui-widget-updown-default {
+  border: 0 none;
+  color: $color-white;
+  height: 22px;
+  margin: 0;
+  width: 35px;
+}
+
+@mixin shadow {
+ -moz-box-shadow: 5px 5px 5px #ccc;
+ -webkit-box-shadow: 5px 5px 5px #ccc;
+ box-shadow: 5px 5px 5px #ccc;
+}
 
 @import "lib/clearfix";
 @import "commons_roots-style";
@@ -18,14 +33,6 @@ $color-cherry: #a10d0d;
 @import "forms";
 @import "print";
 
-@mixin vui-widget-updown-default {
-  border: 0 none;
-  color: $color-white;
-  height: 22px;
-  margin: 0;
-  width: 35px;
-}
-	
 .vud-widget-updown {
 	
 	width: 150px;

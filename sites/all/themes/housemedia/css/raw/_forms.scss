@@ -25,7 +25,8 @@ fieldset {
 }
 
 #search-theme-form {
-	background: $color-blue;
+	@include shadow;
+	background: #3e76b0;
   float: right;
   margin-right: 10px;
   padding: 5px;
@@ -74,5 +75,11 @@ fieldset {
   
   #edit-field-in-d-wojewodztwo-value-many-to-one-wrapper {
     width: 380px;
+  }
+}
+
+#views-exposed-form-og-search-default {
+  .form-submit {
+    margin-top: 0;
   }
 }

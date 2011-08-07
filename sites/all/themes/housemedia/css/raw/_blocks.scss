@@ -1,4 +1,7 @@
 @mixin block-gray-background { 
+	.block-title {
+    margin-bottom: 10px;
+  }
 	.content { 
     background-color: $color-gray;
     padding: 10px;
@@ -7,17 +10,22 @@
 
 .block { 
 	.block-title { 
+  	@include shadow;
     background-color: $color-blue;
 	  color: $color-white;
 	  font-size: 12px;
 	  font-weight: bold;
 	  padding: 5px 15px;
+    
 	  a {
       color: $color-white;
     }
   }
   .content {
 	 padding: 10px 3px 0;
+  }
+  .pager {
+    margin: 0.5em 0;
   }
 }
 
@@ -26,7 +34,9 @@
 #block-commons_profile-find_new_friends,
 #block-invite-0,
 #block-og_views-0,
-#block-og_subgroups-0 { 
+#block-og_subgroups-0,
+#block-views-hm_group_most_active-block_1,
+#block-views-hm_group_newest-block_1 { 
 	@include block-gray-background;
 }
 
@@ -243,7 +253,7 @@
 
 #block-gmap_location-0 {
 	.content {
-    padding: 0;
+    padding: 10px 0 0;
   }
 }
 
@@ -279,7 +289,7 @@
 }
 
 .calendar-calendar tr td.today {
-  background-color: $color-cherry;
+  background-color: $color-blue-dark;
   color: $color-white;
   font-weight: bold;
 }
@@ -294,7 +304,7 @@
 }
 
 #group-vud-img {
-	margin: 0 10px 10px 0;
+	margin: 0 20px 10px 0;
 	float: left;
   width: 150px;
   

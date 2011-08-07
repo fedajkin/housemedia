@@ -8,7 +8,12 @@
 </div>
 
 <h1><?php print check_plain($node->title); ?></h1>
-<?php print check_plain($node->og_description); ?>
+<p><?php print check_plain($node->og_description); ?></p>
+
+<div class="group-links clearfix">
+  <?php print l(t('Forum'), 'node/'. $node->nid .'/content/forum/view'); ?>
+  <?php print _hm_group_subscribe_link($node); ?>
+</div>
 
 <ul class="group-summary">
 	<?php if ($node->available_flats): ?>
@@ -37,8 +42,5 @@
 	  <?php print format_date($node->changed, 'custom', 'd F Y'); ?>
 	</li>
 </ul>
-
-<?php
-// dsm($node);
 
 
