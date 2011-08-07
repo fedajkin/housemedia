@@ -1,0 +1,13 @@
+diff --git a/sites/all/modules/contrib/sts_commons_forum/sts_commons_forum.features.views.inc b/sites/all/modules/contrib/sts_commons_forum/sts_commons_forum.features.views.inc
+index 59b1795..9eb45c5 100644
+--- a/sites/all/modules/contrib/sts_commons_forum/sts_commons_forum.features.views.inc
++++ b/sites/all/modules/contrib/sts_commons_forum/sts_commons_forum.features.views.inc
+@@ -303,7 +303,7 @@ drupal_set_title(check_plain($group->title . " - Forum"));
+   $handler = $view->new_display('page', 'Page', 'page_1');
+   $handler->override_option('path', 'node/%/content/forum/view');
+   $handler->override_option('menu', array(
+-    'type' => 'default tab',
++    'type' => 'none',
+     'title' => 'Forums',
+     'description' => 'View the different group forums',
+     'weight' => '-1',
