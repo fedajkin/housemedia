@@ -1,0 +1,2294 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  og.pages.inc,v 1.1.2.5 2010/03/14 07:57:59 amitaibu
+#  og_notifications.module,v 1.24.4.24 2010/02/07 13:36:25 amitaibu
+#  og.module,v 1.628.4.34 2010/02/21 17:32:35 amitaibu
+#  modules/og_views/includes/og_views_handler_field_og_is_manager.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_og_subscribe.inc: n/a
+#  og_access.module,v 1.32.4.6 2010/02/22 10:46:16 amitaibu
+#  og_actions.module,v 1.9.4.2 2009/06/09 01:04:44 weitzman
+#  og_views.views.inc,v 1.13.4.11 2010/03/04 07:28:59 amitaibu
+#  node-og-group-post.tpl.php,v 1.3 2008/11/09 17:17:54 weitzman
+#  og.info: n/a
+#  modules/og_access/og_access.info: n/a
+#  og_actions.info,v 1.2.4.1 2009/05/29 00:45:31 weitzman
+#  og_notifications.info,v 1.7 2008/10/29 19:59:23 dww
+#  og_views.info,v 1.3 2008/10/29 19:59:39 dww
+#  og.js,v 1.9.2.3 2010/01/24 14:44:56 amitaibu
+#  og.admin.inc,v 1.15.4.2 2009/06/22 15:59:27 weitzman
+#  og.install,v 1.71.4.6 2009/09/17 12:52:42 weitzman
+#  modules/og_views/includes/og_views_handler_filter_og_type_all.inc: n/a
+#  og_notifications.pages.inc,v 1.1.2.2 2010/02/07 13:36:25 amitaibu
+#  og.rules.inc,v 1.4.4.3 2010/03/14 08:24:16 amitaibu
+#  includes/og.xmlrpc.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_boolean_og_private.inc: n/a
+#  og_views.module,v 1.18.4.4 2009/06/09 11:42:46 weitzman
+#  og_notifications.install,v 1.9.4.3 2009/05/18 05:20:09 karthik
+#  modules/og_views/includes/og_views_handler_field_og_invite.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_og_managelinkmy.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_og_is_active.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_og_is_admin.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_og_managelink.inc: n/a
+#  modules/og_views/includes/og_views_handler_field_og_managelinkadmin.inc: n/a
+#  modules/og_views/includes/og_views_handler_filter_og_is_admin.inc: n/a
+#  modules/og_views/includes/og_views_handler_filter_og_type.inc: n/a
+#  modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-01-20 13:20+0100\n"
+"PO-Revision-Date: 2011-01-20 13:20+0100\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: og.pages.inc:17
+msgid "Send message to %group"
+msgstr "Wyślij wiadomość do grupy: %group"
+
+#: og.pages.inc:20
+msgid "Your message will be sent to all members of this group."
+msgstr ""
+"Twoja wiadomość zostanie wysłana do wszystkich członków tej "
+"grupy."
+
+#: og.pages.inc:25 modules/og_notifications/og_notifications.module:216
+msgid "Subject"
+msgstr "Temat"
+
+#: og.pages.inc:28
+msgid "Enter a subject for your message."
+msgstr "Podaj temat wiadomości."
+
+#: og.pages.inc:33 og.module:1429 modules/og_notifications/og_notifications.module:218
+msgid "Body"
+msgstr "Treść"
+
+#: og.pages.inc:36
+msgid "Enter a body for your message."
+msgstr "Wpisz treść wiadomości."
+
+#: og.pages.inc:39
+msgid "Send message"
+msgstr "Wyślij wiadomość"
+
+#: og.pages.inc:92
+msgid "You may not leave this group because it is a <em>closed</em> group. You should request removal from a group administrator."
+msgstr ""
+
+#: og.pages.inc:95
+msgid "You may not leave this group because you are its owner. A site administrator can assign ownership to another user and then you may leave."
+msgstr ""
+"Właściciel grupy nie może jej opuścić. Można to uczynić "
+"dopiero, gdy administrator witryny przydzieli grupę innej osobie."
+
+#: og.pages.inc:98
+msgid "Leave this group"
+msgstr "Opuść grupę"
+
+#: og.pages.inc:112
+msgid "Membership saved."
+msgstr ""
+
+#: og.pages.inc:122
+msgid "Are you sure you want to make !name a group administrator for the group %title?"
+msgstr "Czy na pewno chcesz aby użytkownik !name stał się zarządzającym grupy %title?"
+
+#: og.pages.inc:125
+msgid "Confirm"
+msgstr "Zatwierdź"
+
+#: og.pages.inc:126;166;331;361
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: og.pages.inc:137
+msgid "%name was promoted to <em>group administrator</em>."
+msgstr "%name został awansowany do roli <em>administratora grupy</em>."
+
+#: og.pages.inc:162
+msgid "Are you sure you want to remove !name as a group administrator for the group %title?"
+msgstr "Czy na pewno chcesz aby użytkownik !name przestał być zarządzającym grupy %title?"
+
+#: og.pages.inc:165;359
+msgid "Remove"
+msgstr "Usuń"
+
+#: og.pages.inc:177
+msgid "%name is no longer a <em>group administrator</em>."
+msgstr "%name nie jest już <em>zarządzającym grupy</em>."
+
+#: og.pages.inc:189
+msgid "Email addresses or usernames"
+msgstr "Adresy e-mail lub nazwy użytkowników"
+
+#: og.pages.inc:190
+msgid "Enter up to %max email addresses or usernames. Separate multiple addresses by commas or new lines. Each person will receive an invitation message from you."
+msgstr ""
+"Wprowadź do %max adresów e-mail lub nazw użytkowników, "
+"oddzielając je za pomocą przecinków lub umieszczając w osobnych "
+"wierszach. Każda z wymienionych osób otrzyma zaproszenie."
+
+#: og.pages.inc:194
+msgid "Personal message"
+msgstr "Własna wiadomość"
+
+#: og.pages.inc:195
+msgid "Optional. Enter a message which will become part of the invitation email."
+msgstr ""
+"Opcjonalnie. Możesz wprowadzić wiadomość, która zostanie "
+"przesłana wraz z zaproszeniem."
+
+#: og.pages.inc:197 og.module:113
+msgid "Send invitation"
+msgstr "Wyślij zaproszenie"
+
+#: og.pages.inc:212
+msgid "You may not specify more than %max email addresses or usernames."
+msgstr ""
+"Nie możesz wprowadzić więcej niż %max adresów e-mail lub nazw "
+"użytkowników."
+
+#: og.pages.inc:215
+msgid "You may not invite yourself - @self."
+msgstr ""
+
+#: og.pages.inc:239
+msgid "Invalid email address or username: @value."
+msgstr "Nieprawidłowy adres e-mail lub nazwa użytkownika: @value."
+
+#: og.pages.inc:277
+msgid "In order to join this group, you must <a href=\"!login\">login</a>. After you have successfully done so, you will need to request membership again."
+msgstr ""
+
+#: og.pages.inc:280
+msgid "In order to join this group, you must <a href=\"!login\">login</a> or <a href=\"!register\">register</a> a new account. After you have successfully done so, you will need to request membership again."
+msgstr ""
+"Aby dołączyć do grupy należy się <a "
+"href=\"!login\">zalogować</a> lub <a href=\"!register\">utworzyć "
+"nowe konto</a>, a następnie ponownie poprosić o członkostwo."
+
+#: og.pages.inc:301
+msgid "@user is already a member the group @group."
+msgstr "@user jest już członkiem grupy @group."
+
+#: og.pages.inc:318
+msgid "Additional details"
+msgstr "Dodatkowe informacje"
+
+#: og.pages.inc:319
+msgid "Add any detail which will help an administrator decide whether to approve or deny your membership request."
+msgstr ""
+"Proszę wprowadzić wszelkie informacje, które mogą pomóc "
+"zarządzającemu grupą zadecydować o akceptacji członkostwa."
+
+#: og.pages.inc:329
+msgid "Are you sure you want to join the group %title?"
+msgstr "Czy jesteś pewien, że chcesz dołączyć do grupy %title?"
+
+#: og.pages.inc:331 og.module:2318
+msgid "Join"
+msgstr "Dołącz"
+
+#: og.pages.inc:354
+msgid "Are you sure you want to leave the group %title?"
+msgstr "Czy na pewno chcesz opuścić grupę %title?"
+
+#: og.pages.inc:355
+msgid "Leave"
+msgstr "Opuść"
+
+#: og.pages.inc:358
+msgid "Are you sure you want to remove !name from the group %title?"
+msgstr "Czy na pewno usunąć użytkownika !name z grupy %title?"
+
+#: og.pages.inc:376
+msgid "You left the group %group."
+msgstr "Opuściłeś grupę %group."
+
+#: og.pages.inc:379
+msgid "%user removed from %group."
+msgstr "Usunięto użytkownika %user z grupy %group."
+
+#: og.pages.inc:390
+msgid "List of users"
+msgstr "Lista użytkowników"
+
+#: og.pages.inc:395
+msgid "Add one or more usernames in order to associate users with this group. Multiple usernames should be separated by a comma."
+msgstr ""
+"Dodaj jedną lub więcej nazw użytkowników, którzy mają się stać "
+"członkami grupy. Nazwy użytkowników powinny być oddzielone "
+"przecinkami."
+
+#: og.pages.inc:398
+msgid "Add users"
+msgstr "Dodaj użytkowników"
+
+#: og.pages.inc:440
+msgid "Title"
+msgstr "Tytuł"
+
+#: og.pages.inc:441 modules/og_views/includes/og_views_handler_field_og_is_manager.inc:19
+msgid "Manager"
+msgstr "Zarządzający"
+
+#: og.pages.inc:442
+msgid "Posts"
+msgstr "Wpisy"
+
+#: og.pages.inc:443
+msgid "Comments"
+msgstr "Komentarze"
+
+#: og.pages.inc:444
+msgid "Age"
+msgstr "Wiek"
+
+#: og.pages.inc:445
+msgid "Last comment"
+msgstr "Ostatnia odpowiedź"
+
+#: og.pages.inc:459
+msgid "No groups available."
+msgstr "Żadna grupa nie jest dostępna."
+
+#: og.pages.inc:73
+msgid "1 message queued for delivery."
+msgid_plural "@count messages queued for delivery."
+msgstr[0] "1 wiadomość zaplanowana do wysłania"
+msgstr[1] "@count wiadomości zaplanowanych do wysłania."
+msgstr[2] "@count wiadomości zaplanowanych do wysłania."
+
+#: og.pages.inc:265
+msgid "1 invitation sent."
+msgid_plural "@count invitations sent."
+msgstr[0] "Wysłano 1 zaproszenie."
+msgstr[1] "Wysłano @count zaproszenia."
+msgstr[2] "Wysłano @count zaproszeń."
+
+#: og.pages.inc:418
+msgid "Unrecognized name: %bad."
+msgid_plural "Unrecognized names: %bad."
+msgstr[0] "Nierozpoznana nazwa użytkownika: %bad"
+msgstr[1] "Nierozpoznane nazwy użytkowników: %bad"
+msgstr[2] "Nierozpoznane nazwy użytkowników: %bad"
+
+#: og.pages.inc:434
+msgid "1 user added to the group."
+msgid_plural "@count users added to the group."
+msgstr[0] "Do grupy dodano 1 użytkownika."
+msgstr[1] "Do grupy dodano @count użytkowników."
+msgstr[2] "Do grupy dodano @count użytkowników."
+
+#: og.module:32
+msgid "Group specific blocks are only visible on group pages and not on systemwide pages like the home page or admin pages."
+msgstr "Bloki danej grupy są widoczne tylko na jego stronach."
+
+#: og.module:35
+msgid "In order to let group admins determine their own group theme, you must enable multiple themes using <a href=\"@url\">theme configuration page</a>."
+msgstr ""
+
+#: og.module:219
+msgid "New user joins a group"
+msgstr ""
+
+#: og.module:222
+msgid "A user changes their subscription to a group"
+msgstr ""
+
+#: og.module:225
+msgid "A user deletes their subscription to a group"
+msgstr ""
+
+#: og.module:228
+msgid "A user has been approved for membership to a group"
+msgstr ""
+
+#: og.module:231
+msgid "A user is denied membership to a group"
+msgstr ""
+
+#: og.module:234
+msgid "A user requests membership to a group"
+msgstr ""
+
+#: og.module:237
+msgid "A new user is added as an admin to a group"
+msgstr ""
+
+#: og.module:747;776
+msgid "Bad token. You seem to have followed an invalid link."
+msgstr ""
+
+#: og.module:753
+msgid "!name already approved to group %group."
+msgstr ""
+
+#: og.module:758
+msgid "Membership request approved."
+msgstr "Wniosek o członkostwo zatwierdzony."
+
+#: og.module:781
+msgid "Membership request denied."
+msgstr "Wniosek o członkostwo odrzucony."
+
+#: og.module:817
+msgid "Membership request to the %group group was rejected; the anonymous user may not join a group."
+msgstr ""
+
+#: og.module:852
+msgid "Membership request to the %group group awaits approval by an administrator."
+msgstr ""
+"Wniosek o członkostwo w grupie %group oczekuje na zatwierdzenie przez "
+"zarządzającego grupą."
+
+#: og.module:858
+msgid "You are now a member of %group."
+msgstr "Jesteś teraz członkiem grupy: %group"
+
+#: og.module:868
+msgid "Membership request to the %group group was rejected, only group administrators can add users to this group."
+msgstr ""
+
+#: og.module:960;1038;1470
+msgid "Description"
+msgstr "Opis"
+
+#: og.module:985
+msgid "No posts in this group."
+msgstr "Brak wpisów w tej grupie."
+
+#: og.module:990
+msgid "No public posts in this group. You must <a href=\"!login\">login</a> and become a member in order to post messages, and view any private posts."
+msgstr ""
+
+#: og.module:993
+msgid "No public posts in this group. You must <a href=\"!register\">register</a> or <a href=\"!login\">login</a> and become a member in order to post messages, and view any private posts."
+msgstr ""
+"Brak publicznych wpisów w tej grupie. By dodawać wpisy lub "
+"przeglądać wpisy oznaczone jako prywatne, należy <a "
+"href=\"!register\">utworzyć konto</a> lub się <a "
+"href=\"!login\">zalogować</a> oraz być członkiem grupy."
+
+#: og.module:998
+msgid "No public posts in this group. Consider <a href=\"!url\">joining this group</a> in order to view its posts."
+msgstr ""
+"Brak publicznych wpisów w tej grupie. By przeglądać wpisy prywatne, "
+"należy <a href=\"!url\">dołączyć do grupy</a>."
+
+#: og.module:1001
+msgid "No public posts in this group."
+msgstr "Brak dostępnych publicznie wpisów w tej grupie."
+
+#: og.module:1009
+msgid "Open"
+msgstr "Otwarty"
+
+#: og.module:1010
+msgid "Moderated"
+msgstr "Moderowane"
+
+#: og.module:1011 modules/og_views/includes/og_views_handler_field_og_subscribe.inc:25
+msgid "Invite only"
+msgstr "Za zaproszeniem"
+
+#: og.module:1012 modules/og_views/includes/og_views_handler_field_og_subscribe.inc:23
+msgid "Closed"
+msgstr "Zamknięta"
+
+#: og.module:1043
+msgid "A brief description for the group details block and the group directory."
+msgstr ""
+"Krótki opis grupy widoczny w \"szczegółach grupy\" oraz w "
+"\"katalogu grup\"."
+
+#: og.module:1049
+msgid "Open - membership requests are accepted immediately."
+msgstr "Otwarta - wnioski o członkostwo akceptowane są automatycznie."
+
+#: og.module:1050
+msgid "Moderated - membership requests must be approved."
+msgstr "Moderowana - wniosek o członkostwo musi zostać zaakceptowany."
+
+#: og.module:1051
+msgid "Invite only - membership must be created by an administrator."
+msgstr ""
+"Tylko na zaproszenie - członek grupy musi zostać dodany przez "
+"zarządzającego grupą."
+
+#: og.module:1052
+msgid "Closed - membership is exclusively managed by an administrator."
+msgstr "Zamknięta - tylko zarządzający grupą administruje członkostwami."
+
+#: og.module:1056;1475
+msgid "Membership requests"
+msgstr "Wnioski o członkostwo"
+
+#: og.module:1061
+msgid "How should membership requests be handled in this group? When you select <em>closed</em>, users will not be able to join <strong>or</strong> leave."
+msgstr ""
+"Jak powinny być traktowane wnioski o członkostwo w grupie? Do grupy "
+"<em>zamkniętej</em> nie można ani dołączyć, <strong>ani "
+"też</strong> jej opuścić."
+
+#: og.module:1087;1480
+msgid "Registration form"
+msgstr "Formularz tworzenia konta użytkownika"
+
+#: og.module:1090
+msgid "May users join this group during registration? If checked, a corresponding checkbox will be added to the registration form."
+msgstr ""
+"Czy użytkownicy mogą dołączyć do tej grupy w trakcie rejestracji? "
+"Jeśli tak (pole zaznaczone), odpowiedni checkbox będzie dodany do "
+"formularza rejestracyjnego."
+
+#: og.module:1118;1485
+msgid "List in groups directory"
+msgstr "Umieszczaj w katalogu grup"
+
+#: og.module:1121
+msgid "Should this group appear on the <a href=\"@url\">list of groups page</a> (requires OG Views module)? Disabled if the group is set to <em>private group</em>."
+msgstr ""
+"Czy grupa ma być wyświetlana na <a href=\"@url\">stronie z listą "
+"grup</a>. Wyłączone, jeśli grupa jest  <em>prywatna</em>."
+
+#: og.module:1129;1492
+msgid "Group language"
+msgstr "Język grupy"
+
+#: og.module:1131
+msgid "Language neutral"
+msgstr "Język niesprecyzowany"
+
+#: og.module:1133
+msgid "Selecting a different locale will change the interface language for all group pages and emails. Users who have chosen a preferred language always see their chosen language."
+msgstr ""
+"Wybór wersji językowej zmieni interfejs wszystkich stron grupy oraz "
+"wiadomości e-mail. Język interfejsu nie zmieni sią w przypadku "
+"użytkowników, którzy wskazali swój preferowany język."
+
+#: og.module:1138
+msgid "Selecting a different theme will change the look and feel of the group."
+msgstr "Wybranie innej skórki zmieni wygląd grupy."
+
+#: og.module:1252
+msgid "Home"
+msgstr "Strona główna"
+
+#: og.module:1254;1463;1976;2009 modules/og_access/og_access.module:238 modules/og_actions/og_actions.module:154;204;253;302 modules/og_views/og_views.views.inc:307 theme/node-og-group-post.tpl.php:77
+msgid "Groups"
+msgstr "Grupy"
+
+#: og.module:1297
+msgid "You must <a href=\"@join\">join a group</a> before posting on this web site."
+msgstr ""
+
+#: og.module:1430
+msgid "Mission statement"
+msgstr "Misja strony"
+
+#: og.module:1431
+msgid "A welcome greeting for your group home page. Consider listing the group objectives and mission."
+msgstr ""
+"Wiadomość powitalna na główną stronę grupy. Można w niej "
+"umieścić informacje o grupie."
+
+#: og.module:1434
+msgid "Group manager"
+msgstr "Opiekun grupy"
+
+#: og.module:1435
+msgid "Sticky at top of group home page and other lists."
+msgstr ""
+
+#: og.module:1464
+msgid "OG audience & Public checkbox."
+msgstr ""
+
+#: og.module:1464
+msgid "OG audience."
+msgstr ""
+
+#: og.module:1471
+msgid "Group description."
+msgstr ""
+
+#: og.module:1476
+msgid "Handling of group membership requests."
+msgstr ""
+
+#: og.module:1481
+msgid "Checkbox for visibility on registration form."
+msgstr ""
+
+#: og.module:1486
+msgid "Checkbox for visibility in the groups directory."
+msgstr ""
+
+#: og.module:1493
+msgid "The default interface language for this group."
+msgstr ""
+
+#: og.module:1522;136 og.info:0;0 modules/og_access/og_access.info:0 modules/og_actions/og_actions.info:0 modules/og_notifications/og_notifications.info:0 modules/og_views/og_views.views.inc:153;298;354;383;534 modules/og_views/og_views.info:0
+msgid "Organic groups"
+msgstr "Grupy"
+
+#: og.module:1535
+msgid "Organic groups usage"
+msgstr ""
+
+#: og.module:1538
+msgid "Specify how organic groups should treat nodes of this type. Nodes may behave as a group, as group posts, or may not participate in organic groups at all."
+msgstr ""
+
+#: og.module:1547
+msgid "Group limit"
+msgstr ""
+
+#: og.module:1550
+msgid "If the usage is standard group post, specify the number of groups the nodes of this type may be posted into. Leave blank for no limit."
+msgstr ""
+
+#: og.module:1570
+msgid "The group limit must be a positive integer"
+msgstr ""
+
+#: og.module:1589
+msgid "Do nothing."
+msgstr "Nie rób nic."
+
+#: og.module:1590
+msgid "Delete all group posts which don't also belong to another group."
+msgstr "Usuń wszystkie wpisy grupy, które nie należą do innej grupy."
+
+#: og.module:1592
+msgid "Move all group posts to the group listed below."
+msgstr "Przenieś wszystkie posty do grupy wymienionych poniżej."
+
+#: og.module:1593
+msgid "Move all group posts and memberships to the group listed below."
+msgstr "Przenieś wszystkie posty, grupy i członkostwa do grupy poniżej."
+
+#: og.module:1597
+msgid "Group posts"
+msgstr "Wpisy grupy"
+
+#: og.module:1601
+msgid "In addition to deleting this group, you choose how to disposition the posts and memberships within it."
+msgstr "Wybierz sposób zachowania się postów i członków tej grupy po jej usunięciu."
+
+#: og.module:1608
+msgid "Target group"
+msgstr "Grupa docelowa"
+
+#: og.module:1612
+msgid "If you chose <strong>Move all group posts</strong> above, specify a destination group."
+msgstr "Jeśli wybierzesz <strong>Przenieś wszystkie posty grupy</strong> powyżej, określ grupę docelową."
+
+#: og.module:1621
+msgid "Delete group"
+msgstr "Usuń grupę"
+
+#: og.module:1774;1803
+msgid "My groups"
+msgstr "Moje grupy"
+
+#: og.module:1775;1804
+msgid "Other groups"
+msgstr "Inne grupy"
+
+#: og.module:1856;1872
+msgid "Audience"
+msgstr "Odbiorcy"
+
+#: og.module:1882
+msgid "You must <a href=\"@join\">join a group</a> before posting a %type."
+msgstr ""
+
+#: og.module:1901
+msgid "@group: '@title' at @site"
+msgstr ""
+
+#: og.module:1903
+msgid "@type '@subject' by @username\n\n@node_teaser\n\n!read_more: !content_url\nPost reply: !reply_url\n\n--\nYou are subscribed from the group '@group' at @site.\nTo manage your subscription, visit !group_url"
+msgstr ""
+
+#: og.module:1907
+msgid "@body\n\n--\nThis message was sent by an administrator in the '@group' group at @site. To visit this group, browse to !url_group. To unsubscribe from this group, visit !url_unsubscribe"
+msgstr "@body\n\n--\nTa wiadomość została wysłana przez zarządzającego grupą '@group' w serwisie @site. Aby przejść na stronę grupy, kliknij w link !url_group. Aby wypisać się z tej grupy, wejdź na stronę !url_unsubscribe."
+
+#: og.module:1909
+msgid "Membership request approved for '@title'"
+msgstr ""
+
+#: og.module:1911
+msgid "You may now post messages in this group located at !group_url"
+msgstr "Od tej pory można dodawać wpisy do grupy !group_url"
+
+#: og.module:1913
+msgid "Membership request denied for '@title'"
+msgstr ""
+
+#: og.module:1915
+msgid "Sorry, your membership request was denied."
+msgstr ""
+
+#: og.module:1918
+msgid "Invitation to join the group '@group' at @site"
+msgstr ""
+
+#: og.module:1920
+msgid "Hi. I'm a member of '@group' and I welcome you to join this group as well. Please see the link and message below.\n\n@group\n@description\nJoin: !group_url\n@body"
+msgstr ""
+"Jestem członkiem grupy \"@group\" i chchiałbym Cię zaprosić do "
+"dołączenia do niej. Proszę, spójrz na poniższe informacje.\r\n"
+"\r\n"
+"@group\r\n"
+"@description\r\n"
+"Dołącz tutaj: !group_url\r\n"
+"@body"
+
+#: og.module:1922
+msgid "Membership request for '@group' from '@username'"
+msgstr "Prośba od użytkownika '@username' o członkostwo w grupie '@group'"
+
+#: og.module:1924
+msgid "To instantly approve this request, visit !approve_url.\nYou may deny this request or manage members at !group_url. \n\nPersonal message from @username:\n------------------\n\n@request"
+msgstr "Aby od razu zaakceptować tę prośbę, przejdź na stronę !approve_url.\nMożesz odrzucić tę prośbę lub zarządzać członkostwami na stronie !group_url. \n\nWiadomość od użytkownika @username:\n------------------\n\n@request"
+
+#: og.module:1926
+msgid "You are now an administrator for the group '@group'"
+msgstr "Zostałeś zarządzającym grupą '@group'"
+
+#: og.module:1928
+msgid "@username, you are now an administrator for the group '@group'.\n\nYou can administer this group by logging in here:\n !group_url"
+msgstr "@username, zostałeś zarządzającym grupą '@group'\n\nMożesz zarządzać tą grupą po zalogowaniu się na stronie !group_url"
+
+#: og.module:1969
+msgid "Join %name."
+msgstr "Dołącz do grupy %name."
+
+#: og.module:1971
+msgid "(approval needed)"
+msgstr "(potrzebne zatwierdzenie)"
+
+#: og.module:2058 og.js:0 modules/og_views/og_views.views.inc:406
+msgid "Group node"
+msgstr ""
+
+#: og.module:2059 og.js:0
+msgid "May not be posted into a group."
+msgstr ""
+
+#: og.module:2060
+msgid "Standard group post (typically only author may edit)."
+msgstr ""
+
+#: og.module:2064
+msgid "Wiki group post (any group member may edit)."
+msgstr ""
+
+#: og.module:2119 includes/og.admin.inc:37
+msgid "Group details"
+msgstr "Szczegółowe informacje o grupie"
+
+#: og.module:2125;2223
+msgid "New groups"
+msgstr "Nowe grupy"
+
+#: og.module:2163
+msgid "Maximum number of members to show"
+msgstr ""
+
+#: og.module:2169
+msgid "Group roles"
+msgstr ""
+
+#: og.module:2172
+msgid "Standard members"
+msgstr ""
+
+#: og.module:2173
+msgid "Administrators"
+msgstr ""
+
+#: og.module:2175
+msgid "You may specify which types of group members appear in the listing."
+msgstr ""
+
+#: og.module:2179
+msgid "Maximum number of groups to show"
+msgstr ""
+
+#: og.module:2206;2206
+msgid "OPML feed"
+msgstr "Kanał OPML"
+
+#: og.module:2221
+msgid "more"
+msgstr "więcej"
+
+#: og.module:2221
+msgid "Browse the newest groups."
+msgstr "Umożliwia przeglądanie najnowszych grup."
+
+#: og.module:2239
+msgid "Invite friend"
+msgstr "Zaproś znajomego"
+
+#: og.module:2242
+msgid "Manager: !name"
+msgstr "Zarządzający: !name"
+
+#: og.module:2245
+msgid "My membership"
+msgstr "Mój udział"
+
+#: og.module:2251
+msgid "Your membership request awaits approval."
+msgstr "Prośba o dołączenie do grupy oczekuje na akceptację."
+
+#: og.module:2252
+msgid "Delete request"
+msgstr "Usunięcie żądania"
+
+#: og.module:2257
+msgid "You must <a href=\"!login\">login</a> in order to post into this group."
+msgstr ""
+"Musisz się <a href=\"!login\">zalogować</a> żeby pisać wiadomości "
+"w tej grupie."
+
+#: og.module:2260
+msgid "You must <a href=\"!register\">register</a> or <a href=\"!login\">login</a> in order to post into this group."
+msgstr ""
+"By dodawać wpisy do tej grupy, należy <a "
+"href=\"!register\">utworzyć nowe konto</a> lub się <a "
+"href=\"!login\">zalogować</a>."
+
+#: og.module:2267
+msgid "This is an <em>invite only</em> group. The group administrators add/remove members as needed."
+msgstr ""
+"To jest grupa <em>tylko na zaproszenie</em>. Administratorzy grup "
+"dodają/usuwają członków grup."
+
+#: og.module:2270
+msgid "This is a <em>closed</em> group. The group administrators add/remove members as needed."
+msgstr ""
+"Ta grupa jest <em>zamknięta</em>. Administratorzy grup "
+"dodają/usuwają członków grup."
+
+#: og.module:2315
+msgid "Request membership"
+msgstr "Prośba o członkostwo"
+
+#: og.module:2336
+msgid "Create !type"
+msgstr "Utwórz !type"
+
+#: og.module:2337
+msgid "Add a new !type in this group."
+msgstr "Dodaj nowy !type do tej grupy."
+
+#: og.module:2353
+msgid "(pending approval)"
+msgstr ""
+
+#: og.module:2367
+msgid "Add a user to a group."
+msgstr ""
+
+#: og.module:2372
+msgid "All members for a given group."
+msgstr ""
+
+#: og.module:2377
+msgid "Retrieve the group memberships for a given user."
+msgstr ""
+
+#: og.module:2386
+msgid "Title of top group"
+msgstr ""
+
+#: og.module:2387
+msgid "Unfiltered title of top group. WARNING - raw user input."
+msgstr ""
+
+#: og.module:2388
+msgid "ID of top group"
+msgstr "ID grupy nadrzędnej"
+
+#: og.module:2389
+msgid "Type of top group"
+msgstr ""
+
+#: og.module:2390
+msgid "URL alias for the top group."
+msgstr ""
+
+#: og.module:2431
+msgid "README file"
+msgstr ""
+
+#: og.module:1307
+msgid "The audience for this post may not exceed !max_number group."
+msgid_plural "The audience for this post may not exceed !max_number groups."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: og.module:1378
+msgid "1 group"
+msgid_plural "@count groups"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: og.module:1668
+msgid "Deleted 1 orphan post."
+msgid_plural "Deleted @count orphan posts."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: og.module:1671
+msgid "Moved 1 orphan post."
+msgid_plural "Moved @count orphan posts."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: og.module:1693
+msgid "Moved 1 membership."
+msgid_plural "Moved @count memberships."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: og.module:1869
+msgid " Limited to !max_groups choice."
+msgid_plural " Limited to !max_groups choices."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: og.module:1876
+msgid "Show this post in this group."
+msgid_plural "Show this post in these groups."
+msgstr[0] "Pokaż wpis w tej grupie."
+msgstr[1] "Pokaż wpis w wybranych grupach."
+msgstr[2] "Pokaż wpis w wybranych grupach."
+
+#: og.module:2307
+msgid "1 member"
+msgid_plural "@count members"
+msgstr[0] "1 członek"
+msgstr[1] "@count członków"
+msgstr[2] "@count członków"
+
+#: og.module:519
+msgid "administer organic groups"
+msgstr "zarządzanie Grupami"
+
+#: og.module:53
+msgid "Join group"
+msgstr "Dołącz do grupy"
+
+#: og.module:60
+msgid "OPML"
+msgstr "OPML"
+
+#: og.module:69
+msgid "Leave group"
+msgstr ""
+
+#: og.module:78
+msgid "Approve membership request"
+msgstr "Zatwierdź prośbę o członkostwo"
+
+#: og.module:86
+msgid "Deny membership request"
+msgstr ""
+
+#: og.module:94
+msgid "Create group administrator"
+msgstr "Nadaj uprawnienia do administrowania grupą"
+
+#: og.module:103
+msgid "Delete group administrator"
+msgstr "Odbierz uprawnienia do administrowania grupą"
+
+#: og.module:122
+msgid "Manage membership"
+msgstr "Zarządzaj członkostwem"
+
+#: og.module:128
+msgid "Group activity"
+msgstr "Ostatnio w grupach"
+
+#: og.module:137
+msgid "Administer the suite of Organic groups modules."
+msgstr "Zarządzaj modułami obsługi grup."
+
+#: og.module:148
+msgid "Organic groups configuration"
+msgstr "Konfiguracja grup"
+
+#: og.module:150
+msgid "Configure the main Organic groups module (og)."
+msgstr ""
+
+#: og.module:159
+msgid "Add members"
+msgstr "Dodaj członków"
+
+#: og.module:170
+msgid "Broadcast"
+msgstr "Wiadomość do grupy"
+
+#: og.install:161
+msgid "Organic groups module enabled. Please see the included !readme_file for further installation instructions."
+msgstr ""
+
+#: (duplicate) og.install:484 
+msgid "Organic groups group type"
+msgstr "Rodzaj zawartości pełniący rolę grupy"
+
+#: (duplicate) og.install:485  modules/og_views/includes/og_views_handler_filter_og_type_all.inc:11
+msgid "You have no node types which are acting as groups. See the notes section of the !readme_file and the content types fieldset at top of <a href=\"!settings\">OG settings</a>."
+msgstr ""
+
+#: (duplicate) og.install:492  modules/og_access/og_access.info:0
+msgid "Organic groups access control"
+msgstr "Kontrola dostępu modułu obsługi grup"
+
+#: (duplicate) og.install:493 
+msgid "Organic groups access control module is disabled. See the <a href=\"@modules\">modules page</a>."
+msgstr ""
+
+#: og.info:0
+msgid "Enable users to create and manage groups.  OG Views integration module is recommended for best experience."
+msgstr ""
+
+#: og.js:0
+msgid "Standard group post"
+msgstr ""
+
+#: og.js:0
+msgid "Wiki group post"
+msgstr ""
+
+#: includes/og.admin.inc:11
+msgid "You must designate at least one content type to act as a group node and another as a group post. <a href=\"!create\">Create new content type</a> if needed."
+msgstr ""
+
+#: includes/og.admin.inc:15
+msgid "Content types"
+msgstr "Rodzaje zawartości"
+
+#: includes/og.admin.inc:16
+msgid "You may <a href=\"!create\">create new content types</a> as needed. Note that you may have multiple types acting as groups and multiple types are allowed as group posts."
+msgstr ""
+
+#: includes/og.admin.inc:21 modules/og_notifications/og_notifications.pages.inc:58;149
+msgid "Type"
+msgstr "Typ"
+
+#: includes/og.admin.inc:21
+msgid "Usage"
+msgstr ""
+
+#: includes/og.admin.inc:21
+msgid "Operations"
+msgstr "Czynności"
+
+#: includes/og.admin.inc:29
+msgid "Edit"
+msgstr "Edytuj"
+
+#: includes/og.admin.inc:43
+msgid "New groups don't appear in the groups directory. Administrators control the directory exclusively."
+msgstr ""
+"Nowe grupy nie są automatycznie umieszczane w katalogu. "
+"Administratorzy sami to kontrolują."
+
+#: includes/og.admin.inc:44
+msgid "New groups always appear in the groups directory."
+msgstr "Nowe grupy są automatycznie umieszczane w katalogu."
+
+#: includes/og.admin.inc:45
+msgid "Group creator chooses whether her group appears in the directory. Defaults to <em>in directory</em>."
+msgstr ""
+
+#: includes/og.admin.inc:46
+msgid "Group creator chooses whether her group appears in the directory. Defaults to <em>not in directory</em>."
+msgstr ""
+
+#: includes/og.admin.inc:50
+msgid "Groups directory control"
+msgstr "Katalog grup"
+
+#: includes/og.admin.inc:52
+msgid "Site admins always see the checkbox for adding a group to the <em>groups directory</em>. Note that changing this setting has no effect on existing posts. Re-save those posts to acquire this new setting."
+msgstr ""
+
+#: includes/og.admin.inc:58
+msgid "New groups don't appear on the registration form. Administrators control the form exclusively."
+msgstr ""
+"Nowe grupy nie pojawiają się na formularzu tworzenia konta. "
+"Administratorzy sami o tym decydują."
+
+#: includes/og.admin.inc:59
+msgid "New groups always appear on the registration form."
+msgstr "Nowe grupy zawsze pojawiają się na formularzu tworzenia konta."
+
+#: includes/og.admin.inc:60
+msgid "Group creator chooses whether her group appears on the registration form. Defaults to <em>on form</em>."
+msgstr ""
+
+#: includes/og.admin.inc:61
+msgid "Group creator chooses whether her group appears on the registration form. Defaults to <em>not on form</em>."
+msgstr ""
+
+#: includes/og.admin.inc:65
+msgid "Registration form control"
+msgstr "Formularz tworzenia konta"
+
+#: includes/og.admin.inc:67
+msgid "OG admins always see the checkbox for adding a group to the <em>registration form</em>. Note that changing this setting has no effect on existing posts. Re-save those posts to acquire this new setting."
+msgstr ""
+
+#: includes/og.admin.inc:74
+msgid "Audience checkboxes"
+msgstr "Pola wyboru odbiorców"
+
+#: includes/og.admin.inc:76
+msgid "Show each group that the user is a member of as a checkbox in the \"Audience\" section. This enables the member to place her post into multiple groups. If unchecked, simplify the user interface by omitting the checkboxes and assuming user wants to post into the current group. This simplification only applies to new nodes, and not to edits of existing nodes. Group administrators always see checkboxes."
+msgstr ""
+
+#: includes/og.admin.inc:80
+msgid "Optional"
+msgstr "Opcjonalny"
+
+#: includes/og.admin.inc:80
+msgid "Required"
+msgstr "Wymagany"
+
+#: includes/og.admin.inc:83
+msgid "Audience required"
+msgstr "Wybór odbiorców"
+
+#: includes/og.admin.inc:86
+msgid "Do you require that all (non administrator) posts be affiliated with a group? Note that changing this setting will affect existing posts when they are edited."
+msgstr ""
+"Czy wymagany jest wybór odbiorców (tj. grupy) dla każdego wpisu, "
+"którego nie stworzył administrator?. Zmiana tego ustawienia będzie "
+"miała wpływ na istniejące wpisy poddawane edycji."
+
+#: includes/og.admin.inc:93
+msgid "Messaging & Notifications"
+msgstr "Wiadomości i powiadomienia"
+
+#: includes/og.admin.inc:99
+msgid "Format of \"From:\" field"
+msgstr ""
+
+#: includes/og.admin.inc:101
+msgid "Specify the format of the \"From:\" field on outgoing notifications. Available variables: @user_mail, @user_name, @site_mail, @site_name. Note that the @user_mail token reveals the author's email address. If the admin email examples above appear blank, you need to set your site email in the \"Site information\" panel."
+msgstr ""
+
+#: includes/og.admin.inc:105
+msgid "New content subject"
+msgstr "Tytuł nowego wpisu"
+
+#: includes/og.admin.inc:106
+msgid "Subject of notification message for new content. Available variables: @group, !group_url, @type, @site, !content_url, !reply_url, @title, @subject, @node_full, @node_teaser, @username. %subject contains the comment title in the case of a comment but the node title in the case of a new post. @title is always the node title."
+msgstr ""
+
+#: includes/og.admin.inc:111
+msgid "New content body"
+msgstr "Treść nowego wpisu"
+
+#: includes/og.admin.inc:113
+msgid "Body of the notification for new content. Available variables: @group, !group_url, @type, @site, !content_url, !reply_url, @title, @subject, @node_full, @node_teaser, @username. @subject contains the comment title in the case of a comment but the node title in the case of a new post. %title is always the node title."
+msgstr ""
+
+#: includes/og.admin.inc:118
+msgid "Group admin notification body"
+msgstr ""
+
+#: includes/og.admin.inc:120
+msgid "The body of the message sent to users from the group admin. Available variables: @group, @body, @site, !url_group, !url_unsubscribe"
+msgstr ""
+
+#: includes/og.admin.inc:125
+msgid "User approved notification subject"
+msgstr ""
+
+#: includes/og.admin.inc:126
+msgid "The subject of the message sent to new approved members. Available variables: !group_url, @title"
+msgstr ""
+
+#: includes/og.admin.inc:131
+msgid "User approved notification body"
+msgstr ""
+
+#: includes/og.admin.inc:133
+msgid "The body of the message sent to new approved members. Available variables: !group_url, @title"
+msgstr ""
+
+#: includes/og.admin.inc:138
+msgid "User denied notification subject"
+msgstr ""
+
+#: includes/og.admin.inc:139
+msgid "The subject of the message sent to denied users. Available variables: !group_url, @title"
+msgstr ""
+
+#: includes/og.admin.inc:144
+msgid "User denied notification body"
+msgstr ""
+
+#: includes/og.admin.inc:146
+msgid "The body of the message sent to denied users. Available variables: !group_url, @title"
+msgstr ""
+
+#: includes/og.admin.inc:151
+msgid "Invite user notification subject"
+msgstr ""
+
+#: includes/og.admin.inc:152
+msgid "The subject of the message sent to users invited to join a group. Available variables: @group, @site, @description, !group_url, @body"
+msgstr ""
+
+#: includes/og.admin.inc:157
+msgid "Invite user notification body"
+msgstr ""
+
+#: includes/og.admin.inc:159
+msgid "The body of the message sent to users invited to join a group. Available variables: @group, @site, @description, !group_url, @body"
+msgstr ""
+
+#: includes/og.admin.inc:164
+msgid "Request user notification subject"
+msgstr ""
+
+#: includes/og.admin.inc:165
+msgid "The subject of the message sent to a user's request to join a group. Available variables: @group, @username, !approve_url, !group_url"
+msgstr ""
+
+#: includes/og.admin.inc:170
+msgid "Request user notification body"
+msgstr ""
+
+#: includes/og.admin.inc:172
+msgid "The body of the message sent to a user's request to join a group. Available variables: @group, @username, !approve_url, !group_url"
+msgstr ""
+
+#: includes/og.admin.inc:177
+msgid "New admin user notification subject"
+msgstr ""
+
+#: includes/og.admin.inc:178
+msgid "The subject of the message sent to a new admin for a group. Available variables: @group, @username, !group_url"
+msgstr ""
+
+#: includes/og.admin.inc:183
+msgid "New admin user notification body"
+msgstr ""
+
+#: includes/og.admin.inc:185
+msgid "The body of the message sent to a new admin for a group. Available variables: @group, @username, !group_url, !invite_url"
+msgstr ""
+
+#: includes/og.rules.inc:15
+msgid "User subscribes to group"
+msgstr ""
+
+#: includes/og.rules.inc:16
+msgid "A user has subscribed to a group and is approved. If the user isn't approved then this event won't be triggered."
+msgstr ""
+
+#: includes/og.rules.inc:21
+msgid "User approved to group by admin"
+msgstr ""
+
+#: includes/og.rules.inc:26
+msgid "User unsubscribes from group"
+msgstr ""
+
+#: includes/og.rules.inc:51
+msgid "User that subscribed to the group"
+msgstr ""
+
+#: includes/og.rules.inc:56;245;256 modules/og_actions/og_actions.module:351;399;447;494 modules/og_notifications/og_notifications.pages.inc:58;148 modules/og_notifications/og_notifications.module:332 modules/og_views/og_views.views.inc:395
+msgid "Group"
+msgstr "Grupa"
+
+#: includes/og.rules.inc:82
+msgid "Subscribe user to group"
+msgstr ""
+
+#: includes/og.rules.inc:86
+msgid "User who will be subscribed"
+msgstr ""
+
+#: includes/og.rules.inc:90
+msgid "Group that user will be subscribed to"
+msgstr ""
+
+#: includes/og.rules.inc:96
+msgid "Unsubscribe user from group"
+msgstr ""
+
+#: includes/og.rules.inc:99
+msgid "User who will be unsubscribed"
+msgstr ""
+
+#: includes/og.rules.inc:103
+msgid "Group that user will be unsubscribed from"
+msgstr ""
+
+#: includes/og.rules.inc:109
+msgid "Add group node settings to content"
+msgstr ""
+
+#: includes/og.rules.inc:113
+msgid "Content that will become a group node"
+msgstr ""
+
+#: includes/og.rules.inc:116
+msgid "When creating a group node organic groups module requires some group settings. This action should be used after 'Add new content' action, that adds a <a href=\"@group-node-type\">group node type</a> content, and will result with a new group node."
+msgstr ""
+
+#: includes/og.rules.inc:120
+msgid "Add group to audience of content"
+msgstr ""
+
+#: includes/og.rules.inc:124;139
+msgid "Content whose audience is changed"
+msgstr ""
+
+#: includes/og.rules.inc:128
+msgid "Group that will be added to audience"
+msgstr ""
+
+#: includes/og.rules.inc:131
+msgid "Note, that group node id must be known when this action runs, so for it to work on newly created group you must save that group first."
+msgstr ""
+
+#: includes/og.rules.inc:135
+msgid "Remove group from audience of content"
+msgstr ""
+
+#: includes/og.rules.inc:143
+msgid "Group that will be removed from audience"
+msgstr ""
+
+#: includes/og.rules.inc:192
+msgid "Subscription is approved"
+msgstr ""
+
+#: includes/og.rules.inc:193
+msgid "When enabled the user will automatically be approved. When disabled user will be a pending member."
+msgstr ""
+
+#: includes/og.rules.inc:226
+msgid "Organic groups form settings"
+msgstr ""
+
+#: includes/og.rules.inc:237
+msgid "User is group member"
+msgstr ""
+
+#: includes/og.rules.inc:241
+msgid "User"
+msgstr "Użytkownik"
+
+#: includes/og.rules.inc:248
+msgid "Evaluates to TRUE if the user is an approved member of the group. If the user is a pending member this condition will return FALSE."
+msgstr ""
+
+#: includes/og.rules.inc:252
+msgid "Content is a group"
+msgstr ""
+
+#: includes/og.rules.inc:259
+msgid "Evaluates to TRUE if the content is a group."
+msgstr ""
+
+#: includes/og.rules.inc:263
+msgid "Content is a group post"
+msgstr ""
+
+#: includes/og.rules.inc:267
+msgid "Group post"
+msgstr ""
+
+#: includes/og.rules.inc:270
+msgid "Evaluates to TRUE if the content is a group post."
+msgstr ""
+
+#: includes/og.rules.inc:289
+msgid "Include admins"
+msgstr ""
+
+#: includes/og.rules.inc:290
+msgid "When enabled, users with \"administer nodes\" permission will always be treated as group members."
+msgstr ""
+
+#: includes/og.xmlrpc.inc:13
+msgid "Unrecognized user ID: %uid."
+msgstr ""
+
+#: includes/og.xmlrpc.inc:17;37;52
+msgid "Wrong username or password."
+msgstr "Nieprawidłowa nazwa użytkownika lub hasło."
+
+#: includes/og.xmlrpc.inc:33
+msgid "User is not a member of the specified group."
+msgstr ""
+
+#: includes/og.xmlrpc.inc:48
+msgid "User is not allowed to retrieve membership information for another user."
+msgstr ""
+
+#: modules/og_access/og_access.module:80
+msgid "Visible only within the targeted groups."
+msgstr ""
+
+#: modules/og_access/og_access.module:81
+msgid "Visible within the targeted groups and on other pages."
+msgstr ""
+
+#: modules/og_access/og_access.module:82
+msgid "Visibility chosen by author/editor using a checkbox on the posting form. Checkbox defaults to <em>public</em>."
+msgstr ""
+
+#: modules/og_access/og_access.module:83
+msgid "Visibility chosen by author/editor using a checkbox on the posting form. Checkbox defaults to <em>private</em>."
+msgstr ""
+
+#: modules/og_access/og_access.module:87
+msgid "Visibility of posts"
+msgstr "Widzialność wpisów"
+
+#: modules/og_access/og_access.module:89
+msgid "Determine how broadly available a given post should be when it is affiliated with a group. OG admins always see the checkbox for making a post public. Note that changing this setting has no effect on existing posts. Re-save those posts to acquire this new setting. If the setting you want is disabled here, check the settings under <em>Private Groups</em> setting below. You cannot set node visibility to always be public if private groups are set to always on and vice versa."
+msgstr ""
+
+#: modules/og_access/og_access.module:95
+msgid "New group home pages and default audience are always public."
+msgstr ""
+
+#: modules/og_access/og_access.module:96
+msgid "New group home pages and default audience are always private."
+msgstr ""
+
+#: modules/og_access/og_access.module:97
+msgid "Group administrator chooses whether her group homepage and audience are private or not. Defaults to <em>private</em>."
+msgstr ""
+
+#: modules/og_access/og_access.module:98
+msgid "Group administrator chooses whether her group homepage and audience are private or not. Defaults to <em>public</em>."
+msgstr ""
+
+#: modules/og_access/og_access.module:102
+msgid "Private groups"
+msgstr ""
+
+#: modules/og_access/og_access.module:105
+msgid "A private group's group home page cannot be seen by non-members, and new posts created in the group will default to being private. This setting controls what private groups options can be used when creating a new group or editing an existing group. If you select one of the <em>group administrator chooses</em> options then it will be up to group admins whether their new groups are private or not, with the default you specify here."
+msgstr ""
+
+#: modules/og_access/og_access.module:105
+msgid "Note that the privacy of all <em>content</em> in the group is determined as each node is created or edited, according to the <em>Visibility of Posts</em> setting on this page. Note also that changing this setting only affects the default for new groups being created, not the privacy of any existing groups! To change those you must edit the groups and their individual content nodes directly. If the setting you want is disabled here, check <em>Visibility of Posts</em> above. You cannot choose to only have private groups if node visibility is set to be always public, and vice versa."
+msgstr ""
+
+#: modules/og_access/og_access.module:117;157
+msgid "Private group"
+msgstr "Grupa prywatna"
+
+#: modules/og_access/og_access.module:118
+msgid "Checkbox for visibility of group home page to non-members."
+msgstr ""
+
+#: modules/og_access/og_access.module:160
+msgid "Should this group be visible only to its members? Disabled if the group is set to <em>List in Directory</em> or <em>Membership requests: open</em>."
+msgstr ""
+"Czy ta grupa jest widoczna tylko dla jej członków? Wyłączone, "
+"jeśli grupa pojawia się w katalogu lub jest otwarta."
+
+#: modules/og_access/og_access.module:219;228 modules/og_views/og_views.views.inc:370 modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:35
+msgid "Public"
+msgstr "Publiczna"
+
+#: modules/og_access/og_access.module:221;230
+msgid "Show this post to everyone, or only to members of the groups checked above. Posts without any groups are always <em>public</em>."
+msgstr "Udostępnij ten wpis wszystkim użytkownikom lub tylko członkom zaznaczonych powyżej grup. Wpisy bez zaznaczonej jakiejkolwiek grupy zawsze pozostają <em>publiczne</em>."
+
+#: modules/og_access/og_access.module:380
+msgid "All users may view this node."
+msgstr "Wszyscy użytkownicy mogą oglądać tą zawartość."
+
+#: modules/og_access/og_access.module:384
+msgid "Members of <a href=\"@group-node\">@group-name</a> may view this node."
+msgstr "Użytkownicy gupy <a href=\"@group-node\">@group-name</a> mogą oglądać tą zawartość."
+
+#: modules/og_access/og_access.module:388
+msgid "Group admins of <a href=\"@group-node\">@group-name</a> may view/edit/delete this node."
+msgstr "Administratorzy grupy <a href=\"@group-node\">@group-name</a> mogą oglądać/edytować/usuwać tą zawartość."
+
+#: modules/og_access/og_access.module:18
+msgid "Organic groups access configuration"
+msgstr ""
+
+#: modules/og_access/og_access.module:19
+msgid "Choose whether new groups should be private or public."
+msgstr "Czy nowe grupy mają być prywatne czy publiczne."
+
+#: modules/og_access/og_access.info:0
+msgid "Enable access control for private posts and private groups."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:11
+msgid "Remove post from all groups"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:20
+msgid "Add post to the specified groups"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:29
+msgid "Remove post from the specified groups"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:38
+msgid "Subscribe user to the specified groups"
+msgstr "Uczyń użytkownika członkiem wybranych grup"
+
+#: modules/og_actions/og_actions.module:44
+msgid "Unsubscribe user from the specified groups"
+msgstr "Anuluj członkostwo użytkownika w wybranych grupach"
+
+#: modules/og_actions/og_actions.module:50
+msgid "Promote user to an administrator in the specified group"
+msgstr "Ustanów użytkownika administratorem grupy"
+
+#: modules/og_actions/og_actions.module:56
+msgid "Demote user from an administrator in the specified group"
+msgstr "Usuń uprawniania administracyjne użytkownika"
+
+#: modules/og_actions/og_actions.module:62
+msgid "Approve user subscription to the specified group"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:68
+msgid "Deny user subscription to the specified group"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:77
+msgid "Make post publicly visible"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:86
+msgid "Make post private to its groups"
+msgstr ""
+
+#: modules/og_actions/og_actions.module:156
+msgid "Select the groups to add to the node."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:163;262;311;359;407;455;502
+msgid "Please <a href=\"!url\">create</a> a group first."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:206
+msgid "Select the groups to remove from the node."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:213
+msgid "There are no groups. You must have at least one existing group with nodes assigned to use this action."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:255
+msgid "Select the groups to which this user should be subscribed."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:304
+msgid "Select the groups to which this user should be unsubscribed."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:353
+msgid "Select the group to which this user should be promoted."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:401
+msgid "Select the group from which this user should be demoted."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:449
+msgid "Select the group whose user subscription request should be approved."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:496
+msgid "Select the group whose user subscription request should be denied."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:104;114;124;137;187;235;284;333;381;429;476
+msgid "action"
+msgstr "działanie"
+
+#: modules/og_actions/og_actions.module:104
+msgid "Set node %id to public."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:114
+msgid "Set node %id to private."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:124
+msgid "Removed node %id from all groups."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:137
+msgid "Added node id %id to groups %groups."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:187
+msgid "Removed node id %id from groups %groups."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:235
+msgid "Subscribed user %name to groups %groups."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:284
+msgid "Unsubscribed user %name from groups %groups."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:333
+msgid "%name was promoted to <em>group administrator</em> in %group."
+msgstr "%name został awansowany do roli <em>administratora</em> grupy %group."
+
+#: modules/og_actions/og_actions.module:381
+msgid "Demoted user %name from <em>group administrator</em> in %group."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:429
+msgid "Approved user %name's subscription to %group."
+msgstr ""
+
+#: modules/og_actions/og_actions.module:476
+msgid "Denied user %name's subscription to %group."
+msgstr ""
+
+#: modules/og_actions/og_actions.info:0
+msgid "Organic groups actions"
+msgstr ""
+
+#: modules/og_actions/og_actions.info:0
+msgid "Provides actions for use with Organic Groups and Trigger."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.pages.inc:34
+msgid "There are no active group subscriptions available."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.pages.inc:58;150
+msgid "Send method"
+msgstr "Sposób powiadamiania"
+
+#: modules/og_notifications/og_notifications.pages.inc:58;151
+msgid "Send Interval"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.pages.inc:63
+msgid "Add subscription"
+msgstr "powiadomienia"
+
+#: modules/og_notifications/og_notifications.pages.inc:73
+msgid "All content types"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.pages.inc:97
+msgid "Add"
+msgstr "Dodaj"
+
+#: modules/og_notifications/og_notifications.pages.inc:129
+msgid "Subscription saved."
+msgstr "Ustawienia powiadomień zostały zapisane."
+
+#: modules/og_notifications/og_notifications.pages.inc:170
+msgid "Current subscriptions"
+msgstr "Aktualne subskrypcje"
+
+#: modules/og_notifications/og_notifications.pages.inc:215
+msgid "Update"
+msgstr "Aktualizuj"
+
+#: modules/og_notifications/og_notifications.pages.inc:246
+msgid "Subscriptions updated."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:19
+msgid "Customize notifications for each of your groups and each of their content types along with their frequency and delivery method."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:78
+msgid "Group subscriptions"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:92
+msgid "Allowed content types"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:95
+msgid "Select specific content types which should be <em>allowed</em> for subscriptions to <em>group + content type</em>."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:115
+msgid "Automatically enable notifications for any groups that I join."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:116
+msgid "Group notifications can also be <a href=\"!manage-url\">customized</a> in greater detail if required."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:124
+msgid "Node event notifications can be configured via the <a href=\"!url\">messaging templates</a> interface."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:128
+msgid "Autosubscribe users to any groups that they join."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:129
+msgid "Automatically enable notifications by default. Users can override this via their account page. Changing this setting will only affect new users and those who have not overridden the system default."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:186
+msgid "OG notifications (default)"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:187;193;199;205
+msgid "Most fields will be provided during the event."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:188
+msgid "Notifications for organic groups node events. Other group notification strings can be customized via the <a href=\"!url\">OG config</a> page."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:192
+msgid "OG notifications for new content"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:194
+msgid "Notifications for organic groups node creation events."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:198
+msgid "OG notifications for updated content"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:200
+msgid "Notifications for organic groups node update events."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:204
+msgid "OG notifications for comments"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:206
+msgid "Notifications for organic groups comment events."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:217
+msgid "Body header"
+msgstr "Nagłówek"
+
+#: modules/og_notifications/og_notifications.module:219
+msgid "Body footer"
+msgstr "Stopka"
+
+#: modules/og_notifications/og_notifications.module:226
+msgid "[site-name] [ogname]: [title]"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:227
+msgid "Greetings, [user],"
+msgstr "Witaj [user],"
+
+#: modules/og_notifications/og_notifications.module:229
+msgid "A [type-name] has been updated in group [ogname]: [title]"
+msgstr "W ramach grupy [ogname] została zaktualizowana zawartość [title] ([type-name])."
+
+#: modules/og_notifications/og_notifications.module:230;245
+msgid "[node-teaser]"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:231;246
+msgid "Read more at [node-url]."
+msgstr "Czytaj więcej na stronie [node-url]."
+
+#: modules/og_notifications/og_notifications.module:234
+msgid "This is an automatic message from [site-name]"
+msgstr "Wiadomość została wysłana automatycznie z [site-name]."
+
+#: modules/og_notifications/og_notifications.module:235
+msgid "To manage your subscriptions, browse to [subscriptions-manage]"
+msgstr ""
+"By zmienić ustawienia powiadomień, należy przejść na stronę "
+"[subscriptions-manage]"
+
+#: modules/og_notifications/og_notifications.module:244
+msgid "A [type-name] has been created in group [ogname]: [title]"
+msgstr "W ramach grupy [ogname] została utworzona zawartość [title] ([type-name])."
+
+#: modules/og_notifications/og_notifications.module:251
+msgid "A new comment has been added by [comment-author-name] to this thread in group [ogname]: [comment-title]"
+msgstr "użytkownik [comment-author-name] do wątku w grupie [ogname] dodał komentarz: [comment-title]"
+
+#: modules/og_notifications/og_notifications.module:252
+msgid "[comment-body]"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:253
+msgid "Read more at [comment-url] or reply via [comment-reply-url]."
+msgstr "Czytaj więcej na stronie [comment-url] lub odpowiedz poprzez stronę [comment-reply-url]."
+
+#: modules/og_notifications/og_notifications.module:315
+msgid "Group: %name"
+msgstr "Grupa: %name"
+
+#: modules/og_notifications/og_notifications.module:322
+msgid "Content type in group"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:327
+msgid "Subscribe to specific content within a group."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:342
+msgid "Content type"
+msgstr "Rodzaj zawartości"
+
+#: modules/og_notifications/og_notifications.module:510;524
+msgid "%type posts in %group"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:563
+msgid "Site default"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:564
+msgid "Disabled"
+msgstr "Wyłączony"
+
+#: modules/og_notifications/og_notifications.module:565
+msgid "Enabled"
+msgstr "Włączony"
+
+#: modules/og_notifications/og_notifications.module:46
+msgid "subscribe to content in groups"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.module:29 modules/og_views/og_views.module:119
+msgid "Group notifications"
+msgstr "Powiadomienia dla grupy"
+
+#: modules/og_notifications/og_notifications.install:14
+msgid "Organic groups notifications module installation script complete."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.install:106
+msgid "Organic groups notifications module uninstallation script complete."
+msgstr ""
+
+#: modules/og_notifications/og_notifications.info:0
+msgid "Organic Groups Notifications"
+msgstr ""
+
+#: modules/og_notifications/og_notifications.info:0
+msgid "Allows users to receive notifications and subscribe to group content."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:107
+msgid "Group nodes"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:114
+msgid "Current group node from context"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:162
+msgid "Group: Description"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:171
+msgid "Group: Members count"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:175
+msgid "Number of members for a group. Excludes memberships which are pending approval."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:179
+msgid "Group: Post count"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:183
+msgid "Number of published posts in a group."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:188
+msgid "Group: Post count *new*"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:192
+msgid "Number of new posts in a group for the current user."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:196
+msgid "Group: Selective"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:197
+msgid "The group preference which determines how membership requests are managed (moderated, invite only, etc.)."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:207
+msgid "Group: Private"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:208
+msgid "Is the group home page private or not."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:216 modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:35
+msgid "Private"
+msgstr "Prywatne"
+
+#: modules/og_views/og_views.views.inc:224
+msgid "Group: List in directory"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:225
+msgid "Admin specifies whether or not a group appears in the public listings."
+msgstr ""
+"Administrator decyduje, czy dana grupa ma się pojawić na publicznie "
+"dostępnej liście."
+
+#: modules/og_views/og_views.views.inc:234
+msgid "List in directory"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:242
+msgid "Group: Join link"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:243
+msgid "Displays a link for joining a group when a user is not already a member."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:249
+msgid "Group: Invite link"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:250
+msgid "Displays a link for inviting users to a group."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:257
+msgid "Group: Language"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:258
+msgid "Displays the language selected for a given group."
+msgstr "Wyświetla język danej grupy."
+
+#: modules/og_views/og_views.views.inc:275
+msgid "Group types"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:276;284
+msgid "The type of a group (for example, \"blog entry\", \"forum post\", \"story\", etc)."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:283
+msgid "Group types (all)"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:288
+msgid "Restrict to all content types that have been marked as groups."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:308
+msgid "The groups for a post."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:313;318
+msgid "Group node (post)"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:314
+msgid "Bring in information about the group node based on a post's groups."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:324
+msgid "<strong>Posts</strong> are filtered for specific organic groups."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:327
+msgid "Post: in specified group (by number)"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:331
+msgid "<strong>Posts</strong> are filtered for specified organic groups. The page context (if Display is a page) will be set to the first listed group. That means that blocks and breadcrumbs (and theme and locale, if applicable) will be based upon the first specified node id."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:335
+msgid "Post: Nid"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:336
+msgid "The node ID of the node."
+msgstr "Identyfikator segmentu."
+
+#: modules/og_views/og_views.views.inc:342
+msgid "OG: Posts in current group"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:343
+msgid "Posts in current group. Useful for blocks where determining context is hard. If page is not in any group context, no nodes are listed and thus a block would not appear."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:362
+msgid "Post: Public"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:363
+msgid "Is a given group post public or private according to OG."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:396
+msgid "Group that a member belongs to."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:398;403
+msgid "Group node (member)"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:399
+msgid "Bring in information about the group node based on a user's membership."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:408
+msgid "<strong>Members</strong> are filtered for a specific group."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:412
+msgid "User's groups"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:413
+msgid "Groups that a member belongs to."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:417
+msgid "OG: List of user's groups"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:421
+msgid "Group member"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:425
+msgid "OG: Group in current user's groups"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:428
+msgid "Member of a group"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:430
+msgid "OG: Group in specified user's groups. Note that OG usually considers a user's groups to be private information. You may want to add access control to your View or validation to this argument."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:434
+msgid "OG: Admin manage link"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:435
+msgid "A link to the <em>Admin create or remove</em> page."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:443
+msgid "OG: Edit membership link"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:444
+msgid "A link to the <em>My membership</em> page."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:452
+msgid "OG: Approve/Deny/Remove membership link"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:453
+msgid "A link to approve/deny/remove a group member."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:461
+msgid "OG: Is member an admin in a group"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:462
+msgid "Add <em>admin</em> text if user is the group manager."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:475
+msgid "OG: Is membership approved"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:476
+msgid "Appends <em>approval needed</em> if user's membership request is pending."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:483
+msgid "Approved"
+msgstr "Zatwierdzony"
+
+#: modules/og_views/og_views.views.inc:491
+msgid "OG: Is the group manager"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:492
+msgid "Add <em>manager</em> text if user is the group manager."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:500
+msgid "OG: Membership create date"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:501
+msgid "The date when the membership was created."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:514
+msgid "OG: Membership last updated date"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:515
+msgid "The date when the membership was last updated."
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:548
+msgid "OG: Notifications autosubscribe"
+msgstr ""
+
+#: modules/og_views/og_views.views.inc:549
+msgid "Does member receive email notifications for a group."
+msgstr ""
+
+#: modules/og_views/og_views.module:74
+msgid "Group search"
+msgstr ""
+
+#: modules/og_views/og_views.module:77
+msgid "Group notifications (Views enhanced)"
+msgstr ""
+
+#: modules/og_views/og_views.module:95
+msgid "This group offers an <a href=\"@groupfeed\">RSS feed</a>"
+msgstr ""
+
+#: modules/og_views/og_views.module:97
+msgid " and supports <a href=\"@notifications\">notifications</a>."
+msgstr ""
+
+#: modules/og_views/og_views.module:103
+msgid "Or subscribe to these personalized, sitewide feeds:"
+msgstr ""
+
+#: modules/og_views/og_views.module:106;110;114
+msgid "Feed"
+msgstr "Kanał informacyjny"
+
+#: modules/og_views/og_views.module:107;111;115
+msgid "Page"
+msgstr "Strona"
+
+#: modules/og_views/og_views.module:108
+msgid "My unread: !links"
+msgstr ""
+
+#: modules/og_views/og_views.module:112
+msgid "My group: !links"
+msgstr ""
+
+#: modules/og_views/og_views.module:116
+msgid "All posts: !links"
+msgstr ""
+
+#: modules/og_views/og_views.module:177
+msgid "Group home page view"
+msgstr ""
+
+#: modules/og_views/og_views.module:178
+msgid "Pick a View for your group home page. Only Views whose names start with <strong>og_ghp_</strong> are eligible. The View determines the layout of your group home page. You may alter the presentation using typical Views themeing techniques. See the Theme information link when editing your View and also see the Theme section of the !README. Also note that group admins can override this presentation using the included <em>Organic Groups Panels</em> module."
+msgstr ""
+
+#: modules/og_views/og_views.module:179
+msgid "None"
+msgstr "Brak"
+
+#: modules/og_views/og_views.module:189
+msgid "Search group"
+msgstr "Szukaj w grupie"
+
+#: modules/og_views/og_views.module:201
+msgid "The View %name was not found. Check your variables table or settings.php."
+msgstr ""
+
+#: modules/og_views/og_views.module:10
+msgid "Faces"
+msgstr "Twarze"
+
+#: modules/og_views/og_views.info:0
+msgid "Organic groups Views integration"
+msgstr ""
+
+#: modules/og_views/og_views.info:0
+msgid "<strong>Highly recommended.</strong>. Use Views to search and display organic groups."
+msgstr ""
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:11
+msgid "Private/Public"
+msgstr ""
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:29
+msgid "Yes"
+msgstr "Tak"
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:29
+msgid "No"
+msgstr "Nie"
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:31
+msgid "True"
+msgstr "Prawda"
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:31
+msgid "False"
+msgstr "Fałsz"
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:33
+msgid "On"
+msgstr "Włączony"
+
+#: modules/og_views/includes/og_views_handler_field_boolean_og_private.inc:33
+msgid "Off"
+msgstr "Wyłączony"
+
+#: modules/og_views/includes/og_views_handler_field_og_invite.inc:28 modules/og_views/includes/og_views_handler_field_og_managelinkmy.inc:13
+msgid "Text to display"
+msgstr "Tekst do wyświetlenia"
+
+#: modules/og_views/includes/og_views_handler_field_og_invite.inc:36
+msgid "Invite"
+msgstr ""
+
+#: modules/og_views/includes/og_views_handler_field_og_is_active.inc:12
+msgid "approval needed"
+msgstr "wymagane zatwierdzenie"
+
+#: modules/og_views/includes/og_views_handler_field_og_is_admin.inc:13
+msgid "admin"
+msgstr ""
+
+#: modules/og_views/includes/og_views_handler_field_og_managelink.inc:25
+msgid "Remove membership"
+msgstr "Usuń członkostwo"
+
+#: modules/og_views/includes/og_views_handler_field_og_managelink.inc:32
+msgid "Request: <a href=\"@approve\">approve</a> or <a href=\"@deny\">deny</a>."
+msgstr ""
+"Prośba o przyjęcie do grupy: <a href=\"@approve\">zatwierdź</a> lub "
+"<a href=\"@deny\">odrzuć</a>."
+
+#: modules/og_views/includes/og_views_handler_field_og_managelinkadmin.inc:25
+msgid "Admin: Remove"
+msgstr "Zarządzanie: usuń"
+
+#: modules/og_views/includes/og_views_handler_field_og_managelinkadmin.inc:31
+msgid "Admin: Create"
+msgstr "Zarządzanie: utwórz"
+
+#: modules/og_views/includes/og_views_handler_field_og_managelinkmy.inc:28
+msgid "Edit membership"
+msgstr "Edytuj członkostwo"
+
+#: modules/og_views/includes/og_views_handler_filter_og_is_admin.inc:5
+msgid "Member types"
+msgstr ""
+
+#: modules/og_views/includes/og_views_handler_filter_og_is_admin.inc:6
+msgid "Members"
+msgstr "Członkowie"
+
+#: modules/og_views/includes/og_views_handler_filter_og_is_admin.inc:6
+msgid "Group administrators"
+msgstr ""
+
+#: modules/og_views/includes/og_views_handler_filter_og_type.inc:6
+msgid "Group node type"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:16
+msgid "Argument type"
+msgstr "Rodzaj argumentu"
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:18
+msgid "Node ID"
+msgstr "Identyfikator segmentu"
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:19
+msgid "Node ID's separated by , or +"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:27
+msgid "Do not validate user's group membership"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:28
+msgid "Validate current user is a member of a specified group"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:29
+msgid "Validate current user is an admin of a specified group"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:34
+msgid "Group membership validation"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:58
+msgid "Group node types"
+msgstr ""
+
+#: modules/og_views/includes/og_views_plugin_argument_validate_og_group_types.inc:61
+msgid "If you wish to validate for specific group node types, check them; if none are checked, all group nodes will pass."
+msgstr ""
+
+msgid "Members of %1"
+msgstr "Członkowie grupy %1"
+

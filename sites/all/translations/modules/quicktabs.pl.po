@@ -1,0 +1,611 @@
+# Polish translation of Quick Tabs (all releases)
+# Copyright (c) 2010 by the Polish translation team
+# Generated from files:
+#  quicktabs.module,v 1.9.2.4 2008/07/18 01:16:29 katbailey
+#  quicktabs.module,v 1.6.2.17 2008/08/20 19:29:20 katbailey
+#  admin.inc,v 1.1.2.44 2009/03/20 21:10:20 pasqualle
+#  admin.inc,v 1.1.2.53 2010/01/10 01:06:40 katbailey
+#  quicktabs.module,v 1.10.2.62 2009/03/21 02:34:16 pasqualle
+#  quicktabs.module,v 1.10.2.74 2010/01/10 01:06:40 katbailey
+#  quicktabs.js,v 1.3.2.16 2009/03/16 20:35:31 katbailey
+#  quicktabs.js,v 1.3.2.18 2009/09/29 03:02:37 pasqualle
+#  quicktabs.info,v 1.3 2008/04/17 22:59:23 katbailey
+#  quicktabs.info,v 1.1.2.1 2008/03/13 23:12:07 katbailey
+#  quicktabs.info,v 1.3.4.1 2008/12/22 14:43:01 pasqualle
+#  quicktabs.install,v 1.3.2.1 2008/04/24 06:18:33 katbailey
+#  quicktabs.install,v 1.1.2.2 2008/05/19 22:04:55 katbailey
+#  quicktabs.install,v 1.4.2.8 2009/03/20 21:10:21 pasqualle
+#  quicktabs.install,v 1.4.2.11 2010/01/10 01:06:40 katbailey
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Quick Tabs (all releases)\n"
+"POT-Creation-Date: 2010-07-14 12:56+0000\n"
+"PO-Revision-Date: 2010-05-03 21:28+0000\n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: quicktabs.module:105,110,687,82,87,581; includes/admin.inc:267,462,19,295,491
+msgid "Delete"
+msgstr "Usuń"
+
+#: quicktabs.module:744,252,397,416
+# (has suggestion on localization server)
+msgid "Submit"
+msgstr "Dodaj"
+
+#: includes/admin.inc:11,296,11,324
+# (has suggestion on localization server)
+msgid "Operations"
+msgstr "Czynności"
+
+#: quicktabs.module:400,363
+msgid "Content"
+msgstr "Zawartość"
+
+#: quicktabs.module:52,35,54,57
+# (has suggestion on localization server)
+msgid "List"
+msgstr "Lista"
+
+#: quicktabs.module:687,581; includes/admin.inc:462,491
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: quicktabs.module:401,364
+msgid "Remove"
+msgstr "Usuń"
+
+#: quicktabs.module:207,143
+msgid "Block Title"
+msgstr ""
+
+#: includes/admin.inc:81,99
+msgid "Block title"
+msgstr "Tytuł bloku"
+
+#: includes/admin.inc:107,126
+msgid "Yes"
+msgstr "Tak"
+
+#: includes/admin.inc:108,127
+msgid "No"
+msgstr "Nie"
+
+#: includes/admin.inc:17
+msgid "Edit"
+msgstr "Edytuj"
+
+#: quicktabs.module:398,361
+msgid "Weight"
+msgstr "Waga"
+
+#: includes/admin.inc:518,548
+msgid "One"
+msgstr ""
+
+#: quicktabs.module:760,766,654,660
+msgid "Preview"
+msgstr "Podgląd"
+
+#: quicktabs.module:278; includes/admin.inc:149,497,176,527
+# (has suggestion on localization server)
+msgid "Save"
+msgstr "Zachowaj"
+
+#: includes/admin.inc:175,232,203,260
+msgid "Node"
+msgstr "Segment"
+
+#: includes/admin.inc:174,202
+msgid "Block"
+msgstr "Blok"
+
+#: includes/admin.inc:240,268
+msgid "Teaser view"
+msgstr ""
+
+#: quicktabs.module:333,304; includes/admin.inc:189,217
+msgid "Select a view"
+msgstr "Wybierz widok"
+
+#: includes/admin.inc:18
+# (has suggestion on localization server)
+msgid "Clone"
+msgstr "Duplikuj"
+
+#: includes/admin.inc:105,124
+msgid "Ajax"
+msgstr ""
+
+#: quicktabs.module:319
+msgid "Limit"
+msgstr ""
+
+#: includes/admin.inc:96,115
+# (has suggestion on localization server)
+msgid "Style"
+msgstr "Sposób wyświetlania"
+
+#: includes/admin.inc:97,490,116,520
+msgid "No style"
+msgstr ""
+
+#: quicktabs.module:342,313
+msgid "Provide a comma separated list of arguments to pass to the view."
+msgstr ""
+
+#: includes/admin.inc:519,549
+msgid "Two"
+msgstr ""
+
+#: includes/admin.inc:520,550
+msgid "Three"
+msgstr ""
+
+#: js/quicktabs.js:0,0
+msgid "Loading"
+msgstr ""
+
+#: quicktabs.module:12,11
+msgid ""
+"<p>The Quick Tabs module allows you to create blocks of tabbed "
+"content. You can create a block on your site containing up to six tabs "
+"with corresponding content. Clicking on the tabs makes the "
+"corresponding content display instantly (it uses jQuery). The content "
+"for each tabbed section can be either a view or an existing block. It "
+"is an ideal way to do something like the Most Popular / Most Emailed "
+"stories tabs you see on many news websites.</p>\n"
+"<p>Once created, the Quick Tabs blocks show up in your block listing, "
+"ready to be configured and enabled like other blocks.</p>\n"
+"<p>Multiple Quick Tabs blocks can be placed on a single page.</p>\n"
+"<p>Visit the <a href=\"@configuration\">Quick Tabs configuration "
+"page</a> to choose a style for your Quick Tabs blocks.</p>\n"
+"<p>Click on the \"New QT block\" tab below to get started.</p>"
+msgstr ""
+
+#: quicktabs.module:18,17
+msgid ""
+"Here you can create a new Quick Tabs block. Once you have created this "
+"block you will be taken to the <a href=\"@overview\">blocks</a> page "
+"to configure and enable it."
+msgstr ""
+
+#: quicktabs.module:105,82
+msgid "Quick Tabs Block Name"
+msgstr ""
+
+#: quicktabs.module:209,145
+msgid "The title of the whole block"
+msgstr ""
+
+#: quicktabs.module:264,240; includes/admin.inc:134,161
+msgid "More tabs"
+msgstr ""
+
+#: quicktabs.module:265,241; includes/admin.inc:135,162
+msgid "Click here to add more tabs."
+msgstr ""
+
+#: quicktabs.module:306,281
+msgid "Tab @n"
+msgstr ""
+
+#: quicktabs.module:323,296
+msgid "Tab Content"
+msgstr ""
+
+#: quicktabs.module:351,523
+msgid "Choose a display for your view."
+msgstr ""
+
+#: quicktabs.module:357,335
+msgid "Type for tab @n"
+msgstr ""
+
+#: quicktabs.module:366,344; includes/admin.inc:222,250
+msgid "Select a block"
+msgstr ""
+
+#: quicktabs.module:371; includes/admin.inc:226,254
+msgid "Hide the title of this block"
+msgstr ""
+
+#: quicktabs.module:393
+msgid "Add another tab"
+msgstr ""
+
+#: quicktabs.module:397,360
+msgid "Tab Title"
+msgstr ""
+
+#: quicktabs.module:399,362; includes/admin.inc:294,322
+msgid "Tab type"
+msgstr ""
+
+#: quicktabs.module:493,399
+msgid "You must give your Quick Tabs block a title."
+msgstr ""
+
+#: quicktabs.module:498,403
+msgid "You must give each tab a title."
+msgstr ""
+
+#: quicktabs.module:564,437
+msgid "Your Quick Tabs block has been updated."
+msgstr ""
+
+#: quicktabs.module:568,441
+msgid "Your Quick Tabs block has been created and can now be enabled."
+msgstr ""
+
+#: quicktabs.module:687,581
+msgid "Are you sure you want to delete the Quick Tabs block %name?"
+msgstr ""
+
+#: quicktabs.module:724,611
+msgid "The Quick Tabs block %name has been removed."
+msgstr ""
+
+#: quicktabs.module:736,623
+msgid "Tab Style"
+msgstr ""
+
+#: quicktabs.module:737,624
+msgid "Default (no style)"
+msgstr ""
+
+#: quicktabs.module:739,626
+msgid "Choose a tab style for your Quick Tabs blocks."
+msgstr ""
+
+#: quicktabs.module:757,651
+msgid "Quick Tabs Settings"
+msgstr ""
+
+#: quicktabs.module:796,690
+msgid "Quick Tabs Preview"
+msgstr ""
+
+#: quicktabs.module:100,77
+msgid "create quicktabs block"
+msgstr ""
+
+#: quicktabs.module:100,77
+msgid "administer quicktabs blocks"
+msgstr ""
+
+#: quicktabs.module:46,71,30,54,638; quicktabs.info:0,0,0,0
+msgid "Quick Tabs"
+msgstr ""
+
+#: quicktabs.module:47,31
+msgid ""
+"Create blocks of tabbed content - content for each tab can be a view "
+"or a block"
+msgstr ""
+
+#: quicktabs.module:55,39,58,61
+msgid "New QT block"
+msgstr ""
+
+#: quicktabs.module:60,43,74,78
+msgid "Delete QT block"
+msgstr ""
+
+#: quicktabs.module:66,48,66,69
+msgid "Edit QT block"
+msgstr ""
+
+#: quicktabs.module:72,55
+msgid "Select a style for your Quick Tabs blocks"
+msgstr ""
+
+#: quicktabs.install:7
+msgid "The quicktabs table."
+msgstr ""
+
+#: quicktabs.install:10
+msgid "The primary identifier for a qt block."
+msgstr ""
+
+#: quicktabs.install:17
+msgid "The title of this quicktabs block."
+msgstr ""
+
+#: quicktabs.install:22
+msgid "A serialized array of the contents of this qt block."
+msgstr ""
+
+#: quicktabs.info:0,0
+msgid "Create blocks of tabbed views and blocks."
+msgstr ""
+
+#: quicktabs.module:321
+msgid "Limit the number of results"
+msgstr ""
+
+#: quicktabs.module:329
+msgid "Choose how to build this view. If unsure, leave as \"embed\"."
+msgstr ""
+
+#: quicktabs.module:406
+msgid "You must enter a limit for each view."
+msgstr ""
+
+#: quicktabs.module:631
+msgid "Show block titles within Quick Tabs blocks"
+msgstr ""
+
+#: quicktabs.module:636
+msgid "Choose how your views should be built within Quick Tabs blocks"
+msgstr ""
+
+#: quicktabs.module:642
+msgid "Choose an effect for your tabs"
+msgstr ""
+
+#: quicktabs.install:29
+msgid "Unsupported database"
+msgstr ""
+
+#: quicktabs.install:33
+msgid "Module tables installed successfully"
+msgstr ""
+
+#: quicktabs.install:36
+msgid "Module installation was unsuccessful"
+msgstr ""
+
+#: js/quicktabs.js:0,0
+msgid "An error occurred at @path."
+msgstr ""
+
+#: quicktabs.module:10,10
+msgid ""
+"<p>The Quick Tabs module allows you to create blocks of tabbed "
+"content. Clicking on the tabs makes the corresponding content display "
+"instantly (it uses jQuery). The content for each tabbed section can be "
+"either a node, view, block or another quicktab. It is an ideal way to "
+"do something like the Most Popular / Most Emailed stories tabs you see "
+"on many news websites.</p>\n"
+"<p>Once created, the quicktab block show up in your block listing, "
+"ready to be configured and enabled like other blocks. Multiple "
+"quicktabs can be placed on a single page.</p>\n"
+"<p>Visit the <a href=\"@configuration\">configuration page</a> to see "
+"the available styles and select the default style for your "
+"quicktabs.</p>"
+msgstr ""
+
+#: quicktabs.module:14,14
+msgid ""
+"Here you can create a new quicktab block. Once you have created this "
+"block you can configure and enable it on the <a "
+"href=\"@overview\">blocks</a> page."
+msgstr ""
+
+#: quicktabs.module:463,500,297
+msgid "You are not authorized to access this content."
+msgstr ""
+
+#: quicktabs.module:469,504
+msgid "Views module not enabled, cannot display tab content."
+msgstr ""
+
+#: quicktabs.module:132,138
+msgid "administer quicktabs"
+msgstr ""
+
+#: quicktabs.module:45,91,48,97
+msgid "Quicktabs"
+msgstr ""
+
+#: quicktabs.module:46,49
+msgid "Create blocks of tabbed content."
+msgstr ""
+
+#: quicktabs.module:82,87
+msgid "Clone QT block"
+msgstr ""
+
+#: quicktabs.module:92,98; includes/admin.inc:492,522
+msgid "Select the default style for quicktabs."
+msgstr ""
+
+#: quicktabs.install:87
+msgid "Whether this is an ajax views block"
+msgstr ""
+
+#: quicktabs.info:0,0
+msgid "Create blocks of tabbed views, blocks and nodes."
+msgstr ""
+
+#: includes/admin.inc:10,251,10,279
+msgid "Quicktab"
+msgstr ""
+
+#: includes/admin.inc:27,27
+msgid "Click on the \"New QT block\" tab to get started."
+msgstr ""
+
+#: includes/admin.inc:83,101
+# (has suggestion on localization server)
+msgid ""
+"This will appear as the name of this block in administer >> site "
+"building >> blocks."
+msgstr "Nazwa bloku na stronie zarządzaj >> budowa witryny >> bloki."
+
+#: includes/admin.inc:97,116
+msgid "Default style"
+msgstr ""
+
+#: includes/admin.inc:99,118
+msgid "Choose the quicktab style."
+msgstr ""
+
+#: includes/admin.inc:107
+msgid "Tab content will be loaded at tab click."
+msgstr ""
+
+#: includes/admin.inc:108
+msgid "All tabs will be loaded at page load."
+msgstr ""
+
+#: includes/admin.inc:111
+msgid "Choose how the content of tabs should be loaded."
+msgstr ""
+
+#: includes/admin.inc:133,160
+msgid "Add tab"
+msgstr ""
+
+#: includes/admin.inc:176,204
+msgid "QTab"
+msgstr ""
+
+#: includes/admin.inc:182,210
+msgid "View!translate_as_list_of_content"
+msgstr ""
+
+#: includes/admin.inc:209,237
+msgid ""
+"Additional arguments to send to the view as if they were part of the "
+"URL in the form of arg1/arg2/arg3. You may use %0, %1, ..., %N to grab "
+"arguments from the URL."
+msgstr ""
+
+#: includes/admin.inc:233,261
+# (has suggestion on localization server)
+msgid "The node ID of the node."
+msgstr "Identyfikator segmentu."
+
+#: includes/admin.inc:245,273
+msgid "Hide the title of this node"
+msgstr ""
+
+#: includes/admin.inc:252,280
+msgid "The quicktab ID."
+msgstr ""
+
+#: includes/admin.inc:252,280
+msgid ""
+"Different styles may not work when putting an ajax quicktab inside "
+"ajax quicktab."
+msgstr ""
+
+#: includes/admin.inc:269,297
+msgid "Click here to delete this tab."
+msgstr ""
+
+#: includes/admin.inc:292,320
+msgid "Tab title"
+msgstr ""
+
+#: includes/admin.inc:293,321
+# (has suggestion on localization server)
+msgid "Tab weight"
+msgstr "Waga karty"
+
+#: includes/admin.inc:295,323
+msgid "Tab content"
+msgstr ""
+
+#: includes/admin.inc:410,438
+msgid "Title is required for the quicktab block."
+msgstr ""
+
+#: includes/admin.inc:414,442
+msgid "At least one tab should be created."
+msgstr ""
+
+#: includes/admin.inc:418,446
+msgid "Title is required for each tab."
+msgstr ""
+
+#: includes/admin.inc:421,449
+msgid "You cannot put a quicktab inside itself."
+msgstr ""
+
+#: includes/admin.inc:443,472
+msgid "The quicktab block has been updated."
+msgstr ""
+
+#: includes/admin.inc:449,478
+msgid "The quicktab block has been created."
+msgstr ""
+
+#: includes/admin.inc:462,491
+msgid "Are you sure you want to delete the quicktab block %name?"
+msgstr ""
+
+#: includes/admin.inc:470,499
+msgid "The quicktab block %name has been removed."
+msgstr ""
+
+#: includes/admin.inc:489,519
+msgid "Quicktab styles"
+msgstr ""
+
+#: includes/admin.inc:507,537
+msgid "The default quicktab style has been saved."
+msgstr ""
+
+#: includes/admin.inc:518,548
+msgid "First tab"
+msgstr ""
+
+#: includes/admin.inc:519,549
+msgid "Second tab"
+msgstr ""
+
+#: includes/admin.inc:520,550
+msgid "Third tab"
+msgstr ""
+
+#: includes/admin.inc:529,560
+msgid "%style preview"
+msgstr ""
+
+#: quicktabs.install:204
+msgid "Whether this tabset hides empty tabs"
+msgstr ""
+
+#: includes/admin.inc:77
+msgid "Default tab"
+msgstr ""
+
+#: includes/admin.inc:126
+msgid "Load only the first tab on page view."
+msgstr ""
+
+#: includes/admin.inc:127
+msgid "Load all tabs on page view."
+msgstr ""
+
+#: includes/admin.inc:130
+msgid ""
+"Choose how the content of tabs should be loaded.<p>By choosing "
+"\"Yes\", only the first tab will be loaded when the page first viewed. "
+"Content for other tabs will be loaded only when the user clicks the "
+"other tab. This will provide faster initial page loading, but "
+"subsequent tab clicks will be slower. This can place less load on a "
+"server.</p><p>By choosing \"No\", all tabs will be loaded when the "
+"page is first viewed. This will provide slower initial page loading, "
+"and more server load, but subsequent tab clicks will be faster for the "
+"user. Use with care if you have heavy views.</p>"
+msgstr ""
+
+#: includes/admin.inc:136
+msgid "Hide empty tabs"
+msgstr ""
+
+#: includes/admin.inc:138
+msgid ""
+"Empty and restricted tabs will not be displayed. Could be useful when "
+"the tab content is not accessible.<br />This option does not work in "
+"ajax mode."
+msgstr ""
+

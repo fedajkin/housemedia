@@ -5,13 +5,15 @@
 # Generated from files:
 #  hm_core.context.inc: n/a
 #  hm_core.info: n/a
+#  hm_core.features.menu_custom.inc: n/a
+#  hm_core.features.menu_links.inc: n/a
 #  hm_core.module: n/a
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2011-07-20 11:26+0200\n"
+"POT-Creation-Date: 2011-08-02 06:37+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -20,67 +22,103 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: hm_core.context.inc:61;120;180 hm_core.info:0
-msgid "Housemedia"
-msgstr ""
-
-#: hm_core.context.inc:121
-msgid "User profile when viewing yourself"
-msgstr ""
-
-#: hm_core.context.inc:181
-msgid "User profile when viewing another user"
-msgstr ""
-
-#: hm_core.module:4
-msgid "Document"
-msgstr ""
-
-#: hm_core.module:13
-msgid "Search (quicktabs)"
-msgstr ""
-
-#: hm_core.module:14
-msgid "Ranks (quicktabs"
-msgstr ""
-
-#: hm_core.module:49;82
-msgid "Investments"
-msgstr ""
-
-#: hm_core.module:55
-msgid "Flat"
-msgstr ""
-
-#: hm_core.module:61
-msgid "Others"
-msgstr ""
-
-#: hm_core.module:70
-msgid "Search"
-msgstr ""
-
-#: hm_core.module:88
-msgid "Advisers"
-msgstr ""
-
-#: hm_core.module:97
-msgid "Ranks"
-msgstr ""
-
-#: hm_core.module:109
-msgid "Inbox (@count)"
-msgstr ""
-
-#: hm_core.module:115
-msgid "Inbox"
-msgstr ""
-
-#: hm_core.info:0
+#: hm_core.context.inc:61;99 hm_core.info:0
 msgid "Housemedia Core"
 msgstr ""
 
+#: hm_core.features.menu_custom.inc:17
+msgid "Housemedia primary links"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:233
+msgid "FAQ"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:234
+msgid "Inwestycje"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:235
+msgid "Kontakt"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:236
+msgid "Moje grupy"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:237
+msgid "Moje konto"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:238
+msgid "Moje punkty"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:239
+msgid "Moje treści"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:240
+msgid "Moje zakładki"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:241
+msgid "Mój profil"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:242
+msgid "Panel"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:243
+msgid "Strona główna"
+msgstr ""
+
+#: hm_core.features.menu_links.inc:244
+msgid "Znajomi"
+msgstr ""
+
+#: hm_core.module:6
+msgid "Document"
+msgstr ""
+
+#: hm_core.module:15
+msgid "Search (quicktabs)"
+msgstr ""
+
+#: hm_core.module:16
+msgid "Ranks (quicktabs"
+msgstr ""
+
+#: hm_core.module:38;69
+msgid "Investments"
+msgstr ""
+
+#: hm_core.module:43
+msgid "Flat"
+msgstr ""
+
+#: hm_core.module:49
+msgid "Others"
+msgstr ""
+
+#: hm_core.module:57
+msgid "Search"
+msgstr ""
+
+#: hm_core.module:75
+msgid "Advisers"
+msgstr ""
+
+#: hm_core.module:84
+msgid "Ranks"
+msgstr ""
+
 #: hm_core.info:0
-msgid "The main components of Housemedia"
+msgid "The main components of Housemedia website."
+msgstr ""
+
+#: hm_core.info:0
+msgid "Housemedia"
 msgstr ""
 

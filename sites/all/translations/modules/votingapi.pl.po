@@ -1,0 +1,491 @@
+# Polish translation of Voting API (all releases)
+# Copyright (c) 2010 by the Polish translation team
+# Generated from files:
+#  votingapi.views.inc,v 1.1.2.17 2009/06/25 21:07:48 eaton
+#  votingapi.views.inc,v 1.1.2.18 2009/08/15 17:51:38 eaton
+#  votingapi.module,v 1.46.2.24 2009/07/08 16:09:45 eaton
+#  votingapi.info,v 1.4 2007/07/06 03:02:34 eaton
+#  votingapi.admin.inc,v 1.1.2.3 2009/05/26 03:50:00 eaton
+#  votingapi.module,v 1.40.2.10 2007/07/19 14:13:44 eaton
+#  votingapi.info,v 1.2.2.3 2007/07/09 01:15:20 eaton
+#  votingapi_views_handler_field_value.inc,v 1.1.2.3 2009/06/21 01:10:39 eaton
+#  votingapi_views.inc,v 1.11.2.7 2007/07/19 14:13:44 eaton
+#  votingapi.api.php,v 1.1.2.1 2009/06/24 18:57:26 eaton
+#  votingapi_views_handler_relationship.inc,v 1.1.2.7 2009/07/08 15:55:34 eaton
+#  votingapi_views_handler_relationship.inc,v 1.1.2.8 2009/08/15 17:58:06 eaton
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Voting API (all releases)\n"
+"POT-Creation-Date: 2010-07-14 13:00+0000\n"
+"PO-Revision-Date: 2010-01-21 23:41+0000\n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: views/votingapi.views.inc:51,177,51,177
+msgid "Value"
+msgstr "Wartość"
+
+#: views/votingapi.views.inc:86,212,86,212
+# (has suggestion on localization server)
+msgid "Tag"
+msgstr "Etykieta"
+
+#: views/votingapi.views.inc:157,248,157,248
+# (has suggestion on localization server)
+msgid "Timestamp"
+msgstr "Data"
+
+#: views/votingapi.views.inc:103,103
+msgid "User"
+msgstr "Użytkownik"
+
+#: votingapi.module:446,446
+msgid "Points"
+msgstr "Punkty"
+
+#: votingapi.info:0,0
+msgid "Voting"
+msgstr "Ocena"
+
+#: votingapi.admin.inc:13,13
+msgid "Never"
+msgstr "Nigdy"
+
+#: votingapi.module:442,442
+msgid "Percent"
+msgstr ""
+
+#: votingapi.module:15,20,20; votingapi.info:0,0,0
+msgid "Voting API"
+msgstr ""
+
+#: views/votingapi_views_handler_field_value.inc:31,31
+msgid "Appearance"
+msgstr ""
+
+#: votingapi.module:452,452
+msgid "Number of votes"
+msgstr ""
+
+#: votingapi_views.inc:43,127
+msgid "As Short Date"
+msgstr "Krótka data"
+
+#: votingapi_views.inc:44,128
+msgid "As Medium Date"
+msgstr "Średnio długa data"
+
+#: votingapi_views.inc:45,129
+msgid "As Long Date"
+msgstr "Długa data"
+
+#: votingapi_views.inc:46,130
+msgid "As Time Ago"
+msgstr "Czas, który upłynął"
+
+#: votingapi_views.inc:82
+msgid "Currently Logged In User"
+msgstr "Aktualnie zalogowany użytkownik"
+
+#: views/votingapi.views.inc:139,139
+msgid "IP Address"
+msgstr "Adres IP"
+
+#: views/votingapi.views.inc:43,43
+msgid "Votes"
+msgstr "Głosy"
+
+#: views/votingapi.views.inc:230,230
+msgid "Function"
+msgstr ""
+
+#: views/votingapi.views.inc:284,284
+msgid "comments"
+msgstr ""
+
+#: votingapi.admin.inc:13,13
+msgid "Immediately"
+msgstr "Natychmiast"
+
+#: votingapi.admin.inc:72,72
+msgid "Do it!"
+msgstr ""
+
+#: votingapi.api.php:113,113; views/votingapi.views.inc:292
+msgid "users"
+msgstr ""
+
+#: votingapi_views.inc:32,64
+msgid "VotingAPI !type !tag value"
+msgstr ""
+
+#: votingapi_views.inc:39,60,71,138
+msgid "VotingAPI !type !tag timestamp"
+msgstr ""
+
+#: votingapi_views.inc:52,80
+msgid "VotingAPI !type !tag user"
+msgstr ""
+
+#: votingapi_views.inc:58,137
+msgid "VotingAPI !type !tag vote"
+msgstr ""
+
+#: votingapi_views.inc:59
+msgid "VotingAPI !type !tag voter"
+msgstr ""
+
+#: votingapi_views.inc:68
+msgid "Filter nodes by values of the individual votes users cast for them."
+msgstr ""
+
+#: votingapi_views.inc:76
+msgid "Filter nodes by the date they were voted on."
+msgstr ""
+
+#: votingapi_views.inc:81
+msgid "Has been voted on by"
+msgstr ""
+
+#: votingapi_views.inc:81
+msgid "Has not been voted on by"
+msgstr ""
+
+#: votingapi_views.inc:82
+msgid "Any user"
+msgstr ""
+
+#: votingapi_views.inc:85
+msgid "Filter nodes by whether the currently logged in user has voted."
+msgstr ""
+
+#: votingapi_views.inc:114,142
+msgid "VotingAPI !type !tag value (current user only)"
+msgstr ""
+
+#: votingapi_views.inc:123,149
+msgid "VotingAPI !type !tag timestamp (current user only)"
+msgstr ""
+
+#: votingapi_views.inc:146
+msgid "Filter nodes by values of the current user's vote for them."
+msgstr ""
+
+#: votingapi_views.inc:154
+msgid "Filter nodes by the date they were voted on by the current user."
+msgstr ""
+
+#: votingapi_views.inc:194,203,207
+msgid "VotingAPI !type !tag result (!function)"
+msgstr ""
+
+#: votingapi_views.inc:211
+msgid "Filter nodes by the aggregate results of votes cast."
+msgstr ""
+
+#: votingapi_views.inc:273
+msgid "Raw value"
+msgstr ""
+
+#: votingapi_views.inc:274
+msgid "Cleaned version"
+msgstr ""
+
+#: votingapi_views.inc:294
+msgid "points"
+msgstr ""
+
+#: votingapi.module:16,21,21
+msgid "Global settings for the Voting API."
+msgstr ""
+
+#: votingapi.module:42; votingapi.admin.inc:25,25
+msgid "Vote tallying"
+msgstr ""
+
+#: votingapi.module:43; votingapi.admin.inc:26,26
+msgid ""
+"On high-traffic sites, administrators can use this setting to postpone "
+"the calculation of vote results."
+msgstr ""
+
+#: votingapi.module:46; votingapi.admin.inc:29,29
+msgid "Tally results whenever a vote is cast"
+msgstr ""
+
+#: votingapi.module:47; votingapi.admin.inc:30,30
+msgid "Tally results at cron-time"
+msgstr ""
+
+#: votingapi.module:48
+msgid "Never tally votes: I am using a custom module to control vote results"
+msgstr ""
+
+#: votingapi.module:36,48,48
+msgid "administer voting api"
+msgstr ""
+
+#: votingapi.info:0,0,0
+msgid "Provides a shared voting API for other modules."
+msgstr ""
+
+#: views/votingapi.views.inc:276,276
+msgid "nodes"
+msgstr ""
+
+#: views/votingapi.views.inc:129,129
+msgid "Current user"
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:94,94
+msgid "Vote tag"
+msgstr ""
+
+#: votingapi.api.php:74,74
+msgid "Bread"
+msgstr ""
+
+#: views/votingapi.views.inc:69,195,69,195; views/votingapi_views_handler_relationship.inc:76,76
+# (has suggestion on localization server)
+msgid "Value type"
+msgstr "Rodzaj wartości"
+
+#: votingapi.api.php:86,86
+msgid "Standard deviation"
+msgstr ""
+
+#: votingapi.api.php:75,75
+msgid "The quality of the food at a restaurant."
+msgstr ""
+
+#: votingapi.api.php:79,79
+msgid "Circuses"
+msgstr ""
+
+#: votingapi.api.php:80,80
+msgid "The quality of the presentation and atmosphere at a restaurant."
+msgstr ""
+
+#: votingapi.api.php:87,87
+msgid ""
+"The standard deviation of all votes cast on a given piece of content. "
+"Use this to find controversial content."
+msgstr ""
+
+#: votingapi.api.php:91,91
+msgid "Median vote"
+msgstr ""
+
+#: votingapi.api.php:92,92
+msgid ""
+"The median vote value cast on a given piece of content. More accurate "
+"than a pure average when there are a few outlying votes."
+msgstr ""
+
+#: votingapi.api.php:159,159
+msgid "MyModule value formatter"
+msgstr ""
+
+#: votingapi.api.php:162,162
+msgid "MyModule tag formatter"
+msgstr ""
+
+#: votingapi.admin.inc:17,17
+msgid "Anonymous vote rollover"
+msgstr ""
+
+#: votingapi.admin.inc:18,18
+msgid ""
+"The amount of time that must pass before two anonymous votes from the "
+"same computer are considered unique. Setting this to 'never' will "
+"eliminate most double-voting, but will make it impossible for multiple "
+"anonymous on the same computer (like internet cafe customers) from "
+"casting votes."
+msgstr ""
+
+#: votingapi.admin.inc:31,31
+msgid ""
+"Do not tally results automatically: I am using a module that manages "
+"its own vote results."
+msgstr ""
+
+#: votingapi.admin.inc:49,49
+msgid "Which node types should receive votes?"
+msgstr ""
+
+#: votingapi.admin.inc:56,56
+msgid "What type of votes should be generated?"
+msgstr ""
+
+#: votingapi.admin.inc:58,58
+msgid "Fivestar style"
+msgstr ""
+
+#: votingapi.admin.inc:59,59
+msgid "Digg style"
+msgstr ""
+
+#: votingapi.admin.inc:60,60
+msgid "Reddit style"
+msgstr ""
+
+#: votingapi.admin.inc:67,67
+msgid "Delete existing votes before generating new ones."
+msgstr ""
+
+#: votingapi.module:436,436
+msgid "Normal vote"
+msgstr ""
+
+#: votingapi.module:437,437
+msgid ""
+"The default tag for votes on content. If multiple votes with different "
+"tags are being cast on a piece of content, consider casting a "
+"\"summary\" vote with this tag as well."
+msgstr ""
+
+#: votingapi.module:443,443
+msgid ""
+"Votes in a specific range. Values are stored in a 1-100 range, but can "
+"be represented as any scale when shown to the user."
+msgstr ""
+
+#: votingapi.module:447,447
+msgid ""
+"Votes that contribute points/tokens/karma towards a total. May be "
+"positive or negative."
+msgstr ""
+
+#: votingapi.module:453,453
+msgid "The number of votes cast for a given piece of content."
+msgstr ""
+
+#: votingapi.module:456,456
+msgid "Average vote"
+msgstr ""
+
+#: votingapi.module:457,457
+msgid "The average vote cast on a given piece of content."
+msgstr ""
+
+#: votingapi.module:460,460
+msgid "Total score"
+msgstr ""
+
+#: votingapi.module:461,461
+msgid "The sum of all votes for a given piece of content."
+msgstr ""
+
+#: votingapi.module:32,32
+msgid "Generate votes"
+msgstr ""
+
+#: votingapi.module:33,33
+msgid ""
+"Generate a given number of votes on site content. Optionally delete "
+"existing votes."
+msgstr ""
+
+#: views/votingapi.views.inc:44,44
+msgid "Vote results"
+msgstr ""
+
+#: views/votingapi.views.inc:52,178,52,178
+msgid "The value of an individual cast vote."
+msgstr ""
+
+#: views/votingapi.views.inc:70,70
+msgid "The nature of the vote being cast (points, percentage, etc)."
+msgstr ""
+
+#: views/votingapi.views.inc:87,87
+msgid "An optional tag to group multi-criteria votes."
+msgstr ""
+
+#: views/votingapi.views.inc:104,104
+msgid "The user who cast the vote."
+msgstr ""
+
+#: views/votingapi.views.inc:123,123
+msgid "Individual voter"
+msgstr ""
+
+#: views/votingapi.views.inc:130,130
+msgid "Restrict votes to those cast by the current user."
+msgstr ""
+
+#: views/votingapi.views.inc:140,140
+msgid "The IP address of the user who cast the vote."
+msgstr ""
+
+#: views/votingapi.views.inc:158,158
+msgid "The time the vote was cast."
+msgstr ""
+
+#: views/votingapi.views.inc:196,196
+msgid "The nature of the results in question (points, percentage, etc)."
+msgstr ""
+
+#: views/votingapi.views.inc:213,213
+msgid "An optional tag to group multi-criteria results."
+msgstr ""
+
+#: views/votingapi.views.inc:231,231
+msgid "The aggregate function used to calculate the result."
+msgstr ""
+
+#: views/votingapi.views.inc:249,249
+msgid "The time the results were calculated."
+msgstr ""
+
+#: views/votingapi.views.inc:353,361
+msgid ""
+"Display %display defines a VotingAPI vote relationship, but does not "
+"restrict the relationship data. This may result in duplicate entries "
+"in the resulting view."
+msgstr ""
+
+#: views/votingapi.views.inc:360,368
+msgid ""
+"Display %display defines a VotingAPI results relationship, but does "
+"not restrict the relationship data. This may result in duplicate "
+"entries in the resulting view."
+msgstr ""
+
+#: views/votingapi_views_handler_field_value.inc:25,25
+msgid "Default appearance"
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:54,55,56,54,55,56
+msgid "No filtering"
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:66,66
+msgid "Data filters"
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:67,67
+msgid ""
+"For each piece of content, many pieces of voting data may be saved. "
+"Use these options to specify exactly which types should be available "
+"via this relationship. <strong>Warning!</strong> Leaving any of these "
+"filters empty may result in multiple copies of each piece of content "
+"being displayed in listings."
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:81,99,118,81,99,118
+msgid " -Other- "
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:113,113
+msgid "Aggregation function"
+msgstr ""
+
+#: views/votingapi_views_handler_relationship.inc:128,128
+msgid "Restrict to current user"
+msgstr ""
+

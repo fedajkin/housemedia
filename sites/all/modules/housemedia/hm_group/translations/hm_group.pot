@@ -1,0 +1,105 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  hm_group.context.inc: n/a
+#  hm_group.info: n/a
+#  hm_group.features.content.inc: n/a
+#  hm_group.features.fieldgroup.inc: n/a
+#  hm_group.module: n/a
+#  hm_group.install: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-08-07 22:11+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: hm_group.context.inc:76 hm_group.info:0
+msgid "Housemedia Group"
+msgstr ""
+
+#: hm_group.features.content.inc:566
+msgid "Zdjęcia"
+msgstr ""
+
+#: hm_group.features.fieldgroup.inc:57
+msgid "Galeria zdjęć"
+msgstr ""
+
+#: hm_group.module:11
+msgid "Group info tabs"
+msgstr ""
+
+#: hm_group.module:69
+msgid "Calendar"
+msgstr ""
+
+#: hm_group.module:76
+msgid "Documents"
+msgstr ""
+
+#: hm_group.module:84
+msgid "Latest blog posts"
+msgstr ""
+
+#: hm_group.module:141
+msgid "Description"
+msgstr ""
+
+#: hm_group.module:147
+msgid "Details"
+msgstr ""
+
+#: hm_group.module:153
+msgid "Gallery"
+msgstr ""
+
+#: hm_group.module:159
+msgid "Flats"
+msgstr ""
+
+#: hm_group.module:165
+msgid "Promotions"
+msgstr ""
+
+#: hm_group.module:185
+msgid "Leave group"
+msgstr ""
+
+#: hm_group.module:196
+msgid "Join"
+msgstr ""
+
+#: hm_group.install:3
+msgid "Developer"
+msgstr ""
+
+#: hm_group.install:4
+msgid "Updated"
+msgstr ""
+
+#: hm_group.install:5
+msgid "Number of available flats"
+msgstr ""
+
+#: hm_group.install:6
+msgid "Completion date"
+msgstr ""
+
+#: hm_group.info:0
+msgid "Group."
+msgstr ""
+
+#: hm_group.info:0
+msgid "Housemedia"
+msgstr ""
+

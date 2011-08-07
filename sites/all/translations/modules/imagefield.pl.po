@@ -1,0 +1,401 @@
+# Polish translation of ImageField (all releases)
+# Copyright (c) 2010 by the Polish translation team
+# Generated from files:
+#  imagefield.module,v 1.30.2.21 2008/06/12 23:33:14 dopry
+#  imagefield.module,v 1.30.2.6.2.75 2009/03/15 08:47:50 quicksketch
+#  imagefield_widget.inc,v 1.39 2009/05/17 02:17:31 quicksketch
+#  imagefield_widget.inc,v 1.40 2009/09/18 15:30:18 quicksketch
+#  imagefield_widget.inc,v 1.43 2010/05/01 22:39:42 quicksketch
+#  imagefield_widget.inc,v 1.44 2010/06/29 22:46:18 quicksketch
+#  imagefield.info,v 1.4.2.1 2007/06/18 23:06:46 dww
+#  imagefield.info,v 1.4.4.3 2008/04/19 23:17:02 dopry
+#  imagefield.info,v 1.12 2009/03/01 04:38:48 quicksketch
+#  imagefield.module,v 1.102 2009/07/03 23:35:49 quicksketch
+#  imagefield.module,v 1.103 2009/08/28 03:53:15 quicksketch
+#  imagefield.module,v 1.109 2010/05/05 23:26:42 quicksketch
+#  imagefield.module,v 1.112 2010/06/29 23:04:42 quicksketch
+#  imagefield_file.inc,v 1.18 2009/04/14 01:28:52 quicksketch
+#  imagefield_file.inc,v 1.19 2010/02/28 16:21:01 quicksketch
+#  imagefield.install,v 1.31 2009/04/15 20:15:03 quicksketch
+#  imagefield.install,v 1.34 2010/04/29 17:19:18 quicksketch
+#  imagefield.install,v 1.35 2010/06/29 22:33:43 quicksketch
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ImageField (all releases)\n"
+"POT-Creation-Date: 2010-07-14 12:53+0000\n"
+"PO-Revision-Date: 2010-07-28 12:12+0100\n"
+"Language-Team: Polish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: imagefield.module:518,795;
+#: imagefield_widget.inc:258,258,266,266,266
+msgid "Title"
+msgstr "Tytuł"
+
+#: imagefield.info:0,0,0,0,0,0,0
+msgid "CCK"
+msgstr "CCK"
+
+#: imagefield.module:477,749
+msgid "Delete"
+msgstr "Usuń"
+
+# (has suggestion on localization server)
+#: imagefield.info:0;
+#: imagefield.module:135,221,135,221,162,253,153,244,153,244
+msgid "Image"
+msgstr "Zdjęcie"
+
+# (has suggestion on localization server)
+#: imagefield.module:460,728
+msgid "Upload"
+msgstr "Wysyłanie plików"
+
+#: imagefield.module:126;
+#: imagefield_widget.inc:116,116,119,119,119
+msgid "Upload image"
+msgstr "Wyślij obraz"
+
+#: imagefield.module:253
+msgid "The maximum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction."
+msgstr "Maksymalne wymiary wysyłanego pliku graficznego zapisuje się w formie SZEROKOŚĆxWYSOKOŚĆ (np. 640x480). Wpisanie 0 znosi ograniczenie."
+
+#: imagefield.module:257,447
+msgid "Image path"
+msgstr ""
+
+#: imagefield.module:259,449
+msgid "Optional subdirectory within the \"%dir\" directory where images will be stored. Do not include trailing slash."
+msgstr ""
+
+#: imagefield.module:264,466;
+#: imagefield_widget.inc:48,48,51,51,51
+msgid "Enable custom alternate text"
+msgstr "Zezwól na własny tekst alternatywny"
+
+#: imagefield.module:266,468
+msgid "Enable custom alternate text for images. Filename will be used if not checked."
+msgstr ""
+
+#: imagefield.module:270,472;
+#: imagefield_widget.inc:69,69,72,72,72
+msgid "Enable custom title text"
+msgstr "Zezwól na własny tytuł"
+
+#: imagefield.module:272,474
+msgid "Enable custom title text for images. Filename will be used if not checked."
+msgstr ""
+
+#: imagefield.module:491,768
+msgid "Filename: "
+msgstr ""
+
+#: imagefield.module:502,779
+msgid "Alternate text"
+msgstr ""
+
+#: imagefield.module:504
+msgid "Alternate text to be displayed if the image cannot be displayed."
+msgstr ""
+
+#: imagefield.module:520,797
+msgid "Text to be displayed on mouse overs."
+msgstr ""
+
+#: imagefield.module:530,807
+msgid "If a new image is chosen, the current image will be replaced upon submitting the form."
+msgstr ""
+
+#: imagefield.module:440
+msgid "Maximum number of images"
+msgstr "Maksymalna ilość obrazów"
+
+#: imagefield.module:139,139,166,157,157
+msgid "An edit widget for image files, including a preview of the image."
+msgstr ""
+
+#: imagefield.module:223,228,233,223,228,233,255,260,265,246,251,256,246,251,256
+msgid "Displays image files in their original size."
+msgstr ""
+
+#: imagefield.info:0,0,0,0,0,0
+msgid "ImageField"
+msgstr ""
+
+#: imagefield.module:113,247
+msgid "Image upload was unsuccessful."
+msgstr ""
+
+#: imagefield.module:248,424;
+#: imagefield_widget.inc:21,21,21,21,21
+msgid "Maximum resolution for Images"
+msgstr "Maksymalna rozdzielczość dla obrazów"
+
+#: imagefield.module:325
+msgid "The image was resized to fit within the maximum allowed resolution of %resolution pixels"
+msgstr ""
+
+#: imagefield.info:0,0,0,0,0,0,0
+msgid "Defines an image field type."
+msgstr ""
+
+#: imagefield.module:886
+msgid "Files with the extension %ext are not allowed. Please upload a file with an extension from the following list: %allowed_extensions"
+msgstr ""
+
+#: imagefield.module:719
+msgid "Upload a new image"
+msgstr ""
+
+#: imagefield_widget.inc:75,75,78,78,78
+msgid "Input type"
+msgstr "Sposób wprowadzania"
+
+#: imagefield.module:109;
+#: imagefield_widget.inc:93,93,96,96,96
+msgid "Default image"
+msgstr "Domyślny obraz"
+
+#: imagefield.module:114;
+#: imagefield_widget.inc:103,103,106,106,106
+msgid "Use default image"
+msgstr "Użyj domyślnego obrazu"
+
+#: imagefield.module:116
+msgid "Check here if you want to use a image as default."
+msgstr ""
+
+#: imagefield.module:127;
+#: imagefield_widget.inc:117,117,120,120,120
+msgid "Choose a image that will be used as default."
+msgstr "Wybierz obraz jaki będzie użyty jako domyślny."
+
+#: imagefield.module:152
+msgid "The default image could not be uploaded. The destination(%d) does not exist or is not writable by the webserver."
+msgstr ""
+
+#: imagefield.module:157
+msgid "The default image could not be uploaded. Failed saving to destination(%d)."
+msgstr ""
+
+#: imagefield.module:179
+msgid "Has Image"
+msgstr ""
+
+#: imagefield.module:429;
+#: imagefield_widget.inc:25,25,25
+msgid "The maximum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction. If a larger image is uploaded, it will be resized to reflect the given width and height."
+msgstr ""
+
+#: imagefield.module:433
+msgid "Maximum filesize for Images"
+msgstr ""
+
+#: imagefield.module:436
+msgid "The maximum allowed image file size expressed in kilobytes. Set to 0 for no restriction."
+msgstr ""
+
+#: imagefield.module:443
+msgid "The maximum number of images allowed. Set to 0 for no restriction. This only applies if multiple values are enabled."
+msgstr ""
+
+#: imagefield.module:452
+msgid "You can use the following tokens in the image path."
+msgstr ""
+
+#: imagefield.module:457
+msgid "Permitted upload file extensions."
+msgstr ""
+
+#: imagefield.module:461
+msgid "Extensions a user can upload to this field. Seperate extensions with a space and do not include the leading dot."
+msgstr ""
+
+#: imagefield.module:513
+msgid "Imagefield failed to create directory(%d) at (%p)."
+msgstr ""
+
+#: imagefield.module:528
+msgid "The image %filename was resized to fit within the maximum allowed resolution of %resolution pixels"
+msgstr ""
+
+#: imagefield.module:681
+msgid "Images are not saved until the form is submitted."
+msgstr ""
+
+#: imagefield.module:713
+msgid "<br />Allowed extensions: %ext"
+msgstr ""
+
+#: imagefield.module:781;
+#: imagefield_widget.inc:233,233,241,241,241
+msgid "This text will be used by screen readers, search engines, or when the image cannot be loaded."
+msgstr ""
+
+#: imagefield.module:866
+msgid "@field is required. Please upload an image."
+msgstr "Pole @field jest wymagane. Proszę dodać zdjęcie."
+
+#: imagefield.module:869
+msgid "@field is required. Please uncheck at least one delete checkbox or upload another image."
+msgstr "Pole @field jest wymagane. Proszę odznaczyć przynajmniej jedno zdjęcie lub dodać nowe."
+
+#: imagefield.module:894
+msgid "The file you uploaded has a filesize greater than the maximum allowed filesize of %sizekb."
+msgstr "Plik, który przesłałeś ma większy rozmiar niż dopuszczalny (%sizekb)."
+
+#: imagefield.module:902
+msgid "Mime Type mismatch. Only image files may be upload. You uploaded a file with mime type: %mime"
+msgstr ""
+
+#: imagefield.module:910
+msgid "You are only allowed to upload up to %maximages images."
+msgstr ""
+
+#: imagefield.module:929
+msgid "link to node"
+msgstr ""
+
+#: imagefield.module:933
+msgid "link to image"
+msgstr ""
+
+#: imagefield.module:937
+msgid "path to image"
+msgstr ""
+
+#: imagefield.module:941
+msgid "url to image"
+msgstr ""
+
+#: imagefield.module:513
+msgid "imagefield"
+msgstr ""
+
+#: imagefield.module:700
+msgid "You can only attach one image to this field. Delete the image if you wish to be able to upload a different one."
+msgid_plural "You can only attach @count images to this field. Delete an image if you wish to be able to upload different images."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: imagefield.module:85
+msgid "view imagefield uploads"
+msgstr ""
+
+#: imagefield.module:389,377,377
+msgid "Image preview"
+msgstr "Podgląd zdjęcia"
+
+#: imagefield_file.inc:94,94,100,100,100
+msgid "An image thumbnail was not able to be created."
+msgstr ""
+
+#: imagefield_widget.inc:25,25
+msgid "The maximum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction. If a larger image is uploaded, it will be resized to reflect the given width and height. Resizing images on upload will cause the loss of <a href=\"http://en.wikipedia.org/wiki/Exchangeable_image_file_format\">EXIF data</a> in the image."
+msgstr ""
+
+#: imagefield_widget.inc:30,30,30,30,30
+msgid "Minimum resolution for Images"
+msgstr "Minimalna rozdzielczość dla obrazów."
+
+#: imagefield_widget.inc:35,35,34,34,34
+msgid "The minimum allowed image size expressed as WIDTHxHEIGHT (e.g. 640x480). Set to 0 for no restriction. If an image that is smaller than these dimensions is uploaded it will be rejected."
+msgstr "Minimalny dozwolony rozmiar obrazu wyrażony jako SZEROKOŚĆxWYSOKOŚĆ w pikselach (n.p. 640x480). Wprowadzenie 0 spowoduje brak restrykcji. Jeśli zostanie wysłany mniejszy obraz, będzie odrzucony."
+
+#: imagefield_widget.inc:41,41,44,44,44
+msgid "ALT text settings"
+msgstr "Ustawienia tekstu ALT"
+
+#: imagefield_widget.inc:50,50,53,53,53
+msgid "Enable user input alternate text for images."
+msgstr "Pozwól użytkownikowi na wprowadzenie własnego tekstu alternatywnego dla obrazów."
+
+#: imagefield_widget.inc:54,54,57,57,57
+msgid "Default ALT text"
+msgstr "Domyślny tekst ALT"
+
+#: imagefield_widget.inc:56,56,59,59,59
+msgid "This value will be used for alternate text by default."
+msgstr "Ta wartość zostanie użyta jako domyślny tekst w atrybucie ALT."
+
+#: imagefield_widget.inc:62,62,65,65,65
+msgid "Title text settings"
+msgstr "Ustawienia tytułu"
+
+#: imagefield_widget.inc:71,71,74,74,74
+msgid "Enable user input title text for images."
+msgstr "Pozwól użytkownikom wprowadzać własny tekst do atrybutu Tytuł."
+
+#: imagefield_widget.inc:80,80,83,83,83
+msgid "Choose type of field to be displayed to the user."
+msgstr "Wybierz rodzaj pola jaki zostanie pokazany użytkownikowi."
+
+#: imagefield_widget.inc:84,84,87,87,87
+msgid "Default Title text"
+msgstr "Domyślny tekst tytułu"
+
+#: imagefield_widget.inc:86,86,89,89,89
+msgid "This value will be used as the image title by default."
+msgstr "Ta wartość zostanie użyta jako domyślny tekst tytułu obrazka."
+
+#: imagefield_widget.inc:105,105,108,108,108
+msgid "When an image is not uploaded, show a default image on display."
+msgstr "Jeśli obraz nie zostanie wgrany pokaż domyślny plik."
+
+#: imagefield_widget.inc:140,140,148,148,148
+msgid "The default image could not be uploaded. The destination %destination does not exist or is not writable by the server."
+msgstr ""
+
+#: imagefield_widget.inc:176,176,184,184,184
+msgid "Only web-standard images (jpg, gif, and png) are supported through the image widget. If needing to upload other types of images, change the widget to use a standard file upload."
+msgstr ""
+
+#: imagefield_widget.inc:182,182,190,190,190
+msgid "Please specify a resolution in the format WIDTHxHEIGHT (e.g. 640x480)."
+msgstr ""
+
+#: imagefield_widget.inc:230,230,238,238,238
+msgid "Alternate Text"
+msgstr ""
+
+#: imagefield_widget.inc:260,260,268,268,268
+msgid "The title is used as a tool tip when the user hovers the mouse over the image."
+msgstr ""
+
+#: imagefield.module:21,21,21
+msgid "The ImageField module has been disabled. The <a href=\"http://drupal.org/project/filefield\">FileField module</a> needs to be installed for it to work properly."
+msgstr ""
+
+#: imagefield.module:226,226,258,249,249
+msgid "Image linked to node"
+msgstr ""
+
+#: imagefield.module:231,231,263,254,254
+msgid "Image linked to file"
+msgstr ""
+
+#: imagefield.install:62,62,67,67,67
+msgid "FileField must be updated to Drupal 6 before ImageField can be updated."
+msgstr ""
+
+#: imagefield.install:326,326,331,331,331
+msgid "Deleted admin thumbnails distributed throughout files directory. All thumbnails are now stored in the \"imagefield_thumbs\" directory."
+msgstr ""
+
+#: imagefield_widget.inc:39,39,39
+msgid "Resizing images on upload will cause the loss of <a href=\"http://en.wikipedia.org/wiki/Exchangeable_image_file_format\">EXIF data</a> in the image."
+msgstr ""
+
+#: imagefield.install:62
+msgid "Conent module must be enabled before ImageField can be updated."
+msgstr ""
+
+#: imagefield.install:62,62
+msgid "Content module must be enabled before ImageField can be updated."
+msgstr ""
+

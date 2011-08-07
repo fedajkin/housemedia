@@ -66,7 +66,7 @@ msgstr ""
 
 #: template.php:186
 msgid "Posted !date at !time by !name"
-msgstr ""
+msgstr "Dodano !date !time przez !name"
 
 #: template.php:195
 msgid "This shout is waiting for approval by a moderator."
