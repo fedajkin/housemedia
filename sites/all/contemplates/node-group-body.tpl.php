@@ -12,7 +12,9 @@
 
 <div class="group-links clearfix">
   <?php print l(t('Forum'), 'node/'. $node->nid .'/content/forum/view'); ?>
-  <?php print _hm_group_subscribe_link($node); ?>
+  <?php foreach (_hm_group_subscribe_link($node) as $l): ?>
+    <?php print $l; ?>
+  <?php endforeach; ?>
 </div>
 
 <ul class="group-summary">

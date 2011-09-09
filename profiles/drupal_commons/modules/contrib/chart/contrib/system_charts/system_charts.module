@@ -1,12 +1,12 @@
 <?php
 // $Id: system_charts.module,v 1.11 2009/07/14 02:45:33 boombatower Exp $
 /**
-* @file
-* Provides core Drupal chart implementations.
-*
-* @author Tj Holowaychuk <http://www.350designs.com/>
-* @package Chart
-*/
+ * @file
+ * Provides core Drupal chart implementations.
+ *
+ * @author Tj Holowaychuk <http://www.350designs.com/>
+ * @package Chart
+ */
 
 /*-----------------------------------------------------------------
  * Hook Implementations
@@ -30,28 +30,28 @@ function system_charts_menu() {
       'page callback' => 'system_charts',
       'page arguments' => array('nodes'),
       'access arguments' => array('access system charts'),
-    );
+  );
   $items['admin/reports/charts/nodes'] = array(
       'title' => 'Nodes',
       'page callback' => 'system_charts',
       'page arguments' => array('nodes'),
       'access arguments' => array('access system charts'),
       'type' => MENU_DEFAULT_LOCAL_TASK,
-    );
+  );
   $items['admin/reports/charts/users'] = array(
       'title' => 'Users',
       'page callback' => 'system_charts',
       'page arguments' => array('users'),
       'access arguments' => array('access system charts'),
       'type' => MENU_LOCAL_TASK,
-    );
+  );
   $items['admin/reports/charts/watchdog'] = array(
       'title' => 'Watchdog',
       'page callback' => 'system_charts',
       'page arguments' => array('watchdog'),
       'access arguments' => array('access system charts'),
       'type' => MENU_LOCAL_TASK,
-    );
+  );
 
   return $items;
 }
@@ -64,12 +64,12 @@ function system_charts_chart_color_schemes(&$colors) {
       'Error'   => 'a00000',
       'Warning' => 'e06000',
       'Notice'  => 'f0c040',
-    );
+  );
 }
 
 /* -----------------------------------------------------------------
 
-  General Functionality
+General Functionality
 
 ------------------------------------------------------------------ */
 
@@ -237,7 +237,7 @@ function system_charts_build($type) {
       $chart['#size']     = chart_size(600, 350);
       break;
 
-  case 'watchdog_severity':
+    case 'watchdog_severity':
       $results = db_query("
           SELECT COUNT(*) as count, severity
           FROM {watchdog}
@@ -256,7 +256,7 @@ function system_charts_build($type) {
       $chart['#title']    = chart_title(t('Message Severity'));
       $chart['#type']     = CHART_TYPE_PIE;
       $chart['#size']     = chart_size(600, 350);
-    break;
+      break;
 
     case 'users_per_role':
       $results = db_query("
@@ -317,18 +317,18 @@ function system_charts_get_page_info() {
           '#title'       => t('Nodes'),
           '#type'        => 'nodes',
           '#description' => t('Various node data reports.'),
-        ),
+  ),
       'users' => array(
           '#title'       => t('Users'),
           '#type'        => 'users',
           '#description' => t('User access and information reporting.'),
-        ),
+  ),
       'watchdog' => array(
           '#title'       => t('Watchdog'),
           '#type'        => 'watchdog',
           '#description' => t('Log charts.'),
-        ),
-    );
+  ),
+  );
 }
 
 /*-----------------------------------------------------------------

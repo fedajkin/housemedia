@@ -1,0 +1,73 @@
+<?php
+// $Id: og_reg_keys.install,v 1.2.2.1 2009/09/15 19:39:20 marcp Exp $
+
+/**
+ * Definition of hook_schema();
+ */
+function og_reg_keys_schema() {
+  $schema = array();
+  $schema['og_reg_keys']  = array(
+    'description'     => t('Track group registration keys for each group based on nid.'),
+    'fields'          => array(
+      'nid'             => array(
+        'description'     => t("The group's {node}.nid."),
+        'type'            => 'int',
+        'size'            => 'normal',
+        'not null'        => TRUE,
+        'default'         => 0,
+      ),
+      'code'        => array(
+        'description'     => t('Registration code.  Must be unique.'),
+        'type'            => 'varchar',
+        'length'          => 64,
+        'not null'        => TRUE,
+        'default'         => '',
+      ),
+    ),
+    'primary key'     => array('nid'),
+    'indexes'         => array(
+      'code'       => array('code'),
+    ),
+  );
+
+  return $schema;
+}
+
+
+function og_reg_keys_install() {
+  drupal_install_schema('og_reg_keys');
+}
+
+function og_reg_keys_uninstall() {
+  drupal_uninstall_schema('og_reg_keys');
+
+
+  // Delete variables
+  $variables = array(
+    'og_reg_keys_help_text',
+    'og_reg_keys_message',
+    'og_reg_keys_role',
+    'og_reg_key_required',
+  );
+
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}
+
+/**
+ * This system variable haas moved to a tristate configuration.  See the constant
+ * definitions in og_reg_keys.module.
+ */
+function og_reg_keys_update_6100() {
+  $ret = array();
+
+  if (variable_get('og_reg_key_required', 1)) {
+    variable_set('og_reg_key_required', 0);
+  }
+  else {
+    variable_set('og_reg_key_required', 1);
+  }
+
+  return $ret;
+}

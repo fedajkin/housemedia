@@ -2,57 +2,114 @@
 
 include_once('hm_group.features.inc');
 
+function hm_group_init() {
+  global $user;
+  
+  // OG User Roles support for gruop forums.
+  if (preg_match('/^node\/\d+\/content\/forum\/view$/i', $_GET['q'])) {
+    $nid  = arg(1);
+    $node = node_load($nid);
+    og_user_roles_grant_roles($user, $node);
+  }
+  
+  if (preg_match('/^forum\/\d+$/i', $_GET['q'])) {
+    $fid   = arg(1);
+    $forum = current(taxonomy_get_parents($fid));
+
+    $nid = db_result(
+      db_query('SELECT gid FROM {sts_commons_forum} WHERE fctid = %d', $forum->tid)
+    );
+    
+    $node = node_load($nid);
+    og_user_roles_grant_roles($user, $node);
+  }
+}
+
 /**
  * Implementation of hook_block().
  */
 function hm_group_block($op = 'list', $delta = 0, $edit = array()) {
-  if ($op == 'list') {
-    return array(
-      'info_tabs' => array('info' => t('Group info tabs'))
-    );
-  }
-  elseif ($op == 'view') {
-    switch ($delta) {
-      case 'info_tabs':
-        return hm_group_block_info_tabs();
-        break;
-    }
-  }
+  module_load_include('inc', 'hm_group', 'hm_group.blocks');
+  return _hm_group_block($op, $delta, $edit);
 }
 
 /**
  * Implementation of hook_menu()
  */
 function hm_group_menu() {
-  return array(
-    'hm_group/js_calendar/%' => array(
-      'access arguments' => array('access content'),
-      'page callback' => 'hm_group_js_calendar',
-      'page arguments' => array(2, 3),
-      'type' => MENU_CALLBACK
-    )
+  $items = array();
+  $items['hm_group/js_calendar/%'] = array(
+    'access arguments' => array('access content'),
+    'page callback'    => 'hm_group_js_calendar',
+    'page arguments'   => array(2, 3),
+    'type'             => MENU_CALLBACK
   );
+  $items['admin/settings/hm_group'] = array(
+    'title'						 => 'Housemedia Group',
+    'access arguments' => array('administer site configuration'),
+    'page callback'		 => 'drupal_get_form',
+    'page arguments'	 => array('hm_group_admin_settings'),
+  	'file'						 => 'hm_group.admin.inc',
+    'type'						 => MENU_NORMAL_ITEM,
+  );
+  return $items;
+}
+
+function hm_group_menu_alter(&$items) {
+  unset($items['node/%/groupadmin']);
+}
+
+function hm_group_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'og_reg_keys_join') {
+    
+    $nid = variable_get('hm_group_reg_keys_help_nid', '');
+    
+    $form['info_help'] = array(
+      '#value'  => l(t("You don't have a registration key?"), 'node/'. $nid),
+      '#weight' => -1
+    );
+    
+    // Override original 'og_reg_keys_join_submit' callback.
+    $form['#submit'][0] = 'hm_group_og_reg_keys_join_submit';
+  }
 }
 
 /**
  * Implementation of hook_nodeapi()
  */
 function hm_group_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  if ($op == 'view' && $node->type == 'group') {
-
-    $sql           = "SELECT n.nid FROM {node} n INNER JOIN {og_ancestry} oga ON n.nid = oga.nid WHERE n.type = 'inw_detal' AND oga.group_nid = %d";
-    $inw_detal_nid = db_result(db_query($sql, $node->nid));
-    $inw_detal     = node_load($inw_detal_nid);
+  
+  if ($node->type == 'group') {
+    
+    switch ($op) {
+      case 'view':
+        $sql           = "SELECT n.nid FROM {node} n INNER JOIN {og_ancestry} oga ON n.nid = oga.nid WHERE n.type = 'inw_detal' AND oga.group_nid = %d";
+        $inw_detal_nid = db_result(db_query($sql, $node->nid));
+        $inw_detal     = node_load($inw_detal_nid);
    
-    if ($inw_detal) {
-      $node->available_flats = $inw_detal->field_in_d_wolne[0]['value'];
-      $node->completion_date = strtotime($inw_detal->field_in_d_end[0]['value']);  
+        if ($inw_detal) {
+          $node->available_flats = $inw_detal->field_in_d_wolne[0]['value'];
+          $node->completion_date = strtotime($inw_detal->field_in_d_end[0]['value']);  
+        }
     }
   }
 }
 
-function hm_group_menu_alter(&$items) {
-  unset($items['node/%/groupadmin']);
+/**
+ * Implementation of hook_theme().
+ */
+function hm_group_theme() {
+  $registry = array();
+  $registry['hm_group_members_block'] = array(
+    'arguments' => array(
+    	'managers'  => NULL, 
+    	'residents' => NULL, 
+    	'guests'    => NULL, 
+    	'link'      => NULL
+    ),
+    'file' => 'hm_group.theme.inc'
+  );
+  return $registry; 
 }
 
 function hm_group_preprocess_block($vars) {
@@ -77,7 +134,7 @@ function hm_group_preprocess_block($vars) {
     // Group page: Latest blog posts
     if ($vars['block']->bid == 'views-group_block_blog_latest-block_1') {
       $vars['block']->subject = l(
-        $vars['block']->subject,
+        t('Latest blog posts'),
       	'node/'. arg(1) .'/content/blogs'
       );
     }
@@ -123,51 +180,89 @@ function hm_group_preprocess_date_navigation(&$vars) {
   }
 }
 
+function hm_group_og_reg_keys_join_submit($form, &$form_state) {
+  global $user;
+  if ($user->uid) {
+    $gid = og_reg_keys_get_gid($form_state['values']['og_reg_key']);
+
+    // Use og_save_subscription() to get around og_subscribe_user()'s
+    // selectivity checks.
+    og_save_subscription($gid, $user->uid, array('is_active' => 1));
+
+    // Existing user so preserve roles as user_save is destructive
+    $roles = $user->roles + array(variable_get('og_reg_keys_role', DRUPAL_AUTHENTICATED_RID) => 1);
+    user_save($user, array('roles' => $roles));
+
+    // Delete the user's menu cache in order to provide access
+    // to menu items secured by their newly granted role.
+    cache_clear_all($user->uid .':', 'cache_menu', TRUE);
+
+    // Housemedia Group additional feature: Assign role 'mieszkaniec' to given 
+    // member of organic groups within the group context.
+    $rid = db_result(db_query("SELECT rid FROM {role} WHERE name = 'mieszkaniec'"));
+    og_user_roles_role_add($gid, $user->uid, $rid);
+    
+    // Load the group node to get the name of the group.
+    $group = node_load(array('nid' => $gid));
+    drupal_set_message(t('You are now a resident of !group_name.', array('!group_name' => $group->title)));
+    drupal_goto('node/'. $gid);
+  }
+  else {
+    drupal_access_denied();
+  }
+}
+
 function hm_group_js_calendar($group, $date) {
   print date_embed_view('group_event_calendar', 'calendar_block_1', array('block_identifier' => 'mini'), array($group, $date));
 }
 
-function hm_group_block_info_tabs() {
-  
-  $quicktabs['qtid']  = 'hm_group_info_tabs';
-  $quicktabs['ajax']  = FALSE;
-  $quicktabs['style'] = 'nostyle';
-  $quicktabs['tabs']  = array(
-    '0' => array(
-  		'title'   => t('Description'),
-      'type'    => 'node',
-      'nid'     => arg(1),
-      'teaser'	=> 0
-    ),
-    '1' => array(
-  		'title'   => t('Details'),
-      'type'    => 'view',
-      'vid'     => 'hm_investment_node',
-      'display' => 'block_1',
-    ),
-    '2' => array(
-  		'title'   => t('Gallery'),
-      'type'    => 'view',
-      'vid'     => 'hm_group_gallery',
-      'display' => 'block_1',
-    ),
-    '3' => array(
-  		'title'   => t('Flats'),
-      'type'    => 'view',
-      'vid'     => 'mieszkania',
-      'display' => 'block_1',
-    ),
-    '4' => array(
-  		'title'   => t('Promotions'),
-      'type'    => 'view',
-      'vid'     => 'hm_promotion_group',
-      'display' => 'block_1',
-    )
-  );
+/**
+  * Determine whether user can act as a group resident for a given group.
+  *
+  * @param string $node
+  *   A group node object.
+  * @param string $account
+  *   A user account object. If not supplied, the current user is assumed.
+  * @return boolean
+  */
+function hm_group_is_group_resident($node, $account = NULL) {
+  if (is_null($account)) {
+    $account = $GLOBALS['user'];
+    if (og_is_group_member($node->nid, TRUE, $account->uid)) {
+      $needle_rid     = db_result(db_query("SELECT rid FROM {role} WHERE name = 'mieszkaniec'"));
+      $assigned_roles = og_user_roles_get_roles_by_group($node->nid, $account->uid);
+      
+      return in_array($needle_rid, $assigned_roles);
+    }
+  }
 
-  
-  return array(
-    'subject' => '',
-    'content' => theme('quicktabs', $quicktabs)
-  );
+  return FALSE;
 }
+
+function _hm_group_subscribe_link($node) {
+  global $user;
+  
+  $nid   = $node->nid;
+  $items = array();
+  
+  if (in_array($nid, array_keys($user->og_groups))) {
+    $items[] = l(t('Leave group'), "og/unsubscribe/{$nid}/{$user->uid}", array('query' => drupal_get_destination()));
+  }
+  else {
+    $items[] = l(t('Join as a guest'), "og/subscribe/{$nid}", array('attributes' => array('rel' => 'nofollow'), 'query' => drupal_get_destination()));
+  }
+  
+  if (!hm_group_is_group_resident($node)) {
+
+    if (user_is_logged_in()) {
+      $items[] = l(t('Join as a resident'), 'og/reg-key-join', array('query' => drupal_get_destination()));
+    }
+    else {
+      $nid     = variable_get('hm_group_reg_keys_help_nid', '');
+      $items[] = l(t('Join as a resident'), 'node/'. $nid, array('query' => drupal_get_destination()));
+    }
+  }
+  
+  return $items;
+}
+

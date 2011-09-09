@@ -1,0 +1,161 @@
+diff --git a/og_user_roles.module b/og_user_roles.module
+index e9fab05..aff293a 100644
+--- a/og_user_roles.module
++++ b/og_user_roles.module
+@@ -627,3 +627,12 @@ function og_user_roles_get_group_default_role($nid) {
+   }
+   return $default_role;
+ }
++
++/**
++ * Implementation of hook_views_api().
++ */
++function og_user_roles_views_api() {
++  return array(
++    'api' => 2.0,
++  );
++}
+\ No newline at end of file
+diff --git a/og_user_roles.views.inc b/og_user_roles.views.inc
+new file mode 100644
+index 0000000..5e9bf32
+--- /dev/null
++++ b/og_user_roles.views.inc
+@@ -0,0 +1,65 @@
++<?php
++/**
++ * Implementation of hook_views_data().
++ */
++function og_user_roles_views_data() {
++
++  $data['og_users_roles']['table']['group']  = t('Organic groups Roles');
++
++  $data['og_users_roles']['table']['join'] = array(
++    'users' => array(
++      'left_field' => 'uid',
++      'left_table' => 'og_uid',
++      'field' => 'uid',
++      'handler' => 'og_users_roles_join_handler',
++    ),
++  );
++
++  $data['og_users_roles']['rid'] = array(
++    'title' => t('OG Roles'),
++    'help' => t('Roles of user'),
++    'field' => array(
++      'handler' => 'views_handler_field_og_user_roles',
++    ),
++    'filter' => array(
++      'handler' => 'views_handler_filter_user_roles',
++    ),
++    'sort' => array(
++       'handler' => 'views_handler_sort',
++    ),
++    'argument' => array(
++      'handler' => 'views_handler_argument_users_roles_rid',
++      'name table' => 'role',
++      'name field' => 'name',
++      'empty field name' => t('No role'),
++      'numeric' => TRUE,
++    ),
++  );
++  return $data;
++}
++
++/**
++ * There is not an easy way to define this join and allow it to handle aliases.
++ */
++class og_users_roles_join_handler extends views_join {
++  // PHP 4 doesn't call constructors of the base class automatically from a
++  // constructor of a derived class. It is your responsibility to propagate
++  // the call to constructors upstream where appropriate.
++  function construct($table = NULL, $left_table = NULL, $left_field = NULL, $field = NULL, $extra = array(), $type = 'LEFT') {
++    parent::construct($table, $left_table, $left_field, $field, $extra, $type);
++  }
++
++  function join($table, &$query) {
++    $output = parent::join($table, $query);
++    $left = $query->get_table_info($this->left_table);
++    $output .= " AND $left[alias].nid = $table[alias].gid";
++    return $output;
++  }
++}
++
++/**
++ * Implementation of hook_views_handlers() to register all of the basic handlers
++ * views uses.
++ */
++function og_user_roles_views_handlers() {
++  return array(
++    'handlers' => array(
++      'views_handler_field_og_user_roles' => array(
++        'parent' => 'views_handler_field_prerender_list',
++      ),
++    ),
++  );
++}
+\ No newline at end of file
+diff --git a/views_handler_field_og_user_roles.inc b/views_handler_field_og_user_roles.inc
+new file mode 100644
+index 0000000..99eb0c0
+--- /dev/null
++++ b/views_handler_field_og_user_roles.inc
+@@ -0,0 +1,58 @@
++<?php
++// $Id: views_handler_field_og_user_roles.inc,v 1.0 2010/08/08 17:34:00 destination_node Exp $
++/**
++ * Field handler to provide a list of roles.
++ */
++class views_handler_field_og_user_roles extends views_handler_field_prerender_list {
++  function construct() {
++    parent::construct();
++    $this->additional_fields['uid'] = array('table' => 'users', 'field' => 'uid');
++    $this->additional_fields['gid'] = array('table' => 'og_uid', 'field' => 'nid');
++    }
++
++  function query() {
++    $this->add_additional_fields();
++    $this->field_alias = $this->aliases['uid'];
++  }
++
++  function pre_render($values) {
++    $uids = array();
++    $this->items = array();
++
++    foreach ($values as $result) {
++      $uid = $result->{$this->aliases['uid']};
++      $gid = $result->{$this->aliases['gid']};
++      if ($gid) {
++        $result = db_query("SELECT u.uid, u.rid, r.name FROM {role} r INNER JOIN {og_users_roles} u ON u.rid = r.rid WHERE u.uid = $uid AND u.gid = $gid ORDER BY r.name");
++
++        while ($role = db_fetch_object($result)) {
++          $this->items[$uid][$role->rid]['role'] = check_plain($role->name);
++          $this->items[$uid][$role->rid]['rid'] = $role->rid;
++          $this->items[$uid][$role->rid]['gid'] = $role->gid;
++
++        }
++      }
++    }
++  }
++
++  function render_item($count, $item) {
++    return $item['role'];
++  }
++
++  /**
++   * Render all items in this field together.
++   *
++   * When using advanced render, each possible item in the list is rendered
++   * individually. Then the items are all pasted together.
++   */
++  function render_items($items) {
++    if (!empty($items)) {
++      if ($this->options['type'] == 'separator') {
++        return implode(check_plain($this->options['separator']), $items);
++      }
++      else {
++        return theme('item_list', $items, NULL, $this->options['type']);
++      }
++    }
++  }
++}

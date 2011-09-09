@@ -12,6 +12,12 @@ function hm_core_user_default_permissions() {
     'roles' => array(),
   );
 
+  // Exported permission: administer forums
+  $permissions['administer forums'] = array(
+    'name' => 'administer forums',
+    'roles' => array(),
+  );
+
   // Exported permission: administer vote up/down
   $permissions['administer vote up/down'] = array(
     'name' => 'administer vote up/down',
@@ -22,6 +28,40 @@ function hm_core_user_default_permissions() {
   $permissions['administer vote up/down on nodes'] = array(
     'name' => 'administer vote up/down on nodes',
     'roles' => array(),
+  );
+
+  // Exported permission: create forum topics
+  $permissions['create forum topics'] = array(
+    'name' => 'create forum topics',
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: delete any forum topic
+  $permissions['delete any forum topic'] = array(
+    'name' => 'delete any forum topic',
+    'roles' => array(),
+  );
+
+  // Exported permission: delete own forum topics
+  $permissions['delete own forum topics'] = array(
+    'name' => 'delete own forum topics',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit any forum topic
+  $permissions['edit any forum topic'] = array(
+    'name' => 'edit any forum topic',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit own forum topics
+  $permissions['edit own forum topics'] = array(
+    'name' => 'edit own forum topics',
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: reset vote up/down votes

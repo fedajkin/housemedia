@@ -1,0 +1,27 @@
+; $Id: og_reg_keys.info,v 1.2.2.2 2009/09/15 19:39:20 marcp Exp $
+name = Organic groups registration keys
+description = Provides group registration keys to restrict access to organic groups.
+dependencies[] = og
+package = "Organic groups"
+core = 6.x
+
+; Information added by drupal.org packaging script on 2008-11-26
+version = "6.x-1.1"
+core = "6.x"
+project = "og_reg_keys"
+datestamp = "1227737123"
+
+
+; Information added by drupal.org packaging script on 2009-06-21
+version = "6.x-1.2"
+core = "6.x"
+project = "og_reg_keys"
+datestamp = "1245557437"
+
+
+; Information added by drupal.org packaging script on January 1, 1970 - 00:00
+version = "6.x-1.4"
+core = "6.x"
+project = "og_reg_keys"
+datestamp = "1295931954"
+

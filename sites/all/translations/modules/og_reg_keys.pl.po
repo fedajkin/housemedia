@@ -1,0 +1,283 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  og_reg_keys.views.inc,v 1.1 2008/11/26 19:42:21 marcp
+#  og_reg_keys.info,v 1.2.2.2 2009/09/15 19:39:20 marcp
+#  og_reg_keys.module,v 1.2.2.5 2011/01/24 16:26:35 marcp
+#  og_reg_keys.install,v 1.2.2.1 2009/09/15 19:39:20 marcp
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-09-06 23:09+0200\n"
+"PO-Revision-Date: 2011-09-06 23:09+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: og_reg_keys.views.inc:11 og_reg_keys.info:0
+msgid "Organic groups"
+msgstr "Grupy"
+
+#: og_reg_keys.views.inc:20
+msgid "Og_reg_keys: Registration key"
+msgstr ""
+
+#: og_reg_keys.views.inc:25
+msgid "The registration key for a group."
+msgstr ""
+
+#: og_reg_keys.views.inc:29
+msgid "Og_reg_keys: Group edit link"
+msgstr ""
+
+#: og_reg_keys.views.inc:34
+msgid "Link to edit the registration key for a group."
+msgstr ""
+
+#: og_reg_keys.module:20
+msgid "Settings for Organic Groups registration keys.  A user will be auto-approved as member of a group set to <strong>closed</strong> or <strong>moderated</strong> when they supply a group key.  Users may also visit the !join page to join a group using a key."
+msgstr ""
+
+#: og_reg_keys.module:21
+msgid "You may combine this feature with the usual use of groups in the registration form."
+msgstr ""
+
+#: og_reg_keys.module:25
+msgid "You may check a group key by entering it below."
+msgstr "Możesz sprawdzić kod grupy wpisując go poniżej."
+
+#: og_reg_keys.module:27
+msgid "You may also join a group by submitting its key."
+msgstr "Możesz także dołączyć do grupy wpisując kod i klikając <em>Dołącz</em>."
+
+#: og_reg_keys.module:99;149;297;516
+msgid "Group registration key"
+msgstr "Kod dostępu do grupy"
+
+#: og_reg_keys.module:101
+msgid "Enter a registration key if you want to allow users to enter a key to join this group. Leave this field blank if you do not want to allow users to join this group with a registration key."
+msgstr ""
+
+#: og_reg_keys.module:121
+msgid "Group registration key is required."
+msgstr ""
+
+#: og_reg_keys.module:125
+msgid "Not a valid group registration key."
+msgstr ""
+
+#: og_reg_keys.module:176
+msgid "The key '!og_reg_keys' is already in use by a different group"
+msgstr ""
+
+#: og_reg_keys.module:233
+msgid "None"
+msgstr "Brak"
+
+#: og_reg_keys.module:237
+msgid "Role for new registrants"
+msgstr ""
+
+#: og_reg_keys.module:240
+msgid "Pick an additional user role that will be assigned to all new users registering with a valid group registration key."
+msgstr ""
+
+#: og_reg_keys.module:245
+msgid "Text to be added to group invitation e-mails"
+msgstr ""
+
+#: og_reg_keys.module:248
+msgid "The token '%reg_key' must be included and will be replaced by the group's registration key."
+msgstr ""
+
+#: og_reg_keys.module:253
+msgid "Registration key control for new account creation"
+msgstr ""
+
+#: og_reg_keys.module:256
+msgid "Registration key is required for new account creation."
+msgstr ""
+
+#: og_reg_keys.module:258
+msgid "Registration key is not required for new account creation. Display it on the registration form."
+msgstr ""
+
+#: og_reg_keys.module:260
+msgid "Registration key is not required for new account creation. Do not display it on the registration form."
+msgstr ""
+
+#: og_reg_keys.module:267
+msgid "Registration help text"
+msgstr ""
+
+#: og_reg_keys.module:268
+msgid "Additional help text to be added to the user registration form."
+msgstr ""
+
+#: og_reg_keys.module:283
+msgid "Save configuration"
+msgstr "Zachowaj konfigurację"
+
+#: og_reg_keys.module:284
+msgid "You must include in your message the token '%reg_key'"
+msgstr ""
+
+#: og_reg_keys.module:306;365
+msgid "Check key"
+msgstr "Sprawdz kod"
+
+#: og_reg_keys.module:312
+msgid "Join"
+msgstr "Dołącz"
+
+#: og_reg_keys.module:325
+msgid "This is not a valid group registration key."
+msgstr "Kod dostępu do grupu nie jest poprawny."
+
+#: og_reg_keys.module:351;566
+msgid "You are now a member of !group_name."
+msgstr ""
+
+#: og_reg_keys.module:383
+msgid "By submitting this key, you will join this group:"
+msgstr "Podany kod zezwala na dołączenie do grupy:"
+
+#: og_reg_keys.module:409
+msgid "Enroll with registration key"
+msgstr ""
+
+#: og_reg_keys.module:415
+msgid "Enroll in a group"
+msgstr ""
+
+#: og_reg_keys.module:422
+msgid "Create a new account"
+msgstr ""
+
+#: og_reg_keys.module:431
+msgid "User is not logged in"
+msgstr ""
+
+#: og_reg_keys.module:437
+msgid "Message to display to users who are registering for the site with a key"
+msgstr ""
+
+#: og_reg_keys.module:442
+msgid "User is logged in"
+msgstr ""
+
+#: og_reg_keys.module:448
+msgid "Message to display to logged in users who are joining a group"
+msgstr ""
+
+#: og_reg_keys.module:488
+msgid "Username"
+msgstr "Nazwa użytkownika"
+
+#: og_reg_keys.module:497
+msgid "Password"
+msgstr "Hasło"
+
+#: og_reg_keys.module:506
+msgid "Email"
+msgstr ""
+
+#: og_reg_keys.module:507
+msgid "email address is optional"
+msgstr ""
+
+#: og_reg_keys.module:522
+msgid "Create account"
+msgstr ""
+
+#: og_reg_keys.module:539
+msgid "This is not a valid group registration key, or group membership is by invite only."
+msgstr ""
+
+#: og_reg_keys.module:644
+msgid "If you were given a registration key for this site you can use it here to join a group."
+msgstr ""
+
+#: og_reg_keys.module:651
+msgid "To join this group, use the registration key %reg_key"
+msgstr ""
+
+#: og_reg_keys.module:658
+msgid "Use a registration key to enroll in a group."
+msgstr ""
+
+#: og_reg_keys.module:665
+msgid "Use a registration key to join the site and enroll in a group. If you are already a member, sign in first, and then use your registration key."
+msgstr ""
+
+#: og_reg_keys.module:681
+msgid "The name %name is already taken."
+msgstr "Nazwa użytkownika %name jest już zajęta."
+
+#: og_reg_keys.module:684
+msgid "The name %name has been denied access."
+msgstr "Nazwa użytkownika %name jest niedozwolona i została odrzucona."
+
+#: og_reg_keys.module:694
+msgid "The e-mail address %email is already taken."
+msgstr ""
+
+#: og_reg_keys.module:697
+msgid "The e-mail address %email has been denied access."
+msgstr "Adres e-mail %email jest niedozwolony i został odrzucony."
+
+#: og_reg_keys.module:547
+msgid "og_reg_keys"
+msgstr ""
+
+#: og_reg_keys.module:547
+msgid "New user: %name %email."
+msgstr ""
+
+#: og_reg_keys.module:41
+msgid "Use registration key"
+msgstr ""
+
+#: og_reg_keys.module:49
+msgid "OG Reg Keys Settings"
+msgstr ""
+
+#: og_reg_keys.module:50
+msgid "Configure group registration key settings."
+msgstr ""
+
+#: og_reg_keys.module:57
+msgid "Edit Registration Keys"
+msgstr ""
+
+#: og_reg_keys.module:58
+msgid "Edit group registration keys."
+msgstr ""
+
+#: og_reg_keys.install:10
+msgid "Track group registration keys for each group based on nid."
+msgstr ""
+
+#: og_reg_keys.install:13
+msgid "The group's {node}.nid."
+msgstr ""
+
+#: og_reg_keys.install:20
+msgid "Registration code.  Must be unique."
+msgstr ""
+
+#: og_reg_keys.info:0
+msgid "Organic groups registration keys"
+msgstr ""
+
+#: og_reg_keys.info:0
+msgid "Provides group registration keys to restrict access to organic groups."
+msgstr ""
+

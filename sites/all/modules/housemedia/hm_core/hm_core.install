@@ -72,6 +72,10 @@ function hm_core_install() {
   drupal_install_modules(array(
     'contemplate',
     'jcarousel',
+    'og_user_roles',
+    'og_reg_keys',
+    'acl',
+    'forum_access',
     'hm_news',
     'hm_promotion',
     'hm_group',
@@ -96,7 +100,6 @@ function hm_core_install() {
   ));
   
   // Install translations.
-  _hm_core_update_translation('sites/all/translations/commons');
   _hm_core_update_translation('sites/all/translations/modules');
   _hm_core_update_translation('sites/all/modules/housemedia');
   _hm_core_update_translation('sites/all/themes/housemedia/translations');
@@ -111,6 +114,16 @@ function hm_core_install() {
   foreach ($views as $view) {
     views_get_view($view)->delete();
   }
+  
+  $handle  = fopen('./sites/all/modules/housemedia/hm_core/resources/register.node', 'r');
+  $content = stream_get_contents($handle);
+  fclose($handle);
+
+  $node          = node_load(306);
+  $node->body    = $content;
+  $node->format  = 3;
+  $node->comment = COMMENT_NODE_DISABLED; // Disable comments.
+  node_save($node);
   
   return $ret;
 }

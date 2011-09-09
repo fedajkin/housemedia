@@ -20,6 +20,7 @@ function hm_core_strongarm() {
     'group-home-shoutbox' => TRUE,
     'group-home' => TRUE,
     'group-home-events' => TRUE,
+    'group-listing' => TRUE,
   );
 
   $export['context_status'] = $strongarm;
@@ -370,6 +371,11 @@ function hm_core_strongarm() {
     'og_members_block' => TRUE,
     'og_my' => TRUE,
     'flag_bookmarks_tab' => TRUE,
+    'sts_forum_active_topics' => TRUE,
+    'sts_forum_new_topics' => TRUE,
+    'sts_forum_unanswered_topics' => TRUE,
+    'groups_newest_groups' => TRUE,
+    'groups_most_active' => TRUE,
   );
 
   $export['views_defaults'] = $strongarm;

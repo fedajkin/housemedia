@@ -16,10 +16,10 @@ $color-cherry: #a10d0d;
   width: 35px;
 }
 
-@mixin shadow {
- -moz-box-shadow: 5px 5px 5px #ccc;
- -webkit-box-shadow: 5px 5px 5px #ccc;
- box-shadow: 5px 5px 5px #ccc;
+@mixin shadow($size: 5px) {
+ -moz-box-shadow: $size $size $size #ccc;
+ -webkit-box-shadow: $size $size $size #ccc;
+ box-shadow: $size $size $size #ccc;
 }
 
 @import "lib/clearfix";

@@ -39,6 +39,9 @@ fieldset {
   
   .search_submit {
     @include submit-button;
+    background: url(../img/search.png);
+    text-indent: -999px;
+    width: 22px;
     line-height: 17px;
     cursor: pointer;
   }

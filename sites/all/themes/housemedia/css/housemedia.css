@@ -364,7 +364,10 @@ div.beat-item blockquote {
   background: url(../img/header-bg.png) repeat-x;
   border-bottom: 2px solid #3C709B;
   height: 112px;
-  overflow: hidden; }
+  overflow: hidden;
+  -moz-box-shadow: 5px 5px 5px #cccccc;
+  -webkit-box-shadow: 5px 5px 5px #cccccc;
+  box-shadow: 5px 5px 5px #cccccc; }
 
 #logo {
   background: url(../img/logo.png) no-repeat;
@@ -423,14 +426,18 @@ h1 {
 .view-id-hm_investment_node .group-in-d-podstawowe {
   margin-top: 0; }
 
+#pid-og-reg-key-join .teaser {
+  background: #eeeeee;
+  padding: 10px 10px 0 10px; }
+
 .view-empty p {
   margin-top: 0;
   text-align: center; }
 
 .block .block-title {
-  -moz-box-shadow: 5px 5px 5px #ccc;
-  -webkit-box-shadow: 5px 5px 5px #ccc;
-  box-shadow: 5px 5px 5px #ccc;
+  -moz-box-shadow: 5px 5px 5px #cccccc;
+  -webkit-box-shadow: 5px 5px 5px #cccccc;
+  box-shadow: 5px 5px 5px #cccccc;
   background-color: #5d91c0;
   color: white;
   font-size: 12px;
@@ -444,7 +451,7 @@ h1 {
   margin: 0.5em 0; }
 
 #block-commons_core-group_menu .block-title,
-#block-commons_core-group_members .block-title,
+#block-hm_group-members .block-title,
 #block-commons_profile-find_new_friends .block-title,
 #block-invite-0 .block-title,
 #block-og_views-0 .block-title,
@@ -453,7 +460,7 @@ h1 {
 #block-views-hm_group_newest-block_1 .block-title {
   margin-bottom: 10px; }
 #block-commons_core-group_menu .content,
-#block-commons_core-group_members .content,
+#block-hm_group-members .content,
 #block-commons_profile-find_new_friends .content,
 #block-invite-0 .content,
 #block-og_views-0 .content,
@@ -470,11 +477,11 @@ h1 {
 
 /* User Meta - logout/account links in header w/ profile pic */
 #user-privatemsg-inbox {
-  background: url("../img/inbox-icon.png") no-repeat scroll 0 0 transparent;
+  background: url("../img/mail2.png") no-repeat scroll 0 0 transparent;
   clear: both;
   float: right;
   margin-top: 2px;
-  padding: 1px 0 2px 30px; }
+  padding: 1px 0 2px 25px; }
   #user-privatemsg-inbox a {
     color: white;
     font-weight: bold;
@@ -579,7 +586,7 @@ h1 {
   background: white; }
 
 .quicktabs_main {
-  background: #e5edff;
+  background: #f5f5f5;
   overflow: hidden;
   padding: 10px; }
 
@@ -727,9 +734,9 @@ a {
         .nav-group #primary-menu li a.active {
           background-color: #2c537c; }
     .nav-group #primary-menu li {
-      -moz-box-shadow: 5px 5px 5px #ccc;
-      -webkit-box-shadow: 5px 5px 5px #ccc;
-      box-shadow: 5px 5px 5px #ccc; }
+      -moz-box-shadow: 5px 5px 5px #cccccc;
+      -webkit-box-shadow: 5px 5px 5px #cccccc;
+      box-shadow: 5px 5px 5px #cccccc; }
 
 #content-tabs ul.primary {
   border: 0;
@@ -764,7 +771,10 @@ a {
   .block .content ul.quicktabs_tabs li {
     background: #90a3cd;
     margin-right: 5px;
-    padding: 0.25em 0.75em; }
+    padding: 0.25em 0.75em;
+    -moz-box-shadow: 2px 2px 2px #cccccc;
+    -webkit-box-shadow: 2px 2px 2px #cccccc;
+    box-shadow: 2px 2px 2px #cccccc; }
     .block .content ul.quicktabs_tabs li.active {
       background: #2c537c; }
     .block .content ul.quicktabs_tabs li:hover {
@@ -804,9 +814,9 @@ fieldset {
   border: 1px solid #afafaf; }
 
 #search-theme-form {
-  -moz-box-shadow: 5px 5px 5px #ccc;
-  -webkit-box-shadow: 5px 5px 5px #ccc;
-  box-shadow: 5px 5px 5px #ccc;
+  -moz-box-shadow: 5px 5px 5px #cccccc;
+  -webkit-box-shadow: 5px 5px 5px #cccccc;
+  box-shadow: 5px 5px 5px #cccccc;
   background: #3e76b0;
   float: right;
   margin-right: 10px;
@@ -822,6 +832,9 @@ fieldset {
     font-size: 12px;
     font-weight: bold;
     padding: 3px 5px;
+    background: url(../img/search.png);
+    text-indent: -999px;
+    width: 22px;
     line-height: 17px;
     cursor: pointer; }
 

@@ -3,19 +3,22 @@
 # Polish translation of Drupal (general)
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 # Generated from files:
+#  hm_group.admin.inc: n/a
+#  hm_group.blocks.inc: n/a
 #  hm_group.context.inc: n/a
+#  hm_group.module: n/a
 #  hm_group.info: n/a
 #  hm_group.features.content.inc: n/a
 #  hm_group.features.fieldgroup.inc: n/a
-#  hm_group.module: n/a
+#  hm_group.theme.inc: n/a
 #  hm_group.install: n/a
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2011-08-07 22:12+0200\n"
-"PO-Revision-Date: 2011-08-07 22:12+0200\n"
+"POT-Creation-Date: 2011-09-06 23:05+0200\n"
+"PO-Revision-Date: 2011-09-06 23:05+0200\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Polish <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +26,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
 
-#: hm_group.context.inc:76 hm_group.info:0
+#: hm_group.admin.inc:7
+msgid "Organic groups registration keys"
+msgstr ""
+
+#: hm_group.admin.inc:14
+msgid "Help page NID"
+msgstr ""
+
+#: hm_group.admin.inc:17
+msgid "Enter valid NID of node that contains explanation about a registration keys. This node will automatically linked in registration keys form."
+msgstr ""
+
+#: hm_group.blocks.inc:29
+msgid "Group info tabs"
+msgstr ""
+
+#: hm_group.blocks.inc:33
+msgid "Group members"
+msgstr ""
+
+#: hm_group.blocks.inc:46
+msgid "Description"
+msgstr "Opis"
+
+#: hm_group.blocks.inc:52
+msgid "Details"
+msgstr "Szczegóły"
+
+#: hm_group.blocks.inc:58
+msgid "Gallery"
+msgstr "Galeria zdjęć"
+
+#: hm_group.blocks.inc:64
+msgid "Flats"
+msgstr "Mieszkania"
+
+#: hm_group.blocks.inc:70
+msgid "Promotions"
+msgstr "Promocje"
+
+#: hm_group.blocks.inc:115
+msgid "View all members"
+msgstr "Zobacz wszystkich członków"
+
+#: hm_group.blocks.inc:118
+msgid "Group members (!count)"
+msgstr "Członkowie grupy (!count)"
+
+#: hm_group.context.inc:76;126 hm_group.module:48 hm_group.info:0
 msgid "Housemedia Group"
 msgstr ""
 
@@ -35,49 +86,49 @@ msgstr ""
 msgid "Galeria zdjęć"
 msgstr ""
 
-#: hm_group.module:11
-msgid "Group info tabs"
-msgstr ""
+#: hm_group.theme.inc:9
+msgid "Moderators:"
+msgstr "Moderatorzy:"
 
-#: hm_group.module:69
+#: hm_group.theme.inc:13
+msgid "Residents:"
+msgstr "Mieszkańcy"
+
+#: hm_group.theme.inc:17
+msgid "Guests:"
+msgstr "Goście"
+
+#: hm_group.module:68
+msgid "You don't have a registration key?"
+msgstr "Nie posiadasz kodu?"
+
+#: hm_group.module:123
 msgid "Calendar"
 msgstr "Kalendarz"
 
-#: hm_group.module:76
+#: hm_group.module:130
 msgid "Documents"
 msgstr "Dokumenty"
 
-#: hm_group.module:84
+#: hm_group.module:138
 msgid "Latest blog posts"
 msgstr "Ostatnie posty na blogu"
 
-#: hm_group.module:141
-msgid "Description"
-msgstr "Opis"
+#: hm_group.module:208
+msgid "You are now a resident of !group_name."
+msgstr ""
 
-#: hm_group.module:147
-msgid "Details"
-msgstr "Szczegóły"
-
-#: hm_group.module:153
-msgid "Gallery"
-msgstr "Galeria zdjęć"
-
-#: hm_group.module:159
-msgid "Flats"
-msgstr "Mieszkania"
-
-#: hm_group.module:165
-msgid "Promotions"
-msgstr "Promocje"
-
-#: hm_group.module:185
+#: hm_group.module:250
 msgid "Leave group"
 msgstr "Opuść grupę"
 
-#: hm_group.module:196
-msgid "Join"
-msgstr "Dołącz"
+#: hm_group.module:253
+msgid "Join as a guest"
+msgstr "Dołącz jako gość"
+
+#: hm_group.module:257
+msgid "Join as a resident"
+msgstr "Dołącz jako mieszkaniec"
 
 #: hm_group.install:3
 msgid "Developer"

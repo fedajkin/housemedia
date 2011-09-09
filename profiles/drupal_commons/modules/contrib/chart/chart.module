@@ -97,7 +97,7 @@ function chart_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('chart_settings'),
       'access arguments' => array('administer chart'),
-    );
+  );
 
   return $items;
 }
@@ -332,26 +332,26 @@ function chart_settings() {
       '#title' => t('Overrides'),
       '#collapsible' => TRUE,
       '#collapsed' => FALSE,
-    );
+  );
   // @todo: overrides global / per theme
   $form['overrides']['chart_global_bg'] = array(
       '#type' => 'textfield',
       '#title' => t('Global Background Color'),
       '#description' => t('Specify a global background color for all charts. When set this will take precedence over any custom value which is useful for highly themed sites.'),
       '#default_value' => variable_get('chart_global_bg', ''),
-    );
+  );
   $form['overrides']['chart_max_width'] = array(
       '#type' => 'textfield',
       '#title' => t('Max Width'),
       '#description' => t('Max chart width.'),
       '#default_value' => variable_get('chart_max_width', ''),
-    );
+  );
   $form['overrides']['chart_max_height'] = array(
       '#type' => 'textfield',
       '#title' => t('Max Height'),
       '#description' => t('Max chart height.'),
       '#default_value' => variable_get('chart_max_height', ''),
-    );
+  );
 
   return system_settings_form($form);
 }
@@ -430,7 +430,7 @@ function _chart_adjust_resolution($chart_id, &$data, $max_value = NULL) {
     }
     else {
       $max[$chart_id] = max($max[$chart_id], 1);
-      $multiplier = round($resoluton / $max[$chart_id], 1);  
+      $multiplier = round($resoluton / $max[$chart_id], 1);
     }
 
     foreach($data AS $k => $v){
@@ -477,7 +477,7 @@ function _chart_append($attr, $value, &$data) {
       $data[$attr] = $value;
       break;
 
-    // Size
+      // Size
     case 'chs':
       if (_chart_is_valid_size($value)){
         $width  = $value['#width'];
@@ -491,17 +491,17 @@ function _chart_append($attr, $value, &$data) {
       $data[$attr] = $width . 'x' . $height;
       break;
 
-    // Labels
+      // Labels
     case 'chl':
       $data[$attr] = implode('|', $value);
       break;
 
-    // Color
+      // Color
     case 'chco':
       $data[$attr] = implode(',', $value);
       break;
 
-    // Chart and background fill
+      // Chart and background fill
     case 'chf':
       if (variable_get('chart_global_bg', FALSE) || !isset($value)){
         $data[$attr] = implode(',', chart_fill('bg', trim(variable_get('chart_global_bg', 'FFFFFF'), '#')));
@@ -511,7 +511,7 @@ function _chart_append($attr, $value, &$data) {
       }
       break;
 
-    // Chart title
+      // Chart title
     case 'chtt':
       if (is_array($value)){
         $data[$attr]   = $value['#title'];
@@ -526,17 +526,17 @@ function _chart_append($attr, $value, &$data) {
 
     default:
 
-    // Legends
+      // Legends
     case 'chdl':
       $data[$attr] = implode('|', $value);
       break;
 
-    // Legend's position
+      // Legend's position
     case 'chdlp':
       $data[$attr] = $value;
       break;
 
-    // Line styles
+      // Line styles
     case 'chls':
       $styles = array();
 
@@ -564,12 +564,12 @@ function _chart_append($attr, $value, &$data) {
       }
       break;
 
-    // Grid lines
+      // Grid lines
     case 'chg':
       $data[$attr] = implode(',', $value);
       break;
 
-    // Shape markers
+      // Shape markers
     case 'chm':
       if (count($value)){
         $markers = array();
@@ -583,7 +583,7 @@ function _chart_append($attr, $value, &$data) {
       }
       break;
 
-    // Bar chart bar sizing
+      // Bar chart bar sizing
     case 'chbh':
       if (!isset($data[$attr])) {
         $data[$attr] = '';
@@ -591,8 +591,8 @@ function _chart_append($attr, $value, &$data) {
       $data[$attr] .= implode(',', array($value['#size'], $value['#spacing']));
       break;
 
-     // Mixed axis positions, labels and styles
-     // @todo: refactor
+      // Mixed axis positions, labels and styles
+      // @todo: refactor
     case 'chxt':
       $index     = 0;
       $positions = array();
@@ -672,7 +672,7 @@ function _chart_append($attr, $value, &$data) {
       $data['chxp'] = isset($data['chxp']) ? rtrim($data['chxp'], '|') : '';
       break;
 
-    // Mixed axis label styles
+      // Mixed axis label styles
     case 'chxs':
       if (count($value)){
         $styles = array();
@@ -683,15 +683,15 @@ function _chart_append($attr, $value, &$data) {
       }
       break;
 
-   // Geographical Scope
-   case 'chtm':
-     $data[$attr] = $value;
-     break;
+      // Geographical Scope
+    case 'chtm':
+      $data[$attr] = $value;
+      break;
 
-   // Country List
-   case 'chld':
-     $data[$attr] = implode('', $value);
-     break;
+      // Country List
+    case 'chld':
+      $data[$attr] = implode('', $value);
+      break;
   }
 }
 
@@ -806,7 +806,7 @@ function _chart_color_schemes($init = FALSE) {
       '7F171F',
       'B67721',
       '7F5417',
-    );
+  );
 
   if ($init === TRUE){
     foreach(module_implements('chart_color_schemes') AS $module){
@@ -839,7 +839,7 @@ function chart_title($title, $color = '000000', $size = 14) {
       '#title' => $title,
       '#color' => $color,
       '#size'  => $size,
-    );
+  );
 }
 
 /**
@@ -870,7 +870,7 @@ function chart_mixed_axis_label($label, $position = NULL) {
   return array(
       '#label'    => $label,
       '#position' => $position,
-    );
+  );
 }
 
 /**
@@ -896,7 +896,7 @@ function chart_mixed_axis_range_label($start, $end) {
   return array(
       '#start' => $start,
       '#end'   => $end,
-    );
+  );
 }
 
 /**
@@ -921,7 +921,7 @@ function chart_mixed_axis_label_style($index, $color, $font_size = 12, $alignmen
       '#color'     => $color,
       '#font_size' => $font_size,
       '#alignment' => $alignment,
-    );
+  );
 }
 
 /*-----------------------------------------------------------------
@@ -937,7 +937,7 @@ function chart_size($width, $height) {
   return array(
       '#width'  => $width,
       '#height' => $height
-    );
+  );
 }
 
 /**
@@ -967,7 +967,7 @@ function chart_line_style($line_thickness = 1, $segment_length = 1, $blank_segme
       '#line_thickness'       => $line_thickness,
       '#segment_length'       => $segment_length,
       '#blank_segment_length' => $blank_segment_length,
-    );
+  );
 }
 
 /**
@@ -993,7 +993,7 @@ function chart_grid_lines($x_step, $y_step, $segment_length = 1, $blank_segment_
       '#y_step'               => $y_step,
       '#segment_length'       => $segment_length,
       '#blank_segment_length' => $blank_segment_length,
-    );
+  );
 }
 
 /**
@@ -1031,13 +1031,13 @@ function chart_shape_marker($index = 0, $point = 0, $type = 'o', $size = 20, $co
       '#index' => $index,
       '#point' => $point,
       '#size'  => $size,
-    );
+  );
 }
 
 /**
  * Range Marker
  *
-* @param int $start
+ * @param int $start
  *
  * @param int $end
  *
@@ -1053,7 +1053,7 @@ function chart_range_marker($start, $end, $virtical = TRUE, $color = '000000') {
       '#end'      => $end,
       '#virtical' => $virtical,
       '#color'    => $color,
-    );
+  );
 }
 
 /**
@@ -1071,7 +1071,7 @@ function chart_bar_size($size = 40, $spacing = 20) {
   return array(
       '#size'    => $size,
       '#spacing' => $spacing,
-    );
+  );
 }
 
 /**
@@ -1089,7 +1089,7 @@ function chart_fill($type = 'c', $color = '000000') {
       '#type'      => $type,
       '#fill_type' => 's',
       '#color'     => $color,
-    );
+  );
 }
 
 /**
@@ -1111,7 +1111,7 @@ function chart_linear_gradient($type = 'c', $color = '000000', $offset = 0) {
       '#type'      => $type,
       '#fill_type' => 'lg',
       '#color'     => $color,
-    );
+  );
 }
 
 /**
@@ -1138,7 +1138,7 @@ function chart_linear_stripes($type = 'c', $color = '000000', $angle = 0, $width
       '#angle'     => $angle,
       '#color'     => $color,
       '#width'     => $width,
-    );
+  );
 }
 
 /*-----------------------------------------------------------------

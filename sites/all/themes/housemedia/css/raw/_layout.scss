@@ -3,6 +3,7 @@
   border-bottom: 2px solid #3C709B;
   height: 112px;
   overflow: hidden;
+  @include shadow;
 }
 
 #logo {
