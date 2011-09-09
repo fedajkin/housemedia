@@ -92,11 +92,11 @@ msgstr "Moderatorzy:"
 
 #: hm_group.theme.inc:13
 msgid "Residents:"
-msgstr "Mieszkańcy"
+msgstr "Mieszkańcy:"
 
 #: hm_group.theme.inc:17
 msgid "Guests:"
-msgstr "Goście"
+msgstr "Goście:"
 
 #: hm_group.module:68
 msgid "You don't have a registration key?"

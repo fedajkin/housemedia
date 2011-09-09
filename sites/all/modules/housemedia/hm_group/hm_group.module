@@ -72,6 +72,21 @@ function hm_group_form_alter(&$form, &$form_state, $form_id) {
     // Override original 'og_reg_keys_join_submit' callback.
     $form['#submit'][0] = 'hm_group_og_reg_keys_join_submit';
   }
+  
+  if (og_is_group_type($form['type']['#value'])) {
+    
+    // This is necessary feature.
+    $form['og_user_roles_default_role']['#access'] = FALSE;
+    
+    // Allows to set registration key only if group is tagged by specific term.
+    if (!hm_group_is_allowed_to_join_by_key($form['#node'])) {
+      $form['og_reg_keys']['#disabled']    = TRUE;
+      $form['og_reg_keys']['#description'] = t(
+      	'You are allowed to enter the registration key only for groups which are associated with term: %term.', 
+        array('%term' => taxonomy_get_term($tid)->name)
+      );
+    }
+  }
 }
 
 /**
@@ -199,6 +214,11 @@ function hm_group_og_reg_keys_join_submit($form, &$form_state) {
 
     // Housemedia Group additional feature: Assign role 'mieszkaniec' to given 
     // member of organic groups within the group context.
+    
+    // Delete all existing current user roles for given group ...
+    og_user_roles_role_delete($gid, $user->uid);
+    
+    // ... and add role 'mieszkaniec'.
     $rid = db_result(db_query("SELECT rid FROM {role} WHERE name = 'mieszkaniec'"));
     og_user_roles_role_add($gid, $user->uid, $rid);
     
@@ -239,6 +259,12 @@ function hm_group_is_group_resident($node, $account = NULL) {
   return FALSE;
 }
 
+function hm_group_is_allowed_to_join_by_key($node) {
+  $tid   = variable_get('hm_group_reg_keys_tid', 0);
+  $terms = taxonomy_node_get_terms($node);
+  return isset($terms[$tid]);
+}
+
 function _hm_group_subscribe_link($node) {
   global $user;
   
@@ -252,7 +278,7 @@ function _hm_group_subscribe_link($node) {
     $items[] = l(t('Join as a guest'), "og/subscribe/{$nid}", array('attributes' => array('rel' => 'nofollow'), 'query' => drupal_get_destination()));
   }
   
-  if (!hm_group_is_group_resident($node)) {
+  if (!hm_group_is_group_resident($node) && hm_group_is_allowed_to_join_by_key($node)) {
 
     if (user_is_logged_in()) {
       $items[] = l(t('Join as a resident'), 'og/reg-key-join', array('query' => drupal_get_destination()));

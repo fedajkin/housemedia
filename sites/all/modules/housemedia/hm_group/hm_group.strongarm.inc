@@ -64,6 +64,13 @@ function hm_group_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'hm_group_reg_keys_tid';
+  $strongarm->value = '114';
+
+  $export['hm_group_reg_keys_tid'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'language_content_type_group';
   $strongarm->value = '0';
 
@@ -107,7 +114,7 @@ function hm_group_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'og_user_roles_default_role';
-  $strongarm->value = '10';
+  $strongarm->value = '9';
 
   $export['og_user_roles_default_role'] = $strongarm;
   $strongarm = new stdClass;
@@ -115,13 +122,12 @@ function hm_group_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'og_user_roles_roles_group';
   $strongarm->value = array(
-    10 => 10,
     9 => 9,
+    10 => 10,
     3 => 0,
     4 => 0,
     6 => 0,
     7 => 0,
-    11 => 0,
     5 => 0,
     8 => 0,
   );

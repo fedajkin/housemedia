@@ -262,7 +262,7 @@ function hm_group_views_default_views() {
     'rid' => array(
       'operator' => 'or',
       'value' => array(
-        '9' => '9',
+        '10' => '10',
       ),
       'group' => '0',
       'exposed' => FALSE,
@@ -341,7 +341,7 @@ function hm_group_views_default_views() {
     'rid' => array(
       'operator' => 'or',
       'value' => array(
-        '10' => '10',
+        '9' => '9',
       ),
       'group' => '0',
       'exposed' => FALSE,
