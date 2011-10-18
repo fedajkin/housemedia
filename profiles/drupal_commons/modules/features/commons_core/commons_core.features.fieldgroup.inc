@@ -18,7 +18,12 @@ function commons_core_fieldgroup_default_groups() {
         'description' => '',
       ),
       'display' => array(
-        'description' => '',
+        'weight' => '3',
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 1,
+        ),
+        'label' => 'hidden',
         'teaser' => array(
           'format' => 'simple',
           'exclude' => 0,
@@ -27,10 +32,7 @@ function commons_core_fieldgroup_default_groups() {
           'format' => 'simple',
           'exclude' => 0,
         ),
-        '4' => array(
-          'format' => 'fieldset',
-          'exclude' => 1,
-        ),
+        'description' => '',
         '2' => array(
           'format' => 'fieldset',
           'exclude' => 0,
@@ -39,14 +41,9 @@ function commons_core_fieldgroup_default_groups() {
           'format' => 'fieldset',
           'exclude' => 0,
         ),
-        'token' => array(
-          'format' => 'fieldset',
-          'exclude' => 0,
-        ),
-        'label' => 'hidden',
       ),
     ),
-    'weight' => '-6',
+    'weight' => '3',
     'fields' => array(
       '0' => 'field_group_image',
       '1' => 'field_grouplink',
@@ -65,7 +62,12 @@ function commons_core_fieldgroup_default_groups() {
         'description' => '',
       ),
       'display' => array(
-        'description' => '',
+        'weight' => '4',
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 1,
+        ),
+        'label' => 'above',
         'teaser' => array(
           'format' => 'fieldset_collapsed',
           'exclude' => 1,
@@ -74,10 +76,7 @@ function commons_core_fieldgroup_default_groups() {
           'format' => 'fieldset_collapsed',
           'exclude' => 0,
         ),
-        '4' => array(
-          'format' => 'fieldset',
-          'exclude' => 1,
-        ),
+        'description' => '',
         '2' => array(
           'format' => 'fieldset',
           'exclude' => 0,
@@ -90,10 +89,9 @@ function commons_core_fieldgroup_default_groups() {
           'format' => 'fieldset',
           'exclude' => 0,
         ),
-        'label' => 'above',
       ),
     ),
-    'weight' => '2',
+    'weight' => '4',
     'fields' => array(
       '0' => 'field_featured_group',
     ),

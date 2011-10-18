@@ -38,10 +38,6 @@ function _commons_profile_block_list() {
     'info' => t('Profile image and action links'),
     'cache' => BLOCK_NO_CACHE,
   );
-  $blocks['recent_activity'] = array(
-    'info' => t('Profile recent activity'),
-    'cache' => BLOCK_NO_CACHE,
-  );
   return $blocks;
 }
 
@@ -107,6 +103,18 @@ function _commons_profile_image_links_block_view() {
     );
   }
   else {
+    // Provide relationship links/messages
+    if (user_access('maintain own relationships')) {
+      $actions = _user_relationships_ui_actions_between($user, $account);
+      foreach ($actions as $key => $action) {
+        $links["ur_action"] = array(
+          'title' => $action,
+          // No href because this is the best that UR can offer
+          'html' => TRUE,
+        );
+      }
+    }
+
     // If the current user has access to, provide a link
     // to edit the viewed user's profile
     if (user_access('administer users')) {
@@ -114,18 +122,6 @@ function _commons_profile_image_links_block_view() {
         'title' => t('Edit !user\'s profile', array('!user' => $account->name)),
         'href' => "user/{$account->uid}/edit",
       );
-    }
-    
-    // Provide relationship links/messages
-    if (user_access('maintain own relationships')) {
-      $actions = _user_relationships_ui_actions_between($user, $account);
-      foreach ($actions as $key => $action) {
-        $links["ur_action_{$key}"] = array(
-          'title' => $action,
-          // No href because this is the best that UR can offer
-          'html' => TRUE,
-        );
-      }
     }
     
     // Provide link to contact the user
@@ -144,21 +140,4 @@ function _commons_profile_image_links_block_view() {
     'subject' => '',
     'content' => theme('commons_profile_image_action_links_block', $picture, $links, $account),
   );
-}
-
-/**
- * Render the recent activity block for the profile
- */
-function _commons_profile_recent_activity_block_view() {
-  // Gather the activity from Heartbeat
-  $block = heartbeat_block('view', 'privateheartbeat');
-  
-  if (isset($block['content'])) {
-    return array(
-      'subject' => '',
-      'content' => $block['content'],
-    );
-  }
-  
-  return NULL;
 }

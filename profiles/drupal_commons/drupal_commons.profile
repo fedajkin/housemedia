@@ -1,8 +1,5 @@
 <?php
 
-// Define the forced ID of the free-tagging vocabulary
-define('DRUPAL_COMMONS_TAG_ID', 2);
-
 // Define the default WYSIWYG editor
 define('DRUPAL_COMMONS_EDITOR', 'ckeditor');
 
@@ -39,16 +36,13 @@ function drupal_commons_profile_modules() {
     // Misc
     'vertical_tabs', 'transliteration', 'password_policy',
     
-    // Theme
-    'skinr',
-    
     // Strongarm
     'strongarm', 
     
     // Features
     'features',
     
-    // Drupal Commons update tracker
+    // Commons update tracker
     'commons_release',
   );
 
@@ -64,12 +58,12 @@ function drupal_commons_profile_modules() {
  *   language-specific profiles.
  */
 function drupal_commons_profile_details() {
-  $logo = '<a href="http://drupal.org/project/commons" target="_blank"><img alt="Drupal Commons" title="Drupal Commons" src="./profiles/drupal_commons/images/logo.png"></img></a>';
-  $description = st('Select this profile to install the Drupal Commons distribution for powering your community website. Drupal Commons provides provides blogging, discussions, user profiles, and other useful community features for both private communities (e.g. an Intranet), or public communities (e.g. a customer community).');
+  $logo = '<a href="http://drupal.org/project/commons" target="_blank"><img alt="Commons" title="Commons" src="./profiles/drupal_commons/images/logo.png"></img></a>';
+  $description = st('Select this profile to install the Commons distribution for powering your community website. Commons provides provides blogging, discussions, user profiles, and other useful community features for both private communities (e.g. an Intranet), or public communities (e.g. a customer community).');
   $description .= '<br/>' . $logo;
   
   return array(
-    'name' => 'Drupal Commons',
+    'name' => 'Commons',
     'description' => $description,
   );
 }
@@ -87,7 +81,7 @@ function drupal_commons_profile_task_list() {
   $tasks = array();
   $tasks['configure-features'] = st('Select features');
   $tasks['configure-theme'] = st('Select theme');
-  $tasks['install-commons'] = st('Install Drupal Commons');
+  $tasks['install-commons'] = st('Install Commons');
   return $tasks;
 }
 
@@ -149,7 +143,6 @@ function drupal_commons_profile_tasks(&$task, $url) {
     $operations[] = array('drupal_commons_config_password', array());
     $operations[] = array('drupal_commons_config_wysiwyg', array());
     $operations[] = array('drupal_commons_config_ur', array());
-    $operations[] = array('drupal_commons_config_heartbeat', array());
     $operations[] = array('drupal_commons_config_views', array());
     $operations[] = array('drupal_commons_config_images', array());
     $operations[] = array('drupal_commons_config_vars', array());
@@ -157,7 +150,7 @@ function drupal_commons_profile_tasks(&$task, $url) {
     // Build the batch process
     $batch = array(
       'operations' => $operations,
-      'title' => st('Configuring Drupal Commons'),
+      'title' => st('Configuring Commons'),
       'error_message' => st('An error occurred. Please try reinstalling again.'),
       'finished' => 'drupal_commons_cleanup',
     );
@@ -209,12 +202,8 @@ function drupal_commons_config_taxonomy() {
   );
   taxonomy_save_vocabulary($vocab); 
   
-  // Force free-tagging vocabulary to a certain ID
-  // This is needed for bundled views to work
-  db_query("UPDATE {vocabulary} SET vid = %d WHERE name = '%s'",
-    DRUPAL_COMMONS_TAG_ID,
-    st('Tags')
-  );
+  // Store the vocabulary id
+  variable_set('commons_tags_vid', $vocab['vid']);
 }
 
 /**
@@ -347,12 +336,12 @@ function drupal_commons_config_wysiwyg() {
 function drupal_commons_config_ur() {
   // Add initial relationship type 'Friend'
   $relationship = new stdClass;
-  $relationship->name = st('Friend');
-  $relationship->plural_name = st('Friends');
-  $relationship->requires_approval = 1;
+  $relationship->name = st('follower');
+  $relationship->plural_name = st('users you follow');
+  $relationship->requires_approval = 0;
   $relationship->expires_val = 0;
-  $relationship->is_oneway = 0;
-  $relationship->is_reciprocal = 0; 
+  $relationship->is_oneway = 1;
+  $relationship->is_reciprocal = 1; 
   $type = 'insert';
   
   // Save relationship
@@ -364,39 +353,6 @@ function drupal_commons_config_ur() {
     $function = $module .'_'. $hook;
     $function($type, $relationship);
   }
-}
-
-/**
- * Configure heartbeat
- */
-function drupal_commons_config_heartbeat() {
-  // Refresh all available heartbeat streams
-  // This registers the relational activity stream
-  heartbeat_check_access_types();
-  
-  // Rebuild all available heartbeat message templates
-  heartbeat_messages_rebuild();
-  
-  // Disable stream tabs on user profiles
-  $streams = variable_get('heartbeat_stream_data', '');
-  
-  if ($streams) {
-    foreach ($streams as $key => $value) {
-      $streams[$key]['profile'] = 0;
-    }
-  }
-  else {
-    $streams = array(
-      'privateheartbeat' => array(
-        'profile' => 0
-      ), 
-      'publicheartbeat' => array(
-        'profile' => 0
-      )
-    );
-  }
-  
-  variable_set('heartbeat_stream_data', $streams);
 }
 
 /**
@@ -529,6 +485,10 @@ function drupal_commons_cleanup() {
   
   // Rebuild node types
   node_types_rebuild();
+
+  // Rebuild Activity Log templates
+  module_load_include('module', 'activity_log');
+  _activity_log_rebuild_templates();
   
   // Clear drupal message queue for non-warning/errors
   drupal_get_messages('status', TRUE);
@@ -571,7 +531,7 @@ function drupal_commons_cleanup() {
   features_revert($revert);
   
   // Say hello to the dog!
-  watchdog('commons', st('Welcome to Drupal Commons from Acquia!'));
+  watchdog('commons', st('Welcome to Commons from Acquia!'));
   
   // Create a test group which contains a node
   drupal_commons_create_group();
@@ -596,6 +556,16 @@ function drupal_commons_include($name, $dir = 'includes') {
 }
 
 /**
+ * Alter the install profile selection form
+ */
+function system_form_install_select_profile_form_alter(&$form, $form_state) {
+  foreach($form['profile'] as $key => $element) {
+    // Set Commons as the default
+    $form['profile'][$key]['#value'] = 'drupal_commons';
+  }
+}
+
+/**
  * Alter the install profile configuration
  */
 function system_form_install_configure_form_alter(&$form, $form_state) {
@@ -603,7 +573,7 @@ function system_form_install_configure_form_alter(&$form, $form_state) {
   $form['site_information']['commons_force_login'] = array(
     '#type' => 'checkbox',
     '#title' => t('Force users to login'),
-    '#description' => t('If checked, users will be required to log into the site to access it. Users who are not logged in will be redirected to a login page. Select this setting if your Drupal Commons site must be closed to the public, such as a company intranet.'),
+    '#description' => t('If checked, users will be required to log into the site to access it. Users who are not logged in will be redirected to a login page. Select this setting if your Commons site must be closed to the public, such as a company intranet.'),
   );
   
   // Add timezone options required by date (Taken from Open Atrium)

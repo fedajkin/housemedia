@@ -487,7 +487,7 @@ function commons_poll_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Ankiety');
+  $handler->override_option('title', 'Polls');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 1);
   $handler->override_option('empty', 'No polls have been added yet.');
@@ -1025,7 +1025,7 @@ function commons_poll_views_default_views() {
     'comments' => 0,
   ));
   $handler = $view->new_display('block', 'Block', 'block_1');
-  $handler->override_option('block_description', 'Najnowsze ankiety');
+  $handler->override_option('block_description', 'Latest group poll');
   $handler->override_option('block_caching', -1);
 
   $views[$view->name] = $view;
@@ -1048,6 +1048,17 @@ function commons_poll_views_default_views() {
       'id' => 'nid',
       'table' => 'comments',
       'field' => 'nid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'uid' => array(
+      'label' => 'Comment Author',
+      'required' => 0,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -1083,7 +1094,7 @@ function commons_poll_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -1156,10 +1167,10 @@ function commons_poll_views_default_views() {
       'relationship' => 'none',
     ),
     'name' => array(
-      'label' => '',
+      'label' => 'by',
       'alter' => array(
-        'alter_text' => 1,
-        'text' => 'by [name]',
+        'alter_text' => 0,
+        'text' => '',
         'make_link' => 0,
         'path' => '',
         'link_class' => '',
@@ -1179,13 +1190,11 @@ function commons_poll_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_user' => 1,
-      'overwrite_anonymous' => 0,
-      'anonymous_text' => '',
       'exclude' => 0,
       'id' => 'name',
       'table' => 'users',
       'field' => 'name',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -2303,7 +2312,7 @@ function commons_poll_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Ankiety');
+  $handler->override_option('title', 'Polls');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 0);
   $handler->override_option('empty', 'No polls have been added to this group yet.');
@@ -2367,6 +2376,17 @@ function commons_poll_views_default_views() {
       ),
       'relationship' => 'none',
     ),
+    'uid' => array(
+      'label' => 'Comment Author',
+      'required' => 0,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
   ));
   $handler->override_option('fields', array(
     'picture' => array(
@@ -2397,7 +2417,7 @@ function commons_poll_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -2493,13 +2513,11 @@ function commons_poll_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_user' => 1,
-      'overwrite_anonymous' => 0,
-      'anonymous_text' => '',
       'exclude' => 0,
       'id' => 'name',
       'table' => 'users',
       'field' => 'name',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),

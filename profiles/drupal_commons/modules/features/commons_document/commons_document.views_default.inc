@@ -639,6 +639,17 @@ function commons_document_views_default_views() {
       ),
       'relationship' => 'none',
     ),
+    'uid' => array(
+      'label' => 'Comment Author',
+      'required' => 0,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
   ));
   $handler->override_option('fields', array(
     'picture' => array(
@@ -669,7 +680,7 @@ function commons_document_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -741,7 +752,7 @@ function commons_document_views_default_views() {
       ),
       'relationship' => 'none',
     ),
-    'name' => array(
+    'name_1' => array(
       'label' => 'by',
       'alter' => array(
         'alter_text' => 0,
@@ -765,13 +776,11 @@ function commons_document_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_user' => 1,
-      'overwrite_anonymous' => 0,
-      'anonymous_text' => '',
       'exclude' => 0,
-      'id' => 'name',
+      'id' => 'name_1',
       'table' => 'users',
       'field' => 'name',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -897,7 +906,7 @@ function commons_document_views_default_views() {
   $handler->override_option('row_options', array(
     'inline' => array(
       'timestamp' => 'timestamp',
-      'name' => 'name',
+      'name_1' => 'name_1',
     ),
     'separator' => '',
     'hide_empty' => 0,
@@ -926,6 +935,17 @@ function commons_document_views_default_views() {
       'id' => 'nid',
       'table' => 'comments',
       'field' => 'nid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'uid' => array(
+      'label' => 'Comment Author',
+      'required' => 0,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -961,7 +981,7 @@ function commons_document_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -1034,10 +1054,10 @@ function commons_document_views_default_views() {
       'relationship' => 'none',
     ),
     'name' => array(
-      'label' => '',
+      'label' => 'by',
       'alter' => array(
-        'alter_text' => 1,
-        'text' => 'by [name]',
+        'alter_text' => 0,
+        'text' => '',
         'make_link' => 0,
         'path' => '',
         'link_class' => '',
@@ -1057,13 +1077,11 @@ function commons_document_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_user' => 1,
-      'overwrite_anonymous' => 0,
-      'anonymous_text' => '',
       'exclude' => 0,
       'id' => 'name',
       'table' => 'users',
       'field' => 'name',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -2202,7 +2220,7 @@ function commons_document_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->override_option('path', 'node/%/content/documents');
   $handler->override_option('menu', array(
-    'type' => 'none',
+    'type' => 'tab',
     'title' => 'Documents',
     'description' => 'View the group documents',
     'weight' => '10',

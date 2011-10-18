@@ -882,9 +882,9 @@ function commons_profile_views_default_views() {
 
   $views[$view->name] = $view;
 
-  // Exported view: profile_friends
+  // Exported view: profile_following
   $view = new view;
-  $view->name = 'profile_friends';
+  $view->name = 'profile_following';
   $view->description = '';
   $view->tag = '';
   $view->view_php = '';
@@ -1068,7 +1068,7 @@ function commons_profile_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Friends');
+  $handler->override_option('title', 'Following');
   $handler->override_option('use_ajax', TRUE);
   $handler->override_option('items_per_page', 12);
   $handler->override_option('use_pager', 'mini');
@@ -1125,41 +1125,6 @@ function commons_profile_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'none',
-    ),
-    'points' => array(
-      'label' => 'Points',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-        'strip_tags' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'set_precision' => FALSE,
-      'precision' => 0,
-      'decimal' => '.',
-      'separator' => ',',
-      'prefix' => '',
-      'suffix' => '',
-      'exclude' => 0,
-      'id' => 'points',
-      'table' => 'userpoints',
-      'field' => 'points',
       'relationship' => 'none',
     ),
   ));
@@ -2240,72 +2205,6 @@ function commons_profile_views_default_views() {
       ),
       'relationship' => 'none',
     ),
-    'value' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-        'strip_tags' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'link_to_user' => 0,
-      'exclude' => 0,
-      'id' => 'value',
-      'table' => 'profile_values_profile_name',
-      'field' => 'value',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
-    'value_1' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-        'strip_tags' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'link_to_user' => 0,
-      'exclude' => 0,
-      'id' => 'value_1',
-      'table' => 'profile_values_profile_last_name',
-      'field' => 'value',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
   ));
   $handler->override_option('sorts', array(
     'access' => array(
@@ -2371,15 +2270,16 @@ function commons_profile_views_default_views() {
   $handler->override_option('empty', 'There are currently no online users');
   $handler->override_option('empty_format', '1');
   $handler->override_option('use_ajax', TRUE);
-  $handler->override_option('items_per_page', 15);
+  $handler->override_option('items_per_page', 24);
   $handler->override_option('use_pager', 'mini');
   $handler->override_option('pager_element', 2);
   $handler->override_option('distinct', 1);
   $handler->override_option('style_plugin', 'grid');
   $handler->override_option('style_options', array(
     'grouping' => '',
-    'columns' => '3',
+    'columns' => '6',
     'alignment' => 'horizontal',
+    'fill_single_line' => 1,
   ));
   $handler->override_option('row_options', array(
     'inline' => array(

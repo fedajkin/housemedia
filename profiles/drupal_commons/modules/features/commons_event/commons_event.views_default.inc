@@ -268,7 +268,6 @@ function commons_event_views_default_views() {
   $handler->override_option('header_empty', 1);
   $handler->override_option('items_per_page', 0);
   $handler->override_option('use_more', 0);
-  $handler->override_option('use_more_text', 'więcej');
   $handler->override_option('distinct', 1);
   $handler->override_option('style_plugin', 'calendar_nav');
   $handler = $view->new_display('calendar', 'Calendar page', 'calendar_1');
@@ -300,7 +299,6 @@ function commons_event_views_default_views() {
   $handler->override_option('calendar_date_link', '');
   $handler = $view->new_display('calendar_block', 'Calendar block', 'calendar_block_1');
   $handler->override_option('title', '');
-  $handler->override_option('use_ajax', TRUE);
   $handler->override_option('style_options', NULL);
   $handler->override_option('row_plugin', '');
   $handler->override_option('row_options', NULL);
@@ -599,7 +597,7 @@ function commons_event_views_default_views() {
     ),
   ));
   $handler->override_option('fields', array(
-    'picture' => array(
+    'field_date_value' => array(
       'label' => '',
       'alter' => array(
         'alter_text' => 0,
@@ -616,17 +614,31 @@ function commons_event_views_default_views() {
         'max_length' => '',
         'word_boundary' => 1,
         'ellipsis' => 1,
-        'strip_tags' => 0,
         'html' => 0,
+        'strip_tags' => 0,
       ),
       'empty' => '',
       'hide_empty' => 0,
       'empty_zero' => 0,
-      'imagecache_preset' => 'user_picture_meta',
+      'link_to_node' => 0,
+      'label_type' => 'none',
+      'format' => 'default',
+      'multiple' => array(
+        'multiple_number' => '',
+        'multiple_from' => '',
+        'multiple_to' => '',
+        'group' => '',
+      ),
+      'repeat' => array(
+        'show_repeat_rule' => '',
+      ),
+      'fromto' => array(
+        'fromto' => 'both',
+      ),
       'exclude' => 0,
-      'id' => 'picture',
-      'table' => 'users',
-      'field' => 'picture',
+      'id' => 'field_date_value',
+      'table' => 'node_data_field_date',
+      'field' => 'field_date_value',
       'override' => array(
         'button' => 'Override',
       ),
@@ -694,53 +706,6 @@ function commons_event_views_default_views() {
       'id' => 'timestamp',
       'table' => 'history_user',
       'field' => 'timestamp',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
-    'field_date_value' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-        'strip_tags' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'link_to_node' => 0,
-      'label_type' => 'none',
-      'format' => 'default',
-      'multiple' => array(
-        'multiple_number' => '',
-        'multiple_from' => '',
-        'multiple_to' => '',
-        'group' => '',
-      ),
-      'repeat' => array(
-        'show_repeat_rule' => '',
-      ),
-      'fromto' => array(
-        'fromto' => 'both',
-      ),
-      'exclude' => 0,
-      'id' => 'field_date_value',
-      'table' => 'node_data_field_date',
-      'field' => 'field_date_value',
       'override' => array(
         'button' => 'Override',
       ),
@@ -1206,10 +1171,10 @@ function commons_event_views_default_views() {
   ));
   $handler->override_option('row_options', array(
     'inline' => array(
-      'picture' => 'picture',
+      'title' => 'title',
+      'timestamp' => 'timestamp',
       'created' => 'created',
       'name' => 'name',
-      'timestamp' => 'timestamp',
     ),
     'separator' => '',
     'hide_empty' => 0,
@@ -1620,6 +1585,17 @@ function commons_event_views_default_views() {
       ),
       'relationship' => 'none',
     ),
+    'uid' => array(
+      'label' => 'Comment Author',
+      'required' => 0,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
   ));
   $handler->override_option('fields', array(
     'picture' => array(
@@ -1650,7 +1626,7 @@ function commons_event_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -1746,13 +1722,11 @@ function commons_event_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_user' => 1,
-      'overwrite_anonymous' => 0,
-      'anonymous_text' => '',
       'exclude' => 0,
       'id' => 'name',
       'table' => 'users',
       'field' => 'name',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -3517,7 +3491,7 @@ function commons_event_views_default_views() {
   $handler->override_option('cache', array(
     'type' => 'none',
   ));
-  $handler->override_option('title', 'Nadchodzące wydarzenia w grupie');
+  $handler->override_option('title', 'Upcoming group events');
   $handler->override_option('footer_format', '1');
   $handler->override_option('footer_empty', 0);
   $handler->override_option('empty_format', '1');
@@ -3559,6 +3533,17 @@ function commons_event_views_default_views() {
       ),
       'relationship' => 'none',
     ),
+    'uid' => array(
+      'label' => 'Comment Author',
+      'required' => 0,
+      'id' => 'uid',
+      'table' => 'comments',
+      'field' => 'uid',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
   ));
   $handler->override_option('fields', array(
     'picture' => array(
@@ -3589,7 +3574,7 @@ function commons_event_views_default_views() {
       'id' => 'picture',
       'table' => 'users',
       'field' => 'picture',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -3685,13 +3670,11 @@ function commons_event_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'link_to_user' => 1,
-      'overwrite_anonymous' => 0,
-      'anonymous_text' => '',
       'exclude' => 0,
       'id' => 'name',
       'table' => 'users',
       'field' => 'name',
-      'relationship' => 'nid',
+      'relationship' => 'uid',
       'override' => array(
         'button' => 'Override',
       ),
@@ -4553,7 +4536,7 @@ function commons_event_views_default_views() {
     ),
   ));
   $handler->override_option('fields', array(
-    'picture' => array(
+    'field_date_value' => array(
       'label' => '',
       'alter' => array(
         'alter_text' => 0,
@@ -4570,17 +4553,31 @@ function commons_event_views_default_views() {
         'max_length' => '',
         'word_boundary' => 1,
         'ellipsis' => 1,
-        'strip_tags' => 0,
         'html' => 0,
+        'strip_tags' => 0,
       ),
       'empty' => '',
       'hide_empty' => 0,
       'empty_zero' => 0,
-      'imagecache_preset' => 'user_picture_meta',
+      'link_to_node' => 0,
+      'label_type' => 'none',
+      'format' => 'default',
+      'multiple' => array(
+        'multiple_number' => '',
+        'multiple_from' => '',
+        'multiple_to' => '',
+        'group' => '',
+      ),
+      'repeat' => array(
+        'show_repeat_rule' => '',
+      ),
+      'fromto' => array(
+        'fromto' => 'both',
+      ),
       'exclude' => 0,
-      'id' => 'picture',
-      'table' => 'users',
-      'field' => 'picture',
+      'id' => 'field_date_value',
+      'table' => 'node_data_field_date',
+      'field' => 'field_date_value',
       'override' => array(
         'button' => 'Override',
       ),
@@ -4648,53 +4645,6 @@ function commons_event_views_default_views() {
       'id' => 'timestamp',
       'table' => 'history_user',
       'field' => 'timestamp',
-      'override' => array(
-        'button' => 'Override',
-      ),
-      'relationship' => 'none',
-    ),
-    'field_date_value' => array(
-      'label' => '',
-      'alter' => array(
-        'alter_text' => 0,
-        'text' => '',
-        'make_link' => 0,
-        'path' => '',
-        'link_class' => '',
-        'alt' => '',
-        'prefix' => '',
-        'suffix' => '',
-        'target' => '',
-        'help' => '',
-        'trim' => 0,
-        'max_length' => '',
-        'word_boundary' => 1,
-        'ellipsis' => 1,
-        'html' => 0,
-        'strip_tags' => 0,
-      ),
-      'empty' => '',
-      'hide_empty' => 0,
-      'empty_zero' => 0,
-      'link_to_node' => 0,
-      'label_type' => 'none',
-      'format' => 'default',
-      'multiple' => array(
-        'multiple_number' => '',
-        'multiple_from' => '',
-        'multiple_to' => '',
-        'group' => '',
-      ),
-      'repeat' => array(
-        'show_repeat_rule' => '',
-      ),
-      'fromto' => array(
-        'fromto' => 'both',
-      ),
-      'exclude' => 0,
-      'id' => 'field_date_value',
-      'table' => 'node_data_field_date',
-      'field' => 'field_date_value',
       'override' => array(
         'button' => 'Override',
       ),
@@ -5175,10 +5125,10 @@ function commons_event_views_default_views() {
   ));
   $handler->override_option('row_options', array(
     'inline' => array(
-      'picture' => 'picture',
+      'title' => 'title',
+      'timestamp' => 'timestamp',
       'created' => 'created',
       'name' => 'name',
-      'timestamp' => 'timestamp',
     ),
     'separator' => '',
     'hide_empty' => 0,
@@ -5186,7 +5136,7 @@ function commons_event_views_default_views() {
   $handler = $view->new_display('page', 'Page', 'page_1');
   $handler->override_option('path', 'node/%/content/events');
   $handler->override_option('menu', array(
-    'type' => 'none',
+    'type' => 'tab',
     'title' => 'Events',
     'description' => 'View the group events',
     'weight' => '14',

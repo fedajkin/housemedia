@@ -48,22 +48,11 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: access user activity
-  $permissions['access user activity'] = array(
-    'name' => 'access user activity',
-    'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
-    ),
-  );
-
   // Exported permission: access user profiles
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
     'roles' => array(
-      '0' => 'Deweloper',
-      '1' => 'Doradca',
-      '2' => 'Użytkownik',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -222,14 +211,6 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: administer skinr
-  $permissions['administer skinr'] = array(
-    'name' => 'administer skinr',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
   // Exported permission: administer taxonomy
   $permissions['administer taxonomy'] = array(
     'name' => 'administer taxonomy',
@@ -286,28 +267,11 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: configure heartbeat
-  $permissions['configure heartbeat'] = array(
-    'name' => 'configure heartbeat',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
-  // Exported permission: configure heartbeat messages
-  $permissions['configure heartbeat messages'] = array(
-    'name' => 'configure heartbeat messages',
-    'roles' => array(
-      '0' => 'site admin',
-    ),
-  );
-
   // Exported permission: create group content
   $permissions['create group content'] = array(
     'name' => 'create group content',
     'roles' => array(
-      '0' => 'Deweloper',
-			'1' => 'Doradca',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -351,27 +315,11 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: delete heartbeat activity logs
-  $permissions['delete heartbeat activity logs'] = array(
-    'name' => 'delete heartbeat activity logs',
-    'roles' => array(
-      '0' => 'community manager',
-      '1' => 'site admin',
-    ),
-  );
-
   // Exported permission: delete own group content
   $permissions['delete own group content'] = array(
     'name' => 'delete own group content',
-    'roles' => array(),
-  );
-
-  // Exported permission: delete own heartbeat activity logs
-  $permissions['delete own heartbeat activity logs'] = array(
-    'name' => 'delete own heartbeat activity logs',
     'roles' => array(
-      '0' => 'community manager',
-      '1' => 'site admin',
+      '0' => 'authenticated user',
     ),
   );
 
@@ -386,13 +334,17 @@ function commons_core_user_default_permissions() {
   // Exported permission: delete own page content
   $permissions['delete own page content'] = array(
     'name' => 'delete own page content',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: delete revisions
   $permissions['delete revisions'] = array(
     'name' => 'delete revisions',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: edit all group features
@@ -522,15 +474,6 @@ function commons_core_user_default_permissions() {
     ),
   );
 
-  // Exported permission: maintain own activity
-  $permissions['maintain own activity'] = array(
-    'name' => 'maintain own activity',
-    'roles' => array(
-      '0' => 'community manager',
-      '1' => 'site admin',
-    ),
-  );
-
   // Exported permission: maintain own relationships
   $permissions['maintain own relationships'] = array(
     'name' => 'maintain own relationships',
@@ -566,7 +509,9 @@ function commons_core_user_default_permissions() {
   // Exported permission: revert revisions
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
-    'roles' => array(),
+    'roles' => array(
+      '0' => 'authenticated user',
+    ),
   );
 
   // Exported permission: search content
@@ -634,9 +579,8 @@ function commons_core_user_default_permissions() {
   $permissions['view field_featured_content'] = array(
     'name' => 'view field_featured_content',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
-      '2' => 'site admin',
+      '0' => 'community manager',
+      '1' => 'site admin',
     ),
   );
 
@@ -644,9 +588,8 @@ function commons_core_user_default_permissions() {
   $permissions['view field_featured_group'] = array(
     'name' => 'view field_featured_group',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
-      '2' => 'site admin',
+      '0' => 'community manager',
+      '1' => 'site admin',
     ),
   );
 
@@ -654,12 +597,9 @@ function commons_core_user_default_permissions() {
   $permissions['view field_group_image'] = array(
     'name' => 'view field_group_image',
     'roles' => array(
-      '0' => 'Deweloper',
-      '1' => 'Doradca',
-      '2' => 'Użytkownik',
-      '3' => 'anonymous user',
-      '4' => 'authenticated user',
-      '5' => 'site admin',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+      '2' => 'site admin',
     ),
   );
 
@@ -667,9 +607,8 @@ function commons_core_user_default_permissions() {
   $permissions['view field_group_sticky'] = array(
     'name' => 'view field_group_sticky',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'community manager',
-      '2' => 'site admin',
+      '0' => 'community manager',
+      '1' => 'site admin',
     ),
   );
 
@@ -677,25 +616,15 @@ function commons_core_user_default_permissions() {
   $permissions['view field_grouplink'] = array(
     'name' => 'view field_grouplink',
     'roles' => array(
-      '0' => 'Użytkownik',
-      '1' => 'anonymous user',
-      '2' => 'authenticated user',
-      '3' => 'site admin',
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+      '2' => 'site admin',
     ),
   );
 
   // Exported permission: view group content rss feeds
   $permissions['view group content rss feeds'] = array(
     'name' => 'view group content rss feeds',
-    'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: view heartbeat messages
-  $permissions['view heartbeat messages'] = array(
-    'name' => 'view heartbeat messages',
     'roles' => array(
       '0' => 'anonymous user',
       '1' => 'authenticated user',
@@ -771,14 +700,6 @@ function commons_core_user_default_permissions() {
     'roles' => array(
       '0' => 'anonymous user',
       '1' => 'authenticated user',
-    ),
-  );
-
-  // Exported permission: view personal heartbeat activity
-  $permissions['view personal heartbeat activity'] = array(
-    'name' => 'view personal heartbeat activity',
-    'roles' => array(
-      '0' => 'authenticated user',
     ),
   );
 

@@ -19,7 +19,7 @@ function commons_document_ctools_plugin_api() {
 function commons_document_node_info() {
   $items = array(
     'document' => array(
-      'name' => t('Dokument'),
+      'name' => t('Document'),
       'module' => 'features',
       'description' => t('A document item which contains a title, description, an unlimited amount of attached files.'),
       'has_title' => '1',

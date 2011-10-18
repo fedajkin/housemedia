@@ -15,11 +15,10 @@ function commons_core_install() {
  * Add taxonomy to nodes
  */
 function commons_core_add_taxonomy() {
-  require_once('profiles/drupal_commons/drupal_commons.profile');
   // Link free-tagging vocabulary to node types
   foreach (array('group', 'notice', 'page') as $type) {
     $record = new stdClass;
-    $record->vid = DRUPAL_COMMONS_TAG_ID;
+    $record->vid = variable_get('commons_tags_vid', 1);
     $record->type = $type;
     drupal_write_record('vocabulary_node_types', $record);
   }
@@ -45,10 +44,11 @@ function commons_core_uninstall() {
   variable_del('commons_group_prevent_open_commenting');
   variable_del('commons_email_selective_group');
   variable_del('commons_group_admin_edit_comments');
+  variable_del('commons_search_group_title_length');
 }
 
 /**
- * Upgrade Drupal Commons to v1.3
+ * Upgrade Commons to v1.3
  */
 function commons_core_update_6000() {
   // Rebuild the module cache
@@ -234,5 +234,146 @@ function commons_core_update_6008() {
   db_query($sql, 'commons_connect');
   db_query($sql, 'commons_environs');
   variable_set('theme_default', 'commons_origins');
+  return array();
+}
+
+/**
+ * Enable activity streams
+ */
+function commons_core_update_6009() {
+  // Install activity streams.
+  features_install_modules(array('commons_status_streams'));
+  commons_status_streams_disable_deprecated_notifications();
+  // Port shouts to Facebook-style Statuses.
+  if (db_table_exists('shoutbox')) {
+    $max_sid = (int) db_result(db_query("SELECT MAX(sid) FROM {facebook_status}"));
+    if (db_table_exists('shoutbox_groups')) {
+      db_query("
+        INSERT INTO {facebook_status} (sender, recipient, type, created, message)
+        SELECT s.uid, g.nid, 'og', s.created, s.shout
+        FROM {shoutbox_groups} g
+        INNER JOIN {shoutbox} s
+          ON g.shout_id = s.shout_id
+        WHERE s.module = 'shoutbox_group'
+      ");
+    }
+    if (db_table_exists('shoutbox_user')) {
+      db_query("
+        INSERT INTO {facebook_status} (sender, recipient, type, created, message)
+        SELECT s.uid, u.uid, 'user', s.created, s.shout
+        FROM {shoutbox_user} u
+        INNER JOIN {shoutbox} s
+          ON u.shout_id = s.shout_id
+        WHERE s.module = 'shoutbox_user'
+      ");
+    }
+    if (db_table_exists('shoutbox_tags')) {
+      module_load_include('module', 'facebook_status_tags');
+      $result = db_query("SELECT sid, message FROM {facebook_status} WHERE sid > %d", $max_sid);
+      while ($status = db_fetch_object($result)) {
+        $matches = _facebook_status_tags_filter($status->message, TRUE);
+        $old_matches = array();
+        foreach ($matches['#'] as $term) {
+          $term = (object) $term;
+          if (!in_array($term->tid, $old_matches)) {
+            $array = array(
+              'sid' => $status->sid,
+              'rid' => $term->tid,
+              'type' => 'term',
+              'name' => $term->name,
+            );
+            drupal_write_record('facebook_status_tags', $array);
+            $old_matches[] = $term->tid;
+          }
+        }
+      }
+    }
+  }
+
+  // Port activity data into Activity Log.
+  rules_clear_cache();
+  module_load_include('inc', 'activity_log', 'activity_log.generate');
+  activity_log_regenerate(array(), time() - 604800);
+  
+  // Clear the menu cache
+  menu_cache_clear_all();
+
+  return array();
+}
+
+/**
+ * Disable depreciated modules
+ */
+function commons_core_update_6010() {
+  $disable = array();
+  
+  // Rebuild the module cache
+  module_rebuild_cache();
+
+  // Clear out all the caches
+  drupal_flush_all_caches();
+  
+  // Try to avoid errors from og_features when it overrides all the menu access callbacks.
+  db_query("DELETE FROM {cache_menu} WHERE cid LIKE '%homebox%'");
+  
+  // Disable user_relationship_elaborations (it's pointless with one-way relationships)
+  $disable[] = 'user_relationship_elaborations';
+
+  // Disable dashboard.
+  $disable[] = 'commons_dashboard';
+  $disable[] = 'homebox_example';
+  $disable[] = 'homebox_og';
+  $disable[] = 'homebox';
+
+  // Disable shoutbox.
+  $disable[] = 'commons_shoutbox';
+  $disable[] = 'shoutbox_domain';
+  $disable[] = 'shoutbox_group';
+  $disable[] = 'shoutbox_points';
+  $disable[] = 'shoutbox_rules';
+  $disable[] = 'shoutbox_tags';
+  $disable[] = 'shoutbox_user';
+  $disable[] = 'shoutbox';
+
+  // Disable heartbeat.
+  $disable[] = 'flag_heartbeat';
+  $disable[] = 'friendlist_activity';
+  $disable[] = 'hds';
+  $disable[] = 'heartbeat_comments';
+  $disable[] = 'heartbeat_example';
+  $disable[] = 'heartbeat_views';
+  $disable[] = 'hrules';
+  $disable[] = 'og_activity';
+  $disable[] = 'shouts';
+  $disable[] = 'heartbeat';
+  
+  module_disable($disable);
+  return array();
+}
+
+/**
+ * Install subgroups feature
+ */
+function commons_core_update_6011() {
+  features_install_modules(array('commons_subgroups'));
+  return array();
+}
+
+/**
+ * Put the "Tags" vocabulary ID in a variable
+ */
+function commons_core_update_6012() {
+  // The default is 2, since we used to force that vid during
+  // site installation
+  $vid = 2;
+  
+  // Just in case, try to see if there is a "Tags" vocabulary, to
+  // see if the vid has changed
+  $result = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = 'Tags'"));
+  if ($result && $result != $vid) {
+    $vid = $result;
+  }
+  
+  variable_set('commons_tags_vid', $vid);
   return array();
 }
