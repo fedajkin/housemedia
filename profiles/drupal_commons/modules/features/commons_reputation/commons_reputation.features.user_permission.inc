@@ -43,7 +43,8 @@ function commons_reputation_user_default_permissions() {
   $permissions['userpoints user picture'] = array(
     'name' => 'userpoints user picture',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -51,7 +52,8 @@ function commons_reputation_user_default_permissions() {
   $permissions['view own userpoints'] = array(
     'name' => 'view own userpoints',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -67,7 +69,8 @@ function commons_reputation_user_default_permissions() {
   $permissions['view userpoints'] = array(
     'name' => 'view userpoints',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 

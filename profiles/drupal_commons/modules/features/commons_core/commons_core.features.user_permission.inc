@@ -52,7 +52,9 @@ function commons_core_user_default_permissions() {
   $permissions['access user profiles'] = array(
     'name' => 'access user profiles',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Deweloper',
+      '1' => 'Doradca',
+      '2' => 'Użytkownik',
     ),
   );
 
@@ -271,7 +273,8 @@ function commons_core_user_default_permissions() {
   $permissions['create group content'] = array(
     'name' => 'create group content',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Deweloper',
+			'1' => 'Doradca',
     ),
   );
 
@@ -318,9 +321,7 @@ function commons_core_user_default_permissions() {
   // Exported permission: delete own group content
   $permissions['delete own group content'] = array(
     'name' => 'delete own group content',
-    'roles' => array(
-      '0' => 'authenticated user',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete own notice content
@@ -334,17 +335,13 @@ function commons_core_user_default_permissions() {
   // Exported permission: delete own page content
   $permissions['delete own page content'] = array(
     'name' => 'delete own page content',
-    'roles' => array(
-      '0' => 'authenticated user',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: delete revisions
   $permissions['delete revisions'] = array(
     'name' => 'delete revisions',
-    'roles' => array(
-      '0' => 'authenticated user',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: edit all group features
@@ -509,9 +506,7 @@ function commons_core_user_default_permissions() {
   // Exported permission: revert revisions
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
-    'roles' => array(
-      '0' => 'authenticated user',
-    ),
+    'roles' => array(),
   );
 
   // Exported permission: search content
@@ -579,8 +574,9 @@ function commons_core_user_default_permissions() {
   $permissions['view field_featured_content'] = array(
     'name' => 'view field_featured_content',
     'roles' => array(
-      '0' => 'community manager',
-      '1' => 'site admin',
+      '0' => 'Użytkownik',
+      '1' => 'community manager',
+      '2' => 'site admin',
     ),
   );
 
@@ -588,8 +584,9 @@ function commons_core_user_default_permissions() {
   $permissions['view field_featured_group'] = array(
     'name' => 'view field_featured_group',
     'roles' => array(
-      '0' => 'community manager',
-      '1' => 'site admin',
+      '0' => 'Użytkownik',
+      '1' => 'community manager',
+      '2' => 'site admin',
     ),
   );
 
@@ -597,9 +594,12 @@ function commons_core_user_default_permissions() {
   $permissions['view field_group_image'] = array(
     'name' => 'view field_group_image',
     'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
-      '2' => 'site admin',
+      '0' => 'Deweloper',
+      '1' => 'Doradca',
+      '2' => 'Użytkownik',
+      '3' => 'anonymous user',
+      '4' => 'authenticated user',
+      '5' => 'site admin',
     ),
   );
 
@@ -607,8 +607,9 @@ function commons_core_user_default_permissions() {
   $permissions['view field_group_sticky'] = array(
     'name' => 'view field_group_sticky',
     'roles' => array(
-      '0' => 'community manager',
-      '1' => 'site admin',
+      '0' => 'Użytkownik',
+      '1' => 'community manager',
+      '2' => 'site admin',
     ),
   );
 
@@ -616,9 +617,10 @@ function commons_core_user_default_permissions() {
   $permissions['view field_grouplink'] = array(
     'name' => 'view field_grouplink',
     'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
-      '2' => 'site admin',
+      '0' => 'Użytkownik',
+      '1' => 'anonymous user',
+      '2' => 'authenticated user',
+      '3' => 'site admin',
     ),
   );
 

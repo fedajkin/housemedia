@@ -26,7 +26,8 @@ function commons_blog_user_default_permissions() {
   $permissions['delete own blog entries'] = array(
     'name' => 'delete own blog entries',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -42,7 +43,8 @@ function commons_blog_user_default_permissions() {
   $permissions['edit own blog entries'] = array(
     'name' => 'edit own blog entries',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 

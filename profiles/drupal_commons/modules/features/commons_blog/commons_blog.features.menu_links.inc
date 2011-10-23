@@ -11,8 +11,13 @@ function commons_blog_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'content/blogs',
     'router_path' => 'content/blogs',
-    'link_title' => 'Blog posts',
-    'options' => array(),
+    'link_title' => 'Blogi',
+    'options' => array(
+      'minipanel' => '',
+      'attributes' => array(
+        'title' => 'Blogi naszej społeczności',
+      ),
+    ),
     'module' => 'commons',
     'hidden' => '0',
     'external' => '0',
@@ -23,7 +28,7 @@ function commons_blog_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Blog posts');
+  t('Blogi');
 
 
   return $menu_links;

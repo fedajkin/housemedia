@@ -61,24 +61,6 @@ function hm_core_menu_default_menu_links() {
     'expanded' => '0',
     'weight' => '0',
   );
-  // Exported menu link: menu-hm-primary-links:dashboard
-  $menu_links['menu-hm-primary-links:dashboard'] = array(
-    'menu_name' => 'menu-hm-primary-links',
-    'link_path' => 'dashboard',
-    'router_path' => 'dashboard',
-    'link_title' => 'Panel',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
-  );
   // Exported menu link: menu-hm-primary-links:faq
   $menu_links['menu-hm-primary-links:faq'] = array(
     'menu_name' => 'menu-hm-primary-links',
@@ -239,7 +221,6 @@ function hm_core_menu_default_menu_links() {
   t('Moje treści');
   t('Moje zakładki');
   t('Mój profil');
-  t('Panel');
   t('Strona główna');
   t('Znajomi');
 

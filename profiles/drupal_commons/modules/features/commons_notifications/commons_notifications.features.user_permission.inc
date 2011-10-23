@@ -26,7 +26,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['maintain own subscriptions'] = array(
     'name' => 'maintain own subscriptions',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -43,7 +44,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['manage own subscriptions'] = array(
     'name' => 'manage own subscriptions',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -51,7 +53,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['skip notifications'] = array(
     'name' => 'skip notifications',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -59,7 +62,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['subscribe to author'] = array(
     'name' => 'subscribe to author',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -67,7 +71,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['subscribe to content'] = array(
     'name' => 'subscribe to content',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -75,7 +80,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['subscribe to content in groups'] = array(
     'name' => 'subscribe to content in groups',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
@@ -83,7 +89,8 @@ function commons_notifications_user_default_permissions() {
   $permissions['subscribe to content type'] = array(
     'name' => 'subscribe to content type',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 

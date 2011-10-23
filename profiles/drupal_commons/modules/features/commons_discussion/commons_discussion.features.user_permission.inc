@@ -10,7 +10,7 @@ function commons_discussion_user_default_permissions() {
   $permissions['create discussion content'] = array(
     'name' => 'create discussion content',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
     ),
   );
 
@@ -26,7 +26,8 @@ function commons_discussion_user_default_permissions() {
   $permissions['delete own discussion content'] = array(
     'name' => 'delete own discussion content',
     'roles' => array(
-      '0' => 'authenticated user',
+      '0' => 'Użytkownik',
+      '1' => 'authenticated user',
     ),
   );
 
