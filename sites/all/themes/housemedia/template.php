@@ -66,6 +66,10 @@ function housemedia_preprocess_node(&$vars) {
   if (in_array($node->type, array('group'))) {
     $vars['links'] = $vars['terms'] = '';
   }
+  
+  if ($node->type == 'credit_form') {
+    $vars['workflow_image'] = _housemedia_workflow_image($node);
+  }
 }
 
 /**
@@ -109,6 +113,23 @@ function housemedia_preprocess_page(&$vars) {
   
   if (isset($vars['node']) && $vars['node']->type == 'group') {
     $vars['title'] = '';
+  }
+  
+  if ($node->type == 'credit_form' && $node->_workflow < 9) {
+    
+    $state_name = workflow_get_state_name($node->_workflow);
+    
+    $vars['workflow_image'] = theme(
+    	'image',
+      path_to_theme() ."/img/workflow{$node->_workflow}.png",
+      $state_name,
+      $state_name,
+      array('class' => 'workflow-image')
+    );
+  }
+  
+  if (isset($vars['node']) && $vars['node']->type == 'credit_form' && arg(2) == 'workflow') {
+    $vars['workflow_image'] = _housemedia_workflow_image($vars['node']);
   }
 }
 
@@ -417,4 +438,21 @@ function housemedia_commons_profile_image_action_links_block($picture, $links, $
 
 function _housemedia_locales_source() {
   t('Friends');
+}
+
+function _housemedia_workflow_image($node) {
+  if ($node->type == 'credit_form' && $node->_workflow < 9) {
+    
+    $state_name = workflow_get_state_name($node->_workflow);
+    
+    return theme(
+    	'image',
+      path_to_theme() ."/img/workflow{$node->_workflow}.png",
+      $state_name,
+      $state_name,
+      array('class' => 'workflow-image')
+    );
+  }
+  
+  return '';
 }
