@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM workflows
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="wid">1</field>
+	<field name="name">Credit</field>
+	<field name="tab_roles">7,8</field>
+	<field name="options">a:3:{s:16:&quot;comment_log_node&quot;;i:1;s:15:&quot;comment_log_tab&quot;;i:1;s:13:&quot;name_as_title&quot;;i:0;}</field>
+  </row>
+</resultset>

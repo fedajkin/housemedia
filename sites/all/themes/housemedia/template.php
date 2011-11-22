@@ -63,7 +63,7 @@ function housemedia_preprocess_node(&$vars) {
   }
   
   $node = $vars['node'];
-  if ($node->type == 'group') {
+  if (in_array($node->type, array('group'))) {
     $vars['links'] = $vars['terms'] = '';
   }
 }

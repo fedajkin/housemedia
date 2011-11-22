@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM workflow_states
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="sid">1</field>
+	<field name="wid">1</field>
+	<field name="state">(creation)</field>
+	<field name="weight">-50</field>
+	<field name="sysid">1</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">2</field>
+	<field name="wid">1</field>
+	<field name="state">Nawiazany kontakt</field>
+	<field name="weight">1</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">3</field>
+	<field name="wid">1</field>
+	<field name="state">Umowione spotkanie</field>
+	<field name="weight">2</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">4</field>
+	<field name="wid">1</field>
+	<field name="state">Dostarczone dokumenty</field>
+	<field name="weight">3</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">5</field>
+	<field name="wid">1</field>
+	<field name="state">Dokumenty zlozone w banku</field>
+	<field name="weight">4</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">6</field>
+	<field name="wid">1</field>
+	<field name="state">Otrzymana decyzja pozytywna</field>
+	<field name="weight">5</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">7</field>
+	<field name="wid">1</field>
+	<field name="state">Otrzymana decyzja negatywna</field>
+	<field name="weight">6</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">8</field>
+	<field name="wid">1</field>
+	<field name="state">Wyplacono kredyt</field>
+	<field name="weight">7</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+
+  <row>
+	<field name="sid">9</field>
+	<field name="wid">1</field>
+	<field name="state">Anulowane</field>
+	<field name="weight">8</field>
+	<field name="sysid">0</field>
+	<field name="status">1</field>
+  </row>
+</resultset>

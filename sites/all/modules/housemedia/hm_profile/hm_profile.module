@@ -2,6 +2,16 @@
 
 include_once('hm_profile.features.inc');
 
+function hm_profile_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'uzytkownik_node_form' || $form_id == 'doradca_node_form') {
+    
+    $form[0]['subscriptions']['#access'] = FALSE;
+
+    $user = user_load($form['uid']['#value']);
+    $form['#redirect'] = 'user/'. $user->uid;
+  }
+}
+
 function hm_profile_commons_profile_action_links_alter($links, $account) {
   $inbox = _hm_profile_inbox_link();
   $links['notification_messages']['href'] = $inbox['href'];

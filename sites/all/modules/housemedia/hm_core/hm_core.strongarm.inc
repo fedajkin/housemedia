@@ -376,6 +376,7 @@ function hm_core_strongarm() {
     'sts_forum_unanswered_topics' => TRUE,
     'groups_newest_groups' => TRUE,
     'groups_most_active' => TRUE,
+    'profile_friends' => TRUE
   );
 
   $export['views_defaults'] = $strongarm;

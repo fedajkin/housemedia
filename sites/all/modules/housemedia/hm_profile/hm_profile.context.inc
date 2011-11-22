@@ -5,7 +5,6 @@
  */
 function hm_profile_context_default_contexts() {
   $export = array();
-
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
@@ -31,11 +30,23 @@ function hm_profile_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => 0,
         ),
-        'views-profile_friends-block_1' => array(
+        'views-hm_credit_form-block_1' => array(
           'module' => 'views',
-          'delta' => 'profile_friends-block_1',
+          'delta' => 'hm_credit_form-block_1',
           'region' => 'sidebar_first',
           'weight' => 1,
+        ),
+        'views-hm_credit_form-block_2' => array(
+          'module' => 'views',
+          'delta' => 'hm_credit_form-block_2',
+          'region' => 'sidebar_first',
+          'weight' => 2,
+        ),
+        'views-hm_profile_friends-block_1' => array(
+          'module' => 'views',
+          'delta' => 'hm_profile_friends-block_1',
+          'region' => 'sidebar_first',
+          'weight' => 3,
         ),
         'views-profile_user_groups-block_1' => array(
           'module' => 'views',
@@ -74,8 +85,7 @@ function hm_profile_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Housemedia');
-  t('User profile when viewing yourself');
+  t('Housemedia Profile');
 
   $export['hm_profile-profile-me'] = $context;
   $context = new stdClass;
@@ -103,11 +113,17 @@ function hm_profile_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => 0,
         ),
+        'hm_credit_form-request_link' => array(
+          'module' => 'hm_credit_form',
+          'delta' => 'request_link',
+          'region' => 'sidebar_first',
+          'weight' => 1,
+        ),
         'views-profile_friends-block_1' => array(
           'module' => 'views',
           'delta' => 'profile_friends-block_1',
           'region' => 'sidebar_first',
-          'weight' => 1,
+          'weight' => 2,
         ),
         'views-profile_user_groups-block_2' => array(
           'module' => 'views',

@@ -128,6 +128,31 @@ function hm_core_install() {
   return $ret;
 }
 
+function hm_core_update_6001() {
+  drupal_install_modules(array(
+    'admin_menu',
+    'workflow',
+    'hm_credit_form'
+  ));
+
+  // Import workflow configuration.
+  _hm_credit_form_import_db_table(drupal_get_path('module', 'hm_credit_form') .'/workflow');
+
+  node_type_delete('profile');
+
+  module_disable(array('profile'));
+  drupal_uninstall_module('profile');
+
+  return array();
+}
+
+function hm_core_update_6002() {
+  drupal_install_modules(array('auto_nodetitle'));
+  
+  _hm_core_update_translation('sites/all/translations/modules');
+  
+  return array();
+}
 
 /**
  * Update translations.

@@ -319,3 +319,30 @@
   padding: 20px 15px;
   min-height: 300px;
 }
+
+
+#block-views-hm_credit_form-block_1 {
+	label {
+	 font-weight: bold;
+	}
+	.views-field-state .field-content {
+    color: red;
+    
+    .wyplacono-kredyt {
+      color: green;
+    }
+	}
+}
+  
+#block-views-hm_credit_form-block_2 {
+	label {
+    font-weight: bold;
+  }
+  .views-field-state .field-content {
+    color: green;
+    
+    .wyplacono-kredyt {
+      color: red;
+    }
+  }
+}

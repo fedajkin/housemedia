@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM workflow_type_map
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="type">blog</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">credit_form</field>
+	<field name="wid">1</field>
+  </row>
+
+  <row>
+	<field name="type">deweloper</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">dew_szczegoly</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">document</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">doradca</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">event</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">faq</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">forum</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">group</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">grupa_powitanie</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">inw_detal</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">mieszkanie</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">news</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">notice</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">opis_dewelopera</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">opis_inwestycji</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">page</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">profile</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">promotion</field>
+	<field name="wid">0</field>
+  </row>
+
+  <row>
+	<field name="type">uzytkownik</field>
+	<field name="wid">0</field>
+  </row>
+</resultset>
