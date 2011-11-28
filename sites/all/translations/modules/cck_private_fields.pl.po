@@ -1,0 +1,236 @@
+# $Id$
+#
+# Polish translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  cck_private_fields.module,v 1.1.2.15 2009/08/10 12:16:00 markuspetrux
+#  cck_private_fields.info,v 1.1.2.2 2009/07/31 00:48:13 markuspetrux
+#  admin.inc,v 1.1.2.6 2009/08/05 18:23:41 markuspetrux
+#  diff.inc,v 1.1.2.4 2009/11/02 07:01:04 markuspetrux
+#  node_form.inc,v 1.1.2.8 2009/11/02 07:01:04 markuspetrux
+#  common.inc,v 1.1.2.8 2009/08/05 19:09:11 markuspetrux
+#  privacy_status_dialog.js,v 1.1.2.4 2009/08/07 10:38:29 markuspetrux
+#  cck_private_fields_flag_friend.info,v 1.1.2.4 2009/07/27 21:51:25 markuspetrux
+#  cck_private_fields_friendlist.info,v 1.1.2.1 2009/07/27 21:51:25 markuspetrux
+#  cck_private_fields_user_relationships.info,v 1.1.2.1 2009/07/27 22:14:33 markuspetrux
+#  admin.inc,v 1.1.2.1 2009/09/06 19:25:51 markuspetrux
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2011-11-28 18:37+0100\n"
+"PO-Revision-Date: 2011-11-28 18:37+0100\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Polish <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((n==1)?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+
+#: cck_private_fields.module:35
+msgid "inc"
+msgstr ""
+
+#: cck_private_fields.module:35
+msgid "cck_private_fields"
+msgstr ""
+
+#: cck_private_fields.module:35
+msgid "includes/common"
+msgstr ""
+
+#: cck_private_fields.module:38
+msgid "view"
+msgstr "podgląd"
+
+#: cck_private_fields.module:38
+msgid "edit"
+msgstr "edytuj"
+
+#: (duplicate) cck_private_fields.info:0 includes/admin.inc:113 ;116
+msgid "CCK Private Fields"
+msgstr ""
+
+#: cck_private_fields.info:0
+msgid "Allows users to mark administrator selected CCK fields as public, hidden or private."
+msgstr ""
+
+#: cck_private_fields.info:0
+msgid "CCK"
+msgstr "CCK"
+
+#: includes/admin.inc:17
+msgid "Disabled"
+msgstr "Wyłączony"
+
+#: includes/admin.inc:18;19;22
+msgid "Enabled and %status by default"
+msgstr ""
+
+#: includes/admin.inc:18 includes/diff.inc:45 includes/node_form.inc:28
+msgid "Public"
+msgstr "Publiczna"
+
+#: includes/admin.inc:19 includes/diff.inc:46 includes/node_form.inc:33
+msgid "Hidden"
+msgstr "Ukryte"
+
+#: includes/admin.inc:22 includes/diff.inc:47 includes/node_form.inc:42
+msgid "Private"
+msgstr "Prywatne"
+
+#: includes/admin.inc:27
+msgid "CCK Privacy options"
+msgstr ""
+
+#: includes/admin.inc:31
+msgid "Allow users with %permission permission select privacy options for this field."
+msgstr ""
+
+#: includes/admin.inc:37
+msgid "Privacy settings for this field"
+msgstr ""
+
+#: includes/admin.inc:46
+msgid "Warning: If this option is disabled existing privacy data related to this field will be deleted. Records affected: @count"
+msgstr ""
+
+#: (duplicate) includes/admin.inc:115
+msgid "%cck-private-fields is not compatible with more than one field access control provider. Please, uninstall %field-access-module if you want to enable %module."
+msgstr ""
+
+#: includes/common.inc:0
+msgid "1 year"
+msgid_plural "@count years"
+msgstr[0] "1 rok"
+msgstr[1] "@count lata"
+msgstr[2] "@count lat"
+
+#: includes/common.inc:0
+msgid "1 week"
+msgid_plural "@count weeks"
+msgstr[0] "1 tydzień"
+msgstr[1] "@count tygodnie"
+msgstr[2] "@count tygodni"
+
+#: includes/common.inc:0
+msgid "1 day"
+msgid_plural "@count days"
+msgstr[0] "1 dzień"
+msgstr[1] "@count dni"
+msgstr[2] "@count dni"
+
+#: includes/common.inc:0
+msgid "1 hour"
+msgid_plural "@count hours"
+msgstr[0] "1 godzina"
+msgstr[1] "@count godziny"
+msgstr[2] "@count godzin"
+
+#: includes/common.inc:0
+msgid "1 min"
+msgid_plural "@count min"
+msgstr[0] "1 min."
+msgstr[1] "@count min."
+msgstr[2] "@count min."
+
+#: includes/common.inc:0
+msgid "1 sec"
+msgid_plural "@count sec"
+msgstr[0] "1 sek."
+msgstr[1] "@count sek."
+msgstr[2] "@count sek."
+
+#: includes/diff.inc:67
+msgid "Privacy status for field @field"
+msgstr ""
+
+#: includes/node_form.inc:30
+msgid "Public - visible to everyone."
+msgstr "Publiczne - widoczne dla wszsytkich."
+
+#: includes/node_form.inc:35
+msgid "Hidden - visible to you, hidden from everyone else."
+msgstr "Ukryte - widoczne dla Ciebie, ukryte dla wszystkich pozostałych."
+
+#: includes/node_form.inc:44
+msgid "Private - visible to you and your friends."
+msgstr "Prywatne - widoczne dla Ciebie i Twoich znajomych."
+
+#: includes/node_form.inc:232
+msgid "Privacy options for @field"
+msgstr ""
+
+#: includes/node_form.inc:235
+msgid "Use these options to select who is allowed to view the @field field."
+msgstr ""
+
+#: includes/node_form.inc:245
+msgid "Ok"
+msgstr "Ok"
+
+#: includes/node_form.inc:250
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: js/privacy_status_dialog.js:0
+msgid "Privacy status: @status. Click here to change..."
+msgstr ""
+
+#: js/privacy_status_dialog.js:0
+msgid "Choose an option..."
+msgstr ""
+
+#: js/privacy_status_dialog.js:0
+msgid "Close"
+msgstr "Zamknij"
+
+#: modules/cck_private_fields_flag_friend/cck_private_fields_flag_friend.info:0
+msgid "Flag Friend integration with CCK Private Fields"
+msgstr ""
+
+#: modules/cck_private_fields_flag_friend/cck_private_fields_flag_friend.info:0
+msgid "Provides an interface between CCK Private Fields and Flag Friend."
+msgstr ""
+
+#: modules/cck_private_fields_flag_friend/cck_private_fields_flag_friend.info:0
+msgid "Flags"
+msgstr ""
+
+#: modules/cck_private_fields_friendlist/cck_private_fields_friendlist.info:0
+msgid "FriendList API integration with CCK Private Fields"
+msgstr ""
+
+#: modules/cck_private_fields_friendlist/cck_private_fields_friendlist.info:0
+msgid "Provides an interface between CCK Private Fields and FriendList API."
+msgstr ""
+
+#: modules/cck_private_fields_friendlist/cck_private_fields_friendlist.info:0
+msgid "Friendlist"
+msgstr ""
+
+#: modules/cck_private_fields_user_relationships/cck_private_fields_user_relationships.info:0
+msgid "User Relationships integration with CCK Private Fields"
+msgstr ""
+
+#: modules/cck_private_fields_user_relationships/cck_private_fields_user_relationships.info:0
+msgid "Provides an interface between CCK Private Fields and User Relationships module."
+msgstr ""
+
+#: modules/cck_private_fields_user_relationships/cck_private_fields_user_relationships.info:0
+msgid "User Relationships"
+msgstr ""
+
+#: modules/cck_private_fields_user_relationships/includes/admin.inc:21
+msgid "User relationships options"
+msgstr ""
+
+#: modules/cck_private_fields_user_relationships/includes/admin.inc:29
+msgid "Relationship types"
+msgstr ""
+
+#: modules/cck_private_fields_user_relationships/includes/admin.inc:32
+msgid "Choose which relationship types that can be used to grant access to view this field when Private option is selected."
+msgstr ""
+

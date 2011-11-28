@@ -159,6 +159,40 @@ function hm_profile_user_default_permissions() {
     ),
   );
 
+  // Exported permission: edit privacy options for field field_dor_nazwisko
+  $permissions['edit privacy options for field field_dor_nazwisko'] = array(
+    'name' => 'edit privacy options for field field_dor_nazwisko',
+    'roles' => array(
+      '0' => 'Doradca',
+    ),
+  );
+
+  // Exported permission: edit privacy options for field field_dor_telefon
+  $permissions['edit privacy options for field field_dor_telefon'] = array(
+    'name' => 'edit privacy options for field field_dor_telefon',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit privacy options for field field_nazwisko
+  $permissions['edit privacy options for field field_nazwisko'] = array(
+    'name' => 'edit privacy options for field field_nazwisko',
+    'roles' => array(
+      '0' => 'Użytkownik',
+    ),
+  );
+
+  // Exported permission: edit privacy options for field field_rok_urodzenia
+  $permissions['edit privacy options for field field_rok_urodzenia'] = array(
+    'name' => 'edit privacy options for field field_rok_urodzenia',
+    'roles' => array(),
+  );
+
+  // Exported permission: edit privacy options for field field_telefon
+  $permissions['edit privacy options for field field_telefon'] = array(
+    'name' => 'edit privacy options for field field_telefon',
+    'roles' => array(),
+  );
+
   // Exported permission: view field_dor_firma
   $permissions['view field_dor_firma'] = array(
     'name' => 'view field_dor_firma',
@@ -199,6 +233,42 @@ function hm_profile_user_default_permissions() {
       '2' => 'Użytkownik',
       '3' => 'anonymous user',
     ),
+  );
+
+  // Exported permission: view private data for field field_dor_nazwisko
+  $permissions['view private data for field field_dor_nazwisko'] = array(
+    'name' => 'view private data for field field_dor_nazwisko',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view private data for field field_dor_telefon
+  $permissions['view private data for field field_dor_telefon'] = array(
+    'name' => 'view private data for field field_dor_telefon',
+    'roles' => array(),
+  );
+
+  // Exported permission: view private data for field field_nazwisko
+  $permissions['view private data for field field_nazwisko'] = array(
+    'name' => 'view private data for field field_nazwisko',
+    'roles' => array(
+      '0' => 'anonymous user',
+      '1' => 'authenticated user',
+    ),
+  );
+
+  // Exported permission: view private data for field field_rok_urodzenia
+  $permissions['view private data for field field_rok_urodzenia'] = array(
+    'name' => 'view private data for field field_rok_urodzenia',
+    'roles' => array(),
+  );
+
+  // Exported permission: view private data for field field_telefon
+  $permissions['view private data for field field_telefon'] = array(
+    'name' => 'view private data for field field_telefon',
+    'roles' => array(),
   );
 
   return $permissions;

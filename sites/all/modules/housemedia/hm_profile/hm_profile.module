@@ -4,31 +4,114 @@ include_once('hm_profile.features.inc');
 
 function hm_profile_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'uzytkownik_node_form' || $form_id == 'doradca_node_form') {
-    
+
     $form[0]['subscriptions']['#access'] = FALSE;
 
     $user = user_load($form['uid']['#value']);
     $form['#redirect'] = 'user/'. $user->uid;
   }
+
+  if ($form_id == 'cck_private_field_privacy_settings_dialog') {
+    $form['cck-private-fields-dialog-status-options']['#description'] = '';
+    $form['cck-private-fields-dialog-status-options']['#title'] = t('Privacy options');
+  }
+
 }
 
 function hm_profile_commons_profile_action_links_alter($links, $account) {
   $inbox = _hm_profile_inbox_link();
   $links['notification_messages']['href'] = $inbox['href'];
   $links['notification_messages']['title'] = $inbox['title'];
+
+  if (isset($links['contact'])) {
+    $links['contact']['title'] = t('Contact @user', array(
+      '@user' => hm_profile_override_user_name($account->uid)
+    ));
+  }
 }
 
 function hm_profile_views_post_render(&$view, &$output, &$cache) {
   if ($view->name == 'user_meta') {
     $inbox = _hm_profile_inbox_link();
     $output .= '<div id="user-privatemsg-inbox">'. l($inbox['title'], $inbox['href']) .'</div>';
-  } 
+  }
+}
+
+function hm_profile_user($op, &$edit, &$account, $category = NULL) {
+  if ($op == 'load') {
+    $account->name = hm_profile_override_user_name($account);
+  }
+}
+
+function hm_profile_override_user_name($account) {
+
+  if (is_numeric($account)) {
+    $account = user_load($account);
+  }
+
+  $array = array(
+  	'Doradca' => array(
+      'type' => 'doradca',
+      'name' => 'field_dor_imie',
+      'surname' => 'field_dor_nazwisko'
+    ),
+    'Użytkownik' => array(
+      'type' => 'uzytkownik',
+      'name' => 'field_imie',
+      'surname' => 'field_nazwisko'
+    )
+  );
+
+  if (isset($account->roles[7])) {
+    $config = $array['Doradca'];
+  }
+  else if (isset($account->roles[8])) {
+    $config = $array['Użytkownik'];
+  }
+
+  if (empty($config)) {
+    return $account->name;
+  }
+
+
+  $node = content_profile_load($config['type'], $account->uid);
+  if (empty($node->cck_private_fields)) {
+    return $account->name;
+  }
+
+  global $user;
+
+  $query = 'SELECT count(1) FROM {user_relationships} WHERE '
+  			 . 'approved = 1 AND '
+  			 . '((requester_id = %d AND requestee_id = %d) OR '
+  			 . '(requester_id = %d AND requestee_id = %d))';
+
+  $in_relationship = db_result(db_query(
+    $query, $account->uid, $user->uid, $user->uid, $account->uid
+  ));
+
+  $field_name = $node->cck_private_fields[$config['name']];
+  $field_surname = $node->cck_private_fields[$config['surname']];
+
+  if (!empty($node->{$config['surname']}[0]['value']) &&
+      (($user->uid == $account->uid) ||
+       ($node->cck_private_fields[$config['surname']] == CCK_FIELDS_PRIVACY_STATUS_PUBLIC) ||
+       ($node->cck_private_fields[$config['surname']] == CCK_FIELDS_PRIVACY_STATUS_PRIVATE && $in_relationship))) {
+
+    $name = $node->{$config['name']}[0]['value'] .' '
+          . $node->{$config['surname']}[0]['value'];
+  }
+  else {
+    $name = $account->name;
+  }
+
+  return $name;
 }
 
 function _hm_profile_inbox_link() {
   $url   = variable_get('privatemsg_url_prefix', 'messages');
   $count = privatemsg_unread_count();
-    
+
   if ($count > 0) {
     return array(
       'href' => $url,

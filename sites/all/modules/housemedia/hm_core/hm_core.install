@@ -6,7 +6,7 @@
  */
 
 function hm_core_install() {
-  
+
   // Removed modules.
   $modules_list = array(
     'db_tweaks',
@@ -21,7 +21,7 @@ function hm_core_install() {
     'keyword_autocomplete',
     'arrange_fields',
     'comment_driven_inspect',
-    'driven_nep', 
+    'driven_nep',
     'driven_inspect',
     'comment_driven_nodeapi',
     'comment_driven',
@@ -42,10 +42,10 @@ function hm_core_install() {
     'nodeblock',
     'site_map',
   );
-  
-  
+
+
   $ret = array();
-  
+
   // Manually drop unecessary tables.
   db_drop_table($ret, 'spaces_overrides');
   db_drop_table($ret, 'spaces_presets');
@@ -64,10 +64,10 @@ function hm_core_install() {
   node_type_delete('slider');
   node_type_delete('gallery');
   node_type_delete('gallery_image');
-  
+
   node_types_rebuild();
   menu_rebuild();
-  
+
   // Install modules.
   drupal_install_modules(array(
     'contemplate',
@@ -82,7 +82,7 @@ function hm_core_install() {
     'hm_profile',
     'hm_investment'
   ));
-  
+
   // Disable module.
   module_disable(array(
   	'commons_group_aggregator',
@@ -98,23 +98,23 @@ function hm_core_install() {
     'mollom',
     'poll',
   ));
-  
+
   // Install translations.
   _hm_core_update_translation('sites/all/translations/modules');
   _hm_core_update_translation('sites/all/modules/housemedia');
   _hm_core_update_translation('sites/all/themes/housemedia/translations');
- 
+
   // Delete views.
   $views = array(
     'glowna_aktualnosci',
     'galeria_inwestycji',
     'gallery'
   );
-  
+
   foreach ($views as $view) {
     views_get_view($view)->delete();
   }
-  
+
   $handle  = fopen('./sites/all/modules/housemedia/hm_core/resources/register.node', 'r');
   $content = stream_get_contents($handle);
   fclose($handle);
@@ -124,7 +124,7 @@ function hm_core_install() {
   $node->format  = 3;
   $node->comment = COMMENT_NODE_DISABLED; // Disable comments.
   node_save($node);
-  
+
   return $ret;
 }
 
@@ -148,9 +148,17 @@ function hm_core_update_6001() {
 
 function hm_core_update_6002() {
   drupal_install_modules(array('auto_nodetitle'));
-  
+
   _hm_core_update_translation('sites/all/translations/modules');
-  
+
+  return array();
+}
+
+function hm_core_update_6003() {
+
+  _hm_core_update_translation('sites/all/translations/modules');
+  _hm_core_update_translation('sites/all/modules/housemedia/hm_profile');
+
   return array();
 }
 
