@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+
+<resultset statement="SELECT * FROM autoassignrole_page
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="rid">6</field>
+	<field name="display">2</field>
+	<field name="path">rejestracja/deweloper</field>
+	<field name="menu">admin</field>
+	<field name="title">Zarejestruj dewelopera</field>
+	<field name="description"><![CDATA[<p><img alt="" src="http://housemedia.pl/sites/default/files/logowanie/deweloper_100.jpg" style="width: 100px; height: 75px; margin-left: 5px; margin-right: 5px; float: left;"></p><p>&nbsp;</p><p>Zarejstruj dewelopera. <strong>UWAGA! Konto zostanie założone po pełnej weryfikacji!</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>]]></field>
+	<field name="format">2</field>
+	<field name="weight">0</field>
+	<field name="registration">0</field>
+  </row>
+
+  <row>
+	<field name="rid">7</field>
+	<field name="display">2</field>
+	<field name="path">rejestracja/doradca</field>
+	<field name="menu">admin</field>
+	<field name="title">Rejestracja doradcy kredytowego</field>
+	<field name="description"><![CDATA[<p><img alt="" src="http://housemedia.pl/sites/default/files/logowanie/doradca_100.png" style="width: 100px; height: 100px; margin-left: 5px; margin-right: 5px; float: left;"></p><p>&nbsp;</p><p>Zarejstruj doradcę kredytowego. <strong>UWAGA! Konto zostanie założone po pełnej weryfikacji!</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>]]></field>
+	<field name="format">2</field>
+	<field name="weight">0</field>
+	<field name="registration">0</field>
+  </row>
+
+  <row>
+	<field name="rid">8</field>
+	<field name="display">2</field>
+	<field name="path">rejestracja/uzytkownik</field>
+	<field name="menu">admin</field>
+	<field name="title">Zarejestruj się w serwisie housemedia.pl!</field>
+	<field name="description"><![CDATA[<p><img alt="" src="http://housemedia.pl/sites/default/files/logowanie/people_icon_100.jpg" style="width: 100px; height: 100px; float: left;"></p><p>&nbsp;</p><p>Zarejestruj się aby móc w pełni korzystać z wszystkich funkcjonalności serwisu <strong>housemedia.pl!</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>]]></field>
+	<field name="format">2</field>
+	<field name="weight">0</field>
+	<field name="registration">0</field>
+  </row>
+</resultset>

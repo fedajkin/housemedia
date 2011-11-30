@@ -50,6 +50,13 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_anonymous_deweloper';
+  $strongarm->value = 0;
+
+  $export['comment_anonymous_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_doradca';
   $strongarm->value = 0;
 
@@ -61,6 +68,13 @@ function hm_profile_strongarm() {
   $strongarm->value = 0;
 
   $export['comment_anonymous_uzytkownik'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_controls_deweloper';
+  $strongarm->value = '3';
+
+  $export['comment_controls_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -78,6 +92,13 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_mode_deweloper';
+  $strongarm->value = '4';
+
+  $export['comment_default_mode_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_default_mode_doradca';
   $strongarm->value = '4';
 
@@ -89,6 +110,13 @@ function hm_profile_strongarm() {
   $strongarm->value = '4';
 
   $export['comment_default_mode_uzytkownik'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_order_deweloper';
+  $strongarm->value = '1';
+
+  $export['comment_default_order_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -106,6 +134,13 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_per_page_deweloper';
+  $strongarm->value = '50';
+
+  $export['comment_default_per_page_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_default_per_page_doradca';
   $strongarm->value = '50';
 
@@ -120,10 +155,24 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_deweloper';
+  $strongarm->value = '2';
+
+  $export['comment_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_doradca';
   $strongarm->value = '0';
 
   $export['comment_doradca'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_form_location_deweloper';
+  $strongarm->value = '0';
+
+  $export['comment_form_location_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -141,6 +190,13 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_preview_deweloper';
+  $strongarm->value = '1';
+
+  $export['comment_preview_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_preview_doradca';
   $strongarm->value = '1';
 
@@ -152,6 +208,13 @@ function hm_profile_strongarm() {
   $strongarm->value = '1';
 
   $export['comment_preview_uzytkownik'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_subject_field_deweloper';
+  $strongarm->value = '1';
+
+  $export['comment_subject_field_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -173,6 +236,25 @@ function hm_profile_strongarm() {
   $strongarm->value = '0';
 
   $export['comment_uzytkownik'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'content_extra_weights_deweloper';
+  $strongarm->value = array(
+    'title' => '8',
+    'body_field' => '10',
+    'revision_information' => '13',
+    'author' => '14',
+    'options' => '15',
+    'comment_settings' => '18',
+    'menu' => '9',
+    'path' => '16',
+    'attachments' => '17',
+    'locations' => '11',
+    'nodewords' => '12',
+  );
+
+  $export['content_extra_weights_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -217,6 +299,30 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'content_profile_deweloper';
+  $strongarm->value = array(
+    'weight' => '0',
+    'user_display' => 'full',
+    'edit_link' => 0,
+    'edit_tab' => 'sub',
+    'add_link' => 0,
+    'autoassignrole_use' => array(),
+    'registration_use' => 0,
+    'admin_user_create_use' => 0,
+    'registration_hide' => array(),
+    'values' => array(
+      0 => 2,
+      1 => 3,
+      2 => 4,
+      3 => 6,
+      4 => 5,
+    ),
+  );
+
+  $export['content_profile_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'content_profile_doradca';
   $strongarm->value = array(
     'weight' => '0',
@@ -224,18 +330,20 @@ function hm_profile_strongarm() {
     'edit_link' => 0,
     'edit_tab' => 'sub',
     'add_link' => 0,
-    'autoassignrole_use' => array(
-      0 => 7,
-    ),
-    'registration_use' => 1,
+    'autoassignrole_use' => array(),
+    'registration_use' => 0,
     'admin_user_create_use' => 0,
-    'registration_hide' => array(
-      0 => 'title',
-      1 => 'other',
-    ),
+    'registration_hide' => array(),
   );
 
   $export['content_profile_doradca'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'content_profile_use_deweloper';
+  $strongarm->value = 1;
+
+  $export['content_profile_use_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -267,6 +375,13 @@ function hm_profile_strongarm() {
   );
 
   $export['content_profile_uzytkownik'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_deweloper';
+  $strongarm->value = '0';
+
+  $export['language_content_type_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
@@ -488,6 +603,16 @@ function hm_profile_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'node_options_deweloper';
+  $strongarm->value = array(
+    0 => 'status',
+    1 => 'promote',
+  );
+
+  $export['node_options_deweloper'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_options_doradca';
   $strongarm->value = array(
     0 => 'status',
@@ -545,6 +670,13 @@ function hm_profile_strongarm() {
   $strongarm->value = 'omitted';
 
   $export['og_content_type_usage_uzytkownik'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'upload_deweloper';
+  $strongarm->value = '1';
+
+  $export['upload_deweloper'] = $strongarm;
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;

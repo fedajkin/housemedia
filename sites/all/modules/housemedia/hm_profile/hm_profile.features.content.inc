@@ -6,6 +6,447 @@
 function hm_profile_content_default_fields() {
   $fields = array();
 
+  // Exported field: field_dew_kierunkowy
+  $fields['deweloper-field_dew_kierunkowy'] = array(
+    'field_name' => 'field_dew_kierunkowy',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '45',
+      'parent' => 'group_dew_telefony',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '0-',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_kierunkowy][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Numer kierunkowy',
+      'weight' => '22',
+      'description' => 'Wprowadź numer kierunkowy w postaci 2 cyfr bez 0. Np 71...',
+      'type' => 'number',
+      'module' => 'number',
+    ),
+  );
+
+  // Exported field: field_dew_kod
+  $fields['deweloper-field_dew_kod'] = array(
+    'field_name' => 'field_dew_kod',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '40',
+      'parent' => 'group_dew_adres',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => 5,
+      'size' => '60',
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_kod][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Kod pocztowy',
+      'weight' => '25',
+      'description' => 'Kod pocztowy',
+      'type' => 'text_textfield',
+      'module' => 'text',
+    ),
+  );
+
+  // Exported field: field_dew_miejscowosc
+  $fields['deweloper-field_dew_miejscowosc'] = array(
+    'field_name' => 'field_dew_miejscowosc',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '41',
+      'parent' => 'group_dew_adres',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => 5,
+      'size' => '60',
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_miejscowosc][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Miejscowość',
+      'weight' => '24',
+      'description' => 'Miejscowość',
+      'type' => 'text_textfield',
+      'module' => 'text',
+    ),
+  );
+
+  // Exported field: field_dew_nazwa
+  $fields['deweloper-field_dew_nazwa'] = array(
+    'field_name' => 'field_dew_nazwa',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '34',
+      'parent' => 'group_dew_podst_dane',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => 5,
+      'size' => '60',
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_nazwa][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Nazwa dewelopera',
+      'weight' => '7',
+      'description' => 'Nazwa dewelopera',
+      'type' => 'text_textfield',
+      'module' => 'text',
+    ),
+  );
+
+  // Exported field: field_dew_nr_domu
+  $fields['deweloper-field_dew_nr_domu'] = array(
+    'field_name' => 'field_dew_nr_domu',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '39',
+      'parent' => 'group_dew_adres',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => 5,
+      'size' => '60',
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_nr_domu][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Nr domu',
+      'weight' => '23',
+      'description' => '',
+      'type' => 'text_textfield',
+      'module' => 'text',
+    ),
+  );
+
+  // Exported field: field_dew_telefony
+  $fields['deweloper-field_dew_telefony'] = array(
+    'field_name' => 'field_dew_telefony',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '46',
+      'parent' => 'group_dew_telefony',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '5',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => 5,
+      'size' => '60',
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_telefony][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Numery telefonów',
+      'weight' => '23',
+      'description' => 'Wprowadź numery telefonów',
+      'type' => 'text_textfield',
+      'module' => 'text',
+    ),
+  );
+
+  // Exported field: field_dew_ulica
+  $fields['deweloper-field_dew_ulica'] = array(
+    'field_name' => 'field_dew_ulica',
+    'type_name' => 'deweloper',
+    'display_settings' => array(
+      'weight' => '38',
+      'parent' => 'group_dew_adres',
+      'label' => array(
+        'format' => 'above',
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => 5,
+      'size' => '60',
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_dew_ulica][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Ulica',
+      'weight' => '8',
+      'description' => '',
+      'type' => 'text_textfield',
+      'module' => 'text',
+    ),
+  );
+
   // Exported field: field_dor_firma
   $fields['doradca-field_dor_firma'] = array(
     'field_name' => 'field_dor_firma',
@@ -636,11 +1077,18 @@ brak|Rozglądam się',
   // Included for use with string extractors like potx.
   t('Firma doradztwa finansowego');
   t('Imię');
+  t('Kod pocztowy');
+  t('Miejscowość');
+  t('Nazwa dewelopera');
   t('Nazwisko');
+  t('Nr domu');
+  t('Numer kierunkowy');
+  t('Numery telefonów');
   t('Płeć');
   t('Rok urodzenia');
   t('Status');
   t('Telefon');
+  t('Ulica');
 
   return $fields;
 }

@@ -159,14 +159,6 @@ function hm_profile_user_default_permissions() {
     ),
   );
 
-  // Exported permission: edit privacy options for field field_dor_nazwisko
-  $permissions['edit privacy options for field field_dor_nazwisko'] = array(
-    'name' => 'edit privacy options for field field_dor_nazwisko',
-    'roles' => array(
-      '0' => 'Doradca',
-    ),
-  );
-
   // Exported permission: edit privacy options for field field_dor_telefon
   $permissions['edit privacy options for field field_dor_telefon'] = array(
     'name' => 'edit privacy options for field field_dor_telefon',
@@ -232,15 +224,6 @@ function hm_profile_user_default_permissions() {
       '1' => 'Doradca',
       '2' => 'Użytkownik',
       '3' => 'anonymous user',
-    ),
-  );
-
-  // Exported permission: view private data for field field_dor_nazwisko
-  $permissions['view private data for field field_dor_nazwisko'] = array(
-    'name' => 'view private data for field field_dor_nazwisko',
-    'roles' => array(
-      '0' => 'anonymous user',
-      '1' => 'authenticated user',
     ),
   );
 

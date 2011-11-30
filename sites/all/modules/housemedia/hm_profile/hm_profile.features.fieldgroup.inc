@@ -6,6 +6,148 @@
 function hm_profile_fieldgroup_default_groups() {
   $groups = array();
 
+  // Exported group: group_dew_adres
+  $groups['deweloper-group_dew_adres'] = array(
+    'group_type' => 'standard',
+    'type_name' => 'deweloper',
+    'group_name' => 'group_dew_adres',
+    'label' => 'Szczegóły adresu',
+    'settings' => array(
+      'form' => array(
+        'style' => 'fieldset',
+        'description' => '',
+      ),
+      'display' => array(
+        'description' => '',
+        'label' => 'above',
+        'teaser' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'full' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '2' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '3' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'token' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+      ),
+    ),
+    'weight' => '20',
+    'fields' => array(
+      '0' => 'field_dew_nr_domu',
+      '1' => 'field_dew_miejscowosc',
+      '2' => 'field_dew_kod',
+    ),
+  );
+
+  // Exported group: group_dew_podstawowe
+  $groups['deweloper-group_dew_podstawowe'] = array(
+    'group_type' => 'standard',
+    'type_name' => 'deweloper',
+    'group_name' => 'group_dew_podstawowe',
+    'label' => 'Podstawowe informacje',
+    'settings' => array(
+      'form' => array(
+        'style' => 'fieldset',
+        'description' => '',
+      ),
+      'display' => array(
+        'description' => '',
+        'label' => 'above',
+        'teaser' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'full' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '2' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '3' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'token' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+      ),
+    ),
+    'weight' => '19',
+    'fields' => array(
+      '0' => 'field_dew_nazwa',
+      '1' => 'field_dew_ulica',
+    ),
+  );
+
+  // Exported group: group_dew_tel
+  $groups['deweloper-group_dew_tel'] = array(
+    'group_type' => 'standard',
+    'type_name' => 'deweloper',
+    'group_name' => 'group_dew_tel',
+    'label' => 'Telefony',
+    'settings' => array(
+      'form' => array(
+        'style' => 'fieldset',
+        'description' => '',
+      ),
+      'display' => array(
+        'description' => '',
+        'label' => 'above',
+        'teaser' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'full' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '2' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '3' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'token' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+      ),
+    ),
+    'weight' => '21',
+    'fields' => array(
+      '0' => 'field_dew_kierunkowy',
+      '1' => 'field_dew_telefony',
+    ),
+  );
+
   // Exported group: group_dor_dane
   $groups['doradca-group_dor_dane'] = array(
     'group_type' => 'standard',
@@ -156,6 +298,9 @@ function hm_profile_fieldgroup_default_groups() {
   t('Dane osobowe');
   t('Informacje dodatkowe');
   t('Podstawowe dane');
+  t('Podstawowe informacje');
+  t('Szczegóły adresu');
+  t('Telefony');
 
   return $groups;
 }

@@ -18,6 +18,17 @@ function hm_profile_ctools_plugin_api() {
  */
 function hm_profile_node_info() {
   $items = array(
+    'deweloper' => array(
+      'name' => t('Deweloper'),
+      'module' => 'features',
+      'description' => t('Profil dewelopera'),
+      'has_title' => '1',
+      'title_label' => t('Tytuł'),
+      'has_body' => '0',
+      'body_label' => '',
+      'min_word_count' => '0',
+      'help' => '',
+    ),
     'doradca' => array(
       'name' => t('Doradca finansowy'),
       'module' => 'features',
