@@ -5,8 +5,8 @@ base theme = fusion_core
 core = 6.x
 engine = phptemplate
 
-plugins[panels][layouts] = panels
-api[panels][styles][version] = 2
+From the css directory, run:
+; $ sass --watch raw:. --style compressed
 
 stylesheets[all][] = css/housemedia.css
 
