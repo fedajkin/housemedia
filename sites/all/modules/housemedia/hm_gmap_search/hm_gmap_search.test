@@ -1,0 +1,8 @@
+<?php
+/**
+ * @file 
+ * Unit tests for hm_gmap_search function
+ */
+
+
+class HmGmapSearchTestSuite extends DrupalU
