@@ -29,7 +29,7 @@ function hm_core_block($op = 'list', $delta = 0, $edit = array()) {
 }
 
 function hm_core_search_block() {
-
+  
   $quicktabs['qtid']  = 'hm_core_search';
   $quicktabs['ajax']  = FALSE;
   $quicktabs['style'] = 'nostyle';
@@ -50,9 +50,14 @@ function hm_core_search_block() {
       'type'    => 'view',
       'vid'     => '',
       'display' => '',
+    ),
+    '3' => array(
+      'title' => t('Search on map'),
+      'type'  => 'block',
+      'bid'   => 'hm_gmap_search_delta_-0',
     )
   );
-
+  
   return array(
     'subject' => t('Search'),
     'content' => theme('quicktabs', $quicktabs)
@@ -60,7 +65,7 @@ function hm_core_search_block() {
 }
 
 function hm_core_ranks_block() {
-
+  
   $quicktabs['qtid']  = 'hm_core_ranks';
   $quicktabs['ajax']  = FALSE;
   $quicktabs['style'] = 'nostyle';
@@ -79,7 +84,7 @@ function hm_core_ranks_block() {
     ),
   );
 
-
+  
   return array(
     'subject' => t('Ranks'),
     'content' => theme('quicktabs', $quicktabs)

@@ -1,0 +1,54 @@
+.overlay {
+  background: gray;
+  opacity: 0.6;
+  filter: alpha(opacity = 60);
+  z-index: 1;
+}
+
+.overlay-message {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: inline;
+  font-weight: bolder;
+  position: absolute;
+  z-index: 2;
+  background: #191919;
+  padding: 20px;
+  box-shadow: 2px 2px 2px #000000;
+}
+
+.gmap-search-button,
+.gmap-button-link {
+  background: none repeat scroll 0 0 #90A3CD;
+  box-shadow: 2px 2px 2px #CCCCCC;
+  margin-right: 5px;
+  padding: 0.25em 0.75em;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: white;
+  text-align: center;
+}
+
+.gmap-button-link {
+  margin-bottom: 2px;
+  padding: 3px 9px 3px 9px;
+  cursor: auto;
+  max-width: 200px;
+}
+
+.gmap-button-link a {
+  color: white;
+  text-decoration: none;
+}
+
+.gmap-search-button:hover,
+.gmap-button-link:hover,
+.gmap-button-link a:hover{
+  background: none repeat scroll 0 0 #5D91C0;
+  text-decoration: none;
+}
+
+.gmap-search-wrapper {
+    z-index: 1000;
+}

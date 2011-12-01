@@ -27,6 +27,13 @@ function hm_core_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'gmap_mm_type';
+  $strongarm->value = 'clustermarker';
+
+  $export['gmap_mm_type'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'gmap_node_markers';
   $strongarm->value = array(
     'blog' => '',
@@ -376,7 +383,7 @@ function hm_core_strongarm() {
     'sts_forum_unanswered_topics' => TRUE,
     'groups_newest_groups' => TRUE,
     'groups_most_active' => TRUE,
-    'profile_friends' => TRUE
+    'profile_friends' => TRUE,
   );
 
   $export['views_defaults'] = $strongarm;
