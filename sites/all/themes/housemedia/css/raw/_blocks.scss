@@ -1,22 +1,22 @@
-@mixin block-gray-background { 
+@mixin block-gray-background {
 	.block-title {
     margin-bottom: 10px;
   }
-	.content { 
+	.content {
     background-color: $color-gray;
     padding: 10px;
   }
 }
 
-.block { 
-	.block-title { 
+.block {
+	.block-title {
   	@include shadow;
     background-color: $color-blue;
 	  color: $color-white;
 	  font-size: 12px;
 	  font-weight: bold;
 	  padding: 5px 15px;
-    
+
 	  a {
       color: $color-white;
     }
@@ -36,7 +36,7 @@
 #block-og_views-0,
 #block-og_subgroups-0,
 #block-views-hm_group_most_active-block_1,
-#block-views-hm_group_newest-block_1 { 
+#block-views-hm_group_newest-block_1 {
 	@include block-gray-background;
 }
 
@@ -53,8 +53,8 @@
 	clear: both;
 	float: right;
 	margin-top: 2px;
-	padding: 1px 0 2px 25px; 
-	a { 
+	padding: 1px 0 2px 25px;
+	a {
 	  color: $color-white;
 	  font-weight: bold;
 	  font-size: 11px;
@@ -66,20 +66,20 @@
 	width: 180px;
 	margin-top: 5px;
 
-	.views-field-name span { 
+	.views-field-name span {
 	  display : block;
     text-align: right;
     font-size: 12px;
     line-height: 1.4;
 
-    .username { 
+    .username {
       font-size : 14px;
       a {
         color: $color-white;
       }
     }
   }
-  
+
   .views-field-nothing,
   .views-field-nothing-1 {
     float: right;
@@ -136,16 +136,20 @@
 }
 
 /* Promotions */
-#block-views-hm_promotion_last-block_1 { 
+#block-views-hm_promotion_last-block_1 {
 	.views-field-field-group-image-fid {
 	  width:102px;
 	}
 }
 
 /* Featured groups */
-#block-views-hm_group_featured-block_1 { 
+#block-views-hm_group_featured-block_1 {
 	@include block-gray-background;
-	
+
+  .title {
+    background: url(../img/promowane.png) no-repeat 6px center #5D91C0;
+    padding-left: 35px;
+  }
 	.jcarousel-skin-default {
     .jcarousel-container-horizontal {
       height: 100px;
@@ -162,20 +166,20 @@
       margin-right: 5px;
       overflow: hidden;
       width: 140px;
-      
+
       .views-field-field-group-image-fid {
         width: 140px;
       }
     }
     .jcarousel-prev-horizontal {
-      background: $color-azure;
+      background: url(../img/carousel-left.png) no-repeat 0 center #e6eef5;
       height: 100px;
       left: 0;
       top: 0;
       width: 22px;
     }
     .jcarousel-next-horizontal {
-      background: $color-azure;
+      background: url(../img/carousel-right.png) no-repeat right center #e6eef5;
       height: 100px;
       right: 0;
       top: 0;
@@ -239,13 +243,13 @@
 	.links {
 	  background-color: $color-gray;
     padding: 10px;
-    
+
     li {
       display: block;
-      
+
       &.userpoints,
 	    &.user_badges {
-	      float: left; 
+	      float: left;
 	    }
     }
   }
@@ -263,20 +267,20 @@
   div.date-nav {
     background: $color-white;
     border: 0 none;
-    
+
     div.date-prev {
       text-align: right;
     }
-    
+
     div.date-next {
       text-align: left;
     }
   }
-  
+
   td {
     text-align: center;
   }
-  
+
   .mini {
     td {
       border: 1px solid #CCCCCC;
@@ -296,7 +300,7 @@
 
 .calendar-calendar td.has-events {
   background: $color-blue-light;
-  
+
   a {
     color: $color-white;
     text-decoration: none;
@@ -307,7 +311,7 @@
 	margin: 0 20px 10px 0;
 	float: left;
   width: 150px;
-  
+
   img {
     float: left;
     margin-right: 10px;
@@ -318,4 +322,51 @@
   background: $color-gray;
   padding: 20px 15px;
   min-height: 300px;
+}
+
+
+#block-views-hm_credit_form-block_1 {
+	label {
+	 font-weight: bold;
+	}
+	.views-field-state .field-content {
+    color: red;
+
+    .wyplacono-kredyt {
+      color: green;
+    }
+	}
+}
+
+#block-views-hm_credit_form-block_2 {
+	label {
+    font-weight: bold;
+  }
+  .views-field-state .field-content {
+    color: green;
+
+    .wyplacono-kredyt {
+      color: red;
+    }
+  }
+}
+
+#block-views-hm_news_last-block_1 .title {
+	background: url(../img/aktualnosci.png) no-repeat 4px center #5D91C0;
+	padding-left: 35px;
+}
+
+#block-hm_core-search .title {
+  background: url(../img/szukaj.png) no-repeat 6px center #5D91C0;
+  padding-left: 35px;
+}
+
+#block-hm_core-ranks .title {
+  background: url(../img/ranking.png) no-repeat 6px center #5D91C0;
+  padding-left: 35px;
+}
+
+#block-views-hm_promotion_last-block_1 .title {
+	background: url(../img/promocje.png) no-repeat 6px center #5D91C0;
+  padding-left: 35px;
 }

@@ -6,7 +6,7 @@
  */
 
 function hm_core_install() {
-  
+
   // Removed modules.
   $modules_list = array(
     'db_tweaks',
@@ -21,7 +21,7 @@ function hm_core_install() {
     'keyword_autocomplete',
     'arrange_fields',
     'comment_driven_inspect',
-    'driven_nep', 
+    'driven_nep',
     'driven_inspect',
     'comment_driven_nodeapi',
     'comment_driven',
@@ -42,10 +42,10 @@ function hm_core_install() {
     'nodeblock',
     'site_map',
   );
-  
-  
+
+
   $ret = array();
-  
+
   // Manually drop unecessary tables.
   db_drop_table($ret, 'spaces_overrides');
   db_drop_table($ret, 'spaces_presets');
@@ -64,10 +64,10 @@ function hm_core_install() {
   node_type_delete('slider');
   node_type_delete('gallery');
   node_type_delete('gallery_image');
-  
+
   node_types_rebuild();
   menu_rebuild();
-  
+
   // Install modules.
   drupal_install_modules(array(
     'contemplate',
@@ -82,7 +82,7 @@ function hm_core_install() {
     'hm_profile',
     'hm_investment'
   ));
-  
+
   // Disable module.
   module_disable(array(
   	'commons_group_aggregator',
@@ -98,23 +98,23 @@ function hm_core_install() {
     'mollom',
     'poll',
   ));
-  
+
   // Install translations.
   _hm_core_update_translation('sites/all/translations/modules');
   _hm_core_update_translation('sites/all/modules/housemedia');
   _hm_core_update_translation('sites/all/themes/housemedia/translations');
- 
+
   // Delete views.
   $views = array(
     'glowna_aktualnosci',
     'galeria_inwestycji',
     'gallery'
   );
-  
+
   foreach ($views as $view) {
     views_get_view($view)->delete();
   }
-  
+
   $handle  = fopen('./sites/all/modules/housemedia/hm_core/resources/register.node', 'r');
   $content = stream_get_contents($handle);
   fclose($handle);
@@ -124,10 +124,48 @@ function hm_core_install() {
   $node->format  = 3;
   $node->comment = COMMENT_NODE_DISABLED; // Disable comments.
   node_save($node);
-  
+
   return $ret;
 }
 
+function hm_core_update_6001() {
+  drupal_install_modules(array(
+    'admin_menu',
+    'workflow',
+    'hm_credit_form'
+  ));
+
+  // Import workflow configuration.
+  _hm_credit_form_import_db_table(drupal_get_path('module', 'hm_credit_form') .'/workflow');
+
+  node_type_delete('profile');
+
+  module_disable(array('profile'));
+  drupal_uninstall_module('profile');
+
+  return array();
+}
+
+function hm_core_update_6002() {
+  drupal_install_modules(array('auto_nodetitle'));
+
+  _hm_core_update_translation('sites/all/translations/modules');
+
+  return array();
+}
+
+function hm_core_update_6003() {
+
+  _hm_core_update_translation('sites/all/translations/modules');
+  _hm_core_update_translation('sites/all/modules/housemedia/hm_profile');
+
+  return array();
+}
+
+function hm_core_update_6004() {
+  $path = drupal_get_path('module', 'hm_core');
+  hm_core_import_db_table($path .'/config', '', TRUE);
+}
 
 /**
  * Update translations.
@@ -145,4 +183,66 @@ function _hm_core_update_translation($dir, $mask = 'pl.po$', $mode = LOCALE_IMPO
   }
 }
 
+/**
+ * Import data to db table.
+ *
+ * Read data from xml file created by mysql command with --xml option and
+ * insert it to db table.
+ *
+ * @param $filename
+ *   Path to the file. May be regular file or directory.
+ * @param $table
+ *   (optional) Destination table. Default filename without extension is used.
+ * @param $truncate
+ *   (optional) Truncate table before insert new data.
+ * @param $auto_increment
+ *   (optional) Disable auto_increment behaviour in mysql.
+ */
+function hm_core_import_db_table($filename, $table = '', $truncate = FALSE, $auto_increment = FALSE) {
+
+  // If the filename is a directory recursively call mrtools_import_db_table()
+  // for each found file.
+  if (is_dir($filename)) {
+    foreach (file_scan_directory($filename, '.xml$') as $file) {
+     hm_core_import_db_table($file->filename, $file->name, $truncate, $auto_increment);
+    }
+    return TRUE;
+  }
+
+  // If the filename is a regular file read xml data and insert it
+  // to the database table.
+  if (is_file($filename)) {
+
+    if (empty($table)) {
+      $table = basename($filename, '.xml');
+    }
+
+    if (!$auto_increment) {
+      db_query("SET SESSION sql_mode='NO_AUTO_VALUE_ON_ZERO';");
+    }
+
+    if ($truncate) {
+      db_query('TRUNCATE {'. db_escape_string($table) .'}');
+    }
+
+    foreach (simplexml_load_file($filename) as $row) {
+
+      $fields = $values = array();
+
+      foreach ($row->field as $field) {
+        $fields[] = (string) $field['name'];
+        $values[] = (string) $field;
+      }
+
+      // Prepare DB query.
+      $table  = db_escape_string($table);
+      $fields = db_escape_string(implode(',', $fields));
+
+      db_query(
+     	  'INSERT INTO {'. $table .'} ('. $fields .') VALUES ('. db_placeholders($values, 'varchar') .')',
+        $values
+      );
+    }
+  }
+}
 

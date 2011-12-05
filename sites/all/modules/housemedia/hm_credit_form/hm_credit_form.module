@@ -1,0 +1,167 @@
+<?php
+
+define('HM_CREDIT_FORM_ROLE', 8);
+define('HM_CREDIT_FORM_ADVISOR_ROLE', 7);
+
+include_once('hm_credit_form.features.inc');
+
+function hm_credit_form_node_grants($account, $op) {
+  $grants['credit_form'] = array($account->uid);
+  return $grants;
+}
+
+function hm_credit_form_node_access_records($node) {
+  $grants = array();
+
+  if ($node->type == 'hm_credit_form') {
+    $grants[] = array(
+  		'realm' => 'credit_form',
+    	'gid' => $node->uid,
+    	'grant_view' => TRUE,
+    	'grant_update' => FALSE,
+    	'grant_delete' => FALSE,
+    	'priority' => 0,
+    );
+
+    $grants[] = array(
+  		'realm' => 'credit_form',
+    	'gid' => $node->field_credit_form_advisor[0]['uid'],
+    	'grant_view' => TRUE,
+    	'grant_update' => ($node->_workflow < 6),
+    	'grant_delete' => FALSE,
+    	'priority' => 0,
+    );
+  }
+  return $grants;
+}
+
+function hm_credit_form_link_alter(&$links, $node, $comment = NULL) {
+
+}
+
+/**
+ * Implementation of hook_block()
+ */
+function hm_credit_form_block($op = 'list', $delta = 0, $edit = array()) {
+  module_load_include('inc', 'hm_credit_form', 'hm_credit_form.blocks');
+  return _hm_credit_form_block($op, $delta, $edit);
+}
+
+function hm_credit_form_form_alter(&$form, $form_state, $form_id) {
+
+  if ($form_id == 'user_relationships_ui_request') {
+
+    $rtype = user_relationships_type_load($form['rtid']['#default_value']);
+
+    if (!hm_credit_form_can_create_relationship($form['requester']['#value'], $form['requestee']['#value'])) {
+      drupal_not_found();
+      exit();
+    }
+
+    if ($rtype->name != 'advisor') {
+      return;
+    }
+
+    // Extend form.
+    $weight = -20;
+    foreach (hm_credit_form_fields() as $field) {
+
+      // Not include 'Advisor' field.
+      if ($field['field_name'] == 'field_credit_form_advisor') {
+        continue;
+      }
+
+      $form[$field['field_name']] = array(
+      	'#title'    => $field['widget']['label'],
+      	'#type'     => str_replace('text_', '', $field['widget']['type']),
+      	'#required' => $field['required'],
+      	'#weight'   => $weight++
+      );
+    }
+
+    global $user;
+
+    $profile = content_profile_load('uzytkownik', $user->uid);
+
+    if ($profile) {
+      $form['field_credit_form_name']['#default_value'] = $profile->field_imie[0]['value'];
+      $form['field_credit_form_surname']['#default_value'] = $profile->field_nazwisko[0]['value'];
+    }
+
+    $form['elaboration']['#access'] = FALSE;
+
+    $form['#redirect'] = 'user/'. $user->uid;
+  }
+
+  if ($form_id == 'credit_form_node_form') {
+
+    $form['workflow']['#access'] = FALSE;
+  }
+}
+
+function hm_credit_form_can_create_relationship($requester, $receiver) {
+
+  if (is_numeric($requester)) {
+    $requester = user_load($requester);
+  }
+
+  $relationship = user_relationships_load(array(
+    'requester_id' => $requester->uid,
+    'rtid' => _hm_credit_form_rtid(),
+    'approved' => 1
+  ));
+
+  return  empty($relationship) &&
+          user_relationships_api_can_request($requester, _hm_credit_form_rtid()) &&
+          user_relationships_api_can_receive($receiver, _hm_credit_form_rtid());
+}
+
+function hm_credit_form_commons_profile_action_links_alter(&$links, $account) {
+  foreach ($links as $key => $link) {
+    if (preg_match('/user\/\d+\/relationships\/\d+\/remove|relationship\/\d+\/request\/\d+/i', $link['title'])) {
+      unset($links[$key]);
+    }
+  }
+}
+
+function hm_credit_form_user_relationships($op, &$relationship) {
+  if ($op == 'request' && $relationship->type->name == 'advisor') {
+
+    $node = new stdClass;
+    $node->type = 'credit_form';
+    $node->uid = $relationship->requester->uid;
+
+    foreach (hm_credit_form_fields() as $field) {
+      $name = $field['field_name'];
+      $node->{$name}[0]['value'] = $relationship->{$name};
+    }
+
+    $node->field_credit_form_advisor[0]['uid'] = $relationship->requestee->uid;
+    $node->sticky = 1;
+    $node->title = t('Credit form:');
+    $node->title .= ' '. $node->field_credit_form_name[0]['value'];
+    $node->title .= ' '. $node->field_credit_form_surname[0]['value'];
+    $node->title .= ' ('. $relationship->requester->name .')';
+
+    node_save($node);
+  }
+}
+
+
+function hm_credit_form_fields() {
+
+  $content_fields = content_fields();
+  $fields = array();
+
+  foreach ($content_fields as $field) {
+    if ($field['type_name'] == 'credit_form') {
+      $fields[] = $field;
+    }
+  }
+
+  return $fields;
+}
+
+function _hm_credit_form_rtid() {
+  return variable_get('hm_credit_form_rtid', FALSE);
+}

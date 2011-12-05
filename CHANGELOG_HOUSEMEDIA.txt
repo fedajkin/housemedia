@@ -1,0 +1,4 @@
+
+Housemedia 1.7.1, 2011-11-09
+----------------------
+- #21: Use teaser instead trimmed body in news recent block.

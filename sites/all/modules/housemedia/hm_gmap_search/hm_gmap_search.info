@@ -1,0 +1,6 @@
+core = "6.x"
+dependencies[] = "gmap"
+package = "Housemedia"
+name = "Housemedia geo search applet"
+
+

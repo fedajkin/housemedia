@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM autoassignrole
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="arid">auto_roles</field>
+	<field name="value">a:6:{i:3;i:0;i:4;i:0;i:6;i:0;i:7;i:0;i:5;i:0;i:8;i:0;}</field>
+  </row>
+
+  <row>
+	<field name="arid">auto_active</field>
+	<field name="value">1</field>
+  </row>
+
+  <row>
+	<field name="arid">user_active</field>
+	<field name="value">0</field>
+  </row>
+
+  <row>
+	<field name="arid">user_roles</field>
+	<field name="value">a:6:{i:3;i:0;i:4;i:0;i:6;i:0;i:7;i:0;i:5;i:0;i:8;i:0;}</field>
+  </row>
+
+  <row>
+	<field name="arid">user_required</field>
+	<field name="value">0</field>
+  </row>
+
+  <row>
+	<field name="arid">user_multiple</field>
+	<field name="value">0</field>
+  </row>
+
+  <row>
+	<field name="arid">user_description</field>
+	<field name="value"></field>
+  </row>
+
+  <row>
+	<field name="arid">user_title</field>
+	<field name="value">Role</field>
+  </row>
+
+  <row>
+	<field name="arid">user_fieldset_title</field>
+	<field name="value">User Roles</field>
+  </row>
+
+  <row>
+	<field name="arid">user_sort</field>
+	<field name="value">SORT_ASC</field>
+  </row>
+
+  <row>
+	<field name="arid">user_selection</field>
+	<field name="value">2</field>
+  </row>
+
+  <row>
+	<field name="arid">page_active</field>
+	<field name="value">0</field>
+  </row>
+
+  <row>
+	<field name="arid">auto_admin_active</field>
+	<field name="value">0</field>
+  </row>
+
+  <row>
+	<field name="arid">node_user_register</field>
+	<field name="value">306</field>
+  </row>
+</resultset>

@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<resultset statement="SELECT * FROM workflow_transitions
+" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <row>
+	<field name="tid">1</field>
+	<field name="sid">1</field>
+	<field name="target_sid">2</field>
+	<field name="roles">author</field>
+  </row>
+
+  <row>
+	<field name="tid">2</field>
+	<field name="sid">2</field>
+	<field name="target_sid">3</field>
+	<field name="roles">7</field>
+  </row>
+
+  <row>
+	<field name="tid">3</field>
+	<field name="sid">3</field>
+	<field name="target_sid">4</field>
+	<field name="roles">7</field>
+  </row>
+
+  <row>
+	<field name="tid">4</field>
+	<field name="sid">4</field>
+	<field name="target_sid">5</field>
+	<field name="roles">7</field>
+  </row>
+
+  <row>
+	<field name="tid">5</field>
+	<field name="sid">5</field>
+	<field name="target_sid">6</field>
+	<field name="roles">7</field>
+  </row>
+
+  <row>
+	<field name="tid">6</field>
+	<field name="sid">5</field>
+	<field name="target_sid">7</field>
+	<field name="roles">7</field>
+  </row>
+
+  <row>
+	<field name="tid">7</field>
+	<field name="sid">6</field>
+	<field name="target_sid">8</field>
+	<field name="roles">author</field>
+  </row>
+
+  <row>
+	<field name="tid">8</field>
+	<field name="sid">9</field>
+	<field name="target_sid">8</field>
+	<field name="roles">author,7</field>
+  </row>
+</resultset>

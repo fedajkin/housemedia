@@ -20,27 +20,27 @@ function housemedia_preprocess_node(&$vars) {
   if ($vars['submitted']) {
     // Load the node author
     $author = user_load($vars['node']->uid);
-  
+
     // Author picture
     if (theme_get_setting('toggle_node_user_picture')) {
       $picture = $vars['picture'];
       unset($vars['picture']);
       $submitted = ($author->uid && user_access('access user profiles')) ? l($picture, "user/{$author->uid}", array('html' => TRUE)) : $picture;
     }
-    
+
     // Author information
     $submitted .= '<span class="submitted-by">';
     $submitted .= t('Submitted by !name', array('!name' => theme('username', $author)));
     $submitted .= '</span>';
-    
+
     // User points
     if ($author->uid && module_exists('userpoints')) {
       $points = userpoints_get_current_points($author->uid);
       $submitted .= '<span class="userpoints-value" title="' . t('!val user points', array('!val' => $points)) . '">';
-      $submitted .= "({$points})"; 
+      $submitted .= "({$points})";
       $submitted .= '</span>';
     }
-    
+
     // User badges
     if ($author->uid && module_exists('user_badges')) {
       if (is_array($author->badges)) {
@@ -48,23 +48,27 @@ function housemedia_preprocess_node(&$vars) {
           $badges[] = theme('user_badge', $badge, $author);
         }
       }
-    
+
       if (!empty($badges)) {
         $submitted .= theme('user_badge_group', $badges);
       }
     }
-    
+
     // Created time
     $submitted .= '<span class="submitted-on">';
     $submitted .= format_date($vars['node']->created);
     $submitted .= '</span>';
-    
+
     $vars['submitted'] = $submitted;
   }
-  
+
   $node = $vars['node'];
-  if ($node->type == 'group') {
+  if (in_array($node->type, array('group'))) {
     $vars['links'] = $vars['terms'] = '';
+  }
+
+  if ($node->type == 'credit_form') {
+    $vars['workflow_image'] = _housemedia_workflow_image($node);
   }
 }
 
@@ -73,7 +77,7 @@ function housemedia_preprocess_node(&$vars) {
  */
 function housemedia_preprocess_page(&$vars) {
   // Format the footer message
-  // We do this here instead of in page.tpl.php because 
+  // We do this here instead of in page.tpl.php because
   // we need a formatted message to pass along to the
   // same theme function as the $footer in order to have
   // them nested together
@@ -86,7 +90,7 @@ function housemedia_preprocess_page(&$vars) {
     $markup .= '</div><!-- /footer-message -->';
     $vars['footer_message'] = $markup;
   }
-  
+
   $vars['logo'] = l(t('Home'), '<front>', array('attributes' => array(
     'id' => 'logo',
     'title' => t('Home')
@@ -96,19 +100,36 @@ function housemedia_preprocess_page(&$vars) {
     'id' => 'header-link1',
     'title' => t('Dashboard')
   )));
-  
+
   $vars['header_link2'] = l(t('Link 2'), '<front>', array('attributes' => array(
     'id' => 'header-link2',
     'title' => t('Link 2')
   )));
-  
+
   $vars['header_link3'] = l(t('Link 3'), '<front>', array('attributes' => array(
     'id' => 'header-link3',
     'title' => t('Link 3')
   )));
-  
+
   if (isset($vars['node']) && $vars['node']->type == 'group') {
     $vars['title'] = '';
+  }
+
+  if ($node->type == 'credit_form' && $node->_workflow < 9) {
+
+    $state_name = workflow_get_state_name($node->_workflow);
+
+    $vars['workflow_image'] = theme(
+    	'image',
+      path_to_theme() ."/img/workflow{$node->_workflow}.png",
+      $state_name,
+      $state_name,
+      array('class' => 'workflow-image')
+    );
+  }
+
+  if (isset($vars['node']) && $vars['node']->type == 'credit_form' && arg(2) == 'workflow') {
+    $vars['workflow_image'] = _housemedia_workflow_image($vars['node']);
   }
 }
 
@@ -138,24 +159,24 @@ function housemedia_preprocess_comment(&$vars) {
   $submitted_by = '<span class="comment-name">' . theme('username', $vars['comment']) . '</span>';
   $submitted_by .= '<span class="comment-date">' . $ago . '</span>';     // Format date as small, medium, or large
   $vars['submitted'] = $submitted_by;
-  
+
   // Picture
   if (theme_get_setting('toggle_comment_user_picture')) {
     if (!$vars['comment']->picture && (variable_get('user_picture_default', '') != '')) {
       $vars['comment']->picture = variable_get('user_picture_default', '');
     }
-    if ($vars['comment']->picture) { 
+    if ($vars['comment']->picture) {
       $picture = theme_imagecache('user_picture_meta', $vars['comment']->picture, $vars['comment']->name, $vars['comment']->name);
       if (user_access('access user profiles')) {
         $vars['comment']->picture = l($picture, "user/{$vars['comment']->uid}", array('html' => TRUE));
       }
       else {
-        $vars['comment']->picture = $picture; 
+        $vars['comment']->picture = $picture;
       }
     }
   }
   else {
-    unset($vars['comment']); 
+    unset($vars['comment']);
   }
 }
 
@@ -164,7 +185,7 @@ function housemedia_preprocess_comment(&$vars) {
  */
 function housemedia_preprocess_user_profile_item(&$vars) {
   // Separate userpoints value from the edit links
-  if ($vars['title'] == 'Points') { 
+  if ($vars['title'] == 'Points') {
     $userpoints = explode(' - ', $vars['value']);
     $vars['value'] = '<span class="points">' . $userpoints[0] . '</span><span class="edit-links">' . $userpoints[1] . '</span>';
     unset($vars['title']);
@@ -176,7 +197,7 @@ function housemedia_preprocess_user_profile_item(&$vars) {
  */
 function housemedia_shoutbox_post($shout, $links = array(), $alter_row_color=TRUE) {
   global $user;
-  
+
   // Gather moderation links
   if ($links) {
     foreach ($links as $link) {
@@ -186,7 +207,7 @@ function housemedia_shoutbox_post($shout, $links = array(), $alter_row_color=TRU
       $img_links = l($link_html, $link_url, array('html' => TRUE, 'query' => array('destination' => drupal_get_path_alias($_GET['q'])))) . $img_links;
     }
   }
-  
+
   // Generate user name with link
   $user_name = shoutbox_get_user_link($shout);
 
@@ -202,7 +223,7 @@ function housemedia_shoutbox_post($shout, $links = array(), $alter_row_color=TRU
     $shout_classes[] = 'shoutbox-unpublished';
     $approval_message = '&nbsp;(' . t('This shout is waiting for approval by a moderator.') . ')';
   }
-  
+
   // Check for specific user class
   $user_classes = array();
   $user_classes[] = 'shoutbox-user-name';
@@ -210,9 +231,9 @@ function housemedia_shoutbox_post($shout, $links = array(), $alter_row_color=TRU
     $user_classes[] = 'shoutbox-current-user-name';
   }
   else if ($shout->uid == 0) {
-    $user_classes[] = 'shoutbox-anonymous-user';  
+    $user_classes[] = 'shoutbox-anonymous-user';
   }
-  
+
   // Load user image and format
   $author_picture ='';
   $shout_author =  user_load($shout->uid);
@@ -222,7 +243,7 @@ function housemedia_shoutbox_post($shout, $links = array(), $alter_row_color=TRU
   if ($shout_author->picture) {
     $author_picture = theme_imagecache('user_picture_meta', $shout_author->picture, $shout_author->name, $shout_author->name);
   }
-  
+
   // Time format
   $format = variable_get('shoutbox_time_format', 'ago');
   switch ($format) {
@@ -235,7 +256,7 @@ function housemedia_shoutbox_post($shout, $links = array(), $alter_row_color=TRU
       $submitted = format_date($shout->created, $format);
       break;
   }
-   
+
   // Build the post
   $post = '';
   $post .= '<div class="' . implode(' ', $shout_classes) . '" title="' . $title . '">';
@@ -280,7 +301,7 @@ function housemedia_item_list($items = array(), $title = NULL, $type = 'ul', $at
       else {
          $data = $item;
       }
-      
+
       if (!is_numeric($i)) {
         if (count($children) > 0) {
           $data .= theme_item_list($children, NULL, $type, $attributes); // Render nested list
@@ -291,10 +312,10 @@ function housemedia_item_list($items = array(), $title = NULL, $type = 'ul', $at
         if ($c == 0) {
           $attributes['class'] = empty($attributes['class']) ? 'last' : ($attributes['class'] .' last');
         }
-        
+
         $attributes['class'] .= ' ' . ($c % 2 ? 'even' : 'odd');
         $output .= '<li'. drupal_attributes($attributes) .'>'. $data ."</li>\n";
-      } 
+      }
       else {
         if (count($children) > 0) {
           $data .= theme_item_list($children, NULL, $type, $attributes); // Render nested list
@@ -305,12 +326,12 @@ function housemedia_item_list($items = array(), $title = NULL, $type = 'ul', $at
         if ($i == $num_items - 1) {
           $attributes['class'] = empty($attributes['class']) ? 'last' : ($attributes['class'] .' last');
         }
-        
+
         $attributes['class'] .= ' ' . ($i % 2 ? 'even' : 'odd');
         $output .= '<li'. drupal_attributes($attributes) .'>'. $data ."</li>\n";
       }
     }
-    
+
     $output .= "</$type>";
   }
   $output .= '</div>';
@@ -318,18 +339,18 @@ function housemedia_item_list($items = array(), $title = NULL, $type = 'ul', $at
 }
 
 function housemedia_preprocess_block($variables) {
-  
+
   unset($variables['edit_links']);
-  
+
   $variables['subject_tag'] = 'div';
-  
+
   $variables['subject_is_link'] = preg_match('/^\<a.*\/a\>$/i', $variables['block']->subject);
-  
+
   $variables['template_files'][] = 'block-'.$variables['block']->region.'-'.$variables['block']->module;
   $variables['template_files'][] = 'block-'.$variables['block']->region.'-'.$variables['block']->module.'-'.$variables['block']->delta;
 
   $block = $variables['block'];
-  
+
   if ($block->module == 'commons_core' && $block->delta == 'header_login') {
     if ($block->content !== NULL) {
       $block->content = l(t('Login'), 'user');
@@ -339,7 +360,7 @@ function housemedia_preprocess_block($variables) {
   if ($block->module == 'views' && in_array($block->delta, array('news_last-block_1', 'promotion_last-block_1'))) {
     $variables['subject_tag'] = 'h2';
   }
-  
+
   if ($block->module == 'views' && $block->delta == 'profile_user_groups-block_1') {
     $block->subject = t('My property');
   }
@@ -347,11 +368,11 @@ function housemedia_preprocess_block($variables) {
   if ($block->module == 'commons_core' && $block->delta == 'commons_info') {
     // $block->content = '';
   }
-  
+
   if ($block->module == 'og_subgroups' && $block->delta == '0') {
     if ($group_node = og_get_group_context()) {
       if ($parent = og_subgroups_get_parent($group_node->nid)) {
-        $block->subject = t('@name investments', array('@name' => $parent['title']));  
+        $block->subject = t('@name investments', array('@name' => $parent['title']));
       }
     }
   }
@@ -361,13 +382,15 @@ function housemedia_thumb_user_picture ($picture, $imagecache_preset, $user_name
   if (!isset($picture) || $picture == '') {
     $picture = variable_get('user_picture_default', '');
   }
-  
-  $img = theme('imagecache', $imagecache_preset, $picture, $user_name, $user_name);  
-  
+
+  $user_name = hm_profile_override_user_name($user_uid);
+
+  $img = theme('imagecache', $imagecache_preset, $picture, $user_name, $user_name);
+
   if (user_access('access user profiles')) {
     return l($img, "user/{$user_uid}", array('html' => TRUE));
   }
-  else { 
+  else {
     return $img;
   }
 }
@@ -395,7 +418,7 @@ function housemedia_preprocess_views_exposed_form(&$vars) {
    ) {
     $fieldset = FALSE;
   }
-  
+
   if ($fieldset) {
     drupal_add_js('misc/collapse.js');
   }
@@ -405,16 +428,51 @@ function housemedia_preprocess_views_exposed_form(&$vars) {
 
 function housemedia_commons_profile_image_action_links_block($picture, $links, $account) {
   $content = '';
-  
+
   // Add the picture
   $content .= $picture;
-  
+
   // Add the links
   $content .= theme('links', $links, array('class' => 'links clearfix'));
-  
+
   return $content;
+}
+
+/**
+ * Username override
+ * Hides or shows username '(not verified)' text
+ */
+function housemedia_username($object) {
+
+  $object->name = hm_profile_override_user_name($object->uid);
+
+  if ((!$object->uid) && $object->name) {
+    $output = (!empty($object->homepage)) ? l($object->name, $object->homepage, array('attributes' => array('rel' => 'nofollow'))) : check_plain($object->name);
+    $output .= (theme_get_setting('user_notverified_display') == 1) ? t(' (not verified)') : '';
+  }
+  else {
+    $output = theme_username($object);
+  }
+  return $output;
 }
 
 function _housemedia_locales_source() {
   t('Friends');
+}
+
+function _housemedia_workflow_image($node) {
+  if ($node->type == 'credit_form' && $node->_workflow < 9) {
+
+    $state_name = workflow_get_state_name($node->_workflow);
+
+    return theme(
+    	'image',
+      path_to_theme() ."/img/workflow{$node->_workflow}.png",
+      $state_name,
+      $state_name,
+      array('class' => 'workflow-image')
+    );
+  }
+
+  return '';
 }

@@ -1,0 +1,767 @@
+<?php
+
+
+/**
+ * Implementation of hook_menu()
+ */
+function hm_gmap_search_menu() {
+  return array(
+    'hm_gmap_search/search-ajax' => array(
+      'title' => 'Search widget ajax caback',
+      'page callback' => '_hm_gmap_search_ajax_callback',
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK
+    ),
+    'hm_gmap_search/popup-ajax/%node' => array(
+      'title' => 'Search widget ajax caback',
+      'page callback' => '_hm_gmap_search_ajax_popup_callback',
+      'page arguments' => array(2), 
+      'access callback' => 'node_access',
+      'access arguments' => array('view', 2),
+      'type' => MENU_CALLBACK
+    ),
+    'hm_gmap_search/popup-ajax-group/%node' => array(
+      'title' => 'Search widget ajax caback',
+      'page callback' => '_hm_gmap_search_ajax_group_popup_callback',
+      'page arguments' => array(2), 
+      'access callback' => 'node_access',
+      'access arguments' => array('view', 2),
+      'type' => MENU_CALLBACK
+    )
+  );
+}
+
+
+function _hm_gmap_search_ajax_group_popup_callback($node) {
+  print theme('hm_gmap_search_group_popup', $node);
+}
+
+function _hm_gmap_search_ajax_popup_callback($node) {
+  print theme('hm_gmap_search_popup', $node);
+}
+
+
+/**
+ * Implementation of hook_theme()
+ */
+function hm_gmap_search_theme($existing, $type, $theme, $path) {
+  return array(
+    'hm_gmap_search_popup' => array(
+      'arguments' => array('node' => NULL),
+    ),
+    'hm_gmap_search_group_popup' => array(
+      'arguments' => array('node' => NULL),
+    ),
+  );
+}
+
+
+
+/**
+ * Implementation of callback for hm_gmap_search/search-ajax page.
+ *
+ * @return JSON form of markers set. This markers are nodes
+ * which meet constraints of ajax both (geographical and node type);
+*/
+function _hm_gmap_search_ajax_callback() {
+  $arguments = $_POST;
+  $vertex = array();
+
+  foreach ($arguments as $key => $value) {
+    if (strpos($key, 'point_') === 0) {
+      list($_dummy, $idx, $type) = explode('_', $key);
+      $vertex[$idx] = (isset($vertex[$idx])) ? $vertex[$idx] : array();
+      $vertex[$idx][$type] = $value;
+    }
+  }
+
+
+  if ($arguments['ne_lat'] < $arguments['sw_lat']) {
+    $min_lat = $arguments['sw_lat'];
+    $max_lat = $arguments['ne_lat'];
+  }
+  else {
+    $min_lat = $arguments['sw_lat'];
+    $max_lat = $arguments['ne_lat'];
+  }
+
+  if ($arguments['ne_lon'] < $arguments['sw_lon']) {
+    $min_lon = $arguments['sw_lon'];
+    $max_lon = $arguments['ne_lon'];
+  }
+  else {
+    $min_lon = $arguments['sw_lon'];
+    $max_lon = $arguments['ne_lon'];
+  }
+
+
+  $joins = array();
+  $where = array();
+
+
+  if ($_POST['type'] == 'mieszkanie') {
+    $joins[] = "INNER JOIN {og_ancestry} oga ON n.nid = oga.group_nid";
+    $joins[] = "INNER JOIN {node} n2 ON oga.nid = n2.nid";
+    $joins[] = "INNER JOIN {location_instance} li ON n.nid = li.nid AND n.vid = li.vid";
+    $joins[] = "INNER JOIN {content_type_mieszkanie} ctp ON n2.nid = ctp.nid AND n2.vid = ctp.vid";
+    $arguments['type'] = 'group';
+    $where[] = "(ctp.field_m_wolne_value = 'n')";
+  }
+  else {
+    $joins[] = "INNER JOIN {location_instance} li USING (nid, vid)";
+  }
+
+  $arguments = array($max_lat, $min_lat, $max_lon, $min_lon, $arguments['type']);
+  $joins[] = "INNER JOIN {location} USING (lid)";
+  $where[] = "((latitude <= %f AND latitude >= %f) AND (longitude <= %f AND longitude >= %f) AND  n.type = '%s')";
+
+  $result = db_query(
+    db_rewrite_sql(
+      "SELECT n.nid, n.title, n.type, latitude, longitude FROM {node} n ".
+      implode(" ", $joins) .' WHERE '.  implode(" AND ", $where) . "GROUP BY n.nid",
+      'n',
+      'nid'
+    ),
+    $arguments
+  );
+
+
+
+  while ($row = db_fetch_array($result)) {
+    if (
+      _hm_gmap_search_verify_polygon_colission(
+        array($row['latitude'], $row['longitude']),
+        $vertex
+      )
+    ) {
+
+      if ($_POST['type'] == 'mieszkanie') {
+        $link = url('hm_gmap_search/popup-ajax-group/'. $row['nid']);
+      }
+      else {
+        $link = url('hm_gmap_search/popup-ajax/'. $row['nid']);
+      }
+      $results[] = array(
+        'rmt' => $link,
+        'latitude' => $row['latitude'],
+        'longitude' => $row['longitude']
+      );
+    }
+  }
+  // Drupal ajax callback requires this
+  drupal_json($results);
+  return NULL;
+}
+
+/**
+ * Implementation of hook_gmap() implementation.
+ *
+ * This implementation registers brand new geo
+ * search functionality for hm site.
+*/
+function hm_gmap_search_gmap($op, &$map) {
+  switch ($op) {
+    case 'behaviors':
+//      return array(
+//        'geo_search' => array(
+//          'title' => t('Markers search widget for google maps'),
+//          'default' => FALSE,
+//          'help' => t('Use this to activate shape based filter for map'),
+//        )
+//      );
+//      break;
+    case 'pre_theme_map':
+      // If geo_search behavior is enabled, simple include
+      // additional js with whole gmap api goodness.
+      if (
+        isset($map['behavior']['geo_search']) && $map['behavior']['geo_search']
+      ) {
+        // Include js implementations
+        drupal_add_js(
+          drupal_get_path('module', 'hm_gmap_search') .'/js/hm_gmap_search.js'
+        );
+        drupal_add_js(
+          drupal_get_path('module', 'hm_gmap_search') .'/js/gmap_quicktabs.js'
+        );
+        drupal_add_js(
+          drupal_get_path('module', 'hm_gmap_search') .
+          '/js/hm_gmap_search_control.js'
+        );
+
+        drupal_add_css(
+          drupal_get_path('module', 'hm_gmap_search') .
+          '/css/hm_gmap_search.css'
+        );
+
+        // Add configuration for ajax goddies.
+        drupal_add_js(
+          array(
+            'hm_gmap_search' => array(
+              'search_url' => url(
+                'hm_gmap_search/search-ajax', array(
+                  'absolute' => TRUE
+                )
+              )
+            )
+          ),
+          'setting'
+        );
+      };
+      break;
+  }
+}
+
+
+/**
+ * Implementation of hook_block()
+ *
+ * This implementation adds support for our google based search widget
+ * as block.
+ */
+function hm_gmap_search_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      return array(
+        0 => array(
+          'info' => t('GMAP node search box'),
+          'description' => t('Google map search based widget')
+        )
+      );
+      break;
+    case 'configure':
+      if ($delta == 0) {
+        return array(
+          'gmap_search_box_macro'=> array(
+            '#type' => 'textfield',
+            '#title' => t('GMAP module macro expression. This will be used as base for search box'),
+            '#default_value' => variable_get(
+              'gmap_search_box_macro',
+              '[gmap ]'
+            ),
+          )
+        );
+      }
+      break;
+    case 'save':
+      if ($delta == 0) {
+        variable_set('gmap_search_box_macro', $edit['gmap_search_box_macro']);
+      }
+      break;
+    case 'view':
+      if ($delta == 0) {
+        // Renders google maps block
+        return _hm_gmap_search_block(
+        );
+      }
+      break;
+  }
+}
+
+/**
+ * Implementation of render callback for hook_block implementation.
+ */
+function _hm_gmap_search_block() {
+  // Get map array, basing on block settings
+  $base_map = gmap_parse_macro(
+    variable_get('gmap_search_box_macro', '[gmap ]')
+  );
+
+  // Now add custom behaviors to map array (this
+  // will enable area drawing and search initiation widget
+  $base_map['behavior'] =
+    isset($base_map['behavior']) && is_array($base_map['behavior']) ?
+    $base_map['behavior'] :
+    array();
+
+  // Add geo search behavior
+  $base_map['behavior']['geo_search'] = TRUE;
+  $base_map['behavior']['dynmarkers'] = TRUE;
+
+  return array(
+    'title' => t('GMAP Location search'),
+    'content' => '<div class="gmap-search-wrapper">'. 
+      theme('gmap', array('#settings' => $base_map))
+      .'</div>'
+  );
+}
+
+
+/**
+ * This helper function calculates a,b paramters for linear equation
+ * y = ax + b. Calculation bases on two chosen points from this line
+ * (simple two equations resolving).
+ * Calculation is based on poins (x1,y1) and (x2, y2).
+ *
+ * @return
+ *   Array with two element, a and b values for line equation.
+ */
+function _hm_gmap_search_find_equation($x1, $y1, $x2, $y2) {
+  // This is simple two equations, let's use gauss algorithm
+  $solution = _hm_gmap_search_find_solution($x1, 1, $y1, $x2, 1, $y2);
+
+  // Line with equation x = C cannot be computed in that way, so
+  // solve this as separate example
+  if ($solution == -1 && $x1 == $x2) {
+    return array($x1);
+  }
+  else {
+    return $solution;
+  }
+}
+
+/**
+ * This function resolves two equations system. 
+ *
+ * It uses simple gauss algorithm for equation resolving.
+ * Params a1, b1, c1 are values of first row of equation matrix. 
+ * Params a2, b2, c2 are values of second row of equation matrix.
+ *
+ * You can find more information about this method here:
+ * http://en.wikipedia.org/wiki/Gaussian_elimination
+ */
+function _hm_gmap_search_find_solution($a1, $b1, $c1, $a2, $b2, $c2) {
+
+  // We need to sort rows from biggest to lower (order defined by leading
+  // value).
+  if (abs($a1) > abs($a2)) {
+   $matrix = array(
+      0 => array($a1, $b1, $c1),
+      1 => array($a2, $b2, $c2)
+    );
+  }
+  else {
+   $matrix = array(
+      0 => array($a2, $b2, $c2),
+      1 => array($a1, $b1, $c1)
+    );
+  }
+
+  // Now for every row make simple elimanation
+  for ($i = 0; $i < sizeof($matrix); $i++) {
+
+    $major_element = $matrix[$i][$i];
+    if ($major_element != 0) {
+
+      // Let's normalize row.
+      for ($j = 0; $j < 3; $j++) {
+        $matrix[$i][$j] = $matrix[$i][$j] / $major_element;
+      }
+
+      for ($j = 0; $j < sizeof($matrix); $j++) {
+        if ($i != $j) {
+          $multiplication = $matrix[$j][$i] / $matrix[$i][$i];
+          for ($z = 0; $z < 3; $z++) {
+            $matrix[$j][$z] = $matrix[$j][$z] - $matrix[$i][$z] * $multiplication;
+          }
+        }
+      }
+    }
+  }
+
+  // Verify form of matrix. This will be base for solutions count.
+  // We can have three cases:
+  // no solutions
+  // infinite solutions count
+  // single solution
+  for ($i = 0; $i < sizeof($matrix); $i++) {
+    $mode = -1;
+    $sum = 0;
+
+    // Cound sum of absolute values of row
+    for ($j = 0; $j < sizeof($matrix); $j++) {
+      $sum += abs($matrix[$i][$j]);
+    }
+
+    // sum equals one and 1 value is on proper place: this
+    // is proper part of solution
+    if ($sum == 1 && $matrix[$i][$i] == 1) {
+      $mode = 0;
+    }
+    // There is tautology. We have infinite solutions
+    else if ($sum == 0 && $matrix[$i][sizeof($matrix)] == 0) {
+      $mode = 1;
+      break;
+    }
+    else if ($sum == 0 && $matrix[$i][sizeof($matrix)] != 0) {
+      // There is valse value at end of operation (zero solutions).
+      $mode = -1;
+      break;
+    }
+  }
+
+  if ($mode == 0) {
+    return array($matrix[0][2], $matrix[1][2]);
+  }
+  else {
+    return $mode;
+  }
+}
+
+function _hm_gmap_search_verify_polygon_colission($point, $vertex) {
+  $collisions = 0;
+  $ray_min_x = 0;
+  $ray_max_x = 0;
+  $ray_min_y = 0;
+  $ray_max_y = 0;
+
+  // First step of algorithm, find a ray equation and first bond, which will
+  // have common point with ray
+  for ($i = 0; $i < sizeof($vertex); $i++) {
+    $i_plus_one = ($i + 1) % sizeof($vertex);
+
+    // Compute equation of current bond (this is made from two vertex's);
+    $first_bond_equation = _hm_gmap_search_find_equation(
+      $vertex[$i]['lat'],
+      $vertex[$i]['lng'],
+      $vertex[$i_plus_one]['lat'],
+      $vertex[$i_plus_one]['lng']
+    );
+
+
+    // Now compute solutions set contraints for x and y cords.
+    list ($min_x, $max_x) = _hm_gmap_search_get_range(
+      $vertex[$i]['lat'],
+      $vertex[$i_plus_one]['lat']
+    );
+
+    list ($min_y, $max_y) = _hm_gmap_search_get_range(
+      $vertex[$i]['lng'],
+      $vertex[$i_plus_one]['lng']
+    );
+
+
+    // Two cases, if bond equation is in form of x = C, simple take
+    // any value that belong to y's range.
+    if (
+      is_array($first_bond_equation) &&
+      sizeof($first_bond_equation) == 1
+    ) {
+      $y2_value = ($min_y + ($max_y - $min_y) / 2);
+    }
+    else {
+      // In different case, we take y which fit line equation (y = ax+b).
+      $y2_value = $first_bond_equation[0] * ($min_x + ($max_x - $min_x)/2)
+        + $first_bond_equation[1];
+    }
+
+    // Get ray equation for point
+    $ray_equation = _hm_gmap_search_find_equation(
+      $point[0],
+      $point[1],
+      ($min_x + ($max_x - $min_x)/2),  // Get middle of possible solutions space
+      $y2_value
+    );
+
+    // If we found proper ray for this bound, simple go futher with algorithm
+    // If no, iterate to next bond of search area.
+    if (is_array($ray_equation)) {
+      // Now we have determine range, where ray trace is permited
+      $ray_quarter = _hm_gmap_find_quarter($point[0], ($min_x + ($max_x - $min_x)/2), $point[1], $y2_value);
+      break;
+    }
+  }
+
+  // Now iterate through every bond and for every bond, simple check, if
+  // this bond and our ray has collision or not.
+  for ($i = 0; $i < sizeof($vertex); $i++) {
+    $prev_vert = $i;
+    $next_vert = ($i + 1) % sizeof($vertex);
+
+    // Find bond equation form
+    $bond_equation =_hm_gmap_search_find_equation(
+      $vertex[$prev_vert]['lat'],
+      $vertex[$prev_vert]['lng'],
+      $vertex[$next_vert]['lat'],
+      $vertex[$next_vert]['lng']
+    );
+
+
+    // Find equations form
+    $solution = _hm_gmap_search_find_solution(
+      (isset($ray_equation[1]) ? $ray_equation[0] : 1),
+      (isset($ray_equation[1]) ? -1 : 0),
+      (isset($ray_equation[1]) ? (-1 * $ray_equation[1]) : $ray_equation[0]),
+      (isset($bond_equation[1]) ? $bond_equation[0] : 1),
+      (isset($bond_equation[1]) ? -1 : 0),
+      (isset($bond_equation[1]) ? (-1 * $bond_equation[1]) : $bond_equation[0])
+    );
+
+
+
+    if (is_array($solution)) {
+      // Check if solution is in accepted range
+      $collisions += _hm_gmap_search_verify_solution(
+        $vertex[$prev_vert]['lat'],
+        $vertex[$prev_vert]['lng'],
+        $vertex[$next_vert]['lat'],
+        $vertex[$next_vert]['lng'],
+        $point[0],
+        $point[1],
+        $ray_quarter,
+        $solution
+      );
+    }
+    else if (
+      // Infinite solutions, check if point is on bound.
+      $solution == 1 &&
+      _hm_gmap_search_verify_solution(
+        $vertex[$prev_vert]['lat'],
+        $vertex[$prev_vert]['lng'],
+        $vertex[$next_vert]['lat'],
+        $vertex[$next_vert]['lng'],
+        $point[0],
+        $point[1],
+        $ray_quarter
+      )
+    ) {
+      return TRUE;
+    };
+  }
+  // If collisions is odd, we are inside polygon. Otherwise, we
+  // ore ourside
+  return ($collisions % 2) != 0;
+}
+
+/**
+ * This functions finds coordinate quarter, where ray
+ * resides. 
+ *
+ * Calculation is based on starting point ($s0, $s1) and
+ * point belonging to one of area bond (x0, $y1)
+ */
+function _hm_gmap_find_quarter($s0, $x0, $s1, $y1) {
+  // Ray trace is heading to NW
+  if ($s0 < $x0 && $s1 < $y1) {
+    return 1;
+  }
+  // Ray trace is heading to SW
+  else if ($s0 < $x0 && $s1 > $y1) {
+    return 2;
+  }
+  // Ray trace is headig to SE
+  else if ($s0 > $x0 && $s1 > $y1) {
+    return 3;
+  }
+  // Ray trace is heading to NE
+  else if ($s0 > $x0 && $s1 < $y1) {
+
+  }
+}
+
+
+/**
+ * Verifies two equations solution.
+ *
+ * This function checks, if eqaution belong to valid solutions
+ * set. 
+ *
+ * Valid solution set is a bond of rectungular points (x0, y0) and (x1, y1).
+ * This bond need to cross with ray started from $(source_x, $source_y).
+ */
+function _hm_gmap_search_verify_solution(
+  $x0, $y0, $x1, $y1, $source_x, $source_y, $quarter, $solution
+) {
+  // Get 
+  list ($x_start, $x_end) = _hm_gmap_search_get_range($x0, $x1);
+  list ($y_start, $y_end) = _hm_gmap_search_get_range($y0, $y1);
+
+
+  // First we are checking, if $solution lies in proper quarter of 
+  // coordinates. It is required to make bond and ray cross.
+  switch ($quarter) {
+    case 1:
+      $validation = ($source_x <= $solution[0] && $source_y <= $solution[1]);
+      break;
+    case 2:
+      $validation = ($source_x <= $solution[0] && $source_y >= $solution[1]);
+      break;
+    case 3:
+      $validation = ($source_x >= $solution[0] && $source_y >= $solution[1]);
+      break;
+    case 4:
+      $validation = ($source_x >= $solution[0] && $source_y <= $solution[1]);
+      break;
+  }
+
+  // Check if this solution is on rectungular bond.
+  return
+    ($solution[0] <= $x_end && $solution[0] >= $x_start) &&
+    ($solution[1] <= $y_end && $solution[1] >= $y_start) &&
+    $validation;
+}
+
+
+/**
+ * Helper function. It only sorts arguments
+ */
+function _hm_gmap_search_get_range($x0, $x1) {
+  $start = ($x0 <= $x1) ? $x0 : $x1;
+  $end = ($x0 >= $x1) ? $x0 : $x1;
+
+  return array($start, $end);
+}
+
+
+function hm_gmap_search_preprocess_hm_gmap_search_group_popup(&$variables) {
+  node_build_content($variables['node'], FALSE, FALSE);
+
+  $variables['invest_title'] = l(
+  $variables['node']->title, 
+  'node/'. $variables['node']->nid
+  );
+
+  if ($variables['node']->field_group_gallery[0]['filepath']) {
+    $variables['invest_photo'] = theme(
+      'imagecache', 
+      'crop_140x100',
+      $variables['node']->field_group_gallery[0]['filepath']
+    );
+  }
+
+  // Name of investenment
+  if ($variables['node']->og_description) {
+    $variables['invest_developer_description'] = check_plain(
+      $variables['node']->title
+    );
+  }
+
+
+  $variables['invest_free_flats'] = $variables['node']->available_flats;
+
+  foreach (_hm_group_subscribe_link($variables['node'], FALSE) as $l) {
+    $variables['invest_subscribe_toggle'][] = $l;
+  }
+
+  $variables['invest_subscribe_toggle'] = implode(
+    '<br />', 
+    $variables['invest_subscribe_toggle']
+  );
+
+  $variables['invest_forum'] = l(
+    t('Forum'), 'node/'. $variables['node']->nid .'/content/forum/view'
+  );
+
+  $flats_query = db_query(
+    db_rewrite_sql(
+      'SELECT n.nid FROM {node} n  '.
+      'INNER JOIN {content_type_mieszkanie} ctm USING (nid, vid) '.
+      'INNER JOIN {og_ancestry} og ON og.nid = n.nid AND og.group_nid = %d '.
+      'WHERE type = "mieszkanie" AND ctm.field_m_wolne_value = "n"',
+      'n',
+      'nid'
+    ),
+    $variables['node']->nid
+  );
+
+
+  while ($flat_row = db_fetch_array($flats_query)) {
+    $flat = node_load($flat_row['nid']);
+    $flats[] = l($flat->title, 'node/'. $flat->nid);
+  }
+
+  $variables['flats_list'] = theme('item_list', $flats);
+  dsm($variables);
+}
+
+
+/**
+ * Implementation of preprocess for hm_gmap_search_popup theme.
+ */
+function hm_gmap_search_preprocess_hm_gmap_search_popup(&$variables) {
+  switch ($variables['node']->type) {
+    case 'group':
+      node_build_content($variables['node'], FALSE, FALSE);
+
+      $variables['invest_title'] = l(
+        $variables['node']->title, 
+        'node/'. $variables['node']->nid
+      );
+
+      // Investenment photo 
+      if ($variables['node']->field_group_gallery[0]['filepath']) {
+        $variables['invest_photo'] = theme(
+          'imagecache', 
+          'crop_140x100',
+          $variables['node']->field_group_gallery[0]['filepath']
+        );
+      }
+
+      // Name of investenment
+      if ($variables['node']->og_description) {
+        $variables['invest_developer_description'] = check_plain(
+          $variables['node']->og_description
+        );
+      }
+
+
+      $variables['invest_free_flats'] = $variables['node']->available_flats;
+      foreach (_hm_group_subscribe_link($variables['node'], FALSE) as $l) {
+        $variables['invest_subscribe_toggle'][] = "<div class='gmap-button-link'>{$l}</div>";
+      }
+      $variables['invest_subscribe_toggle'] = implode(
+        '', 
+        $variables['invest_subscribe_toggle']
+      );
+
+      $variables['invest_forum'] = '<div class="gmap-button-link">'. l(
+        t('Forum'), 'node/'. $variables['node']->nid .'/content/forum/view'
+      ) .'</div>';
+      break;
+    case 'mieszkanie':
+      node_build_content($variables['node'], FALSE, FALSE);
+
+      $variables['flat_over_number'] = $variables['node']->field_m_nr_oferty[0]['safe'];
+
+      $variables['flat_size'] = drupal_render(
+        $variables['node']->content['field_m_metraz']
+      );
+
+      $variables['flat_room_count'] = drupal_render(
+        $variables['node']->content['field_m_pokoje']
+      );
+      $variables['flat_stock'] = drupal_render(
+        $variables['node']->content['field_m_pietro']
+      );
+
+      $variables['flat_levels'] = drupal_render(
+        $variables['node']->content['field_m_poziomy']
+      );
+      $variables['flat_price_one_meter'] = drupal_render(
+        $variables['node']->content['field_m_cena_metr']
+      );
+
+      $variables['flat_full_price'] = drupal_render(
+        $variables['node']->content['field_m_cena_calosc']
+      );
+
+      break;
+    case 'doradca':
+      node_build_content($variables['node'], FALSE, FALSE);
+
+      $variables['advisor_title'] = l($variables['node']->title, 'node/'. $variables['node']->nid);;
+      $variables['advisor_name'] = check_plain(
+        $variables['node']->field_dor_imie[0]['value'] .' '. 
+        $variables['node']->field_dor_nazwisko[0]['value']
+      );
+      $variables['advisor_company'] = drupal_render(
+        $variables['node']->content['group_dor_dane']['group']['field_dor_firma']
+      );
+      $variables['advisor_phone'] = drupal_render(
+        $variables['node']->content['group_dor_dane']['group']['field_dor_telefon']
+      );
+      break;
+    default:
+      // code...
+      break;
+  }
+}
+
+
+/**
+ * Dummy function, never used. This is used only to make 
+ * potx translation scanner happy.
+ */
+function _hm_gmap_search_dummy_translations() {
+  t('Free flats: @count', array("@count" => 0));
+  t('Search on map');
+}

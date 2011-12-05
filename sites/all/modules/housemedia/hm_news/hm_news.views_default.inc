@@ -116,7 +116,7 @@ function hm_news_views_default_views() {
       'field' => 'title',
       'relationship' => 'none',
     ),
-    'body' => array(
+    'teaser' => array(
       'label' => '',
       'alter' => array(
         'alter_text' => 0,
@@ -129,8 +129,8 @@ function hm_news_views_default_views() {
         'suffix' => '',
         'target' => '',
         'help' => '',
-        'trim' => 1,
-        'max_length' => '100',
+        'trim' => 0,
+        'max_length' => '',
         'word_boundary' => 1,
         'ellipsis' => 1,
         'html' => 0,
@@ -140,9 +140,9 @@ function hm_news_views_default_views() {
       'hide_empty' => 0,
       'empty_zero' => 0,
       'exclude' => 0,
-      'id' => 'body',
+      'id' => 'teaser',
       'table' => 'node_revisions',
-      'field' => 'body',
+      'field' => 'teaser',
       'override' => array(
         'button' => 'Nadpisz',
       ),

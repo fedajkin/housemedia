@@ -50,6 +50,11 @@ function hm_core_search_block() {
       'type'    => 'view',
       'vid'     => '',
       'display' => '',
+    ),
+    '3' => array(
+      'title' => t('Search on map'),
+      'type'  => 'block',
+      'bid'   => 'hm_gmap_search_delta_-0',
     )
   );
   

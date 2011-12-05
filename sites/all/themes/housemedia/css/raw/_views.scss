@@ -5,3 +5,13 @@
     text-align: center;
   }
 }
+
+#view-id-hm_credit_form-page_1 {
+  .views-field-state {
+    color: green;
+    
+    .wyplacono-kredyt {
+      color: red;
+    }
+  }
+}
