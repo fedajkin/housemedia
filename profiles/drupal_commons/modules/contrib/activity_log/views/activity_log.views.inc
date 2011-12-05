@@ -12,9 +12,9 @@ function activity_log_views_query_alter(&$view, &$query) {
   if ($query->base_table == 'activity_log_messages') {
     drupal_add_css(drupal_get_path('module', 'activity_log') .'/activity_log.css');
     global $user;
-    $query->ensure_table('activity_log_templates');
+    $template_alias = $query->ensure_table('activity_log_templates');
     // Don't show disabled activity types.
-    $query->add_where(0, db_prefix_tables("{activity_log_templates}.pid NOT IN (SELECT pid FROM {activity_log_disabled_types} WHERE uid = %d)"), $user->uid);
+    $query->add_where(0, db_prefix_tables("$template_alias.pid NOT IN (SELECT pid FROM {activity_log_disabled_types} WHERE uid = %d)"), $user->uid);
     // Only show activity where the viewer is "everyone" or the current user.
     $query->add_where(0, "
       viewer_id = 0 OR
@@ -42,7 +42,7 @@ function activity_log_views_pre_render(&$view) {
     $aids = array();
     $aid_to_result_key_map = array();
     foreach ($view->result as $key => $result) {
-      if ($result->activity_log_messages_target_type == 'node') {
+      if (isset($result->activity_log_messages_target_type) && isset($result->activity_log_messages_aids) && $result->activity_log_messages_target_type == 'node') {
         $result_aids = array_filter(explode(',', $result->activity_log_messages_aids));
         $aids = array_merge($aids, $result_aids);
         foreach ($result_aids as $aid) {
@@ -96,6 +96,9 @@ function activity_log_views_handlers() {
       ),
       'activity_log_views_handler_filter_display_type' => array(
         'parent' => 'views_handler_filter',
+      ),
+      'activity_log_views_handler_filter_owner_is_current_user' => array(
+        'parent' => 'views_handler_filter_boolean_operator',
       ),
       'activity_log_views_handler_filter_owner_type' => array(
         'parent' => 'views_handler_filter',
@@ -191,6 +194,14 @@ function activity_log_views_data() {
     ),
     'argument' => array(
       'handler' => 'views_handler_argument_string',
+    ),
+  );
+
+  $data['activity_log_messages']['stream_owner_is_current_user'] = array(
+    'title' => t('Stream owner is current user'),
+    'help' => t("Show the current user's stream"),
+    'filter' => array(
+      'handler' => 'activity_log_views_handler_filter_owner_is_current_user',
     ),
   );
 

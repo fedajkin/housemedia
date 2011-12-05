@@ -68,7 +68,7 @@ function activity_log_perm() {
  */
 function activity_log_cron() {
   // Delete event logs.
-  $time = time() - (86400 * variable_get('activity_log_maxage', 30));
+  $time = time() - (86400 * variable_get('activity_log_max_age', 365));
   db_query("DELETE FROM {activity_log_events} WHERE created < %d", $time);
   db_query("DELETE FROM {activity_log_messages} WHERE last_updated < %d", $time);
 }
@@ -106,7 +106,7 @@ function activity_log_user($op, &$edit, &$account, $category = NULL) {
   elseif ($op == 'update' && $category == 'account') {
     if (user_access('configure preferences for which activity types appear in activity streams', $account)) {
       module_load_include('inc', 'activity_log', 'activity_log.user_settings');
-      _activity_log_user_form_submit($edit);
+      _activity_log_user_form_submit($edit, $account);
     }
     _activity_log_user_update($account->uid);
   }
@@ -356,13 +356,13 @@ function _activity_log_action_timestamp($value = NULL) {
  *
  * @param $data
  *   The object for which a timestamp should be retrieved.
- * @param $event
- *   The Rules event which will be executed, if any.
  * @return
  *   A best guess at the timestamp for the relevant object.
  */
-function activity_log_get_timestamp($data, $event = '') {
-  // Practically everything uses either "timestamp" or "created." User Relationships uses created_at and Userpoints uses time_stamp.
+function activity_log_get_timestamp($data) {
+  // Practically everything uses either "timestamp" or "created."
+  // User Relationships uses created_at and Userpoints uses time_stamp.
+  // (UR is fixed in D7 - https://drupal.org/node/1230790)
   foreach (array('timestamp', 'created', 'created_at', 'time_stamp') as $key) {
     if (isset($data->$key)) {
       return $data->$key;
@@ -429,19 +429,22 @@ function activity_log_views_api() {
  */
 function activity_log_token_list($type = 'all') {
   $tokens = array();
-  foreach (flag_get_types() as $flag_type) {
-    if ($type == $flag_type || $type == 'all') {
-      $flags = flag_get_flags($flag_type);
-      foreach ($flags as $flag) {
-        $tokens[$flag_type]['flag-'. str_replace('_', '-', $flag->name) .'-link'] = t('(Un)flag link for the "@flag" flag.', array('@flag' => $flag->get_title()));
+  if (module_exists('flag')) {
+    foreach (flag_get_types() as $flag_type) {
+      if ($type == $flag_type || $type == 'all') {
+        $flags = flag_get_flags($flag_type);
+        foreach ($flags as $flag) {
+          $tokens[$flag_type]['flag-'. str_replace('_', '-', $flag->name) .'-link'] = t('(Un)flag link for the "@flag" flag.', array('@flag' => $flag->get_title()));
+        }
       }
     }
   }
   if ($type == 'node' && module_exists('og')) {
     $tokens['node']['og-url'] = t("The absolute URL of the node's primary group, if applicable.");
   }
-  if ($type == 'user' || $type == 'all') {
+  if ($type == 'user') {
     $tokens['user']['picture'] = t("The user's picture");
+    $tokens['user']['username-themed'] = t("The themed username (links to the user's profile for users who have permission to view user profiles)");
   }
   return $tokens;
 }
@@ -451,10 +454,12 @@ function activity_log_token_list($type = 'all') {
  */
 function activity_log_token_values($type, $object = NULL, $options = array()) {
   $values = array();
-  if (in_array($type, flag_get_types())) {
-    $flags = flag_get_flags($type);
-    foreach ($flags as $flag) {
-      $values['flag-'. str_replace('_', '-', $flag->name) .'-link'] = flag_create_link($flag->name, $flag->get_content_id($object));
+  if (module_exists('flag')) {
+    if (in_array($type, flag_get_types())) {
+      $flags = flag_get_flags($type);
+      foreach ($flags as $flag) {
+        $values['flag-'. str_replace('_', '-', $flag->name) .'-link'] = flag_create_link($flag->name, $flag->get_content_id($object));
+      }
     }
   }
   if ($type == 'node' && module_exists('og') && !empty($object->og_groups) && is_array($object->og_groups)) {
@@ -462,14 +467,9 @@ function activity_log_token_values($type, $object = NULL, $options = array()) {
     $values['og-url'] = url('node/'. $gids[0], array('absolute' => TRUE));
   }
   if ($type == 'user') {
-    if (!empty($object)) {
-      $account = $object;
-    }
-    else {
-      $account = user_load(array('uid' => $GLOBALS['user']->uid));
-    }
+    $account = empty($object) ? activity_log_user_load($GLOBALS['user']->uid) : $object;
     $values['picture'] = theme('user_picture', $account);
+    $values['username-themed'] = theme('username', $account);
   }
-  
   return $values;
 }

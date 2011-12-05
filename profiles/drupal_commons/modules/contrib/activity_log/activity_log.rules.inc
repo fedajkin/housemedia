@@ -65,6 +65,10 @@ function activity_log_log_action_form($settings, &$form) {
     '#prefix' => '<div id="edit-settings-templates-fieldset">',
     '#suffix' => '</div>',
   );
+  $form['settings']['templates']['und']['template'] = array(
+    '#type' => 'value',
+    '#value' => '',
+  );
   foreach ($languages as $name => $lang) {
     if (!isset($settings['templates'][$name])) {
       $settings['templates'][$name] = array('template' => '');
@@ -149,6 +153,10 @@ function activity_log_log_action_form($settings, &$form) {
   ) : array(
     '#prefix' => '<div id="edit-settings-grouping-templates-fieldset">',
     '#suffix' => '</div>',
+  );
+  $form['settings']['grouping']['templates']['und']['template'] = array(
+    '#type' => 'value',
+    '#value' => '',
   );
   foreach ($languages as $name => $lang) {
     if (!isset($settings['grouping']['templates'][$name])) {
@@ -331,7 +339,7 @@ function activity_log_log_action_validate($form, $form_state) {
  */
 function activity_log_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'rules_admin_form_edit' || $form_id == 'rules_admin_form_add') {
-    if ($form_state['storage']['element']['#name'] == 'activity_log_log_action') {
+    if ($form_state['element']['#name'] == 'activity_log_log_action') {
       // Hide stream owner / viewer entity groups that are not applicable to this rule.
       $rules = _rules_get_rule_sets();
       $stream_owner_groups = module_invoke_all('activity_log_entity_groups');
@@ -360,6 +368,8 @@ function activity_log_form_alter(&$form, &$form_state, $form_id) {
       if (isset($form['settings']['placeholder']['#value']) && strpos($form['settings']['placeholder']['#value'], ACTIVITY_LOG_DELIMITER) === 0) {
         $form['settings']['placeholder']['#value'] = drupal_substr($form['settings']['placeholder']['#value'], drupal_strlen(ACTIVITY_LOG_DELIMITER));
       }
+      // Store the event we're responding to in case we need it later.
+      $form['settings']['rules_event'] = array('#type' => 'value', '#value' => $form_state['proxy']->_rule['#set']);
     }
     // Remove the help for our input evaluator (because it's internal, not user-facing).
     unset($form['input_help']['activity_log_input_evaluator_process']);
@@ -380,6 +390,19 @@ function activity_log_form_alter(&$form, &$form_state, $form_id) {
  */
 function activity_log_rules_admin_form_submit_before($form, &$form_state) {
   $v = $form_state['values']['settings'];
+  // Concatenate the language templates into the placeholder so Rules will figure out what input evaluators to use.
+  $und = $v['templates']['und']['template'];
+  foreach ($v['templates'] as $lang => $data) {
+    $und .= $data['template'] .' ';
+  }
+  $und_group = $v['grouping']['templates']['und']['template'];
+  foreach ($v['grouping']['templates'] as $lang => $data) {
+    $und_group .= $data['template'] .' ';
+  }
+  $form_state['values']['settings']['templates']['und']['template'] = $und;
+  $v['templates']['und']['template'] = $und;
+  $form_state['values']['settings']['grouping']['templates']['und']['template'] = $und_group;
+  $v['grouping']['templates']['und']['template'] = $und_group;
   // If we're updating, find the existing template and public name.
   $rule = $form_state['proxy']->_rule_name;
   $pid = 0;
@@ -636,7 +659,9 @@ function activity_log_rules_evaluator() {
  * Implementation of callback_prepare().
  */
 function activity_log_input_evaluator_process_prepare($string, $variables) {
-  return TRUE;
+  if ($string === ACTIVITY_LOG_DELIMITER) {
+    return TRUE;
+  }
 }
 
 /**
@@ -713,10 +738,14 @@ function activity_log_input_evaluator_process_help($variables) {
  */
 function activity_log_rules_action_info() {
   $eval_input = array('placeholder', 'grouping|group_summary', 'visibility|stream_owner_id', 'visibility|viewer_id', 'acting_uid');
+  $eval_input[] = 'templates|und|template';
+  $eval_input[] = 'grouping|templates|und|template';
+  /*
   foreach (language_list() as $name => $lang) {
     $eval_input[] = 'templates|'. $name .'|template';
     $eval_input[] = 'grouping|templates|'. $name .'|template';
   }
+   */
   return array(
     'activity_log_log_action' => array(
       'label' => t('Log activity'),
@@ -749,9 +778,14 @@ function activity_log_log_action($settings) {
   if (empty($settings['visibility']['viewer_id'])) {
     $settings['visibility']['viewer_id'] = $user->uid;
   }
+  $created_time = _activity_log_action_timestamp();
+  // Normally we use the entity created time, but we want the current time for node views.
+  if (isset($settings['rules_event']) && $settings['rules_event'] == 'event_node_view') {
+    $created_time = $time;
+  }
   $event = (object) array(
     'tid' => $settings['tid'],
-    'created' => _activity_log_action_timestamp(),
+    'created' => $created_time,
     'acting_uid' => $settings['acting_uid'],
     'target_id' => $target['id'],
     'target_type' => $target['type'],
@@ -820,43 +854,39 @@ function activity_log_log_action($settings) {
       $results[$type] = array_merge_recursive($results[$type], (array) call_user_func_array($group['items callback'], $args));
     }
   }
+  if (empty($results['stream_owner'])) {
+    return;
+  }
   foreach ($results['stream_owner'] as $owner_type => $ids) {
     $results['stream_owner'][$owner_type] = array_unique($ids);
   }
   $owners = $results['stream_owner'];
   $viewers = array_unique($results['viewer']['user']);
   // If "everyone" is a valid viewer, we don't need to save records for specific users.
-  if (in_array(0, $viewers)) {
+  if (in_array(0, $viewers, TRUE)) {
     $viewers = array(0);
   }
-  // If we're working with a private status, only show it to the sender and recipient.
-  if ($target['type'] == 'facebook_status' && module_exists('fbss_privacy')) {
-    $status = facebook_status_load($target['id']);
-    if ($status->private) {
-      $o = array();
-      foreach ($owners['user'] as $uid) {
-        if ($uid == $status->sender || ($uid == $status->recipient && $status->type == 'user')) {
-          $o[] = $uid;
-        }
-      }
-      $owners = array('user' => $o);
-      $v = array();
-      foreach ($viewers as $uid) {
-        if ($uid == $status->sender || ($uid == $status->recipient && $status->type == 'user')) {
-          $v[] = $uid;
-        }
-        elseif ($uid === 0) {
-          $v[] = $status->sender;
-          if ($status->type == 'user') {
-            $v[] = $status->recipient;
-          }
-        }
-      }
-      $viewers = $v;
+  // If we're dealing with a private status update, only let the sender and recipient see it.
+  // See https://drupal.org/node/1297308#comment-5109956 for why we don't also show the activity to users with the "view all private status updates" permission.
+  if ($target['type'] == 'facebook_status') {
+    if (!isset($status)) {
+      $status = facebook_status_load($target['id']);
     }
-  }
-  if (empty($owners) || empty($viewers)) {
-    return;
+    if ($status->private) {
+      $viewers = array($status->sender);
+      if ($status->type == 'user') {
+        $viewers[] = $status->recipient;
+      }
+    }
+    // Don't record activity for blank status messages.
+    // The semantic way to do this is by adding a condition to the default
+    // Rules, but that leaves open the possibility of people adding their own
+    // activity templates and forgetting about this condition. (Also, that's
+    // more work....) FBSS never shows blank messages in status streams, so
+    // neither should we.
+    if (!$status->message) {
+      return;
+    }
   }
   // Store the event record.
   if (isset($event->og)) {
@@ -907,17 +937,45 @@ function activity_log_log_action($settings) {
   // If we found similar events, group with them. If not, save new messages.
   $messages = array();
   if (!empty($mids)) {
-    db_query("
-      UPDATE {activity_log_messages}
-      SET aids = CONCAT(aids, %d, ','), last_updated = %d, cached = ''
-      WHERE mid IN (". db_placeholders($mids) .")"
-    , array_merge(array($event->aid, $event->created), $mids));
+    // The ANSI standard for concatenation is "string || string", but some
+    // Oracle flavors don't support || and most can turn support for it off.
+    // Every major database driver supports CONCAT except MSSQL, which only
+    // supports "+" as a concatenation operator, and PostgreSQL and SQLite.
+    // If there is a way to perform this update in a single query without using
+    // CONCAT, I can't figure it out. First reported in
+    // https://drupal.org/node/1305138. Drupal 7 supports CONCAT for all
+    // databases by explicitly creating it as a function (see
+    // https://drupal.org/node/809698). This solution inspired by Pathauto in
+    // https://drupal.org/node/319070#comment-3066528.
+    switch ($GLOBALS['db_type']) {
+      case 'mysql':
+      case 'mysqli':
+        db_query("
+          UPDATE {activity_log_messages}
+          SET aids = CONCAT(aids, '%s'), last_updated = %d, cached = ''
+          WHERE mid IN (". db_placeholders($mids) .")"
+        , array_merge(array($event->aid .',', $event->created), $mids));
+      case 'mssql': // Note: MSSQL requires an explicit CAST if any of the concatenation arguments are not strings.
+        db_query("
+          UPDATE {activity_log_messages}
+          SET aids = (aids + '%s'), last_updated = %d, cached = ''
+          WHERE mid IN (". db_placeholders($mids) .")"
+        , array_merge(array($event->aid .',', $event->created), $mids));
+      case 'pgsql':
+      default:
+        db_query("
+          UPDATE {activity_log_messages}
+          SET aids = (aids || '%s'), last_updated = %d, cached = ''
+          WHERE mid IN (". db_placeholders($mids) .")"
+        , array_merge(array($event->aid .',', $event->created), $mids));
+    }
     $result = db_query("SELECT * FROM {activity_log_messages} WHERE mid IN (". db_placeholders($mids) .")", $mids);
     while ($message = db_fetch_object($result)) {
       $messages[] = $message;
     }
   }
   else {
+    $display_type = $settings['display_type'];
     foreach ($owners as $type => $ids) {
       foreach (array_unique($ids) as $id) {
         foreach ($viewers as $viewer) {
@@ -930,8 +988,8 @@ function activity_log_log_action($settings) {
           elseif ($viewer === 'not stream owner') {
             $viewer = -$id;
           }
-          if (!in_array("$event->target_id $event->target_type $id $type $viewer", $pairs)) {
-            $pairs[] = "$event->target_id $event->target_type $id $type $viewer";
+          if (!in_array("$event->target_id $event->target_type $display_type $id $type $viewer", $pairs)) {
+            $pairs[] = "$event->target_id $event->target_type $display_type $id $type $viewer";
             $message = (object) array(
               'tid' => $event->tid,
               'aids' => ','. $event->aid .',',
