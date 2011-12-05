@@ -146,6 +146,10 @@
 #block-views-hm_group_featured-block_1 {
 	@include block-gray-background;
 
+  .title {
+    background: url(../img/promowane.png) no-repeat 6px center #5D91C0;
+    padding-left: 35px;
+  }
 	.jcarousel-skin-default {
     .jcarousel-container-horizontal {
       height: 100px;
@@ -168,14 +172,14 @@
       }
     }
     .jcarousel-prev-horizontal {
-      background: $color-azure;
+      background: url(../img/carousel-left.png) no-repeat 0 center #e6eef5;
       height: 100px;
       left: 0;
       top: 0;
       width: 22px;
     }
     .jcarousel-next-horizontal {
-      background: $color-azure;
+      background: url(../img/carousel-right.png) no-repeat right center #e6eef5;
       height: 100px;
       right: 0;
       top: 0;
@@ -359,11 +363,6 @@
 
 #block-hm_core-ranks .title {
   background: url(../img/ranking.png) no-repeat 6px center #5D91C0;
-  padding-left: 35px;
-}
-
-#block-views-hm_group_featured-block_1 .title {
-	background: url(../img/promowane.png) no-repeat 6px center #5D91C0;
   padding-left: 35px;
 }
 
