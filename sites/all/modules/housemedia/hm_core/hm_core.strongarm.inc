@@ -123,6 +123,13 @@ function hm_core_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'gmap_search_box_macro';
+  $strongarm->value = '[gmap zoom=6 |center=51.31688050404585,18.544921875 |width=610px |height=500px |control=Small |type=Map]';
+
+  $export['gmap_search_box_macro'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'lightbox2_disable_resize';
   $strongarm->value = 1;
 
