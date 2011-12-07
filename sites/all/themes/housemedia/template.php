@@ -131,6 +131,10 @@ function housemedia_preprocess_page(&$vars) {
   if (isset($vars['node']) && $vars['node']->type == 'credit_form' && arg(2) == 'workflow') {
     $vars['workflow_image'] = _housemedia_workflow_image($vars['node']);
   }
+
+  if (_commons_profile_get_current_user() || $_GET['q'] == 'stream') {
+    $vars['title'] = '';
+  }
 }
 
 /**
@@ -431,6 +435,10 @@ function housemedia_commons_profile_image_action_links_block($picture, $links, $
 
   // Add the picture
   $content .= $picture;
+
+  $username = hm_profile_override_user_name($account->uid);
+
+  $content .= '<h2>'. $username .'</h2>';
 
   // Add the links
   $content .= theme('links', $links, array('class' => 'links clearfix'));

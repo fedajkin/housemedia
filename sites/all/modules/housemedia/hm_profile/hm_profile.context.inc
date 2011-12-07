@@ -12,6 +12,11 @@ function hm_profile_context_default_contexts() {
   $context->description = '';
   $context->tag = 'Housemedia Profile';
   $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'stream' => 'stream',
+      ),
+    ),
     'user_page' => array(
       'values' => array(
         'view' => 'view',
@@ -72,13 +77,12 @@ function hm_profile_context_default_contexts() {
           'region' => 'sidebar_last',
           'weight' => 3,
         ),
-        'commons_profile-recent_activity' => array(
-          'module' => 'commons_profile',
-          'delta' => 'recent_activity',
-          'region' => 'content',
-          'weight' => 0,
-        ),
       ),
+    ),
+    'theme' => array(
+      'title' => '',
+      'subtitle' => '',
+      'class' => 'page-profile',
     ),
   );
   $context->condition_mode = 0;

@@ -571,7 +571,7 @@ function hm_credit_form_views_default_views() {
       'wildcard_substitution' => 'Wszystko',
       'title' => '',
       'breadcrumb' => '',
-      'default_argument_type' => 'user',
+      'default_argument_type' => 'php',
       'default_argument' => '',
       'validate_type' => 'user',
       'validate_fail' => 'not found',
@@ -599,7 +599,12 @@ function hm_credit_form_views_default_views() {
       'default_options_div_prefix' => '',
       'default_argument_fixed' => '',
       'default_argument_user' => 0,
-      'default_argument_php' => '',
+      'default_argument_php' => 'if ($_GET[\'q\'] == \'stream\') {
+  return $GLOBALS[\'user\']->uid;
+}
+else if ($account = _commons_profile_get_current_user()) {
+  return $account->uid;
+}',
       'validate_argument_node_type' => array(
         'blog' => 0,
         'document' => 0,
@@ -608,6 +613,7 @@ function hm_credit_form_views_default_views() {
         'credit_form' => 0,
         'inw_detal' => 0,
         'news' => 0,
+        'deweloper' => 0,
         'doradca' => 0,
         'uzytkownik' => 0,
         'promotion' => 0,
@@ -615,7 +621,6 @@ function hm_credit_form_views_default_views() {
         'group' => 0,
         'notice' => 0,
         'page' => 0,
-        'deweloper' => 0,
         'dew_szczegoly' => 0,
         'grupa_powitanie' => 0,
         'mieszkanie' => 0,
@@ -626,6 +631,7 @@ function hm_credit_form_views_default_views() {
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
         '4' => 0,
+        '5' => 0,
         '2' => 0,
         '3' => 0,
       ),
@@ -643,6 +649,7 @@ function hm_credit_form_views_default_views() {
         'group' => 0,
       ),
       'validate_argument_php' => '',
+      'default_argument_activity_log_stream_owner_type' => 'user',
     ),
   ));
   $handler->override_option('title', 'Kredyt');
@@ -901,7 +908,7 @@ function hm_credit_form_views_default_views() {
       'wildcard_substitution' => 'Wszystko',
       'title' => '',
       'breadcrumb' => '',
-      'default_argument_type' => 'user',
+      'default_argument_type' => 'php',
       'default_argument' => '',
       'validate_type' => 'user',
       'validate_fail' => 'not found',
@@ -929,7 +936,12 @@ function hm_credit_form_views_default_views() {
       'default_options_div_prefix' => '',
       'default_argument_fixed' => '',
       'default_argument_user' => 0,
-      'default_argument_php' => '',
+      'default_argument_php' => 'if ($_GET[\'q\'] == \'stream\') {
+  return $GLOBALS[\'user\']->uid;
+}
+else if ($account = _commons_profile_get_current_user()) {
+  return $account->uid;
+}',
       'validate_argument_node_type' => array(
         'blog' => 0,
         'document' => 0,
@@ -938,6 +950,7 @@ function hm_credit_form_views_default_views() {
         'credit_form' => 0,
         'inw_detal' => 0,
         'news' => 0,
+        'deweloper' => 0,
         'doradca' => 0,
         'uzytkownik' => 0,
         'promotion' => 0,
@@ -945,7 +958,6 @@ function hm_credit_form_views_default_views() {
         'group' => 0,
         'notice' => 0,
         'page' => 0,
-        'deweloper' => 0,
         'dew_szczegoly' => 0,
         'grupa_powitanie' => 0,
         'mieszkanie' => 0,
@@ -956,6 +968,7 @@ function hm_credit_form_views_default_views() {
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
         '4' => 0,
+        '5' => 0,
         '2' => 0,
         '3' => 0,
       ),
@@ -973,6 +986,7 @@ function hm_credit_form_views_default_views() {
         'group' => 0,
       ),
       'validate_argument_php' => '',
+      'default_argument_activity_log_stream_owner_type' => 'user',
     ),
   ));
   $handler->override_option('footer', '<?php global $user; ?>

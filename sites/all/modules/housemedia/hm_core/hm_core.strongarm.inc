@@ -17,6 +17,8 @@ function hm_core_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'context_status';
   $strongarm->value = array(
+    'activity' => TRUE,
+    'activity-stream-most_active_users' => TRUE,
     'global' => TRUE,
     'home' => TRUE,
     'profile-me' => TRUE,

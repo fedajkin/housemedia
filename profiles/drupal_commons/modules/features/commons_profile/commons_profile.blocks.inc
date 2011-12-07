@@ -19,9 +19,9 @@ function _commons_profile_block($op = 'list', $delta = 0, $edit = array()) {
       $function = "_commons_profile_{$delta}_block_{$op}";
       break;
   }
-  
+
   if ($function && function_exists($function)) {
-    return call_user_func($function, $edit); 
+    return call_user_func($function, $edit);
   }
 }
 
@@ -53,7 +53,7 @@ function _commons_profile_find_new_friends_block_view() {
       'content' => drupal_get_form('commons_profile_friend_search_form'),
     );
   }
-  
+
   return NULL;
 }
 
@@ -62,19 +62,22 @@ function _commons_profile_find_new_friends_block_view() {
  */
 function _commons_profile_image_links_block_view() {
   global $user;
-  
+
   // Make sure we're viewing a user
-  if (!($account = _commons_profile_get_current_user())) {
+  if ($_GET['q'] == 'stream') {
+    $account = $user;
+  }
+  else if (!($account = _commons_profile_get_current_user())) {
     return NULL;
   }
-  
+
   // Fetch the profile image
   $account->imagecache_preset = variable_get('user_picture_imagecache_profiles', '');
   $picture = theme('user_picture', $account);
-  
+
   // Generate a list of action links
   $links = array();
-  
+
   // The links depend on whether or not the user is viewing
   // their own profile
   if ($user->uid == $account->uid) {
@@ -83,7 +86,7 @@ function _commons_profile_image_links_block_view() {
       'title' => t('Edit my profile'),
       'href' => "user/{$account->uid}/edit",
     );
-    
+
     // See if you have friend requests
     if (user_access('maintain own relationships')) {
       $requests = user_relationships_load(array('requestee_id' => $account->uid, 'approved' => FALSE));
@@ -95,7 +98,7 @@ function _commons_profile_image_links_block_view() {
         );
       }
     }
-    
+
     // Add a link to view your bookmarks
     $links['bookmarks'] = array(
       'title' => t('My bookmarks'),
@@ -123,7 +126,7 @@ function _commons_profile_image_links_block_view() {
         'href' => "user/{$account->uid}/edit",
       );
     }
-    
+
     // Provide link to contact the user
     if (_contact_user_tab_access($account)) {
       $links['contact'] = array(
@@ -132,7 +135,7 @@ function _commons_profile_image_links_block_view() {
       );
     }
   }
-  
+
   // Allow other modules to alter the list of links
   drupal_alter('commons_profile_action_links', $links, $account);
 
