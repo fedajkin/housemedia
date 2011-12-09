@@ -24,23 +24,23 @@
 		  <?php print $node->available_flats; ?>
 		</li>
 	<?php endif; ?>
-	
+
 	<?php if ($node->completion_date): ?>
 		<li class="completion-date">
 		  <?php print t('Completion date'); ?>:
 		  <?php print format_date($node->completion_date, 'custom', 'd F Y'); ?>
 		</li>
 	<?php endif; ?>
-	
-	<?php if ($gp = og_subgroups_get_parent($node->nid)): ?>
+
+	<?php if ($node->og_parent): ?>
 		<li>
 			<?php print t('Developer'); ?>:
-      <?php print l($gp['title'], 'node/'. $gp['gid']); ?>
+      <?php print l($node->og_parent->title, 'node/'. $node->og_parent->nid); ?>
   	</li>
   <?php endif; ?>
 
 	<li>
-	  <?php print t('Updated'); ?>: 
+	  <?php print t('Updated'); ?>:
 	  <?php print format_date($node->changed, 'custom', 'd F Y'); ?>
 	</li>
 </ul>

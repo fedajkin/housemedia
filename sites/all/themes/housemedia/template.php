@@ -375,8 +375,9 @@ function housemedia_preprocess_block($variables) {
 
   if ($block->module == 'og_subgroups' && $block->delta == '0') {
     if ($group_node = og_get_group_context()) {
-      if ($parent = og_subgroups_get_parent($group_node->nid)) {
-        $block->subject = t('@name investments', array('@name' => $parent['title']));
+
+      if ($group_node->og_parent) {
+        $block->subject = t('@name investments', array('@name' => $group_node->og_parent->title));
       }
     }
   }
