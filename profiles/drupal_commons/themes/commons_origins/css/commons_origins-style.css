@@ -80,32 +80,31 @@ blockquote p:last-child {
 
 /*content lists*/
 
-.node .inner ul.krumo-node ul,
-.panel-pane .inner ul.krumo-node ul,
-.block .inner ul.krumo-node ul{
+ul.krumo-node ul{
 	margin-left: 20px;
 }
 
+.item-list ul li,
 .node .inner ul li,
 .panel-pane .inner ul li,
 .block .content ul li {
-	background: transparent url(../images/gray-arrow-right.png) no-repeat 0 4px;
-	list-style-image: none;
-	list-style: none;
-	margin: 0 0 8px 0;
-	padding: 0 0 0 22px;
-	text-indent: 0;
+  background: transparent url(../images/gray-arrow-right.png) no-repeat 0 4px;
+  list-style-image: none;
+  list-style: none;
+  margin-bottom: 8px;
+  padding-left: 22px;
+  text-indent: 0;
 }
 
-.node .inner .links ul li > a {
+.node .inner .links li > a {
 	color: #669acc;
 }
 
-.node .inner .links ul li.comment_add {
+.node .inner .links .comment_add {
 	background-color: #669acc;
 }
 
-.node .inner .links ul li.comment_add a{
+.node .inner .links .comment_add a{
 	color: #fff;
 }
 /* HTML Elements-------------------------------------------------------------- */
@@ -117,8 +116,8 @@ body {
 /*force the front page to be 960px wide*/
 .front .grid16-16 {
 	width: 960px;
-	max-width: 960px; !important
-	margin:  0 auto;
+	max-width: 960px;
+	margin: 0 auto;
 }
 
 
@@ -187,6 +186,10 @@ body {
 .header-group {
 	position: relative;
 	z-index: 10;
+}
+
+#logo {
+  margin-top: 16px;
 }
 
 /* By default this wrapper is set to 100% width and centered -- override here to  narrow wrapper or align left or right */
@@ -472,7 +475,7 @@ body {
 
 /* Header - Search-------------------------------------------------------------- */
 
-.search-box-inner input#edit-search-theme-form-header {
+.search-box-inner input[name=search_theme_form] {
 	background: #ccc url(../images/inner-shadow.png) no-repeat 0 0;
 	border-right: 0px;
 	border: 1px inset #a9a9a9;
@@ -486,7 +489,7 @@ body {
 	padding: 2px 4px;
 }
 
-.search-box-inner input#search_header {
+.search-box-inner input[type=submit] {
 	background: #3a3a3a url(../images/search-submit.png) repeat-x 0 0;
 	border: 1px solid #3a3a3a;
 	color: #ddd;
@@ -500,6 +503,50 @@ body {
 	margin: 0;
 	padding: 2px 6px;
 	text-transform: uppercase;
+}
+
+.contextual-search-wrapper .contextual-search-launcher,
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list {
+  background-color: #666;
+  background-image: url('../images/dropdown.png');
+  background-position: right 10px;
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+}
+
+.contextual-search-wrapper .contextual-search-launcher,
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list li a {
+  color: #fff;
+}
+
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list li a {
+  margin-left: -7px;
+  margin-right: -17px;
+  padding-left: 7px;
+  padding-right: 17px;
+}
+
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list li a.first {
+  background-image: url('../images/dropdown.png');
+  background-position: right 10px;
+  background-repeat: no-repeat;
+  margin-top: -4px;
+  padding-top: 4px;
+}
+
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list li a.last {
+  -moz-border-radius: 0 0 5px 5px;
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  margin-bottom: -4px;
+  padding-bottom: 4px;
+}
+
+.contextual-search-wrapper .contextual-search-launcher:hover,
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list li a:hover {
+  background-color: #777;
+  text-decoration: none;
 }
 
 /*  Preface Regions-------------------------------------------------------------- */
@@ -793,26 +840,23 @@ h2.title a:active {
 /* Links for nodes (taxonomy, commenting, read more, etc) */
 
 .node .groups,
-.node ul.links,
+.node .links,
 .node .meta {
 	clear: both;
 }
 
-ul.links li,
-.node .inner ul.links li,
-.block .content ul.links li,
-.panel-pane .inner ul.links li {
-	background-image: none;
-	border-right: 1px solid #ccc;
-	display: inline-block;
+ul.links li {
 	margin: 0;
 	padding: 0 6px 0 6px;
 }
 
-ul.links li.last,
-.node .inner ul.links li.last,
-.block .content ul.links li.last,
-.panel-pane .inner ul.links li.last {
+.links li {
+	background-image: none;
+	display: inline-block;
+	border-right: 1px solid #ccc;
+}
+
+.links .last {
 	border: none;
 }
 
@@ -942,6 +986,8 @@ div.content-help-inner div.warning {
 .marker,
 .form-required {
 	color: #aa1144;
+}
+.form-required {
 	padding-left: .5em;
 }
 
@@ -1115,29 +1161,50 @@ ul.pager li a:focus {
 
 /* Typography and backgrounds for all form buttons */
 
-form input.form-submit,
-.views-exposed-form .views-exposed-widget input.form-submit {
-	background-color: #6699cc;
-	border: 1px solid #868686;
-	color: #fff;
-	font-family: Georgia, times, serif;
-	font-size: 14px;
-	font-weight: bold;
-	height: 24px;
-	line-height: 22px;
-	margin: 2px;
-	padding: 0 8px;
+.button {
+	background-color: #DDE9F4;
+	border: 0 none;
+  color: #69c;
+	font-family: "Helvetica Neue", Helvetica,Arial, Sans-serif;
+	font-size: 12px;
+	line-height: 1;
 }
 
-.views-exposed-form .views-exposed-widget input.form-submit {
+.button.primary {
+  background-color: #69c;
+  border-color: #69c;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  color: white;
+}
+
+.button,
+.fbsmp-plugin-icon {
+  border-color: #c2c2c2;
+}
+
+form input.form-submit {
+  font-weight: normal; /* Forced by Fusion */
+  margin: 0;
+}
+
+.fbsmp-icon-list {
+  border-color: #c2c2c2;
+}
+
+.fbsmp-icon-list .button:first-child {
+  border-left: 0 none;
+}
+
+.views-exposed-form .views-exposed-widget .form-submit {
 	margin-top: 18px;
 }
 
 /* Hover style for form buttons */
 
-form input.form-submit:hover,
-form input.form-submit.hover,
-form input.form-submit:focus {
+.form-submit:hover,
+.form-submit.hover,
+.form-submit:focus {
 	
 }
 
@@ -1145,15 +1212,14 @@ form input.form-submit:focus {
 
 .form-item input,
 .form-item textarea {
-	background: #fff url(../images/inner-shadow.png) no-repeat 0 0;
-	border: 1px inset #969696;
 	font-size: 14px;
 	line-height: 1em;
-	padding: 2px 4px;
 }
 
-.form-item select {
-	
+.form-item input {
+ background: #fff url(../images/inner-shadow.png) no-repeat 0 0;
+ border: 1px inset #969696;
+ padding: 2px 4px;
 }
 
 /* Remove backgrounds and border on radios and checkboxes */
@@ -1409,6 +1475,58 @@ div.comment ul.links a {
 	
 }
 
+/* @group Facebook */
+
+.facebook-status-item .facebook-status-links ul.links li {
+  background: none;
+  border: 0 none;
+  display: inline-block;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* @group Comments */
+
+.facebook-status-comments {
+  border: 1px solid #DDD;
+}
+
+.facebook-status-comments.no-comments {
+  border: 0 none;
+}
+
+.facebook-status-subitem {
+  background-color: #eee;
+  padding: 0.75em;
+}
+
+.facebook-status-subitem {
+  border-top: 4px solid white;
+}
+
+
+.fbss-comments .facebook-status-subitem:first-child,
+.facebook-status-comments :first-child,
+.facebook-status-subitem.form-piece {
+  border-top: 0 none;
+}
+
+.fbss-comments + .facebook-status-subitem {
+  padding-bottom: 0;
+}
+
+.fbss-comments + .facebook-status-subitem .fbss-comments-show-comment-form-inner { /* This is so messy. The DOM structure needs to be cleaned up */
+  padding-bottom: 0.75em;
+}
+
+.facebook-status-subitem.form-piece {
+  padding-top: 0;
+}
+
+/* @end */
+
+/* @end */
+
 /* Forum/-------------------------------------------------------------- */
 
 #forum .description {
@@ -1457,6 +1575,21 @@ div.poll div.bar div.foreground {
 .profile .column-right {
 	float: left;
 	width: 68%;
+}
+
+.block.block-commons_profile .links .ur_action a {
+  background: #6699CC;
+  border-color: #6699CC;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  color: #FFFFFF;
+  margin: 10px 0;
+  padding: 7px 14px;
+}
+
+.block.block-commons_profile .links .ur_action a:hover,
+.block.block-commons_profile .links .ur_action a:active {
+  text-decoration: none;
 }
 
 /* User points styles */
@@ -1746,7 +1879,8 @@ dl.search-results .search-result p.search-info {
 }
 
 .view .view-content .item-list li.views-row {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 .view .view-content .item-list li.views-row:after {
@@ -1877,7 +2011,7 @@ panels-pane.commons-colors-grayblue .inner {
 	color: #23295c;
 }
 
-/* Drupal Commons * Styling for Drupal Commons specific elements/-------------------------------------------------------------- */
+/* Commons * Styling for Commons specific elements/-------------------------------------------------------------- */
 
 /* User relationships module */
 textarea#edit-elaboration {
@@ -2164,31 +2298,34 @@ body#pid-dashboard h1.title, body#pid-dashboard #breadcrumbs {
 
 /*My Groups list */
 
+#view-id-subgroups_main_listing-page_1 .views-row .views-field-field-group-image-fid,
 #view-id-groups_my_groups_listing-page_1 .views-row .views-field-field-group-image-fid {
-	width: 14%;
 	float: left;
 }
 
+#view-id-subgroups_main_listing-page_1 .views-row .views-field-description,
 #view-id-groups_my_groups_listing-page_1 .views-row .views-field-description{
-	width: 60%;
-	float: left;
+
 }
 
+#view-id-subgroups_main_listing-page_1 .views-row .views-field-leave-group,
 #view-id-groups_my_groups_listing-page_1 .views-row .views-field-leave-group {
-	width: 24%;
-	float: left;
+
 }
 
+#view-id-subgroups_main_listing-page_1 .views-row,
 #view-id-groups_my_groups_listing-page_1 .views-row{
 	border-bottom: 1px solid #eee;
 	margin-bottom: 10px;
 }
 
+#view-id-subgroups_main_listing-page_1 .views-row.views-row-last,
 #view-id-groups_my_groups_listing-page_1 .views-row.views-row-last {
 	border: 0px;
 	margin-bottom: 0px;
 }
 
+#view-id-subgroups_main_listing-page_1 .views-row:after,
 #view-id-groups_my_groups_listing-page_1 .views-row:after{
 clear: both;
 content: ".";
@@ -2196,9 +2333,6 @@ display: block;
 height: 0;
 visibility: hidden;
 }
-
-/* Newest group sidebar block view */
-.not-front .view-groups-newest-groups .views-field-description { margin-left: 40px;}
 
 /*featured groups slideshow*/
 
@@ -3237,7 +3371,6 @@ a.feed-icon img {
     border: 1px solid #228BC8;
     color: #FFFFFF;
     display: block;
-    float: right;
     font-family: Arial,Helvetica,sans-serif;
     font-size: 12px;
     font-weight: bold;

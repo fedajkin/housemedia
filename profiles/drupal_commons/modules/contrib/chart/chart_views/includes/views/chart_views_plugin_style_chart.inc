@@ -2,7 +2,7 @@
 // $Id: chart_views_plugin_style_chart.inc,v 1.1 2010/06/27 18:36:15 ezrag Exp $
 /**
  * @file
- * Drupal Chart API Views Integration.
+ * Drupal Chart API Views Integration. 
  * @Based on the Charts module's Views integration
  */
 
@@ -58,7 +58,7 @@ class chart_views_plugin_style_chart extends views_plugin_style {
       '#options'        => $this->aggregated_field_options(),
       '#default_value'  => $this->options['aggregation_field'],
       '#description'    => t('Select a field to aggreagate the results on.')
-    );
+      );
     $form['values_legend'] = array(
       '#type' => 'checkbox',
       '#title' => t('Show values in legend'),

@@ -1,9 +1,239 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Track Drupal Commons development on GitHub!
+Track Commons development on GitHub!
  - https://github.com/acquia/commons/
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Drupal Commons 1.7, 2010-06-17
+Commons 2.2, 2011-10-05
+
+Commons 2.2 includes an updated version of the OG_Features and Homebox modules that address critical security issues:
+- http://drupal.org/node/1300642
+- http://drupal.org/node/1300552
+
+Update steps are relatively straighforrward and users are strongly encouraged to apply this update.
+
+To upgrade your server to Commons 2.1 from an earlier version of Commons 2.x, complete the following steps:
+
+1. Back up your code (everything in your Drupal root directory) and your database.
+2. Open a web browser, and then log in to your site as the main administrator account.
+3. Place the site in "Off-line" mode. This allows database updates to run without interruption, and without displaying errors to visitors of your site. To change the mode, complete the following steps:
+  a) In your web browser, open http://[example]/admin/settings/site-maintenance, where [example] is the URL of your Commons server.
+  b) Select the Off-line option.
+  c) Click Save configuration.
+4. Extract the new Commons tarball and copy the contents into your document root.
+5. In your web browser, open http://[example]/update.php.
+6. Follow the prompts to "Update" your server.
+7. In your web browser, open http://[example]/admin/settings/performance
+8. Click the "Clear cached data" button.
+9. Allow your visitors to access your web site by returning your site to "Online" mode:
+  a) In your web browser, open http://[example]/admin/settings/site-maintenance.
+  b) Select the Online option.
+  b) Click Save configuration.
+
+---
+Commons 2.1, 2011-09-23
+
+Commons 2.1 includes an updated version of the Views Bulk Operations module
+that fixes a security vulnerability: http://drupal.org/node/1286844.
+
+Updating to Commons 2.1 is relatively straighforward using the steps below:
+
+Update instructions:
+
+1. Back up your code (everything in your Drupal root directory) and your
+   database.
+2. Log in as user 1 and enable maintenance mode (admin/settings/site-maintenance)
+3. Extract the new Commons tarball and copy the contents into your document root.
+4. Visit update.php and follow the prompts to "Update".
+5. Visit admin/build/features/commons_core, select the "Views" component and click "Revert components"
+6. Bring the site out of maintenance mode (admin/settings/site-maintenance).
+ 
+
+Commons 2.0, 2011-08-30
+------------------------------------
+For the formatted, online version of the release notes see:
+ * http://network.acquia.com/documentation/commons/upgrade
+------------------------------------
+GENERAL INFORMATION:
+This release provides a powerful new way for site users to interact: 
+ It changes an authenticated user's default page to be a page showing an 
+ stream of activities & status updates from people users follow. A 
+ similar activity stream is shown on group home pages. It follows the 
+ usability pattern in use by other leading consumer social sites, but 
+ adapts it to business-type use, and as well as adapting it to the 
+ groups-style information architecture used in Commons.
+
+This upgrade adds or changes some significant functionality, so we 
+strongly recommend that you test the upgrade on a staging site before 
+performing the upgrade on a live site.
+
+The official name of this distribution is changing from Drupal Commons 
+to (just) Commons. This change is not fully implemented throughout the 
+distribution; it may take several releases to gradually change all 
+aspects and avoid breakage.
+------------------------------------
+NOTES:
+- This release changes the default behavior of Notifications. Previously users
+  were automatically subscribed to content they created or commented on,
+  and they then received an email every time someone else commented on that
+  content. This release disables that behavior by default, although existing
+  users' preferences will not be changed and new users can still choose to
+  enable that behavior. Instead, by default users will receive a daily email
+  of all activity on the site that is relevant to them just like they see in
+  the new activity streams on the site. Users can choose to receive this email
+  weekly instead of daily, or disable it altogether. Administrators can
+  customize the email format at admin/settings/digests.
+
+- The Dashboard feature will be disabled during the upgrade to 2.0. You can
+  re-enable it if you want to, but keep in mind that it will probably be
+  deprecated and eventually removed in upcoming Commons releases.
+
+- This release re-organizes some of the blocks on user profile pages and group
+  home pages. If you have overridden the Contexts that provide the layout on
+  these pages, we strongly recommend that you revert your changes in the
+  Commons Core feature so that you can use the latest updates and make any
+  further changes afterwards as necessary.
+
+ - This release switches from the Shoutbox module to the Facebook-style Statuses
+  module and from the Heartbeat module to the Activity Log module. (When you
+  upgrade from a previous version, the Commons Shoutbox feature will be
+  disabled and the Commons Activity Stream feature will be enabled in its
+  place). Much functionality is gained in this transition, but some features
+  have changed or are no longer supported:
+  - Shoutbox natively supports only showing shouts if an administrator has
+    manually approved them. This is strongly discouraged. If you still want to
+    do this with Facebook-style Statuses, you must create a new "Approve" Flag
+    and set statuses to only appear if they have been approved. This requires
+    the following steps:
+    - Go to admin/build/flags/add. Choose a name for your flag, and select
+      "Facebook-style Statuses" from the list. Click the "Submit" button and
+      then fill out the required details on the following page. Be sure to make
+      your flag "global."
+    - Go to admin/rules/trigger. You will need to disable each of the following
+      rules, and create new equivalent Rules to log activity when a status has
+      been flagged as Approved instead of when it is created:
+      - "Log activity when a user saves a personal status update"
+      - "Log activity when a user sends a status message"
+      - "Log activity when a user saves a personal status update with an
+        attachment"
+      - "Log activity when a user sends a status message with an attachment"
+    - Add the Facebook-style Statuses: All Statuses page to an administrative
+      menu so that moderators can find it easily (statuses/all).
+    - Follow the instructions at http://drupal.org/node/1135266#flag to add
+      your "Approve" flag to the All Statuses view.
+  - Any custom Rules or Contexts that you created or modified for Shoutbox or
+    Heartbeat and that you want to preserve must be recreated for
+    Facebook-style Statuses and Activity Log. However, the Commons Activity
+    Streams feature provides default Rules that should work well for most
+    sites.
+  - Facebook-style Statuses has support for general shouts (i.e. shouts posted
+    to the site rather than a user or group) but there is not an upgrade path
+    for these shouts because they are not exposed anywhere in the Commons
+    interface. The same situation applies to shouts that use Domain Access. If
+    you need to port this data and you write an upgrade path for it, please
+    contribute it back at http://drupal.org/node/1228504
+  - If you used the Heartbeat Shouts module (which is different than the
+    Shoutbox module) then follow the instructions at | in order to upgrade to
+    Facebook-style Statuses.
+  - If you used the Heartbeat Comments module, upgrading to Activity Log is not
+    yet supported. (You can upgrade without problems, but comments on activity
+    will be lost.) This is not the same as the core Comments module, which is
+    fully supported.
+------------------------------------
+UPGRADING TO 2.0
+** This upgrade adds or changes some significant functionality, so we
+** strongly recommend that you test the upgrade on a staging site before
+** performing the upgrade on a live site. Be sure to read the NOTES 
+** above before proceeding
+1. Back up your code (everything in your Drupal root directory) and your
+   database
+2. Turn on maintenance mode (admin/settings/site-maintenance)
+3. If you have custom Rules or Contexts for the Shoutbox or Heartbeat modules,
+   make a note of them (you may want to export them as well). Shoutbox and
+   Heartbeat will be disabled during the upgrade and replaced with the new
+   Facebook-style Statuses and Activity Log modules. You can re-enable them
+   afterwards if you want, but that is strongly discouraged.
+4. Replace your code (everything in your Drupal root directory except the sites
+   directory) with the contents of this archive
+5. Run the update script at /update.php
+   - Ignore all errors related to the heartbeat module that pertain to 
+     required files being unable to load. This is because that module has
+     been removed and those files no longer exist.
+   - It is likely that update.php will report the following message:
+       "Unable to regenerate activity messages because no Rules events were found.
+        Try regnerating activity messages again."
+     Click the link inside that message. This will take you to the Activity Log
+    administration page, on the Regenerate Activity tab.
+6. After following that link, click the "Regenerate" button and allow the
+   operation to finish. You do not need to set any of the options provided on that
+   page; simply click Regenerate.
+7. On that same page (Activity Log administration), click on the "Settings" tab,
+    then press the "Clear all message caches" button.
+8. Change the default user relationship from (two-way) "Friend" to (one-way) Follow.
+    (This is because the new activity stream feature in 2.0 allows you to see your
+    friends' activity as a one-way activity, a'la Twitter). To do this, go to
+    /admin/user/relationships and click "edit" next to the "Friend" relationship.
+    On the "Edit type" page that will appear, change the "Name" and "Plural name"
+    fields to "follower" and "users you follow," respectively. Then un-check the
+    "Requires Approval" box, and check the "This is a one-way relationship" box.
+    A new box will appear labeled "This one-way relationship can be
+    reciprocated," and you should check that as well. Then click the "Submit"
+    button at the bottom of the page.
+9. View the status report (admin/reports/status) to see if there are any
+   errors that must be addressed
+10. If you had custom Rules or Contexts from step 3, you should re-create them
+   now for the Facebook-style Statuses and Activity Log modules. If you're
+   unsure what this step is referring to, then you do not have to do anything.
+11. Given the new interface additions in this release, you may need to add new
+    CSS styling to the theme for your site if you have built a custom theme for
+    your common-based site.
+11. The Dashboard feature will be disabled during the upgrade. If you still want
+    to use it, you can re-enable it. However, keep in mind that it will probably
+    be deprecated in upcoming releases of Commons.
+12. This release re-organizes some of the blocks on user profile pages and group
+    home pages. If you have overridden the Contexts that provide the layout on
+    these pages, we strongly recommend that you revert your changes in the
+    Commons Core feature so that you can use the latest updates and make any
+    further changes afterwards as necessary.
+13. If no issues have arisen, then you may turn off maintenance mode.
+------------------------------------
+CHANGELOG:
+- Added: OG Subgroups
+- Added: Commons Activity Streams
+  - Facebook-style Statuses (status updates)
+  - Activity Log (activity streams)
+  - Digests (daily or weekly emails of site activity)
+- Disabled: Commons Dashboard
+- Disabled: Commons Shoutbox
+- Removed: Heartbeat
+- Rebuilt: User profile pages (some blocks were rearranged)
+- Rebuilt: Group home pages (some blocks were rearranged)
+- Updated: Diff
+- Updated: Quant  
+- Updated: OG features
+- Fixed: Page manager node page view override conflict [#1181850]
+- Fixed: Recent comment blocks show node author rather than comment author
+- Fixed: Typo in profile location field definition
+- Changed: "My friends" menu link title to "My relationships"
+- Fixed: "Friends" block now titled as "Following"
+- Changed: Renamed "Drupal Commons" to just "Commons"
+- Added: "Featured groups" block to appear on all subgroup listings
+- Fixed: Remove deprecated daily digest functionality [#1249984]
+- Fixed: Use comment authors thumbnail on recent comment views
+- Fixed: Use $form_state['redirect'] instead of drupal_goto() on content 
+  add form
+- Replaced: Individual content-type blocks on group home page with a
+  single "Recent content" block for group content
+- Fixed: Various untranslatable strings
+- Added: Notices page on the Community menu. Also contains block for recent
+  notice comments.
+- Added: Contextual options on the site search form for entire site, people
+  and current group
+- Patched: Rules to allow for hook_rules_defaults_alter() [#978620]
+- Fixed: Force-settings the "Tags" vocabulary ID [#1071198]
+- Added: Subgroups-optimized view for listing groups (/groups)
+
+
+Commons 1.7, 2011-06-17
 ------------------------------------
 NOTES:
 - This release was built in response to a security issue that arose in
@@ -27,7 +257,7 @@ CHANGELOG:
 - Fixed: Various theme issues
 
 
-Drupal Commons 1.6, 2010-05-25
+Commons 1.6, 2011-05-25
 ------------------------------------
 NOTES:
 - This is both a feature release, as well as updating Drupal core with
@@ -167,7 +397,7 @@ CHANGELOG:
 - Updated: Drupal core (6.22)
 
 
-Drupal Commons 1.5, 2011-03-17
+Commons 1.5, 2011-03-17
 ------------------------------------
 NOTES:
 - This release was built in response to a security issue that arose in
@@ -183,7 +413,7 @@ CHANGELOG:
 - Updated: Tagadelic (Security release)
 
 
-Drupal Commons 1.4, 2011-02-18
+Commons 1.4, 2011-02-18
 ------------------------------------
 NOTES:
 - This release was built in response to a security issue that arose in
@@ -210,7 +440,7 @@ CHANGELOG:
 - Fixed: Blank email sending on adding user to private group (#1065768, by sergiu.popa)
 
 
-Drupal Commons 1.3, 2011-02-04
+Commons 1.3, 2011-02-04
 ------------------------------------
 NOTES:
  - Excluded module updates:
@@ -371,7 +601,7 @@ CHANGELOG:
 - Added: Ability to specify forced-login during site installation
 
 
-Drupal Commons 1.2, 2011-01-13 [Security release]
+Commons 1.2, 2011-01-13 [Security release]
 ------------------------------------
 NOTES: This release was built for the sole purpose of providing fixes
 to all security issues that have arose from the modules included in this
@@ -397,7 +627,7 @@ CHANGELOG:
 - Rebuilt features to work with newer modules
 
 
-Drupal Commons 1.1, 2010-08-16 [Security release]
+Commons 1.1, 2010-08-16 [Security release]
 ------------------------------------
 NOTES: This release was built for the sole purpose of providing fixes
 to all security issues that have arose from the modules included in this

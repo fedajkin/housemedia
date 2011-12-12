@@ -21,9 +21,9 @@ function commons_profile_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => 0,
         ),
-        'views-profile_friends-block_1' => array(
+        'views-profile_following-block_1' => array(
           'module' => 'views',
-          'delta' => 'profile_friends-block_1',
+          'delta' => 'profile_following-block_1',
           'region' => 'sidebar_first',
           'weight' => 1,
         ),
@@ -78,9 +78,9 @@ function commons_profile_context_default_contexts() {
           'region' => 'sidebar_last',
           'weight' => 0,
         ),
-        'views-profile_friends-block_1' => array(
+        'views-profile_following-block_1' => array(
           'module' => 'views',
-          'delta' => 'profile_friends-block_1',
+          'delta' => 'profile_following-block_1',
           'region' => 'sidebar_last',
           'weight' => 1,
         ),
@@ -117,32 +117,20 @@ function commons_profile_context_default_contexts() {
         'commons_profile-image_links' => array(
           'module' => 'commons_profile',
           'delta' => 'image_links',
-          'region' => 'sidebar_first',
+          'region' => 'sidebar_last',
           'weight' => 0,
-        ),
-        'views-profile_friends-block_1' => array(
-          'module' => 'views',
-          'delta' => 'profile_friends-block_1',
-          'region' => 'sidebar_first',
-          'weight' => 1,
-        ),
-        'commons_profile-find_new_friends' => array(
-          'module' => 'commons_profile',
-          'delta' => 'find_new_friends',
-          'region' => 'sidebar_first',
-          'weight' => 2,
         ),
         'views-profile_user_groups-block_1' => array(
           'module' => 'views',
           'delta' => 'profile_user_groups-block_1',
           'region' => 'sidebar_last',
-          'weight' => 0,
+          'weight' => 1,
         ),
-        'commons_profile-recent_activity' => array(
-          'module' => 'commons_profile',
-          'delta' => 'recent_activity',
-          'region' => 'content',
-          'weight' => 0,
+        'views-profile_following-block_1' => array(
+          'module' => 'views',
+          'delta' => 'profile_following-block_1',
+          'region' => 'sidebar_last',
+          'weight' => 2,
         ),
       ),
     ),
@@ -177,32 +165,26 @@ function commons_profile_context_default_contexts() {
         'commons_profile-image_links' => array(
           'module' => 'commons_profile',
           'delta' => 'image_links',
-          'region' => 'sidebar_first',
+          'region' => 'sidebar_last',
           'weight' => 0,
         ),
         'views-profile_about-block_1' => array(
           'module' => 'views',
           'delta' => 'profile_about-block_1',
-          'region' => 'sidebar_first',
+          'region' => 'sidebar_last',
           'weight' => 1,
         ),
         'views-profile_user_groups-block_2' => array(
           'module' => 'views',
           'delta' => 'profile_user_groups-block_2',
           'region' => 'sidebar_last',
-          'weight' => 0,
+          'weight' => 2,
         ),
-        'views-profile_friends-block_1' => array(
+        'views-profile_following-block_1' => array(
           'module' => 'views',
-          'delta' => 'profile_friends-block_1',
+          'delta' => 'profile_following-block_1',
           'region' => 'sidebar_last',
-          'weight' => 1,
-        ),
-        'commons_profile-recent_activity' => array(
-          'module' => 'commons_profile',
-          'delta' => 'recent_activity',
-          'region' => 'content',
-          'weight' => 0,
+          'weight' => 3,
         ),
       ),
     ),
@@ -242,9 +224,9 @@ function commons_profile_context_default_contexts() {
           'region' => 'sidebar_last',
           'weight' => 0,
         ),
-        'views-profile_friends-block_1' => array(
+        'views-profile_following-block_1' => array(
           'module' => 'views',
-          'delta' => 'profile_friends-block_1',
+          'delta' => 'profile_following-block_1',
           'region' => 'sidebar_last',
           'weight' => 1,
         ),

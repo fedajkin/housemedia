@@ -11,13 +11,8 @@ function commons_poll_menu_default_menu_links() {
     'menu_name' => 'primary-links',
     'link_path' => 'content/polls',
     'router_path' => 'content/polls',
-    'link_title' => 'Ankiety',
-    'options' => array(
-      'minipanel' => '',
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
+    'link_title' => 'Polls',
+    'options' => array(),
     'module' => 'commons',
     'hidden' => '0',
     'external' => '0',
@@ -28,7 +23,7 @@ function commons_poll_menu_default_menu_links() {
   );
   // Translatables
   // Included for use with string extractors like potx.
-  t('Ankiety');
+  t('Polls');
 
 
   return $menu_links;

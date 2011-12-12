@@ -12,12 +12,6 @@ function drupal_commons_features_form(&$form_state, $url) {
   $form = array();
   drupal_set_title(st('Choose from available features'));
   
-  // Homebox, which is included in the Commons dashboard feature
-  // requires PHP 5.2, so we need to check that to avoid allowing
-  // the user to install it
-  module_load_include('module', 'homebox');
-  $php5_2 = _homebox_check_php();
-  
   // Help message
   $form['message'] = array(
     '#type' => 'item',
@@ -28,7 +22,7 @@ function drupal_commons_features_form(&$form_state, $url) {
   $form['required'] = array(
     '#type' => 'fieldset',
     '#title' => st('Required'),
-    '#description' => t('These features are required for Drupal Commons to operate.'),
+    '#description' => t('These features are required for Commons to operate.'),
   );
   $form['required']['feature-commons_core'] = array(
     '#type' => 'checkbox',
@@ -37,7 +31,7 @@ function drupal_commons_features_form(&$form_state, $url) {
     '#disabled' => 1,
     '#required' => TRUE,
     '#value' => 1,
-    '#description' => st('Provides the essential components for Drupal Commons'),
+    '#description' => st('Provides the essential components for Commons'),
   );
   $form['required']['feature-commons_home'] = array(
     '#type' => 'checkbox',
@@ -48,12 +42,21 @@ function drupal_commons_features_form(&$form_state, $url) {
     '#value' => 1,
     '#description' => st('Provides a community-driven home page.'),
   );
+  $form['required']['feature-commons_status_streams'] = array(
+    '#type' => 'checkbox',
+    '#title' => st('Activity streams'),
+    '#default_value' => 1,
+    '#description' => st('Add status updates and activity streams to users and groups.'),
+    '#required' => TRUE,
+    '#disabled' => 1,
+    '#value' => 1,
+  );
   
   // Content-related features
   $form['content'] = array(
     '#type' => 'fieldset',
     '#title' => st('Content'),
-    '#description' => t('Select which content types you wish Drupal Commons to make available to members of Drupal Commons groups. Note: If you de-select any of these, you can always enable them again after installation.'),
+    '#description' => t('Select which content types you wish Commons to make available to members of Commons groups. Note: If you de-select any of these, you can always enable them again after installation.'),
   );
   $form['content']['feature-commons_blog'] = array(
     '#type' => 'checkbox',
@@ -96,30 +99,25 @@ function drupal_commons_features_form(&$form_state, $url) {
   $form['misc'] = array(
     '#type' => 'fieldset',
     '#title' => st('Other functions'),
-    '#description' => st('Select which functions you wish to provide in Drupal Commons. Again, if you de-select any of these, you can enable them again after installation.'),
+    '#description' => st('Select which functions you wish to provide in Commons. Again, if you de-select any of these, you can enable them again after installation.'),
   );
   $form['misc']['feature-commons_profile'] = array(
     '#type' => 'checkbox',
     '#title' => st('Social profiles'),
     '#default_value' => 1,
-    '#description' => st('A feature that extends Drupal\'s simple profiles to include a variety of additional profile fields useful for community sites, plus various important user listings. (Strongly recommended.)'),
+    '#description' => st('Extend Drupal\'s simple profiles to include a variety of additional profile fields useful for community sites, plus various important user listings. (Strongly recommended.)'),
   );
-  $form['misc']['feature-commons_dashboard'] = array(
+  $form['misc']['feature-commons_subgroups'] = array(
     '#type' => 'checkbox',
-    '#title' => st('Dashboard'),
-    '#default_value' => $php5_2 ? 1 : 0,
-    '#disabled' => !$php5_2,
-    '#description' => st('A feature that provides a unique-per-user, user-customizable dashboard of recent relevant site activity.'),
+    '#title' => st('Subgroups'),
+    '#default_value' => 1,
+    '#description' => st('Enables groups to be arranged into a hierarchy, optionally propagating content & members up and down the hierarchy.'),
   );
-  if (!$php5_2) {
-    $form['misc']['feature-commons_dashboard']['#value'] = 0;
-    $form['misc']['feature-commons_dashboard']['#description'] .= '<span style="color:red;"> ' . st('Your server must have PHP 5.2 or higher in order to active this feature.') . '</span>';
-  }
   $form['misc']['feature-commons_notifications'] = array(
     '#type' => 'checkbox',
     '#title' => st('Notifications'),
     '#default_value' => 1,
-    '#description' => st('A feature that allows users to subscribe to email & site-based notifications of site activity & new content.'),
+    '#description' => st('Allow users to subscribe to email & site-based notifications of site activity & new content.'),
   );
   $form['misc']['feature-commons_reputation'] = array(
     '#type' => 'checkbox',
@@ -132,12 +130,6 @@ function drupal_commons_features_form(&$form_state, $url) {
     '#title' => st('Community invitations'),
     '#default_value' => 1,
     '#description' => st('Enable users to send invitations to join the site to external people.'),
-  );
-  $form['misc']['feature-commons_shoutbox'] = array(
-    '#type' => 'checkbox',
-    '#title' => st('Shoutbox'),
-    '#default_value' => 1,
-    '#description' => st('A feature that lets users post short messages to each other, with (almost) live updates to other users. If enabled, this is provided on group home pages for group users.'),
   );
   $form['misc']['feature-commons_group_aggregator'] = array(
     '#type' => 'checkbox',
@@ -155,14 +147,14 @@ function drupal_commons_features_form(&$form_state, $url) {
     '#type' => 'checkbox',
     '#title' => st('SEO'),
     '#default_value' => 1,
-    '#description' => st('Bundles all SEO-oriented capabilities in a module separate from Drupal Commons Core (for ease of administration).'),
+    '#description' => st('Bundles all SEO-oriented capabilities in a module separate from Commons Core (for ease of administration).'),
   );
   
   // Acquia features
   $form['acquia'] = array(
     '#type' => 'fieldset',
     '#title' => st('Acquia'),
-    '#description' => st('The !an can supplement the functionality of Drupal Commons by providing enhanced site search (faceted search, content recommendations, content biasing, multi-site search, and others using the Apache Solr service), spam protection (using the Mollom service), and more.  A free 30-day trial is available.', array('!an' => l(t('Acquia Network'), 'http://acquia.com/products-services/acquia-network', array('attributes' => array('target' => '_blank'))))),
+    '#description' => st('The !an can supplement the functionality of Commons by providing enhanced site search (faceted search, content recommendations, content biasing, multi-site search, and others using the Apache Solr service), spam protection (using the Mollom service), and more.  A free 30-day trial is available.', array('!an' => l(t('Acquia Network'), 'http://acquia.com/products-services/acquia-network', array('attributes' => array('target' => '_blank'))))),
   );
   $form['acquia']['feature-acquia_network_subscription'] = array(
     '#type' => 'checkbox',

@@ -276,17 +276,17 @@ function hm_group_is_allowed_to_join_by_key($node) {
 
 function _hm_group_subscribe_link($node, $add_destination = TRUE) {
   global $user;
-  
+
   $nid   = $node->nid;
   $items = array();
-  
+
   if (in_array($nid, array_keys($user->og_groups))) {
     $items[] = l(t('Leave group'), "og/unsubscribe/{$nid}/{$user->uid}", array('query' => ($add_destination ? drupal_get_destination() : NULL)));
   }
   else {
     $items[] = l(t('Join as a guest'), "og/subscribe/{$nid}", array('attributes' => array('rel' => 'nofollow'), 'query' => ($add_destination ? drupal_get_destination() : NULL)));
   }
-  
+
   if (!hm_group_is_group_resident($node) && hm_group_is_allowed_to_join_by_key($node)) {
 
     if (user_is_logged_in()) {
@@ -297,7 +297,7 @@ function _hm_group_subscribe_link($node, $add_destination = TRUE) {
       $items[] = l(t('Join as a resident'), 'node/'. $nid, array('query' => ($add_destination ? drupal_get_destination() : NULL)));
     }
   }
-  
+
   return $items;
 }
 

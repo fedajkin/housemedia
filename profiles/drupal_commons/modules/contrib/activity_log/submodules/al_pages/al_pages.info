@@ -1,0 +1,12 @@
+name = Activity Log Pages
+description = "Creates a page (with pathauto integration) for each activity message."
+dependencies[] = activity_log
+package = Activity Log
+core = 6.x
+
+; Information added by drupal.org packaging script on 2011-12-03
+version = "6.x-2.x-dev"
+core = "6.x"
+project = "activity_log"
+datestamp = "1322913656"
+

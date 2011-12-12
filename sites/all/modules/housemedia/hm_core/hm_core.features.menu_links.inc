@@ -59,25 +59,7 @@ function hm_core_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
-  );
-  // Exported menu link: menu-hm-primary-links:dashboard
-  $menu_links['menu-hm-primary-links:dashboard'] = array(
-    'menu_name' => 'menu-hm-primary-links',
-    'link_path' => 'dashboard',
-    'router_path' => 'dashboard',
-    'link_title' => 'Panel',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => '0',
-    'external' => '0',
-    'has_children' => '0',
-    'expanded' => '0',
-    'weight' => '-48',
+    'weight' => '-47',
   );
   // Exported menu link: menu-hm-primary-links:faq
   $menu_links['menu-hm-primary-links:faq'] = array(
@@ -95,7 +77,7 @@ function hm_core_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '0',
     'expanded' => '0',
-    'weight' => '0',
+    'weight' => '-48',
   );
   // Exported menu link: menu-hm-primary-links:groups
   $menu_links['menu-hm-primary-links:groups'] = array(
@@ -210,6 +192,24 @@ function hm_core_menu_default_menu_links() {
     'weight' => '-46',
     'parent_path' => 'user',
   );
+  // Exported menu link: menu-hm-primary-links:stream
+  $menu_links['menu-hm-primary-links:stream'] = array(
+    'menu_name' => 'menu-hm-primary-links',
+    'link_path' => 'stream',
+    'router_path' => 'stream',
+    'link_title' => 'Stream',
+    'options' => array(
+      'attributes' => array(
+        'title' => '',
+      ),
+    ),
+    'module' => 'menu',
+    'hidden' => '0',
+    'external' => '0',
+    'has_children' => '0',
+    'expanded' => '0',
+    'weight' => '-46',
+  );
   // Exported menu link: menu-hm-primary-links:user
   $menu_links['menu-hm-primary-links:user'] = array(
     'menu_name' => 'menu-hm-primary-links',
@@ -226,7 +226,7 @@ function hm_core_menu_default_menu_links() {
     'external' => '0',
     'has_children' => '1',
     'expanded' => '1',
-    'weight' => '0',
+    'weight' => '-45',
   );
   // Translatables
   // Included for use with string extractors like potx.
@@ -239,7 +239,7 @@ function hm_core_menu_default_menu_links() {
   t('Moje treści');
   t('Moje zakładki');
   t('Mój profil');
-  t('Panel');
+  t('Stream');
   t('Strona główna');
   t('Znajomi');
 

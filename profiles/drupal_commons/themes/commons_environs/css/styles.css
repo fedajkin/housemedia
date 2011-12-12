@@ -14,6 +14,8 @@ div.content-messages div.messages, div.content-help div.help {
 }
 
 #logo {
+  margin-bottom: 11px;
+  margin-top: 11px;
 }
 
 #site-name-wrapper {
@@ -143,37 +145,37 @@ label {
   padding: 12px 0 4px 0;
 }
 
-.search-box-inner input#edit-search-theme-form-header {
+.search-box-inner input[name=search_theme_form] {
   background: #fff url(../images/bg-input.png) no-repeat 0 0;
   border: 1px solid #ccc;
-  border-right: none;
   display: block;
   float: left;
   font-size: 11px;
   height: 19px;
   line-height: 14px;
-  margin: 0;
+  margin: 3px;
   width: 240px;
-  padding: 2px 4px;
+  padding: 2px 5px;
   color: #b3b3b3;
 }
 
-.search-box-inner input#search_header {
-  width: 24px;
-  background: #3A3A3A url(../images/btn-search.png) no-repeat 0 0;
+.search-box-inner input[type=submit] {
   border: none;
-  color: #DDD;
   display: block;
   float: left;
-  font-family: Tahoma, Verdana, sans-serif;
-  font-size: 0px;
-  height: 25px;
   letter-spacing: .1em;
   line-height: 16px;
   margin: 0;
-  padding: 2px 6px;
+  padding: 6px 7px;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.contextual-search-wrapper .contextual-search-launcher,
+.contextual-search-processed .contextual-search-wrapper ul.contextual-search-list {
+  background-color: #fff;
+  background-image: url('../images/dropdown.png');
+  background-position: right 9px;
 }
 
 .header-region {
@@ -495,6 +497,10 @@ label {
   overflow: hidden;
 }
 
+.content-content .fbsmp-wrapper-outer {
+  z-index: 9;
+}
+
 .page-dashboard .content-content {
   background: none;
   padding: 0 10px 10px 10px;
@@ -532,6 +538,10 @@ label {
 .page-admin #main-content-inner .nested, .page-admin #content-group, .page-admin #content-region, .page-admin #content-inner {
   margin-bottom: 0;
   overflow: visible;
+}
+
+.page-admin .content-inner-inner {
+  z-index: 9;
 }
 
 #content-top-inner {
@@ -883,6 +893,68 @@ span.heartbeat_times img {
   clear: left;
 }
 
+/* @group Facebook */
+
+.facebook-status-item .facebook-status-links ul.links li {
+  background: none;
+  border: 0 none;
+  display: inline-block;
+  list-style: none;
+  padding-left: 0;
+}
+
+
+form input.fbsmp-cancel-button,
+form input.fbsmp-cancel-button:hover {
+  background-image: url('../images/cancel.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 9px;
+  width: 9px;
+}
+
+/* @group Comments */
+
+.facebook-status-comments {
+  border: 1px solid #eee;
+}
+
+.facebook-status-comments.no-comments {
+  border: 0 none;
+}
+
+.facebook-status-subitem {
+  background-color: #fafaf9;
+  padding: 0.75em;
+}
+
+.facebook-status-subitem {
+  border-top: 4px solid white;
+}
+
+
+.fbss-comments .facebook-status-subitem:first-child,
+.facebook-status-comments :first-child,
+.facebook-status-subitem.form-piece {
+  border-top: 0 none;
+}
+
+.fbss-comments + .facebook-status-subitem {
+  padding-bottom: 0;
+}
+
+.fbss-comments + .facebook-status-subitem .fbss-comments-show-comment-form-inner { /* This is so messy. The DOM structure needs to be cleaned up */
+  padding-bottom: 0.75em;
+}
+
+.facebook-status-subitem.form-piece {
+  padding-top: 0;
+}
+
+/* @end */
+
+/* @end */
+
 /*Shout box*/
 .shoutbox-add-form fieldset {
   border: 0px;
@@ -931,7 +1003,8 @@ span.heartbeat_times img {
   overflow: hidden;
 }
 
-.view-groups-main-listing .view-content .item-list ul li {
+.view-subgroups-main-listing .view-content .views-row,
+.view-groups-main-listing .view-content .views-row {
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid #8AC559;
@@ -1096,28 +1169,34 @@ span.heartbeat_times img {
   margin-top: 10px;
 }
 
-ul.links.inline {
+.link.inline {
   display: block;
   overflow: hidden;
   margin-top: 0.25em;
 }
 
-ul.links.inline li {
+.link.inline li {
   display: block;
   float: left;
   padding: 0 0.25em 0 0;
 }
 
-ul.links.inline li + li {
+.link.inline li + li {
   border-left: 1px solid #8AC559;
   padding-left: 0.25em;
 }
 
-ul.links.inline li a {
+.facebook-status-links li + li {
+  border: 0 none;
+}
+
+.link.inline li a {
   padding: 2px 4px;
 }
 
-ul.links.inline a:hover, ul.links.inline a:focus, ul.links.inline a:active {
+.link.inline a:hover, 
+.link.inline a:focus, 
+.link.inline a:active {
   color: #fff;
   background-color: #29ABE2;
   text-decoration: none;
@@ -1169,14 +1248,14 @@ ul.pager a, ul.pager li.pager-current {
 }
 
 /* group list */
-.view .view-content .item-list li.views-row {
+.view .view-content .views-row {
   border-bottom: 1px solid #8AC559;
   padding: 10px 0px;
   margin: 0px;
   background: none;
 }
 
-.view .view-content .item-list li.views-row-last {
+.view .view-content .views-row-last {
   border-bottom: none;
 }
 
@@ -1205,11 +1284,20 @@ ul.pager a, ul.pager li.pager-current {
   margin: 9px 3px 0 0;
 }
 
-/* added to get proper alignment for upcoming events in the sidebar -jay */
-.view-upcoming-events .views-field-field-date-value {float: left;}
-.view-upcoming-events .views-field-title,
-.view-upcoming-events .views-field-group-nid,
-.view-upcoming-events .views-field-field-location-value {float: right; width: 180px;}
+.block.block-commons_profile .links .ur_action a {
+  background: none repeat scroll 0 0 #29ABE2;
+  border: medium none;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: -2px -2px 0 1px #0071BC inset;
+  color: #FFFFFF;
+  font-family: Arial,"Lucida Grande",Verdana,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 6px 7px 9px;
+  text-transform: uppercase;
+}
 
-
-
+.block.block-commons_profile .links .ur_action a:hover,
+.block.block-commons_profile .links .ur_action a:active {
+  text-decoration: none;
+}

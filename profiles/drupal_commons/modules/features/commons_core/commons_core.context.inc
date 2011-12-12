@@ -151,23 +151,17 @@ function commons_core_context_default_contexts() {
           'region' => 'sidebar_last',
           'weight' => 1,
         ),
-        'og_views-0' => array(
-          'module' => 'og_views',
-          'delta' => 0,
+        'views-24dcb59a56254e5a470ee2f23590eed2' => array(
+          'module' => 'views',
+          'delta' => '24dcb59a56254e5a470ee2f23590eed2',
           'region' => 'sidebar_last',
-          'weight' => 2,
+          'weight' => 3,
         ),
         'views-group_node-block_1' => array(
           'module' => 'views',
           'delta' => 'group_node-block_1',
           'region' => 'content',
           'weight' => 0,
-        ),
-        'commons_core-group_activity' => array(
-          'module' => 'commons_core',
-          'delta' => 'group_activity',
-          'region' => 'content',
-          'weight' => 1,
         ),
       ),
     ),
@@ -187,9 +181,11 @@ function commons_core_context_default_contexts() {
   $context->description = 'The list of available groups on the site';
   $context->tag = '';
   $context->conditions = array(
-    'views' => array(
+    'path' => array(
       'values' => array(
-        'groups_main_listing' => 'groups_main_listing',
+        'groups' => 'groups',
+        'groups/*' => 'groups/*',
+        '~groups/mine' => '~groups/mine',
       ),
     ),
   );
@@ -280,5 +276,52 @@ function commons_core_context_default_contexts() {
   t('A listing of your groups');
 
   $export['group-listing-mine'] = $context;
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'notices';
+  $context->description = 'Notice listing and nodes';
+  $context->tag = 'Notices';
+  $context->conditions = array(
+    'node' => array(
+      'values' => array(
+        'notice' => 'notice',
+      ),
+      'options' => array(
+        'node_form' => '0',
+      ),
+    ),
+    'views' => array(
+      'values' => array(
+        'recent_notices:page_1' => 'recent_notices:page_1',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'commons_core-create_notice' => array(
+          'module' => 'commons_core',
+          'delta' => 'create_notice',
+          'region' => 'sidebar_last',
+          'weight' => 0,
+        ),
+        'views-notice_latest_comments-block_1' => array(
+          'module' => 'views',
+          'delta' => 'notice_latest_comments-block_1',
+          'region' => 'sidebar_last',
+          'weight' => 1,
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Notice listing and nodes');
+  t('Notices');
+
+  $export['notices'] = $context;
   return $export;
 }

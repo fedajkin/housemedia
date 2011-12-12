@@ -1,0 +1,16 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_profile/commons_profile.blocks.inc b/profiles/drupal_commons/modules/features/commons_profile/commons_profile.blocks.inc
+index bb2508e..ad30661 100644
+--- a/profiles/drupal_commons/modules/features/commons_profile/commons_profile.blocks.inc
++++ b/profiles/drupal_commons/modules/features/commons_profile/commons_profile.blocks.inc
+@@ -64,7 +64,10 @@ function _commons_profile_image_links_block_view() {
+   global $user;
+   
+   // Make sure we're viewing a user
+-  if (!($account = _commons_profile_get_current_user())) {
++  if ($_GET['q'] == 'stream') {
++    $account = $user;
++  }
++  else if (!($account = _commons_profile_get_current_user())) {
+     return NULL;
+   }
+   

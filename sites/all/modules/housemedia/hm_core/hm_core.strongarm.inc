@@ -8,8 +8,17 @@ function hm_core_strongarm() {
   $strongarm = new stdClass;
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'commons_status_streams_auth_frontpage';
+  $strongarm->value = '0';
+
+  $export['commons_status_streams_auth_frontpage'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'context_status';
   $strongarm->value = array(
+    'activity' => TRUE,
+    'activity-stream-most_active_users' => TRUE,
     'global' => TRUE,
     'home' => TRUE,
     'profile-me' => TRUE,

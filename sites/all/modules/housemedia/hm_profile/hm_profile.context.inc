@@ -12,6 +12,11 @@ function hm_profile_context_default_contexts() {
   $context->description = '';
   $context->tag = 'Housemedia Profile';
   $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        'stream' => 'stream',
+      ),
+    ),
     'user_page' => array(
       'values' => array(
         'view' => 'view',
@@ -48,6 +53,12 @@ function hm_profile_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => 3,
         ),
+        'views-hm_profile_friends-block_2' => array(
+          'module' => 'views',
+          'delta' => 'hm_profile_friends-block_2',
+          'region' => 'sidebar_first',
+          'weight' => 4,
+        ),
         'views-profile_user_groups-block_1' => array(
           'module' => 'views',
           'delta' => 'profile_user_groups-block_1',
@@ -72,13 +83,12 @@ function hm_profile_context_default_contexts() {
           'region' => 'sidebar_last',
           'weight' => 3,
         ),
-        'commons_profile-recent_activity' => array(
-          'module' => 'commons_profile',
-          'delta' => 'recent_activity',
-          'region' => 'content',
-          'weight' => 0,
-        ),
       ),
+    ),
+    'theme' => array(
+      'title' => '',
+      'subtitle' => '',
+      'class' => 'page-profile',
     ),
   );
   $context->condition_mode = 0;

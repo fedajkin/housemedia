@@ -1,0 +1,13 @@
+diff --git a/profiles/drupal_commons/modules/features/commons_core/commons_core.strongarm.inc b/profiles/drupal_commons/modules/features/commons_core/commons_core.strongarm.inc
+index c713751..57f71cd 100644
+--- a/profiles/drupal_commons/modules/features/commons_core/commons_core.strongarm.inc
++++ b/profiles/drupal_commons/modules/features/commons_core/commons_core.strongarm.inc
+@@ -280,7 +280,7 @@ function commons_core_strongarm() {
+   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+   $strongarm->api_version = 1;
+   $strongarm->name = 'user_picture_imagecache_profiles';
+-  $strongarm->value = 'profile_pictures';
++  $strongarm->value = 'hm_profile_pictures';
+ 
+   $export['user_picture_imagecache_profiles'] = $strongarm;
+   $strongarm = new stdClass;

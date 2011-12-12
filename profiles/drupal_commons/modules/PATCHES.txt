@@ -1,6 +1,12 @@
 CONTRIBUTED MODULE PATCHLOG
 =========================================
 
+ACTIVITY LOG EMAIL DISGESTS
+---------------------------
+Issue: http://drupal.org/node/1242858
+Fix: http://drupal.org/node/1242858#comment-4838550
+
+
 CHART
 ---------------
 Issue: http://drupal.org/node/594202
@@ -36,6 +42,7 @@ Fix: http://drupal.org/node/1128492
 Issue: http://drupal.org/node/793588
 Fix: http://drupal.org/node/793588#comment-4617162
 
+
 OG AGGREGATOR
 --------------
 Issue: http://drupal.org/node/768958
@@ -55,6 +62,12 @@ Fix: http://drupal.org/node/1162902#comment-4491232
 
 Issue: http://drupal.org/node/1162928
 Fix: http://drupal.org/node/1162928#comment-4491270
+
+
+RULES
+-----
+Issue: http://drupal.org/node/978620
+Fix: http://drupal.org/node/978620#comment-3763720
 
 
 USER BADGES

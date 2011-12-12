@@ -29,3 +29,24 @@ h1 {
   margin-bottom: 1em;
   line-height: 1.1;
 }
+
+#content-content {
+	clear: both;
+}
+
+.page-profile {
+  #sidebar-first {
+    width: 200px;
+  }
+  #sidebar-last {
+    width: 250px;
+  }
+  #main-group {
+    width: 760px;
+  }
+  #content-group {
+    width: 510px;
+  }
+}
+
+// +40 + 50

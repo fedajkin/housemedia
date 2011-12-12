@@ -6,10 +6,10 @@
  */
 
 /**
- * Implementation of hook_views_plugins().
- *
- * Define chart_views style for Views.
- */
+* Implementation of hook_views_plugins().
+*
+* Define chart_views style for Views.
+*/
 function chart_views_views_plugins() {
   // Views support is only possible if Views Calc module is enabled. It
   // is responsible for turn the Views values into a aggregates.
@@ -30,7 +30,7 @@ function chart_views_views_plugins() {
         'uses fields'     => TRUE,
         'uses options'    => TRUE,
         'uses row plugin' => FALSE,
-  ),
-  )
+      ),
+    )
   );
 }
