@@ -115,6 +115,11 @@ function activity_log_rules_defaults_node_insert() {
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -256,6 +261,11 @@ function activity_log_rules_defaults_node_insert() {
               'und' =>
               array (
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
             ),
@@ -431,6 +441,11 @@ function activity_log_rules_defaults_node_insert() {
               'und' =>
               array (
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
             ),
@@ -702,6 +717,11 @@ function activity_log_rules_defaults_node_insert_og() {
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a> in <a href="[node:og-url]">[node:ogname]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a> w <a href="[node:og-url]">[node:ogname]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -860,6 +880,11 @@ function activity_log_rules_defaults_node_insert_og() {
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -1001,6 +1026,11 @@ function activity_log_rules_defaults_node_insert_og() {
               'und' =>
               array (
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a> in <a href="[node:og-url]">[node:ogname]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a> w <a href="[node:og-url]">[node:ogname]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
             ),
@@ -1174,6 +1204,11 @@ function activity_log_rules_defaults_node_insert_og() {
               'und' =>
               array (
                 'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> added the [node:type-name] <a href="[node:node-url]">[node:title]</a> in <a href="[node:og-url]">[node:ogname]</a></div>
+<div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
+              ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[author:picture]</div><div class="activity-log-indent"><div class="activity-log-content"><a href="[author:account-url]">[author:user]</a> dodał [node:type-name] <a href="[node:node-url]">[node:title]</a> w <a href="[node:og-url]">[node:ogname]</a></div>
 <div class="activity-log-time"><a href="[node:node-url]">[node:small]</a></div></div>',
               ),
             ),
@@ -1913,6 +1948,11 @@ function activity_log_rules_defaults_facebook_status_insert_other() {
                 'template' => '<div class="activity-log-picture">[status:sender-picture]</div><div class="activity-log-indent"><div class="activity-log-content">[status:sender-themed] wrote a message to [status:recipient-link]</div>
 <div class="activity-log-time"><a href="[status:status-url]">[status:created]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[status:sender-picture]</div><div class="activity-log-indent"><div class="activity-log-content">[status:sender-themed] napisał wiadomość do [status:recipient-link]</div>
+<div class="activity-log-time"><a href="[status:status-url]">[status:created]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -2086,6 +2126,10 @@ function activity_log_rules_defaults_facebook_status_insert_other() {
                 'template' => '[status:status-themed]',
               ),
               'und' =>
+              array (
+                'template' => '[status:status-themed]',
+              ),
+              'pl' =>
               array (
                 'template' => '[status:status-themed]',
               ),
@@ -2287,6 +2331,10 @@ function activity_log_rules_defaults_fbsmp_insert_user_self() {
               array (
                 'template' => '[status:status-themed]',
               ),
+              'pl' =>
+              array (
+                'template' => '[status:status-themed]',
+              ),
             ),
             'grouping' =>
             array (
@@ -2456,6 +2504,10 @@ function activity_log_rules_defaults_fbsmp_insert_user_self() {
                 'template' => '[status:status-themed]',
               ),
               'und' =>
+              array (
+                'template' => '[status:status-themed]',
+              ),
+              'pl' =>
               array (
                 'template' => '[status:status-themed]',
               ),
@@ -2654,6 +2706,10 @@ function activity_log_rules_defaults_fbsmp_insert_other() {
               array (
                 'template' => '[status:status-themed]',
               ),
+              'pl' =>
+              array (
+                'template' => '[status:status-themed]',
+              ),
             ),
             'grouping' =>
             array (
@@ -2834,6 +2890,11 @@ function activity_log_rules_defaults_fbsmp_insert_other() {
                 'template' => '<div class="activity-log-picture">[status:sender-picture]</div><div class="activity-log-indent"><div class="activity-log-content">[status:sender-themed] sent a [attachment:attachment-type] to [status:recipient-link]</div>
 <div class="activity-log-time"><a href="[status:status-url]">[status:created]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[status:sender-picture]</div><div class="activity-log-indent"><div class="activity-log-content">[status:sender-themed] wysłał [attachment:attachment-type] do [status:recipient-link]</div>
+<div class="activity-log-time"><a href="[status:status-url]">[status:created]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -2970,6 +3031,10 @@ function activity_log_rules_defaults_fbsmp_insert_other() {
                 'template' => '[status:status-themed]',
               ),
               'und' =>
+              array (
+                'template' => '[status:status-themed]',
+              ),
+              'pl' =>
               array (
                 'template' => '[status:status-themed]',
               ),
@@ -3161,6 +3226,10 @@ function activity_log_rules_defaults_og_join() {
               array (
                 'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] joined the group <a href="[group:node-url]">[group:title]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] dołączył do grupy <a href="[group:node-url]">[group:title]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -3178,6 +3247,10 @@ function activity_log_rules_defaults_og_join() {
                 'und' =>
                 array (
                   'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] joined the groups [collection]</div></div>',
+                ),
+                'pl' =>
+                array (
+                  'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] dołączył do grup [collection]</div></div>',
                 ),
               ),
             ),
@@ -3336,6 +3409,10 @@ function activity_log_rules_defaults_og_join() {
               array (
                 'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] joined the group <a href="[group:node-url]">[group:title]</a></div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] dołączył do grupy <a href="[group:node-url]">[group:title]</a></div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -3353,6 +3430,10 @@ function activity_log_rules_defaults_og_join() {
                 'und' =>
                 array (
                   'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] joined the groups [collection]</div></div>',
+                ),
+                'pl' =>
+                array (
+                  'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] dołączył do grup [collection]</div></div>',
                 ),
               ),
             ),
@@ -3496,6 +3577,10 @@ function activity_log_rules_defaults_og_join() {
               array (
                 'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] joined the group</div></div>',
               ),
+              'pl' =>
+              array (
+                'template' => '<div class="activity-log-picture">[account:picture]</div><div class="activity-log-indent"><div class="activity-log-content">[account:user] dołączył do grupy</div></div>',
+              ),
             ),
             'grouping' =>
             array (
@@ -3513,6 +3598,10 @@ function activity_log_rules_defaults_og_join() {
                 'und' =>
                 array (
                   'template' => '<div class="activity-log-content">[names] joined the group</div>',
+                ),
+                'pl' =>
+                array (
+                  'template' => '<div class="activity-log-content">[names] dołączył do grupy</div>',
                 ),
               ),
             ),
