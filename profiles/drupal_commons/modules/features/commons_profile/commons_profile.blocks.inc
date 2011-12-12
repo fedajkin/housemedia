@@ -110,7 +110,7 @@ function _commons_profile_image_links_block_view() {
     if (user_access('maintain own relationships')) {
       $actions = _user_relationships_ui_actions_between($user, $account);
       foreach ($actions as $key => $action) {
-        $links["ur_action"] = array(
+        $links["ur_action_$key"] = array(
           'title' => $action,
           // No href because this is the best that UR can offer
           'html' => TRUE,

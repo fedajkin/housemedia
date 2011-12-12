@@ -53,6 +53,12 @@ function hm_profile_context_default_contexts() {
           'region' => 'sidebar_first',
           'weight' => 3,
         ),
+        'views-hm_profile_friends-block_2' => array(
+          'module' => 'views',
+          'delta' => 'hm_profile_friends-block_2',
+          'region' => 'sidebar_first',
+          'weight' => 4,
+        ),
         'views-profile_user_groups-block_1' => array(
           'module' => 'views',
           'delta' => 'profile_user_groups-block_1',

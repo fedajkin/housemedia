@@ -253,7 +253,129 @@ else if ($account = _commons_profile_get_current_user()) {
     'fill_single_line' => 1,
   ));
   $handler = $view->new_display('block', 'Block', 'block_1');
+  $handler->override_option('filters', array(
+    'approved' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'approved',
+      'table' => 'user_relationships',
+      'field' => 'approved',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'status' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'status',
+      'table' => 'users',
+      'field' => 'status',
+      'relationship' => 'none',
+    ),
+    'rtype' => array(
+      'operator' => 'not in',
+      'value' => array(
+        '0' => '2',
+        '1' => '1',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => 'rtype_op',
+        'label' => 'User relationships: Relationship type',
+        'use_operator' => FALSE,
+        'identifier' => 'rtype',
+        'remember' => FALSE,
+        'single' => TRUE,
+        'optional' => TRUE,
+        'reduce' => FALSE,
+      ),
+      'id' => 'rtype',
+      'table' => 'user_relationships',
+      'field' => 'rtype',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Użyj domślnych',
+      ),
+    ),
+  ));
   $handler->override_option('block_description', 'Current user\'s friends');
+  $handler->override_option('block_caching', -1);
+  $handler = $view->new_display('block', 'Blok', 'block_2');
+  $handler->override_option('filters', array(
+    'approved' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'approved',
+      'table' => 'user_relationships',
+      'field' => 'approved',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'status' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'status',
+      'table' => 'users',
+      'field' => 'status',
+      'relationship' => 'none',
+    ),
+    'rtype' => array(
+      'operator' => 'not in',
+      'value' => array(
+        '0' => '2',
+        '1' => '3',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => 'rtype_op',
+        'label' => 'User relationships: Relationship type',
+        'use_operator' => FALSE,
+        'identifier' => 'rtype',
+        'remember' => FALSE,
+        'single' => TRUE,
+        'optional' => TRUE,
+        'reduce' => FALSE,
+      ),
+      'id' => 'rtype',
+      'table' => 'user_relationships',
+      'field' => 'rtype',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Użyj domślnych',
+      ),
+    ),
+  ));
+  $handler->override_option('title', 'Obserwowani');
+  $handler->override_option('block_description', 'Current user\'s followers');
   $handler->override_option('block_caching', -1);
 
   $views[$view->name] = $view;

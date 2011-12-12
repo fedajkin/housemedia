@@ -167,6 +167,36 @@ function hm_core_update_6004() {
   hm_core_import_db_table($path .'/config', '', TRUE);
 }
 
+function hm_core_update_6005() {
+
+  $rtype_follower = user_relationships_type_load(array('name' => 'Znajomy'));
+  $rtype_friend = clone $rtype_follower;
+
+  // Follower
+  $rtype_follower->name = 'follower';
+  $rtype_follower->plural_name = 'users you follow';
+  $rtype_follower->is_oneway = 1;
+  $rtype_follower->requires_approval = 0;
+  $rtype_follower->is_reciprocal = 1;
+
+  user_relationships_type_save($rtype_follower);
+
+  // Friend.
+  unset($rtype_friend->rtid);
+
+  user_relationships_type_save($rtype_friend);
+
+  db_query(
+    'INSERT INTO {user_relationship_type_roles} (rtid, rid) VALUES (%d, %d)',
+    $rtype_friend->rtid, 8
+  );
+
+  db_query(
+    'INSERT INTO {user_relationship_type_roles_receive} (rtid, rid) VALUES (%d, %d)',
+    $rtype_friend->rtid, 8
+  );
+}
+
 /**
  * Update translations.
  *

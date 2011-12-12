@@ -35,10 +35,6 @@ function hm_credit_form_node_access_records($node) {
   return $grants;
 }
 
-function hm_credit_form_link_alter(&$links, $node, $comment = NULL) {
-
-}
-
 /**
  * Implementation of hook_block()
  */
@@ -53,13 +49,13 @@ function hm_credit_form_form_alter(&$form, $form_state, $form_id) {
 
     $rtype = user_relationships_type_load($form['rtid']['#default_value']);
 
+    if ($rtype != variable_get('hm_credit_form_rtid', 0)) {
+      return;
+    }
+
     if (!hm_credit_form_can_create_relationship($form['requester']['#value'], $form['requestee']['#value'])) {
       drupal_not_found();
       exit();
-    }
-
-    if ($rtype->name != 'advisor') {
-      return;
     }
 
     // Extend form.
@@ -118,8 +114,11 @@ function hm_credit_form_can_create_relationship($requester, $receiver) {
 
 function hm_credit_form_commons_profile_action_links_alter(&$links, $account) {
   foreach ($links as $key => $link) {
-    if (preg_match('/user\/\d+\/relationships\/\d+\/remove|relationship\/\d+\/request\/\d+/i', $link['title'])) {
-      unset($links[$key]);
+    if (preg_match('/user\/\d+\/relationships\/\d+\/remove|relationship\/\d+\/request\/(\d+)/i', $link['title'], $matches)) {
+      $rtid = $matches[1];
+      if ($rtid == variable_get('hm_credit_form_rtid', 0)) {
+        unset($links[$key]);
+      }
     }
   }
 }
